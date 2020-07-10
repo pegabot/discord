@@ -1,7 +1,6 @@
 {
   "name": "@pegasusspiele/discord-twitter-bot",
   "author": "Nico Finkernagel, Pegasus Spiele GmbH <nico.finkernagel@pegasus.de>",
-  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf build;pkg ./src/index.js -t node13-macos-x64,node13-linux-x64 --out-path build",
@@ -19,7 +18,4 @@
   "devDependencies": {
     "pkg": "^4.4.9"
   },
-  "engines": {
-    "node": ">=12.0.0"
-  }
 }
