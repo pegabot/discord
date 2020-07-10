@@ -1,5 +1,5 @@
 {
-  "name": "@pegasusspiele/discord-twitter-bot",
+  "name": "pegabot",
   "author": "Nico Finkernagel, Pegasus Spiele GmbH <nico.finkernagel@pegasus.de>",
   "license": "MIT",
   "scripts": {
