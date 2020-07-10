@@ -56,3 +56,5 @@ jobs:
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
           rsync -az --progress -e ssh --exclude '.env' ./build/index-linux root@174.138.100.185:~/pegabot --delete
+          ssh root@174.138.100.185 chmod a+x /root/pegabot
+          ssh root@174.138.100.185 sudo systemctl restart pegabot
