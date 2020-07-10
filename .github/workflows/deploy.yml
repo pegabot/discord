@@ -1,0 +1,58 @@
+name: Build Test & Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js "13.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - name: Building source
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build:linux
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
+        env:
+          CI: true
+  deploy:
+    name: Deploy to production
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+      - name: Deploy files
+        env:
+          SSH_HOST_KEY: ${{secrets.SSH_HOST_KEY}}
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
+          rsync -az --progress -e ssh --exclude '.env' ./build/index-linux root@174.138.100.185:~/pegabot --delete
