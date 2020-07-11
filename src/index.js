@@ -19,6 +19,9 @@ setInterval(() => {
         return {
           created_at: new Date(elt.created_at),
           id: elt.id_str,
+          user: {
+            screen_name: elt.user.screen_name,
+          },
           url: `https://twitter.com/${elt.user.screen_name}/status/${elt.id_str}`,
           retweet: elt.retweeted_status !== undefined,
         };
@@ -30,7 +33,7 @@ setInterval(() => {
     console.log(`Found: ${parsed_data.length} tweets!`);
 
     for (const tweet of parsed_data) {
-      hook.send(tweet.url);
+      hook.send(`Hello @everyone, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
     }
   });
 }, interval);

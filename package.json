@@ -7,7 +7,9 @@
     "build:macos": "rm -rf build;pkg ./src/index.js -t node13-macos-x64 --out-path build",
     "build:linux": "rm -rf build;pkg ./src/index.js -t node13-linux-x64 --out-path build",
     "start:linux": "./build/index-linux",
-    "start:macos": "./build/index-macos"
+    "start:macos": "./build/index-macos",
+    "deploy": "rsync -az --progress -e ssh --exclude '.env' ./build/index root@174.138.100.185:~/pegabot --delete;ssh root@174.138.100.185 chmod a+x /root/pegabot;ssh root@174.138.100.185 sudo systemctl restart pegabot",
+    "build:deploy": "yarn build:linux; yarn deploy"
   },
   "dependencies": {
     "discord.js": "^12.2.0",

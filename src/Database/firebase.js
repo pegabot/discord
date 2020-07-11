@@ -23,7 +23,7 @@ module.exports.saveTweets = (_tweets) => {
 };
 
 module.exports.readTweets = (callback) => {
-  database.ref("tweets/").on("value", (snapshot) => {
-    return callback(snapshot.val());
+  database.ref("tweets/").once("value", (data) => {
+    return callback(data.val() || []);
   });
 };
