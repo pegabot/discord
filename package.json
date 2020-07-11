@@ -3,12 +3,11 @@
   "author": "Nico Finkernagel, Pegasus Spiele GmbH <nico.finkernagel@pegasus.de>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf build;pkg ./src/index.js -t node13-macos-x64,node13-linux-x64 --out-path build",
-    "build:macos": "rm -rf build;pkg ./src/index.js -t node13-macos-x64 --out-path build",
-    "build:linux": "rm -rf build;pkg ./src/index.js -t node13-linux-x64 --out-path build",
-    "start:linux": "./build/index-linux",
-    "start:macos": "./build/index-macos",
-    "deploy": "rsync -az --progress -e ssh --exclude '.env' ./build/index root@174.138.100.185:~/pegabot --delete;ssh root@174.138.100.185 chmod a+x /root/pegabot;ssh root@174.138.100.185 sudo systemctl restart pegabot",
+    "build": "yarn build:macos; yarn build:linux",
+    "build:macos": "rm build/macOS;nexe -i index.js -t macos-x64 -o build/macOS -r node_modules",
+    "build:linux": "rm build/linux;nexe -i index.js -t linux-x64-12.12.0 -o build/linux -r node_modules",
+    "start": "node index.js",
+    "deploy": "rsync -az --progress -e ssh --exclude '.env' ./build/linux root@174.138.100.185:~/pegabot --delete;ssh root@174.138.100.185 chmod a+x /root/pegabot;ssh root@174.138.100.185 sudo systemctl restart pegabot",
     "build:deploy": "yarn build:linux; yarn deploy"
   },
   "dependencies": {
@@ -18,6 +17,6 @@
     "twit": "^2.2.11"
   },
   "devDependencies": {
-    "pkg": "^4.4.9"
+    "nexe": "^3.3.7"
   }
 }
