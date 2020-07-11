@@ -45,7 +45,7 @@ const client = new Discord.Client();
   }, interval);
 
   client.once("ready", () => {
-    client.user.setActivity("living in the Cloud ☁️");
+    client.user.setActivity("living in the Cloud ☁️", { type: "WATCHING" });
 
     console.log("Hello, I am Pegabot 🤖. I am ready!");
 
