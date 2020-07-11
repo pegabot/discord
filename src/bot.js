@@ -45,6 +45,10 @@ const client = new Discord.Client();
   }, interval);
 
   client.once("ready", () => {
+    client.user.setActivity("living in the Cloud ☁️");
+
+    console.log("Hello, I am Pegabot 🤖. I am ready!");
+
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
     guild.channels.cache.get(process.env.MAINTENANCE_ID).send("Hello, I am Pegabot 🤖. I am ready!");
   });
