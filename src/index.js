@@ -33,7 +33,7 @@ setInterval(() => {
     console.log(`Found: ${parsed_data.length} tweets!`);
 
     for (const tweet of parsed_data) {
-      hook.send(`Hello @everyone, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
+      hook.send(`Hey folks, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
     }
   });
 }, interval);
