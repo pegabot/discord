@@ -1,54 +1,29 @@
-/*
- * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
- */
-
 require("dotenv").config();
-const twitter = require("./APIs/twitter.config");
-
-const interval = 10000;
-
-const { saveTweets, readTweets } = require("./Database/firebase");
-
 const Discord = require("discord.js");
+const fs = require("fs");
+const path = require("path");
+const Commands = require("./managers/commands");
+const Logger = require("./managers/logger");
 
-const client = new Discord.Client();
+const bot = new Discord.Client();
+const config = process.env;
 
-(async () => {
-  setInterval(() => {
-    readTweets(async (_tweets) => {
-      const response = await twitter.get("search/tweets", { q: "#pnpCONspiracy", count: 100 });
-      const data = response.data.statuses;
+bot.config = config;
+bot.commands = new Commands(bot);
+bot.logger = new Logger();
+bot.blacklist = new Discord.Collection();
 
-      const parsed_data = data
-        .map((elt) => {
-          return {
-            created_at: new Date(elt.created_at),
-            id: elt.id_str,
-            user: {
-              screen_name: elt.user.screen_name,
-            },
-            url: `https://twitter.com/${elt.user.screen_name}/status/${elt.id_str}`,
-            retweet: elt.retweeted_status !== undefined,
-          };
-        })
-        .filter((elt) => !elt.retweet && !Object.keys(_tweets).includes(elt.id));
+const events = fs.readdirSync(path.join(__dirname, "events"));
+for (const event of events) {
+  const name = event.split(".")[0];
+  const eventFunc = require(path.join(__dirname, "events", name));
+  bot.on(name, (...args) => eventFunc.run(bot, ...args));
+}
 
-      saveTweets(parsed_data.filter((elt) => !Object.keys(_tweets).includes(elt.id)));
-
-      console.log(`Found: ${parsed_data.length} tweets!`);
-
-      for (const tweet of parsed_data) {
-        const guild = client.guilds.cache.get(process.env.GUILD_ID);
-        guild.channels.cache.get(process.env.OUTPUT_ID).send(`Hey folks, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
-      }
-    });
-  }, interval);
-
-  client.once("ready", () => {
-    client.user.setActivity("living in the Cloud ☁️", { type: "WATCHING" });
-
-    console.log("Hello, I am Pegabot 🤖. I am ready!");
-  });
-
-  client.login(process.env.BOT_TOKEN);
-})();
+const funcs = fs.readdirSync(path.join(__dirname, "functions"));
+for (const func of funcs) {
+  const name = func.split(".")[0];
+  const funcFunc = require(path.join(__dirname, "functions", name));
+  funcFunc.run(bot);
+}
+bot.login(config.BOT_TOKEN);

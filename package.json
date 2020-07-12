@@ -1,15 +1,23 @@
 {
-  "name": "pegabot",
-  "author": "Nico Finkernagel, Pegasus Spiele GmbH <nico.finkernagel@pegasus.de>",
+  "name": "thecodingtrainbot",
+  "version": "1.0.0",
+  "main": "src/bot.js",
+  "author": "Noah van Boven",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node .",
+    "lint": "eslint src/"
   },
   "dependencies": {
-    "discord.js": "^12.2.0",
+    "date-fns": "^2.0.0-alpha.34",
+    "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.16.0",
     "twit": "^2.2.11"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3"
+  }
 }
