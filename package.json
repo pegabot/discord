@@ -3,12 +3,7 @@
   "author": "Nico Finkernagel, Pegasus Spiele GmbH <nico.finkernagel@pegasus.de>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:macos; yarn build:linux",
-    "build:macos": "rm build/macOS;nexe -i index.js -t macos-x64 -o build/macOS -r node_modules",
-    "build:linux": "rm build/linux;nexe -i index.js -t linux-x64-12.12.0 -o build/linux -r node_modules",
-    "start": "node index.js",
-    "deploy": "rsync -az --progress -e ssh --exclude '.env' ./build/linux root@174.138.100.185:~/pegabot --delete;ssh root@174.138.100.185 chmod a+x /root/pegabot;ssh root@174.138.100.185 sudo systemctl restart pegabot",
-    "build:deploy": "yarn build:linux; yarn deploy"
+    "start": "node index.js"
   },
   "dependencies": {
     "discord.js": "^12.2.0",
@@ -16,7 +11,5 @@
     "firebase": "^7.16.0",
     "twit": "^2.2.11"
   },
-  "devDependencies": {
-    "nexe": "^3.3.7"
-  }
+  "devDependencies": {}
 }
