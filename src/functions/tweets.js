@@ -47,7 +47,7 @@ exports.run = async (bot) => {
 
       for (const tweet of parsed_data) {
         const guild = bot.guilds.cache.get(bot.config.GUILD_ID);
-        guild.channels.cache.get(bot.config.twitterChannel).send(`Hey Test, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
+        guild.channels.cache.get(bot.config.twitterChannel).send(`Hey folks, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
       }
     });
   }, 10000);
