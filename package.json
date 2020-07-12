@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "date-fns": "^2.0.0-alpha.34",
-    "discord.js": "^12.1.1",
+    "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.16.0",
     "twit": "^2.2.11"
