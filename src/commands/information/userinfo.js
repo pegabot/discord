@@ -45,9 +45,8 @@ exports.run = (bot, msg, args) => {
     .addField("Account created", createdAt, true)
     .addField("Joined the server", joinedAt, true)
     .addField("ID", member.id, true)
-    .addField("Bot :robot:", member.user.bot ? "Bleep bloop, I am a bot" : "This person isn't a bot", true)
-    .addField(`Roles [${size}]`, `\`${roles}\``)
-    .setFooter("Blobs provided by blobs.gg");
+    .addField("Bot", member.user.bot ? "Bleep bloop, I am a bot" : "This person isn't a bot", true)
+    .addField(`Roles [${size}]`, `\`${roles}\``);
   msg.channel.send(embed);
 };
 
