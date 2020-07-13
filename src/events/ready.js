@@ -10,8 +10,4 @@ exports.run = (bot) => {
   );
 
   bot.user.setActivity("living in the Cloud ☁️", { type: "WATCHING" });
-
-  //   // Fetch messages that are to be used
-  //   const channel = bot.channels.resolve(bot.config.rulesChannel);
-  //   channel.messages.fetch(bot.config.rulesMessage);
 };
