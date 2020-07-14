@@ -5,6 +5,7 @@
   "author": "Noah van Boven",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon .",
     "start": "node .",
     "lint": "eslint src/"
   },
@@ -15,5 +16,7 @@
     "firebase": "^7.16.0",
     "twit": "^2.2.11"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
