@@ -39,7 +39,8 @@ exports.run = async (bot) => {
             retweet: elt.retweeted_status !== undefined,
           };
         })
-        .filter((elt) => !elt.retweet && !Object.keys(_tweets).includes(elt.id));
+        .filter((elt) => !elt.retweet && !Object.keys(_tweets).includes(elt.id))
+        .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
       for (const tweet of parsed_data.filter((elt) => !Object.keys(_tweets).includes(elt.id))) {
         database.ref("tweets/" + tweet.id).set(tweet);
