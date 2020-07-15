@@ -1,3 +1,5 @@
+const { messaging } = require("firebase");
+
 exports.stripIndents = (string) => string.replace(/^[ \\t]+/gm, "");
 
 exports.resolveUser = (msg, username) => {
@@ -21,4 +23,11 @@ exports.resolveUser = (msg, username) => {
     return memberCache.find((member) => member.id === username);
   }
   return null;
+};
+
+exports.BotExecption = class {
+  constructor(message) {
+    this.name = "BotExecption";
+    this.message = message;
+  }
 };

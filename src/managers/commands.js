@@ -106,8 +106,8 @@ class Commands {
       try {
         await command.run(this.bot, msg, args);
       } catch (e) {
-        const m = await msg.channel.send(`:x: ${e}`);
-        m.delete({ timeout: 5000 });
+        const m = await msg.channel.send(`:x: ${e.message}`);
+        if (e.name !== "BotExecption") m.delete({ timeout: 5000 });
       }
     } else {
       msg.channel.send(`:x: Sorry, the command ${base} isn't found.`);

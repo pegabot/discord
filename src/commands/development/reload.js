@@ -1,9 +1,10 @@
 const path = require("path");
+const { BotExecption } = require("../../utils");
 
 exports.run = (bot, msg, args) => {
-  if (args.length < 1) throw new Error("You must provide a command to reload");
+  if (args.length < 1) throw new BotExecption("You must provide a command to reload");
 
-  if (!bot.commands.has(args[0])) throw new Error(`The command ${args[0]} does not exist`);
+  if (!bot.commands.has(args[0])) throw new BotExecption(`The command ${args[0]} does not exist`);
 
   const cmdPath = bot.commands.get(args[0]).path;
   const relativePath = path.join("..", bot.commands.get(args[0]).path);

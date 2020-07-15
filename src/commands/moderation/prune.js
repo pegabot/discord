@@ -1,7 +1,9 @@
+const { BotExecption } = require("../../utils");
+
 exports.run = async (bot, msg, args) => {
-  if (args.length < 1) throw new Error("I need an amount of messages to prune");
-  if (Number.isNaN(args[0])) throw new Error("Your amount isn't a number.");
-  if (args[0] > 50) throw new Error("You can't delete more that 50 messages at once");
+  if (args.length < 1) throw new BotExecption("I need an amount of messages to prune");
+  if (Number.isNaN(args[0])) throw new BotExecption("Your amount isn't a number.");
+  if (args[0] > 50) throw new BotExecption("You can't delete more that 50 messages at once");
 
   const messages = await msg.channel.messages.fetch({ limit: Number(args[0]) + 1 });
 

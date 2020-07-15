@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
+const { BotExecption } = require("../../utils");
 
-// eslint-disable-next-line consistent-return
 exports.run = (bot, msg, args) => {
   if (args.length === 0) {
     const cmdsString = bot.commands.names
@@ -24,7 +24,7 @@ exports.run = (bot, msg, args) => {
       .join(", ");
     msg.channel.send(`Available commands:\n${cmdsString}\n\ntip: use \`${bot.config.prefix}help <command>\` to get help about a specific command`);
   } else if (args.length > 0) {
-    if (!bot.commands.has(args[0])) throw new Error(`The command ${args[0]} isn't found.`);
+    if (!bot.commands.has(args[0])) throw new BotExecption(`The command ${args[0]} isn't found.`);
 
     const { info } = bot.commands.get(args[0]);
     const { permissions } = info;

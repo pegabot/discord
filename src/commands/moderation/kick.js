@@ -1,11 +1,11 @@
 const { MessageCollector } = require("discord.js");
-const { resolveUser } = require("../../utils");
+const { resolveUser, BotExecption } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
-  if (args.length < 1) throw new Error("I need a user to kick");
+  if (args.length < 1) throw new BotExecption("I need a user to kick");
 
   const user = resolveUser(msg, args.join(" "));
-  if (!user) throw new Error(`The user ${args.join(" ")} couldn't be found`);
+  if (!user) throw new BotExecption(`The user ${args.join(" ")} couldn't be found`);
 
   if (user.kickable) {
     msg.channel.send("What is the reason for kicking?");
@@ -22,7 +22,7 @@ exports.run = async (bot, msg, args) => {
       }
     });
   } else {
-    throw new Error("This user can't be kicked");
+    throw new BotExecption("This user can't be kicked");
   }
 };
 

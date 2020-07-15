@@ -1,11 +1,11 @@
 const { MessageEmbed } = require("discord.js");
 const formatDistanceToNow = require("date-fns/formatDistanceToNow");
-const { resolveUser } = require("../../utils");
+const { resolveUser, BotExecption } = require("../../utils");
 
 exports.run = (bot, msg, args) => {
   let member = resolveUser(msg, args.join(" "));
   if (args.length === 0) ({ member } = msg);
-  if (!member) throw new Error("This user can't be found.");
+  if (!member) throw new BotExecption("This user can't be found.");
 
   const status = {
     online: `User is online!`,
