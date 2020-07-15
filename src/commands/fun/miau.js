@@ -10,6 +10,6 @@ exports.run = async (bot, msg, args) => {
 
 exports.info = {
   name: "miau",
-  usage: "miau",
+  usage: ["miau", "miau <text>"],
   help: "Returns a random cat image",
 };
