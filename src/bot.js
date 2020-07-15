@@ -23,7 +23,7 @@ for (const event of events) {
 const funcs = fs.readdirSync(path.join(__dirname, "functions"));
 for (const func of funcs) {
   const name = func.split(".")[0];
-  const funcFunc = require(path.join(__dirname, "functions", name));
-  funcFunc.run(bot);
+  const module = require(path.join(__dirname, "functions", name));
+  if (process.env.NODE_ENV === "production" || module.info.development) module.run(bot);
 }
 bot.login(config.BOT_TOKEN);
