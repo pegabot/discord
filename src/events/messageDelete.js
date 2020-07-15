@@ -13,3 +13,7 @@ exports.run = async (bot, msg) => {
     bot.channels.resolve(bot.config.modLog).send("The deleted embed", { embed: msg.embeds[0] });
   }
 };
+
+exports.info = {
+  development: false,
+};

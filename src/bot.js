@@ -16,8 +16,8 @@ bot.blacklist = new Discord.Collection();
 const events = fs.readdirSync(path.join(__dirname, "events"));
 for (const event of events) {
   const name = event.split(".")[0];
-  const eventFunc = require(path.join(__dirname, "events", name));
-  bot.on(name, (...args) => eventFunc.run(bot, ...args));
+  const module = require(path.join(__dirname, "events", name));
+  if (process.env.NODE_ENV === "production" || module.info.development) bot.on(name, (...args) => module.run(bot, ...args));
 }
 
 const funcs = fs.readdirSync(path.join(__dirname, "functions"));

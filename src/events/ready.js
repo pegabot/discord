@@ -11,3 +11,7 @@ exports.run = (bot) => {
 
   bot.user.setActivity("living in the Cloud ☁️", { type: "WATCHING" });
 };
+
+exports.info = {
+  development: true,
+};

@@ -5,3 +5,7 @@ exports.run = (bot, guild, user) => {
 
   bot.channels.resolve(bot.config.modLog).send(embed);
 };
+
+exports.info = {
+  development: true,
+};
