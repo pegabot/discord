@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon .",
-    "start": "node .",
-    "lint": "eslint src/"
+    "start": "node ."
   },
   "dependencies": {
     "date-fns": "^2.0.0-alpha.34",
