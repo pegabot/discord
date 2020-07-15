@@ -15,6 +15,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^7.16.0",
     "node-fetch": "^2.6.0",
+    "querystring": "^0.2.0",
     "twit": "^2.2.11"
   },
   "devDependencies": {
