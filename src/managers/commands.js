@@ -82,6 +82,8 @@ class Commands {
     const base = args.shift().toLowerCase();
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
 
+    if (!msg.guild) return null;
+
     if (!base) return msg.channel.send(":x: You need to provide a command");
     if (this.bot.blacklist.has(msg.author.id)) return null;
 
