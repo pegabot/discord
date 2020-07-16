@@ -6,6 +6,7 @@ exports.run = async (bot, msg, args) => {
 
   const user = resolveUser(msg, args.join(" "));
   if (!user) throw new BotExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden`);
+  if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht bannen!`);
 
   if (user.bannable) {
     msg.channel.send("Was ist der Grund des Bannes?");
