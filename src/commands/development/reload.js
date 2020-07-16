@@ -2,9 +2,9 @@ const path = require("path");
 const { BotExecption } = require("../../utils");
 
 exports.run = (bot, msg, args) => {
-  if (args.length < 1) throw new BotExecption("You must provide a command to reload");
+  if (args.length < 1) throw new BotExecption("Du musst ein Command zum Neuladen übergeben.");
 
-  if (!bot.commands.has(args[0])) throw new BotExecption(`The command ${args[0]} does not exist`);
+  if (!bot.commands.has(args[0])) throw new BotExecption(`Der Command ${args[0]} existiert nicht.`);
 
   const cmdPath = bot.commands.get(args[0]).path;
   const relativePath = path.join("..", bot.commands.get(args[0]).path);
@@ -13,12 +13,12 @@ exports.run = (bot, msg, args) => {
   const cmd = require(relativePath);
   cmd.path = cmdPath;
   bot.commands.loadCommand(args[0], cmd);
-  msg.channel.send(`The command \`${args[0]}\` has been reloaded`);
+  msg.channel.send(`Der Command \`${args[0]}\` wurde neu geladen.`);
 };
 
 exports.info = {
   name: "reload",
   usage: "reload <command>",
-  help: "Reloads the given command",
+  help: "Lädt ein übergebenen Command neu.",
   owner: true,
 };

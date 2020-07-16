@@ -2,33 +2,33 @@ const { MessageCollector } = require("discord.js");
 const { resolveUser, BotExecption } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
-  if (args.length < 1) throw new BotExecption("I need a user to ban");
+  if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum bannen!");
 
   const user = resolveUser(msg, args.join(" "));
-  if (!user) throw new BotExecption(`The user ${args.join(" ")} couldn't be found`);
+  if (!user) throw new BotExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden`);
 
   if (user.bannable) {
-    msg.channel.send("What is the reason for banning?");
+    msg.channel.send("Was ist der Grund des Bannes?");
     const collector = new MessageCollector(msg.channel, (m) => m.author === msg.author, { max: 1, time: 60000 });
     await collector.on("collect", async (m) => {
       await user.ban(m.content);
-      msg.channel.send(`Succesfully banned ${user.user.username} for the reason: \`${m.content}\``);
+      msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich gebannt. Grund: \`${m.content}\``);
       collector.stop();
     });
 
     await collector.on("end", async (collected, reason) => {
       if (reason === "time") {
-        msg.channel.send("The ban ended because you didn't provide a reason within 2 minutes.");
+        msg.channel.send("Das Zeitfenster wurde nicht eingehalten.");
       }
     });
   } else {
-    throw new BotExecption("This user can't be banned");
+    throw new BotExecption("Der Benutzer konnte nicht gebannt werden!");
   }
 };
 
 exports.info = {
   name: "ban",
   usage: "ban <user>",
-  help: "Bans a specific user",
+  help: "Bannt einen bestimmen Benutzer",
   permissions: ["BAN_MEMBERS"],
 };

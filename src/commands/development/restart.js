@@ -5,6 +5,6 @@ exports.run = () => {
 exports.info = {
   name: "restart",
   usage: "restart",
-  help: "Restarts the bot",
+  help: "Neustart des Bots",
   owner: true,
 };

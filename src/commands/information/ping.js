@@ -5,8 +5,8 @@ exports.run = async (bot, msg) => {
   m.edit(
     stripIndents(
       `Pong!
-        Time taken: ${m.createdTimestamp - msg.createdTimestamp}ms :timer:
-        Heartbeat ping: ${Math.floor(bot.ws.ping)}ms :heartbeat:`,
+        Zeit, die in Anspruch genommen wurde: ${m.createdTimestamp - msg.createdTimestamp}ms :timer:
+        Ping: ${Math.floor(bot.ws.ping)}ms :heartbeat:`,
     ),
   );
 };
@@ -14,5 +14,5 @@ exports.run = async (bot, msg) => {
 exports.info = {
   name: "ping",
   usage: "ping",
-  help: "Gives back the round-trip time and heartbeat ping of the bot",
+  help: "Reaktionszeit des Bots",
 };

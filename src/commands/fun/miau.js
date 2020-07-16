@@ -14,5 +14,5 @@ exports.run = async (bot, msg, args) => {
 exports.info = {
   name: "miau",
   usage: ["miau", "miau <text>"],
-  help: "Returns a random cat image",
+  help: "Liefert ein zufälliges Katzen Bild zurück.",
 };

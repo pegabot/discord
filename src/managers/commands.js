@@ -57,10 +57,10 @@ class Commands {
   }
 
   checkCommand(cmd, name) {
-    if (this.cmds.has(name)) return `The command ${name} already exists.`;
-    if (!cmd.hasOwnProperty("info")) return `The command ${name} doesn't have an info object.`;
+    if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
+    if (!cmd.hasOwnProperty("info")) return `Der Command ${name} hat kein Info Objekt.`;
     if (!cmd.info.hasOwnProperty("help") || !cmd.info.hasOwnProperty("usage")) {
-      return `The command ${name} must have a help/usage key in its info object`;
+      return `Der Command ${name} muss einen help/usage Eintrag in seinem Info Objekt besitzen.`;
     }
     return null;
   }
@@ -76,7 +76,6 @@ class Commands {
     }
   }
 
-  // eslint-disable-next-line consistent-return
   async handleCommand(msg) {
     const args = msg.content.slice(this.bot.config.prefix.length).trim().split(" ");
     const base = args.shift().toLowerCase();
@@ -84,23 +83,23 @@ class Commands {
 
     if (!msg.guild) return null;
 
-    if (!base) return msg.channel.send(":x: You need to provide a command");
+    if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
     if (this.bot.blacklist.has(msg.author.id)) return null;
 
     const command = this.cmds.get(base);
     if (command) {
       if (command.info.owner && this.bot.config.ownerID !== msg.author.id) {
-        return msg.channel.send(":x: Sorry, only the owner can run this command");
+        return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
       const { permissions } = command.info;
       const { roles } = command.info;
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
-        return msg.channel.send(":x: Sorry you are not allowed to run this command");
+        return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
       if (roles) {
         const roleCheck = roles.some((e) => msg.member.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
-        if (!roleCheck) return msg.channel.send(":x: Sorry you are not allowed to run this command");
+        if (!roleCheck) return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
 
       try {
@@ -110,7 +109,7 @@ class Commands {
         if (e.name !== "BotExecption") m.delete({ timeout: 5000 });
       }
     } else {
-      msg.channel.send(`:x: Sorry, the command ${base} isn't found.`);
+      msg.channel.send(`:x: Sorry, der Command ${base} wurde nicht gefunden.`);
     }
   }
 }

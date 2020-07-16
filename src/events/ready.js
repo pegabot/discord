@@ -2,14 +2,14 @@ exports.run = (bot) => {
   bot.commands.loadCommands();
 
   bot.logger.info(
-    `${bot.user.username}#${bot.user.discriminator} is ready!
+    `${bot.user.username}#${bot.user.discriminator} ist ready!
         -------------------------------
         ID: ${bot.user.id}
-        Currently in ${bot.guilds.cache.size} guild(s)
-        Loaded ${bot.commands.size} command(s) 🤖`,
+        Aktuell in ${bot.guilds.cache.size} Guilde(n)
+        ${bot.commands.size} Command(s) geladen 🤖`,
   );
 
-  bot.user.setActivity("living in the Cloud ☁️", { type: "WATCHING" });
+  bot.user.setActivity("lebe in der Cloud ☁️", { type: "WATCHING" });
 };
 
 exports.info = {

@@ -48,13 +48,13 @@ exports.run = async (bot) => {
 
       for (const tweet of parsed_data) {
         const guild = bot.guilds.cache.get(bot.config.GUILD_ID);
-        guild.channels.cache.get(bot.config.twitterChannel).send(`Hey folks, ${tweet.user.screen_name} just posted a new Tweet! \n ${tweet.url}`);
+        guild.channels.cache.get(bot.config.twitterChannel).send(`Hallo liebe CONspiracy Mitglieder, ${tweet.user.screen_name} hat gerade einen neuen Tweet gepostet! \n ${tweet.url}`);
       }
     });
   }, 10000);
 };
 
 exports.info = {
-  name: "Get Tweets",
+  name: "Lade Tweets",
   development: false,
 };

@@ -2,33 +2,33 @@ const { MessageCollector } = require("discord.js");
 const { resolveUser, BotExecption } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
-  if (args.length < 1) throw new BotExecption("I need a user to kick");
+  if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum kicken.");
 
   const user = resolveUser(msg, args.join(" "));
-  if (!user) throw new BotExecption(`The user ${args.join(" ")} couldn't be found`);
+  if (!user) throw new BotExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden.`);
 
   if (user.kickable) {
-    msg.channel.send("What is the reason for kicking?");
+    msg.channel.send("Was ist der Grund für den Kick?");
     const collector = new MessageCollector(msg.channel, (m) => m.author === msg.author, { max: 1, time: 120000 });
     await collector.on("collect", async (m) => {
       await user.kick(m.content);
-      msg.channel.send(`Succesfully kicked ${user.user.username} for the reason: \`${m.content}\``);
+      msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich gekickt. Grund: \`${m.content}\``);
       collector.stop();
     });
 
     await collector.on("end", async (collected, reason) => {
       if (reason === "time") {
-        msg.channel.send("The kick ended because you didn't provide a reason within 2 minutes.");
+        msg.channel.send("Das Zeitfenster wurde nicht eingehalten.");
       }
     });
   } else {
-    throw new BotExecption("This user can't be kicked");
+    throw new BotExecption("Der Benutzer konnte nicht gekickt werden!");
   }
 };
 
 exports.info = {
   name: "kick",
   usage: "kick <user>",
-  help: "Kicks a specific user",
+  help: "Kickt einen spezifischen Benutzer",
   permissions: ["KICK_MEMBERS"],
 };

@@ -22,19 +22,19 @@ exports.run = (bot, msg, args) => {
       })
       .map((cmd) => `\`${cmd}\``)
       .join(", ");
-    msg.channel.send(`Available commands:\n${cmdsString}\n\ntip: use \`${bot.config.prefix}help <command>\` to get help about a specific command`);
+    msg.channel.send(`Verfügbare Commands:\n${cmdsString}\n\Tip: verwende \`${bot.config.prefix}help <command>\`, um Hilfe für einen spezifischen Command zu erhalten.`);
   } else if (args.length > 0) {
-    if (!bot.commands.has(args[0])) throw new BotExecption(`The command ${args[0]} isn't found.`);
+    if (!bot.commands.has(args[0])) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
     const { info } = bot.commands.get(args[0]);
     const { permissions } = info;
     const { roles } = info;
     if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
-      return msg.channel.send("You're trying to ask for help for a command you don't have access to");
+      return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
     }
     if (roles) {
       const roleCheck = roles.some((e) => msg.member.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
-      if (!roleCheck) return msg.channel.send("You're trying to ask for help for a command you don't have access to");
+      if (!roleCheck) return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
     }
 
     let { usage } = info;
@@ -44,7 +44,7 @@ exports.run = (bot, msg, args) => {
       usage = bot.config.prefix + usage;
     }
 
-    const embed = new MessageEmbed().setTitle(info.name).addField("Usage(s)", usage, true).addField("Category", info.category, true).setDescription(info.help);
+    const embed = new MessageEmbed().setTitle(info.name).addField("Verwendung(en)", usage, true).addField("Kategorie", info.category, true).setDescription(info.help);
 
     msg.channel.send(embed);
   }
@@ -53,5 +53,5 @@ exports.run = (bot, msg, args) => {
 exports.info = {
   name: "help",
   usage: ["help", "help <command>"],
-  help: "Gives all the current commands or the information about one command",
+  help: "Gibt alle verfügbaren Command oder Informationen zu einem spezifischen Command zurück.",
 };

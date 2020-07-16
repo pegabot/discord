@@ -1,24 +1,27 @@
 const { MessageEmbed } = require("discord.js");
 const formatDistanceToNow = require("date-fns/formatDistanceToNow");
+const { de } = require("date-fns/locale");
+
 const { resolveUser, BotExecption } = require("../../utils");
 
 exports.run = (bot, msg, args) => {
   let member = resolveUser(msg, args.join(" "));
   if (args.length === 0) ({ member } = msg);
-  if (!member) throw new BotExecption("This user can't be found.");
+  if (!member) throw new BotExecption("Dieser Benutzer wurde nicht gefunden.");
 
   const status = {
-    online: `User is online!`,
-    idle: `User is idle, probably drinking a cup of tea`,
-    offline: `User is offline, probably sleeping`,
-    dnd: `User doesn't want to be disturbed right now`,
+    online: `Benutzer ist online!`,
+    idle: `Benutzer macht Pause, wahrscheinlich drinkt er gerade eine Tasse Tee`,
+    offline: `Benutzer ist offline, wahrscheinlich am schlafen`,
+    dnd: `Dieser Benutzer möchte gerade nicht gestört werden`,
   };
-  const game = member.presence.game ? member.presence.game.name : "Not playing a game";
+  const game = member.presence.game ? member.presence.game.name : "Spielt gerade kein Spiel";
   const createdAt = formatDistanceToNow(member.user.createdAt, {
     addSuffix: true,
+    locale: de,
   });
   const joinedAt = formatDistanceToNow(member.joinedAt, { addSuffix: true });
-  let roles = "This user has no special roles";
+  let roles = "Dieser Benutzer verfügt über keine speziellen Rollen";
   let size = 0;
   if (member.roles.cache.size !== 1) {
     // We don't use the @everyone role
@@ -29,7 +32,7 @@ exports.run = (bot, msg, args) => {
         .array()
         .slice(0, -1)
         .map((r) => r.name)
-        .join(", ")} and ${roles.last().name}`;
+        .join(", ")} und ${roles.last().name}`;
     } else {
       roles = roles.first().name;
     }
@@ -38,20 +41,20 @@ exports.run = (bot, msg, args) => {
   const embed = new MessageEmbed()
     .setAuthor(member.user.tag, member.user.displayAvatarURL())
     .setThumbnail(member.user.displayAvatarURL())
-    .setTitle(`Information about ${member.displayName}`)
+    .setTitle(`Informationen über ${member.displayName}`)
     .setDescription(status[member.presence.status])
-    .addField("Username", member.user.username, true)
-    .addField(`Playing...`, game, true)
-    .addField("Account created", createdAt, true)
-    .addField("Joined the server", joinedAt, true)
+    .addField("Benutzername", member.user.username, true)
+    .addField(`Spielt...`, game, true)
+    .addField("Account erstellt", createdAt, true)
+    .addField("Dem Server beigetreten", joinedAt, true)
     .addField("ID", member.id, true)
-    .addField("Bot", member.user.bot ? "Bleep bloop, I am a bot" : "This person isn't a bot", true)
-    .addField(`Roles [${size}]`, `\`${roles}\``);
+    .addField("Bot", member.user.bot ? "Bleep bloop, ich bin ein Bot!" : "Dieser Benutzer ist kein Bot!", true)
+    .addField(`Rollen [${size}]`, `\`${roles}\``);
   msg.channel.send(embed);
 };
 
 exports.info = {
   name: "userinfo",
   usage: ["userinfo", "userinfo <user>"],
-  help: "Shows information about an user",
+  help: "Gibt informationen zu einem Benutzer wieder.",
 };

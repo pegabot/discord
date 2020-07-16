@@ -8,40 +8,40 @@ exports.run = (bot, msg, args) => {
       .map((user) => `- ${bot.blacklist.get(user)} (${user})`)
       .join("\n");
     const embed = new MessageEmbed()
-      .setTitle("The Blacklist")
-      .setDescription("A list of people who are forbidden from using the bot")
-      .addField("List", list.length !== 0 ? list : "There are no people on the blacklist");
+      .setTitle("Die Blacklist")
+      .setDescription("Eine Liste mit Benutzer, die von der Verwendung dieses Bots ausgeschlossen sind.")
+      .addField("Liste", list.length !== 0 ? list : "Aktuell befinden sich keine Benutzer auf der Blacklist.");
     msg.channel.send(embed);
   } else if (args[0] === "add") {
-    if (!args[1]) throw new BotExecption("Please provide an user to add to the blacklist");
+    if (!args[1]) throw new BotExecption("Bitte übergebe einen Benutzer, der zur Blacklist hinzugefügt werden soll.");
 
     const user = resolveUser(msg, args[1]);
     if (user) {
       bot.blacklist.set(user.id, user.user.username);
-      msg.channel.send(`Succesfully added ${user.user.username} to the blacklist`);
+      msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich zur Blacklist hinzugefügt.`);
     } else {
-      throw new Error(`Couldn't find the user ${args[1]}`);
+      throw new BotExecption(`Der Benutzer ${args[1]} wurde nicht gefunden.`);
     }
   } else if (args[0] === "remove") {
-    if (!args[1]) throw new BotExecption("Please provide an user to remove from the blacklist");
+    if (!args[1]) throw new BotExecption("Bitte übergebe einen Benutzer, der von der Blacklist entfernt werden soll.");
 
     const user = resolveUser(msg, args[1]);
     if (user) {
       if (bot.blacklist.has(user.id)) {
         bot.blacklist.delete(user.id);
-        msg.channel.send(`Succesfully removed ${user.user.username} from the blacklist`);
+        msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich von der Blacklist entfernt.`);
       } else {
-        throw new BotExecption(`${user.user.username} isn't in the blacklist`);
+        throw new BotExecption(`Der Benutzer ${user.user.username} befindet sich nicht auf der Blacklist.`);
       }
     }
   } else {
-    throw new BotExecption("Please provide a valid subcommand");
+    throw new BotExecption("Bitte übergebe einen validen Subcommand.");
   }
 };
 
 exports.info = {
   name: "blacklist",
   usage: ["blacklist", "blacklist add <user>", "blacklist remove <user>"],
-  help: "Blacklists someone from using the bot",
+  help: "Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.",
   owner: true,
 };
