@@ -17,7 +17,7 @@ const events = fs.readdirSync(path.join(__dirname, "events"));
 for (const event of events) {
   const name = event.split(".")[0];
   const module = require(path.join(__dirname, "events", name));
-  if (process.env.NODE_ENV === "production" || module.info.development) bot.on(name, (...args) => module.run(bot, ...args));
+  bot.on(name, (...args) => module.run(bot, ...args));
 }
 
 const funcs = fs.readdirSync(path.join(__dirname, "functions"));

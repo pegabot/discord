@@ -11,7 +11,3 @@ exports.run = (bot) => {
 
   bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
 };
-
-exports.info = {
-  development: true,
-};

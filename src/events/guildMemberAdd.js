@@ -21,7 +21,3 @@ exports.run = (bot, member) => {
         Dein Pegabot`),
   );
 };
-
-exports.info = {
-  development: true,
-};

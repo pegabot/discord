@@ -3,7 +3,3 @@ exports.run = (bot, error) => {
 
   bot.channels.resolve(bot.config.modLog).send(embed);
 };
-
-exports.info = {
-  development: true,
-};

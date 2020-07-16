@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, msg) => {
+  if (msg.channel.id === bot.config.modLog) return;
+
   const embed = new MessageEmbed().setDescription(`Neue gelöschte Nachricht von ${msg.member} in ${msg.channel}`).addField("Inhalt der gelöschten Nachricht", msg.content ? msg.content : "Diese Nachricht hatte keinen Inhalt.");
 
   if (msg.embeds.length > 0) {
@@ -12,8 +14,4 @@ exports.run = async (bot, msg) => {
   if (msg.embeds.length > 0) {
     bot.channels.resolve(bot.config.modLog).send("Die gelöschte Einbettung", { embed: msg.embeds[0] });
   }
-};
-
-exports.info = {
-  development: false,
 };
