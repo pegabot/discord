@@ -81,7 +81,10 @@ class Commands {
     const base = args.shift().toLowerCase();
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
 
-    if (!msg.guild) return null;
+    if (!msg.guild) {
+      msg.channel.send("Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem CONspiracy Server an :smile:");
+      return null;
+    }
 
     if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
     if (this.bot.blacklist.has(msg.author.id)) return null;
