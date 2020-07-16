@@ -5,7 +5,8 @@ const { MessageAttachment } = require("discord.js");
 const { ersetzeUmlaute } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
-  let text = emojiStrip(ersetzeUmlaute(msg.cleanContent).replace(/[^a-zA-Z0-9-_]/g, " "))
+  let text = emojiStrip(msg.cleanContent)
+    .replace(/[^a-üA-Ü0-9-_]/g, " ")
     .slice(bot.config.prefix.length + 4)
     .trim()
     .split(" ")

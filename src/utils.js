@@ -25,14 +25,6 @@ exports.resolveUser = (msg, username) => {
   return null;
 };
 
-exports.ersetzeUmlaute = (string) => {
-  value = string.toLowerCase();
-  value = value.replace(/ä/g, "ae");
-  value = value.replace(/ö/g, "oe");
-  value = value.replace(/ü/g, "ue");
-  return value;
-};
-
 exports.BotExecption = class {
   constructor(message) {
     this.name = "BotExecption";
