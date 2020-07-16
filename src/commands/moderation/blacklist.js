@@ -16,6 +16,8 @@ exports.run = (bot, msg, args) => {
     if (!args[1]) throw new BotExecption("Bitte übergebe einen Benutzer, der zur Blacklist hinzugefügt werden soll.");
 
     const user = resolveUser(msg, args[1]);
+    if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht auf die Blacklist setzen!`);
+
     if (user) {
       bot.blacklist.set(user.id, user.user.username);
       msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich zur Blacklist hinzugefügt.`);
