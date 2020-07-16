@@ -9,7 +9,7 @@ exports.run = (bot) => {
         ${bot.commands.size} Command(s) geladen 🤖`,
   );
 
-  bot.user.setActivity("lebe in der Cloud ☁️", { type: "WATCHING" });
+  bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
 };
 
 exports.info = {
