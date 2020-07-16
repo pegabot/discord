@@ -18,6 +18,7 @@ exports.run = async (bot, msg, args) => {
     .then((res) => res.buffer())
     .then((buffer) => {
       msg.channel.send("", new MessageAttachment(buffer));
+      msg.delete();
     });
 };
 
