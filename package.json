@@ -12,6 +12,7 @@
     "date-fns": "^2.0.0-alpha.34",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "emoji-strip": "^1.0.1",
     "firebase": "^7.16.0",
     "node-fetch": "^2.6.0",
     "querystring": "^0.2.0",
