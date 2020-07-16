@@ -1,8 +1,8 @@
 {
-  "name": "thecodingtrainbot",
+  "name": "pegabot",
   "version": "1.0.0",
   "main": "src/bot.js",
-  "author": "Noah van Boven",
+  "author": "Nico Finkernagel, Pegasus Spiele Verlags- und Medienvetriebsgesellschaft mbH",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon .",
