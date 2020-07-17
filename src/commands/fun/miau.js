@@ -2,7 +2,6 @@ const fetch = require("node-fetch");
 const emojiStrip = require("emoji-strip");
 const querystring = require("querystring");
 const { MessageAttachment } = require("discord.js");
-const { ersetzeUmlaute } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
   let text = emojiStrip(msg.cleanContent)
