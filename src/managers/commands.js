@@ -77,8 +77,11 @@ class Commands {
   }
 
   async handleCommand(msg) {
+    const guild = this.bot.guilds.cache.get(this.bot.config.GUILD_ID);
+    const { name } = guild;
+
     if (!msg.guild && msg.author.id !== this.bot.user.id) {
-      msg.channel.send("Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem CONspiracy Server an :smile:");
+      msg.channel.send(`Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem **${name}** Server an :smile:`);
       return null;
     }
 
