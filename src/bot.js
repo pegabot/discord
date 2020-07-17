@@ -24,6 +24,7 @@ const funcs = fs.readdirSync(path.join(__dirname, "functions"));
 for (const func of funcs) {
   const name = func.split(".")[0];
   const module = require(path.join(__dirname, "functions", name));
+  if (module.info.env && process.env[`enable_${module.info.env}`] !== "true") continue;
   module.run(bot);
 }
 bot.login(config.BOT_TOKEN);
