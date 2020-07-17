@@ -9,7 +9,7 @@
     "start": "node ."
   },
   "dependencies": {
-    "date-fns": "^2.0.0-alpha.34",
+    "date-fns": "^2.15.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
