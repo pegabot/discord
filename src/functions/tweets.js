@@ -56,5 +56,4 @@ exports.run = async (bot) => {
 
 exports.info = {
   name: "Lade Tweets",
-  development: false,
 };
