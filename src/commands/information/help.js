@@ -22,7 +22,9 @@ exports.run = (bot, msg, args) => {
       })
       .map((cmd) => `\`${cmd}\``)
       .join(", ");
-    msg.channel.send(`Verfügbare Commands:\n${cmdsString}\n\Tip: verwende \`${bot.config.prefix}help <command>\`, um Hilfe für einen spezifischen Command zu erhalten.`);
+    const embed = new MessageEmbed().setTitle("Hilfe").addField("Verfügbare Commands", cmdsString, true).setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
+
+    msg.channel.send(embed);
   } else if (args.length > 0) {
     if (!bot.commands.has(args[0])) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
@@ -44,7 +46,7 @@ exports.run = (bot, msg, args) => {
       usage = bot.config.prefix + usage;
     }
 
-    const embed = new MessageEmbed().setTitle(info.name).addField("Verwendung(en)", usage, true).addField("Kategorie", info.category, true).setDescription(info.help);
+    const embed = new MessageEmbed().setTitle(`Hilfe für **${bot.config.prefix}${info.name}**`).addField("Verwendung(en)", usage, true).addField("Kategorie", info.category, true).setDescription(info.help);
 
     msg.channel.send(embed);
   }
