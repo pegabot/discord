@@ -8,6 +8,6 @@
 
  * **Nico Finkernagel** - [GitHub Profil](https://github.com/gruselhaus)
 
- ## Lizent
+ ## Lizenz
 
 Dieses Projekt steht unter der MIT Lizenz - siehe [LICENSE](LICENSE) für mehr Informationen.
