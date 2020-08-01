@@ -21,3 +21,5 @@ exports.run = (bot, member) => {
         Dein Pegabot`),
   );
 };
+
+exports.disable = true;
