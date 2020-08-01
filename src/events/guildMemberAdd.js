@@ -1,10 +1,10 @@
 const { stripIndents } = require("../utils");
 
 exports.run = (bot, member) => {
-  bot.channels.resolve(bot.config.welcomeChannel).send(
-    stripIndents(`
-        Wilkommen an Bord ${member}!`),
-  );
+  // bot.channels.resolve(bot.config.welcomeChannel).send(
+  //   stripIndents(`
+  //       Wilkommen an Bord ${member}!`),
+  // );
   bot.users.cache.get(member.user.id).send(
     stripIndents(`
         Willkommen auf CONspiracy,
