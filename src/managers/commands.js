@@ -36,6 +36,7 @@ class Commands {
       const category = path.dirname(command).split(path.sep).pop();
 
       const cmd = require(command);
+      if (!cmd.info) continue;
       cmd.info.category = category[0].toUpperCase() + category.slice(1);
       cmd.path = path.join(".", category, base);
 
@@ -50,6 +51,7 @@ class Commands {
         const dir = fs.readdirSync(absolutePath);
         this.walkSync(dir, absolutePath, fileList);
       } else {
+        if (!absolutePath.includes(".js")) continue;
         fileList.push(path.relative(__dirname, absolutePath));
       }
     }
