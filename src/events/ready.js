@@ -6,7 +6,9 @@ exports.run = (bot) => {
         -------------------------------
         ID: ${bot.user.id}
         Aktuell in ${bot.guilds.cache.size} Guilde(n)
-        ${bot.commands.size} Command(s) geladen 🤖`,
+        ${bot.commands.size} Command(s) geladen 🤖,
+        ${bot.events.length} Event(s) geladen 🎟
+        ${bot.functions.length} Function(s) aktiviert ⚙️`,
   );
 
   bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
