@@ -19,6 +19,6 @@ exports.run = async (bot, msg, args) => {
 exports.info = {
   name: "prune",
   usage: "prune <Anzahl der zu löschenden Nachrichten>",
-  help: "Löscht eine gwisse Anzahl an Nachrichten",
+  help: "Löscht eine gewisse Anzahl an Nachrichten",
   permissions: ["KICK_MEMBERS"],
 };
