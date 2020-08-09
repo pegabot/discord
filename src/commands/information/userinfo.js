@@ -11,7 +11,7 @@ exports.run = (bot, msg, args) => {
 
   const status = {
     online: `Benutzer ist online!`,
-    idle: `Benutzer macht Pause, wahrscheinlich drinkt er gerade eine Tasse Tee`,
+    idle: `Benutzer macht Pause, wahrscheinlich trinkt er gerade eine Tasse Tee`,
     offline: `Benutzer ist offline, wahrscheinlich am schlafen`,
     dnd: `Dieser Benutzer möchte gerade nicht gestört werden`,
   };
