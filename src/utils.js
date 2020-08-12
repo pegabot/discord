@@ -1,5 +1,3 @@
-const { messaging } = require("firebase");
-
 exports.stripIndents = (string) => string.replace(/^[ \\t]+/gm, "");
 
 exports.resolveUser = (msg, username) => {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
 const fetch = require("node-fetch");
 const emojiStrip = require("emoji-strip");
 const querystring = require("querystring");

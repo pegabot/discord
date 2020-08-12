@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
 const { BotExecption } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {

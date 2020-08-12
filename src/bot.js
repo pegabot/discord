@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Discord = require("discord.js");
+const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 const Commands = require("./managers/commands");
@@ -14,6 +15,16 @@ bot.events = [];
 bot.functions = [];
 bot.logger = new Logger();
 bot.blacklist = new Discord.Collection();
+
+const models = fs.readdirSync(path.join(__dirname, "models"));
+for (const model of models) {
+  const name = model.split(".")[0];
+  const module = require(path.join(__dirname, "models", name));
+  mongoose.model(name, module.schema);
+}
+
+mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+bot.db = mongoose;
 
 const events = fs.readdirSync(path.join(__dirname, "events"));
 for (const event of events) {
