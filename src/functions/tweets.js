@@ -24,7 +24,7 @@ exports.run = async (bot) => {
     database.ref("tweets/").once("value", async (resp) => {
       const _tweets = resp.val() || [];
 
-      const response = await twitter.get("search/tweets", { q: "#pnpCONspiracy", count: 100 });
+      const response = await twitter.get("search/tweets", { q: "from:pegasusspiele	", count: 100 });
       const data = response.data.statuses;
 
       const parsed_data = data
