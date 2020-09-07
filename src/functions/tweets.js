@@ -16,8 +16,7 @@ exports.run = async (bot) => {
     const TweetModel = bot.db.model("tweet");
 
     const response = await twitter.get("search/tweets", { q: "from:pegasusspiele" });
-
-    for (const tweet of response.data.statuses.filter((elt) => elt.retweeted_status === undefined).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))) {
+    for (const tweet of response.data.statuses.filter((elt) => elt.retweeted_status === undefined && elt.in_reply_to_status_id === null).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))) {
       const Tweet = new TweetModel();
       Tweet.id = tweet.id_str;
       Tweet.created = tweet.created_at;
