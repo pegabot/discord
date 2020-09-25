@@ -5,24 +5,24 @@
 const { BotExecption } = require("../../utils");
 
 exports.run = async (bot, msg, args) => {
-  if (!["de", "en"].includes(args[0])) throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
+  if (!["de", "en", "ww"].includes(args[0])) throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
   if (!["w", "m"].includes(args[1])) throw new BotExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
 
-  const vornamen = args[0] === "de" ? (args[1] === "w" ? namen.de.w : namen.de.m) : args[1] === "w" ? namen.en.w : namen.en.m;
-  const beinamen = args[0] === "de" ? namen.de.b : namen.en.b;
+  const vornamen = args[1] === "w" ? namen[args[0]].weiblich : namen[args[0]].männlich;
+  const beinamen = namen[args[0]].beinamen;
 
   msg.channel.send(`Dein zufällig generierter Name lautet: **${vornamen[Math.floor(Math.random() * vornamen.length)]} ${beinamen[Math.floor(Math.random() * beinamen.length)]}**`);
 };
 
 exports.info = {
   name: "name",
-  usage: ["name <de/en> <m/w>"],
-  help: "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich und deutsch/englisch.",
+  usage: ["name <de/en/ww> <m/w>"],
+  help: "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.",
 };
 
 const namen = {
   de: {
-    m: [
+    männlich: [
       "Achim",
       "Adam",
       "Albert",
@@ -274,7 +274,7 @@ const namen = {
       "Wolfram",
       "Xaver",
     ],
-    w: [
+    weiblich: [
       "Adelheid",
       "Agnes",
       "Alexandra",
@@ -526,7 +526,7 @@ const namen = {
       "Wilma",
       "Yvonne",
     ],
-    b: [
+    beinamen: [
       "Ackermann",
       "Adam",
       "Albrecht",
@@ -780,7 +780,7 @@ const namen = {
     ],
   },
   en: {
-    m: [
+    männlich: [
       "Aaron",
       "Abel",
       "Abraham",
@@ -1032,7 +1032,7 @@ const namen = {
       "Zayden",
       "Zion",
     ],
-    w: [
+    weiblich: [
       "Aaliyah",
       "Abigail",
       "Adaline",
@@ -1284,7 +1284,7 @@ const namen = {
       "Zoey",
       "Zoey",
     ],
-    b: [
+    beinamen: [
       "Adams",
       "Alexander",
       "Allen",
@@ -1536,5 +1536,10 @@ const namen = {
       "Wright",
       "Young",
     ],
+  },
+  ww: {
+    männlich: ["Alexander", "Amos", "Arthur", "Augustus", "Benjamin", "Charles", "David", "Edward", "George", "James", "Jethro", "John", "Nathaniel", "Peter", "Philip", "Richard", "Robert", "Roger", "Thaddeus", "William", "Zachariah"],
+    weiblich: ["Abigail", "Alice", "Anna", "Catherine", "Cecilly", "Chastity", "Elizabeth", "France", "Joy", "Judith", "Margaret", "Mary", "Melinda", "Mercy", "Molly", "Patience", "Rebecca", "Ruth", "Sarah", "Silence", "Temperance"],
+    beinamen: ["Bailey", "Becker", "Bowman", "Cooper", "Cross", "Gilmore", "Glassick", "Graybill", "Hartman", "Hellman", "Jones", "Lawson", "Ludwig", "Miller", "Newcomer", "Peters", "Pritchett", "Sherman", "Smith", "Taylor", "Whately"],
   },
 };
