@@ -1,12 +1,12 @@
 const { stripIndents } = require("../utils");
 
 exports.run = (bot, member) => {
-  // bot.channels.resolve(bot.config.welcomeChannel).send(
-  //   stripIndents(`
-  //       Wilkommen an Bord ${member}!`),
-  // );
-
   bot.channels.resolve(bot.config.modLog).send(stripIndents(`${member} hat gerade den Server betreten!`));
+
+  const lockTime = 1606690800000; // Montag, 30. November 2020 00:00:00 GMT+01:00 https://www.epochconverter.com
+  const localTime = new Date().getTime();
+
+  if (localTime > lockTime) return;
 
   bot.users.cache.get(member.user.id).send(
     stripIndents(`
