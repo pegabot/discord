@@ -6,7 +6,7 @@ exports.run = async (bot, msg) => {
     stripIndents(
       `Pong!
         Zeit, die in Anspruch genommen wurde: ${m.createdTimestamp - msg.createdTimestamp}ms :timer:
-        Ping: ${m.floor(bot.ws.ping)}ms :heartbeat:`,
+        Ping: ${Math.floor(bot.ws.ping)}ms :heartbeat:`,
     ),
   );
 };
