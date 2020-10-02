@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { Collection } = require("discord.js");
+const { Collection, MessageEmbed } = require("discord.js");
 
 class Commands {
   constructor(bot) {
@@ -79,7 +79,7 @@ class Commands {
   }
 
   async handleCommand(msg) {
-    const guild = this.bot.guilds.cache.get(this.bot.config.GUILD_ID);
+    const guild = this.bot.guilds.cache.get(this.bot.config.guildId);
     const { name } = guild;
 
     if (!msg.guild && msg.author.id !== this.bot.user.id) {
@@ -96,7 +96,7 @@ class Commands {
 
     const command = this.cmds.get(base);
     if (command) {
-      if (command.info.owner && this.bot.config.ownerID !== msg.author.id) {
+      if (command.info.owner && this.bot.config.ownerId !== msg.author.id) {
         return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
@@ -113,8 +113,11 @@ class Commands {
       try {
         await command.run(this.bot, msg, args);
       } catch (e) {
-        const m = await msg.channel.send(`:x: ${e.message}`);
-        if (e.name !== "BotExecption") m.delete({ timeout: 5000 });
+        const embed = new MessageEmbed()
+          .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
+          .addField("Fehlermeldung", e.message ? e.message : "Es ist keine Fehlermeldung vorhanden!");
+        await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
+        await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
       }
     } else {
       msg.channel.send(`:x: Sorry, der Command ${base} wurde nicht gefunden.`);

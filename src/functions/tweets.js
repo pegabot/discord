@@ -27,7 +27,7 @@ exports.run = async (bot) => {
         if (error) {
           return;
         }
-        const guild = bot.guilds.cache.get(bot.config.GUILD_ID);
+        const guild = bot.guilds.cache.get(bot.config.guildId);
         guild.channels.cache.get(bot.config.twitterChannel).send(`Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`);
       });
     }

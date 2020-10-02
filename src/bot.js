@@ -43,4 +43,4 @@ for (const func of funcs) {
   bot.functions.push(module);
   module.run(bot);
 }
-bot.login(config.BOT_TOKEN);
+bot.login(config.apiToken);
