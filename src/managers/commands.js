@@ -37,6 +37,8 @@ class Commands {
     const commands = fs.readdirSync(path.join(__dirname, '..', 'commands'));
     const files = this.walkSync(commands, path.join(__dirname, '..', 'commands'));
     for (const command of files) {
+      if (/\w?#.+/.test(command)) continue;
+
       const base = path.parse(command).name;
       const category = path.dirname(command).split(path.sep).pop();
 

@@ -23,6 +23,8 @@ bot.blacklist = new Discord.Collection();
 const models = fs.readdirSync(path.join(__dirname, 'models'));
 for (const model of models) {
   const name = model.split('.')[0];
+  if (/\w?#.+/.test(name)) continue;
+
   const module = require(path.join(__dirname, 'models', name));
   mongoose.model(name, module.schema);
 }
@@ -33,8 +35,11 @@ bot.db = mongoose;
 const events = fs.readdirSync(path.join(__dirname, 'events'));
 for (const event of events) {
   const name = event.split('.')[0];
+  if (/\w?#.+/.test(name)) continue;
+
   const module = require(path.join(__dirname, 'events', name));
   if (module.disable) continue;
+
   bot.events.push(module);
   bot.on(name, (...args) => module.run(bot, ...args));
 }
@@ -42,8 +47,11 @@ for (const event of events) {
 const funcs = fs.readdirSync(path.join(__dirname, 'functions'));
 for (const func of funcs) {
   const name = func.split('.')[0];
+  if (/\w?#.+/.test(name)) continue;
+
   const module = require(path.join(__dirname, 'functions', name));
   if (module.info.env && process.env[`enable_${module.info.env}`] !== 'true') continue;
+
   bot.functions.push(module);
   module.run(bot);
 }
