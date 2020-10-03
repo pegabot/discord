@@ -97,7 +97,13 @@ class Commands {
 
     const command = this.cmds.get(base);
     if (command) {
-      if (command.info.owner && this.bot.config.ownerId !== msg.author.id) {
+      if (
+        command.info.owner &&
+        !this.bot.config.ownerIds
+          .split(",")
+          .map((elt) => elt.trim())
+          .includes(msg.author.id)
+      ) {
         return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
