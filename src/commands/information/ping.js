@@ -1,7 +1,11 @@
-const { stripIndents } = require("../../utils");
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
+const { stripIndents } = require('../../utils');
 
 exports.run = async (bot, msg) => {
-  const m = await msg.channel.send("Pong!");
+  const m = await msg.channel.send('Pong!');
   m.edit(
     stripIndents(
       `Pong!
@@ -12,7 +16,7 @@ exports.run = async (bot, msg) => {
 };
 
 exports.info = {
-  name: "ping",
-  usage: "ping",
-  help: "Reaktionszeit des Bots",
+  name: 'ping',
+  usage: 'ping',
+  help: 'Reaktionszeit des Bots',
 };

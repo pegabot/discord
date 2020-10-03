@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
 exports.run = (bot) => {
   bot.commands.loadCommands();
 
@@ -11,5 +15,5 @@ exports.run = (bot) => {
         ${bot.functions.length} Function(s) aktiviert ⚙️`,
   );
 
-  bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
+  bot.user.setActivity('nach dem Rechten 👀', { type: 'WATCHING' });
 };

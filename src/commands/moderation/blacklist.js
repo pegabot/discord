@@ -1,19 +1,23 @@
-const { MessageEmbed } = require("discord.js");
-const { resolveUser, BotExecption } = require("../../utils");
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
+const { MessageEmbed } = require('discord.js');
+const { resolveUser, BotExecption } = require('../../utils');
 
 exports.run = (bot, msg, args) => {
   if (args.length === 0) {
     const list = bot.blacklist
       .keyArray()
       .map((user) => `- ${bot.blacklist.get(user)} (${user})`)
-      .join("\n");
+      .join('\n');
     const embed = new MessageEmbed()
-      .setTitle("Die Blacklist")
-      .setDescription("Eine Liste mit Benutzer, die von der Verwendung dieses Bots ausgeschlossen sind.")
-      .addField("Liste", list.length !== 0 ? list : "Aktuell befinden sich keine Benutzer auf der Blacklist.");
+      .setTitle('Die Blacklist')
+      .setDescription('Eine Liste mit Benutzer, die von der Verwendung dieses Bots ausgeschlossen sind.')
+      .addField('Liste', list.length !== 0 ? list : 'Aktuell befinden sich keine Benutzer auf der Blacklist.');
     msg.channel.send(embed);
-  } else if (args[0] === "add") {
-    if (!args[1]) throw new BotExecption("Bitte übergebe einen Benutzer, der zur Blacklist hinzugefügt werden soll.");
+  } else if (args[0] === 'add') {
+    if (!args[1]) throw new BotExecption('Bitte übergebe einen Benutzer, der zur Blacklist hinzugefügt werden soll.');
 
     const user = resolveUser(msg, args[1]);
     if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht auf die Blacklist setzen!`);
@@ -24,8 +28,8 @@ exports.run = (bot, msg, args) => {
     } else {
       throw new BotExecption(`Der Benutzer ${args[1]} wurde nicht gefunden.`);
     }
-  } else if (args[0] === "remove") {
-    if (!args[1]) throw new BotExecption("Bitte übergebe einen Benutzer, der von der Blacklist entfernt werden soll.");
+  } else if (args[0] === 'remove') {
+    if (!args[1]) throw new BotExecption('Bitte übergebe einen Benutzer, der von der Blacklist entfernt werden soll.');
 
     const user = resolveUser(msg, args[1]);
     if (user) {
@@ -37,13 +41,13 @@ exports.run = (bot, msg, args) => {
       }
     }
   } else {
-    throw new BotExecption("Bitte übergebe einen validen Subcommand.");
+    throw new BotExecption('Bitte übergebe einen validen Subcommand.');
   }
 };
 
 exports.info = {
-  name: "blacklist",
-  usage: ["blacklist", "blacklist add <user>", "blacklist remove <user>"],
-  help: "Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.",
+  name: 'blacklist',
+  usage: ['blacklist', 'blacklist add <user>', 'blacklist remove <user>'],
+  help: 'Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.',
   owner: true,
 };

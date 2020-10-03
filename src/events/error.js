@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
 exports.run = (bot, error) => {
   const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: ${error}`);
 

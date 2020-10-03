@@ -1,4 +1,8 @@
-const { stripIndents } = require("../utils");
+/*
+ * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ */
+
+const { stripIndents } = require('../utils');
 
 exports.run = (bot, member) => {
   bot.channels.resolve(bot.config.adminChannel).send(stripIndents(`${member} hat gerade den Server betreten!`));
