@@ -16,7 +16,6 @@ exports.run = async (bot, msg, args) => {
     .filter((elt) => elt !== "");
 
   if (text.length < 1) text = ["miau"];
-
   fetch(`https://cataas.com/cat/says/${querystring.escape(text.join(" "))}?${new Date().getTime()}&size=50&color=white&type=large`)
     .then((res) => res.buffer())
     .then((buffer) => {
@@ -27,5 +26,5 @@ exports.run = async (bot, msg, args) => {
 exports.info = {
   name: "miau",
   usage: ["miau", "miau <text>"],
-  help: "Liefert ein zufälliges Katzen Bild zurück.",
+  help: "Liefert ein zufälliges Katzenbild zurück.",
 };
