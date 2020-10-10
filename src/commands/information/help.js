@@ -24,6 +24,7 @@ exports.run = (bot, msg, args) => {
         }
         return false;
       })
+      .map((cmd) => (bot.commands.get(cmd).info.disabled ? `${cmd} (deaktiviert)` : cmd))
       .map((cmd) => `\`${cmd}\``)
       .join(', ');
     const embed = new MessageEmbed().setTitle('Hilfe').addField('Verfügbare Commands', cmdsString, true).setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
@@ -50,7 +51,11 @@ exports.run = (bot, msg, args) => {
       usage = bot.config.prefix + usage;
     }
 
-    const embed = new MessageEmbed().setTitle(`Hilfe für **${bot.config.prefix}${info.name}**`).addField('Verwendung(en)', usage, true).addField('Kategorie', info.category, true).setDescription(info.help);
+    const embed = new MessageEmbed()
+      .setTitle(`Hilfe für **${bot.config.prefix}${info.name} ${info.disabled ? ' (deaktiviert)' : ''}**`)
+      .addField('Verwendung(en)', usage, true)
+      .addField('Kategorie', info.category, true)
+      .setDescription(info.help);
 
     msg.channel.send(embed);
   }
