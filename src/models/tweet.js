@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { Schema } = require("mongoose");
+const { Schema } = require('mongoose');
 
 const TweetSchema = new Schema({
   created: Date,
@@ -12,6 +12,6 @@ const TweetSchema = new Schema({
   retweet: Boolean,
 });
 
-TweetSchema.set("versionKey", false);
+TweetSchema.set('versionKey', false);
 
 exports.schema = TweetSchema;
