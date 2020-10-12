@@ -15,5 +15,5 @@ exports.run = (bot) => {
 
   bot.logger.info(message);
   bot.channels.resolve(bot.config.adminChannel).send(message);
-  bot.user.setActivity('nach dem Rechten 👀', { type: 'WATCHING' });
+  bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
 };

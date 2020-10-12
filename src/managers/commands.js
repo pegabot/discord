@@ -2,10 +2,10 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const fs = require('fs');
-const path = require('path');
-const { Collection, MessageEmbed } = require('discord.js');
-const { BotExecption } = require('../utils.js');
+const fs = require("fs");
+const path = require("path");
+const { Collection, MessageEmbed } = require("discord.js");
+const { BotExecption } = require("../utils.js");
 
 class Commands {
   constructor(bot) {
@@ -34,8 +34,8 @@ class Commands {
   }
 
   loadCommands() {
-    const commands = fs.readdirSync(path.join(__dirname, '..', 'commands'));
-    const files = this.walkSync(commands, path.join(__dirname, '..', 'commands'));
+    const commands = fs.readdirSync(path.join(__dirname, "..", "commands"));
+    const files = this.walkSync(commands, path.join(__dirname, "..", "commands"));
     for (const command of files) {
       const base = path.parse(command).name;
       const category = path.dirname(command).split(path.sep).pop();
@@ -43,7 +43,7 @@ class Commands {
       const cmd = require(command);
       if (!cmd.info) continue;
       cmd.info.category = category[0].toUpperCase() + category.slice(1);
-      cmd.path = path.join('.', category, base);
+      cmd.path = path.join(".", category, base);
 
       this.loadCommand(base, cmd);
     }
@@ -56,7 +56,7 @@ class Commands {
         const dir = fs.readdirSync(absolutePath);
         this.walkSync(dir, absolutePath, fileList);
       } else {
-        if (!absolutePath.includes('.js')) continue;
+        if (!absolutePath.includes(".js")) continue;
         fileList.push(path.relative(__dirname, absolutePath));
       }
     }
@@ -65,8 +65,8 @@ class Commands {
 
   checkCommand(cmd, name) {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
-    if (!cmd.hasOwnProperty('info')) return `Der Command ${name} hat kein Info Objekt.`;
-    if (!cmd.info.hasOwnProperty('help') || !cmd.info.hasOwnProperty('usage')) {
+    if (!cmd.hasOwnProperty("info")) return `Der Command ${name} hat kein Info Objekt.`;
+    if (!cmd.info.hasOwnProperty("help") || !cmd.info.hasOwnProperty("usage")) {
       return `Der Command ${name} muss einen help/usage Eintrag in seinem Info Objekt besitzen.`;
     }
     return null;
@@ -92,11 +92,11 @@ class Commands {
       return null;
     }
 
-    const args = msg.content.slice(this.bot.config.prefix.length).trim().split(' ');
+    const args = msg.content.slice(this.bot.config.prefix.length).trim().split(" ");
     const base = args.shift().toLowerCase();
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
 
-    if (!base) return msg.channel.send(':x: du hast kein Command mit übergeben!');
+    if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
     if (this.bot.blacklist.has(msg.author.id)) return null;
 
     const command = this.cmds.get(base);
@@ -104,23 +104,23 @@ class Commands {
       if (
         command.info.owner &&
         !this.bot.config.ownerIds
-          .split(',')
+          .split(",")
           .map((elt) => elt.trim())
           .includes(msg.author.id)
       ) {
-        return msg.channel.send(':x: Sorry, nur der Besitzer kann diesen Command ausführen.');
+        return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
-      if (command.info.disabled) return msg.channel.send(':x: Dieser Command wurde vorübergehend deaktiviert.');
+      if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
       const { permissions } = command.info;
       const { roles } = command.info;
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
-        return msg.channel.send(':x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.');
+        return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
       if (roles) {
         const roleCheck = roles.some((e) => msg.member.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
-        if (!roleCheck) return msg.channel.send(':x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.');
+        if (!roleCheck) return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
 
       try {
@@ -131,7 +131,7 @@ class Commands {
         } else {
           const embed = new MessageEmbed()
             .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
-            .addField('Fehlermeldung', e.message ? e.message : 'Es ist keine Fehlermeldung vorhanden!');
+            .addField("Fehlermeldung", e.message ? e.message : "Es ist keine Fehlermeldung vorhanden!");
           await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }

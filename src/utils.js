@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-exports.stripIndents = (string) => string.replace(/^[ \\t]+/gm, '');
+exports.stripIndents = (string) => string.replace(/^[ \\t]+/gm, "");
 
 exports.resolveUser = (msg, username) => {
   const memberCache = msg.guild.members.cache;
@@ -29,7 +29,7 @@ exports.resolveUser = (msg, username) => {
 
 exports.BotExecption = class {
   constructor(message) {
-    this.name = 'BotExecption';
+    this.name = "BotExecption";
     this.message = message;
   }
 };

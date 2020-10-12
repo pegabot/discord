@@ -7,8 +7,8 @@ exports.run = () => {
 };
 
 exports.info = {
-  name: 'restart',
-  usage: 'restart',
-  help: 'Neustart des Bots',
+  name: "restart",
+  usage: "restart",
+  help: "Neustart des Bots",
   owner: true,
 };

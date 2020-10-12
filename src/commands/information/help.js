@@ -2,8 +2,8 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { MessageEmbed } = require('discord.js');
-const { BotExecption } = require('../../utils');
+const { MessageEmbed } = require("discord.js");
+const { BotExecption } = require("../../utils");
 
 exports.run = (bot, msg, args) => {
   if (args.length === 0) {
@@ -26,8 +26,8 @@ exports.run = (bot, msg, args) => {
       })
       .map((cmd) => (bot.commands.get(cmd).info.disabled ? `${cmd} (deaktiviert)` : cmd))
       .map((cmd) => `\`${cmd}\``)
-      .join(', ');
-    const embed = new MessageEmbed().setTitle('Hilfe').addField('Verfügbare Commands', cmdsString, true).setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
+      .join(", ");
+    const embed = new MessageEmbed().setTitle("Hilfe").addField("Verfügbare Commands", cmdsString, true).setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
 
     msg.channel.send(embed);
   } else if (args.length > 0) {
@@ -37,24 +37,24 @@ exports.run = (bot, msg, args) => {
     const { permissions } = info;
     const { roles } = info;
     if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
-      return msg.channel.send('Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.');
+      return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
     }
     if (roles) {
       const roleCheck = roles.some((e) => msg.member.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
-      if (!roleCheck) return msg.channel.send('Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.');
+      if (!roleCheck) return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
     }
 
     let { usage } = info;
     if (Array.isArray(info.usage)) {
-      usage = info.usage.map((el) => bot.config.prefix + el).join('\n');
+      usage = info.usage.map((el) => bot.config.prefix + el).join("\n");
     } else {
       usage = bot.config.prefix + usage;
     }
 
     const embed = new MessageEmbed()
-      .setTitle(`Hilfe für **${bot.config.prefix}${info.name} ${info.disabled ? ' (deaktiviert)' : ''}**`)
-      .addField('Verwendung(en)', usage, true)
-      .addField('Kategorie', info.category, true)
+      .setTitle(`Hilfe für **${bot.config.prefix}${info.name} ${info.disabled ? " (deaktiviert)" : ""}**`)
+      .addField("Verwendung(en)", usage, true)
+      .addField("Kategorie", info.category, true)
       .setDescription(info.help);
 
     msg.channel.send(embed);
@@ -62,7 +62,7 @@ exports.run = (bot, msg, args) => {
 };
 
 exports.info = {
-  name: 'help',
-  usage: ['help', 'help <command>'],
-  help: 'Gibt alle verfügbaren Command oder Informationen zu einem spezifischen Command zurück.',
+  name: "help",
+  usage: ["help", "help <command>"],
+  help: "Gibt alle verfügbaren Command oder Informationen zu einem spezifischen Command zurück.",
 };

@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const Twit = require('twit');
+const Twit = require("twit");
 
 exports.run = async (bot) => {
   const twitter = new Twit({
@@ -13,9 +13,9 @@ exports.run = async (bot) => {
   });
 
   setInterval(async () => {
-    const TweetModel = bot.db.model('tweet');
+    const TweetModel = bot.db.model("tweet");
 
-    const response = await twitter.get('search/tweets', { q: 'from:pegasusspiele' });
+    const response = await twitter.get("search/tweets", { q: "from:pegasusspiele" });
     for (const tweet of response.data.statuses.filter((elt) => elt.retweeted_status === undefined && elt.in_reply_to_status_id === null).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))) {
       const Tweet = new TweetModel();
       Tweet.id = tweet.id_str;
@@ -35,6 +35,6 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: 'Lade Tweets',
-  env: 'twitter',
+  name: "Lade Tweets",
+  env: "twitter",
 };
