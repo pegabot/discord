@@ -12,4 +12,5 @@ exports.info = {
   usage: "restart",
   help: "Neustart des Bots",
   owner: true,
+  disabled: true
 };
