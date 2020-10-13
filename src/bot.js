@@ -53,6 +53,13 @@ for (const func of funcs) {
   if (module.info.env && process.env[`enable_${module.info.env}`] !== "true") continue;
 
   bot.functions.push(module);
-  module.run(bot);
+  if (module.setup) module.setup(bot);
+  if (module.info.interval) {
+    setInterval(() => {
+      module.run(bot);
+    }, module.info.interval);
+  } else {
+    module.run(bot);
+  }
 }
 bot.login(config.apiToken);
