@@ -94,6 +94,16 @@ class Commands {
 
     const args = msg.content.slice(this.bot.config.prefix.length).trim().split(" ");
     const base = args.shift().toLowerCase();
+
+    if (
+      msg.mentions.users
+        .array()
+        .map((elt) => elt.id)
+        .includes(this.bot.user.id)
+    ) {
+      msg.react("🤗");
+    }
+
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
 
     if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
