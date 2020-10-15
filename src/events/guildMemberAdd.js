@@ -2,10 +2,54 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
+const { MessageEmbed } = require("discord.js");
+const formatDistanceToNow = require("date-fns/formatDistanceToNow");
+const { de } = require("date-fns/locale");
 const { stripIndents } = require("../utils");
 
 exports.run = (bot, member) => {
-  bot.channels.resolve(bot.config.welcomeChannel).send(stripIndents(`${member} hat gerade den Server betreten!`));
+  const status = {
+    online: `Benutzer ist online!`,
+    idle: `Benutzer macht Pause, wahrscheinlich trinkt er gerade eine Tasse Tee`,
+    offline: `Benutzer ist offline, wahrscheinlich am schlafen`,
+    dnd: `Dieser Benutzer möchte gerade nicht gestört werden`,
+  };
+  const game = member.presence.game ? member.presence.game.name : "Spielt gerade kein Spiel";
+  const createdAt = formatDistanceToNow(member.user.createdAt, {
+    addSuffix: true,
+    locale: de,
+  });
+
+  const joinedAt = formatDistanceToNow(member.joinedAt, { addSuffix: true });
+  let roles = "Dieser Benutzer verfügt über keine speziellen Rollen";
+  let size = 0;
+  if (member.roles.cache.size !== 1) {
+    roles = member.roles.cache.filter((role) => role.name !== "@everyone");
+    ({ size } = roles);
+    if (roles.size !== 1) {
+      roles = `${roles
+        .array()
+        .slice(0, -1)
+        .map((r) => r.name)
+        .join(", ")} und ${roles.last().name}`;
+    } else {
+      roles = roles.first().name;
+    }
+  }
+
+  const embed = new MessageEmbed()
+    .setAuthor(member.user.tag, member.user.displayAvatarURL())
+    .setThumbnail(member.user.displayAvatarURL())
+    .setTitle(`${member.displayName} hat gerade den Server betreten!`)
+    .setDescription(status[member.presence.status])
+    .addField("Benutzername", member.user.username, true)
+    .addField(`Spielt...`, game, true)
+    .addField("Account erstellt", createdAt, true)
+    .addField("Dem Server beigetreten", joinedAt, true)
+    .addField("ID", member.id, true)
+    .addField("Bot", member.user.bot ? "Bleep bloop, ich bin ein Bot!" : "Dieser Benutzer ist kein Bot!", true)
+    .addField(`Rollen [${size}]`, `\`${roles}\``);
+  bot.channels.resolve(bot.config.welcomeChannel).send(embed);
 
   const lockTime = 1606690800000; // Montag, 30. November 2020 00:00:00 GMT+01:00 https://www.epochconverter.com
   const localTime = new Date().getTime();
