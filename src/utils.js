@@ -33,3 +33,12 @@ exports.BotExecption = class {
     this.message = message;
   }
 };
+
+//Error message will be sent via direct message to the author
+exports.DmExecption = class {
+  constructor(message, user) {
+    this.name = "DmExecption";
+    this.message = message;
+    this.user = user;
+  }
+};
