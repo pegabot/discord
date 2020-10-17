@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon .",
     "start": "node .",
-    "server": "node server/server.js"
+    "server": "node server/server.js",
+    "createQuiz": "node tools/createQuiz.js",
+    "createVouchers": "node tools/createVouchers.js"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
