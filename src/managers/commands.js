@@ -5,7 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Collection, MessageEmbed } = require("discord.js");
-const { BotExecption } = require("../utils.js");
+const { BotExecption, DmExecption } = require("../utils.js");
 
 class Commands {
   constructor(bot) {
@@ -123,6 +123,18 @@ class Commands {
 
       if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
+      if (command.info.unlock && process.env.NODE_ENV === "production") {
+        const localTime = new Date().getTime();
+
+        if (localTime < command.info.unlock) return msg.channel.send(":x: Dieser Command wurde noch nicht freigeschaltet.");
+      }
+
+      if (command.info.lock && process.env.NODE_ENV === "production") {
+        const localTime = new Date().getTime();
+
+        if (localTime > command.info.lock) return msg.channel.send(":x: Dieser Command ist nicht mehr verfügbar.");
+      }
+
       const { permissions } = command.info;
       const { roles } = command.info;
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
@@ -138,6 +150,8 @@ class Commands {
       } catch (e) {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
+        } else if (e instanceof DmExecption) {
+          this.bot.users.cache.get(e.user.id).send(`:x: ${e.message}`);
         } else {
           const embed = new MessageEmbed()
             .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
