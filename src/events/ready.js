@@ -14,6 +14,6 @@ exports.run = (bot) => {
       ${bot.functions.length} Function(s) aktiviert ⚙️`;
 
   bot.logger.info(message);
-  bot.channels.resolve(bot.config.adminChannel).send(message);
+  if (process.env.NODE_ENV === "production") bot.channels.resolve(bot.config.adminChannel).send(message);
   bot.user.setActivity("nach dem Rechten 👀", { type: "WATCHING" });
 };
