@@ -1,6 +1,6 @@
 # Pegabot
 
- Ein Discord Bot erstellt von @pegasusspiele, der für die [CONSpiracy](https://pegasus.de/conspiracy) verwendet wird.
+ Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://pegasus.de/conspiracy) verwendet wird.
 
  ***Die Sprache dieses Bots ist Deutsch***
 
