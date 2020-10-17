@@ -6,7 +6,7 @@ const { BotExecption, DmExecption } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
-const AnzahlFragen = 5;
+const AnzahlFragen = 3;
 
 exports.run = async (bot, msg) => {
   const SessionModel = bot.db.model("session");

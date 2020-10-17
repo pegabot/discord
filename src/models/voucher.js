@@ -7,6 +7,7 @@ const { Schema } = require("mongoose");
 const VoucherSchema = new Schema({
   code: String,
   used: { type: Boolean, default: false },
+  _session: { type: Schema.ObjectId, ref: "session" },
 });
 
 exports.schema = VoucherSchema;

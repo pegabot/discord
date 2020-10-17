@@ -19,9 +19,11 @@ exports.run = async (bot) => {
     bot.users.cache.get(session.userId).send(`Hier ist dein Gutscheincode: ${voucher.code}`);
 
     voucher.used = true;
+    voucher._session = session._id;
+    await voucher.save();
+
     session.voucher = voucher;
     session.shipped = true;
-    await voucher.save();
     await session.save();
   }
 };
