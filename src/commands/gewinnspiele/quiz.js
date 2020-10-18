@@ -68,12 +68,11 @@ exports.run = async (bot, msg) => {
   for (const [index, frage] of newSession.fragen.entries()) {
     const quizEmbed = new MessageEmbed()
       .setColor("#0099ff")
-      // .setTitle(`${QuizName} - das Quiz!`)
       .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
       .addField("🇦 - " + frage.antworten[0], "-----")
       .addField("🇧 - " + frage.antworten[1], "-----")
       .addField("🇨 - " + frage.antworten[2], "-----")
-      // .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
+      .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
       .setTimestamp();
 
     const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
