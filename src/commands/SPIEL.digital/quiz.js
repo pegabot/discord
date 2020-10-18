@@ -72,7 +72,7 @@ exports.run = async (bot, msg) => {
         .addField("🇦 - " + frage.antworten[0], "-----")
         .addField("🇧 - " + frage.antworten[1], "-----")
         .addField("🇨 - " + frage.antworten[2], "-----")
-        .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
+        // .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
         .setTimestamp();
 
       const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
