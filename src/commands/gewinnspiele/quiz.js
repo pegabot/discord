@@ -60,7 +60,7 @@ exports.run = async (bot, msg) => {
         .setColor("#FF9033")
         .setTitle(`${QuizName} - das Quiz!`)
         .setDescription(
-          "Unten findest du nun drei Fragen. Klicke jeweils auf A, B oder C unterhalb der jeweiligen Frage. \n\n Tipps zur richtigen Beantwortung findest du auf unserem Messestand unter https://SPIEL.digital \n\n Viel Erfolg 🍀",
+          "Unten findest du nun deine Fragen. Klicke jeweils auf A, B oder C unterhalb der jeweiligen Frage. \n\n Tipps zur richtigen Beantwortung findest du auf unserem Messestand unter https://SPIEL.digital \n\n Viel Erfolg 🍀",
         )
         .setTimestamp(),
     );
