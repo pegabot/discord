@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { BotExecption, DmExecption } = require("../../utils");
+const { DmExecption } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
@@ -10,46 +10,48 @@ const AnzahlFragen = 3;
 
 exports.run = async (bot, msg) => {
   const SessionModel = bot.db.model("session");
+  const VoucherModel = bot.db.model("voucher");
   const QuizModel = bot.db.model("quiz");
 
-  const session = new SessionModel();
-  session.userId = msg.author.id;
+  const newSession = new SessionModel();
+  newSession.userId = msg.author.id;
+  newSession.status = "in progress";
 
-  const closedSession = await SessionModel.find({ userId: session.userId, status: "closed" });
+  const closedSession = await SessionModel.find({ userId: newSession.userId, status: "closed" });
   if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-    throw new BotExecption("Du hast bereits schon eine Partie gespielt!");
+    throw new DmExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
   }
 
-  const activeSession = await SessionModel.find({ userId: session.userId, status: "in progress" });
+  const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
   if (activeSession.length != 0) {
-    throw new BotExecption("Du spielst schon eine Partie!");
+    throw new DmExecption("Du spielst schon eine Partie!", msg.author);
   }
 
-  const VoucherModel = bot.db.model("voucher");
-  const vouchers = await VoucherModel.find({ used: false });
+  const quizzes = await QuizModel.find({ name: QuizName });
+  if (quizzes.length == 0) {
+    newSession.status = "error";
+    await newSession.save();
+    throw new DmExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
+  }
 
+  newSession.quiz = quizzes[0];
+  newSession.fragen = newSession.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
+
+  const vouchers = await VoucherModel.find({ used: false });
   if (vouchers.length == 0) {
-    session.status = "error";
-    await session.save();
+    newSession.status = "error";
+    await newSession.save();
     throw new DmExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
   }
 
-  session.status = "in progress";
-
-  const quizzes = await QuizModel.find({ name: QuizName });
-  if (quizzes.length == 0) throw new DmExecption("Ein Fehler ist aufgetreten...", msg.author);
-
-  session.quiz = quizzes[0];
-  session.fragen = session.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
-
-  await session.save();
+  await newSession.save();
 
   const filter = (reaction, user) => (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
   let winning = true;
   let counter = 0;
 
-  for (const [index, frage] of session.fragen.entries()) {
+  for (const [index, frage] of newSession.fragen.entries()) {
     const quizEmbed = new MessageEmbed()
       .setColor("#0099ff")
       .setAuthor(msg.author.username)
@@ -78,14 +80,14 @@ exports.run = async (bot, msg) => {
         counter++;
         if (counter === AnzahlFragen) {
           if (winning) {
-            session.status = "closed";
-            session.won = true;
-            bot.users.cache.get(session.userId).send("Du hast alle Fragen richtig beantwortet und gewonnen. Ein Gutscheincode wird dir gleich zugesandt!");
+            newSession.status = "closed";
+            newSession.won = true;
+            bot.users.cache.get(newSession.userId).send("Du hast alle Fragen richtig beantwortet und gewonnen. Ein Gutscheincode wird dir gleich zugesandt!");
           } else {
-            session.status = "closed";
-            bot.users.cache.get(session.userId).send(`Du hast leider nicht gewonnen!`);
+            newSession.status = "closed";
+            bot.users.cache.get(newSession.userId).send(`Du hast leider nicht gewonnen!`);
           }
-          await session.save();
+          await newSession.save();
         }
       });
   }
