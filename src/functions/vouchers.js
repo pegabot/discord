@@ -19,7 +19,7 @@ exports.run = async (bot) => {
     bot.users.cache
       .get(session.userId)
       .send(
-        `Dein Gutschein-Code für unseren Webshop https://pegasusshop.de lautet ***${voucher.code}***. Diesen kannst du im Warenkorb einlösen und erhältst dort einen Rabatt von 10% auf lieferbaren und nicht preisgebunden Artikel.\n\nDein Pegabot 🤖`,
+        `Dein Gutschein-Code für unseren Webshop https://pegasusshop.de lautet ***${voucher.code}***. Diesen kannst du im Warenkorb einlösen und erhältst dort einen Rabatt von 10% auf lieferbare und nicht preisgebundene Artikel.\n\nDein Pegabot 🤖`,
       );
 
     voucher.used = true;
