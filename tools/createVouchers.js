@@ -19,18 +19,20 @@ const filename = "vouchers.json";
   await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
 
-  // for (let i = 0; i < 200; i++) {
-  //   console.log(`${i + 1} of 200`);
-  //   const ModelVoucher = new VoucherModel();
-  //   ModelVoucher.code = "invalid-" + Math.random().toString(36).substring(7);
-  //   await ModelVoucher.save();
-  // }
+  const existingVouchers = await VoucherModel.find({});
+  const existingCodes = existingVouchers.map((elt) => elt.code);
 
   for (const [index, voucher] of vouchers.entries()) {
     console.log(`${index + 1} of ${vouchers.length}`);
-    const ModelVoucher = new VoucherModel();
-    ModelVoucher.code = voucher.code;
-    await ModelVoucher.save();
+    const newVoucher = new VoucherModel();
+    newVoucher.code = voucher.code;
+
+    if (existingCodes.includes(newVoucher.code)) {
+      console.log("Voucher exists - continuing!");
+      continue;
+    }
+
+    await newVoucher.save();
   }
   process.exit(0);
 })();
