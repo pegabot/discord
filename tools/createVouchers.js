@@ -19,6 +19,13 @@ const filename = "vouchers.json";
   await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
 
+  // for (let i = 0; i < 200; i++) {
+  //   console.log(`${i + 1} of 200`);
+  //   const ModelVoucher = new VoucherModel();
+  //   ModelVoucher.code = "invalid-" + Math.random().toString(36).substring(7);
+  //   await ModelVoucher.save();
+  // }
+
   for (const [index, voucher] of vouchers.entries()) {
     console.log(`${index + 1} of ${vouchers.length}`);
     const ModelVoucher = new VoucherModel();

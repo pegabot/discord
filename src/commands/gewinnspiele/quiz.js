@@ -16,7 +16,7 @@ exports.run = async (bot, msg) => {
   session.userId = msg.author.id;
 
   const closedSession = await SessionModel.find({ userId: session.userId, status: "closed" });
-  if (closedSession.length != 0) {
+  if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
     throw new BotExecption("Du hast bereits schon eine Partie gespielt!");
   }
 
@@ -47,6 +47,8 @@ exports.run = async (bot, msg) => {
   const filter = (reaction, user) => (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
   let winning = true;
+  let counter = 0;
+
   for (const [index, frage] of session.fragen.entries()) {
     const quizEmbed = new MessageEmbed()
       .setColor("#0099ff")
@@ -56,7 +58,7 @@ exports.run = async (bot, msg) => {
       .addField("🇦", frage.antworten[0])
       .addField("🇧", frage.antworten[1])
       .addField("🇨", frage.antworten[2])
-      .addField(["🇦", "🇧", "🇨"][frage.richtig])
+      .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
       .setTimestamp();
 
     const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
@@ -73,7 +75,8 @@ exports.run = async (bot, msg) => {
 
         if (collected.array()[0].emoji.name !== QuizAwnser) winning = false;
 
-        if (index + 1 === AnzahlFragen) {
+        counter++;
+        if (counter === AnzahlFragen) {
           if (winning) {
             session.status = "closed";
             session.won = true;
@@ -92,6 +95,5 @@ exports.info = {
   name: "quiz",
   usage: "quiz",
   help: "Das Quiz zur SPIEL.digital.",
-  owner: true,
   unlock: 1603335600000, // Donnerstag, 22. Oktober 2020 05:00:00 GMT+02:00 https://www.epochconverter.com
 };
