@@ -123,13 +123,13 @@ class Commands {
 
       if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
-      if (command.info.unlock && process.env.NODE_ENV === "production") {
+      if (command.info.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime < command.info.unlock) return msg.channel.send(":x: Dieser Command wurde noch nicht freigeschaltet.");
       }
 
-      if (command.info.lock && process.env.NODE_ENV === "production") {
+      if (command.info.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime > command.info.lock) return msg.channel.send(":x: Dieser Command ist nicht mehr verfügbar.");
