@@ -13,8 +13,8 @@ exports.run = async (bot) => {
 
   if (vouchers.length === 0) return;
 
-  for (const session of sessions) {
-    const voucher = vouchers[Math.floor(Math.random() * vouchers.length)];
+  for (const [index, session] of sessions.entries()) {
+    const voucher = vouchers[index];
 
     bot.users.cache
       .get(session.userId)
