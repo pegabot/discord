@@ -36,13 +36,13 @@ exports.run = async (bot, msg) => {
 
   session.status = "in progress";
 
-  await session.save();
-
   const quizzes = await QuizModel.find({ name: QuizName });
   if (quizzes.length == 0) throw new DmExecption("Ein Fehler ist aufgetreten...", msg.author);
 
   session.quiz = quizzes[0];
   session.fragen = session.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
+
+  await session.save();
 
   const filter = (reaction, user) => (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
