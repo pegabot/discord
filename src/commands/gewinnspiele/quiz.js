@@ -104,7 +104,7 @@ exports.run = async (bot, msg) => {
             newSession.status = "closed";
             newSession.falscheAntworten = falscheAntworten;
 
-            bot.users.cache.get(newSession.userId).send("Du hast leider nicht gewonnen! 😕");
+            bot.users.cache.get(newSession.userId).send("Schade, dass es nicht geklappt hat 😕");
 
             for (const falscheAntwort of falscheAntworten) {
               bot.users.cache.get(newSession.userId).send(`Du hast leider die Frage ***'${falscheAntwort.frage}'*** falsch beantwortet. Die korrekte Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.`);
