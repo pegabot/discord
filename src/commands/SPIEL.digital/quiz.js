@@ -53,65 +53,70 @@ exports.run = async (bot, msg) => {
 
   let falscheAntworten = [];
 
-  await bot.users.cache
-    .get(msg.author.id)
-    .send(
+  try {
+    await bot.users.cache.get(msg.author.id).send(
       new MessageEmbed()
         .setColor("#FF9033")
         .setTitle(`${QuizName} - das Quiz!`)
         .setDescription(
           "Unten findest du nun deine Fragen. Klicke jeweils auf A, B oder C unterhalb der jeweiligen Frage. \n\n Tipps zur richtigen Beantwortung findest du auf unserem Messestand unter https://SPIEL.digital \n\n Viel Erfolg 🍀",
         )
-        .setTimestamp(),
+        .setTimestamp()
+        .setFooter("SessionId - " + newSession._id),
     );
 
-  for (const [index, frage] of newSession.fragen.entries()) {
-    const quizEmbed = new MessageEmbed()
-      .setColor("#0099ff")
-      .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
-      .addField("🇦 - " + frage.antworten[0], "-----")
-      .addField("🇧 - " + frage.antworten[1], "-----")
-      .addField("🇨 - " + frage.antworten[2], "-----")
-      .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
-      .setTimestamp();
+    for (const [index, frage] of newSession.fragen.entries()) {
+      const quizEmbed = new MessageEmbed()
+        .setColor("#0099ff")
+        .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
+        .addField("🇦 - " + frage.antworten[0], "-----")
+        .addField("🇧 - " + frage.antworten[1], "-----")
+        .addField("🇨 - " + frage.antworten[2], "-----")
+        .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
+        .setTimestamp();
 
-    const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
-    runningQuiz.react("🇦");
-    runningQuiz.react("🇧");
-    runningQuiz.react("🇨");
+      const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
+      runningQuiz.react("🇦");
+      runningQuiz.react("🇧");
+      runningQuiz.react("🇨");
 
-    runningQuiz
-      .awaitReactions(filter, {
-        max: 1,
-      })
-      .then(async (collected) => {
-        const QuizAwnser = ["🇦", "🇧", "🇨"][frage.richtig];
+      runningQuiz
+        .awaitReactions(filter, {
+          max: 1,
+        })
+        .then(async (collected) => {
+          const QuizAwnser = ["🇦", "🇧", "🇨"][frage.richtig];
 
-        if (collected.array()[0].emoji.name !== QuizAwnser) {
-          falscheAntworten.push(frage);
-          winning = false;
-        }
-
-        counter++;
-
-        if (counter === AnzahlFragen) {
-          if (winning) {
-            newSession.status = "closed";
-            newSession.won = true;
-            bot.users.cache.get(newSession.userId).send("Herzlichen Glückwunsch 🎉 – gut gemacht! Einen Moment, dein Gutschein kommt wird generiert und dir hier in Kürze zugestellt.");
-          } else {
-            newSession.status = "closed";
-            newSession.falscheAntworten = falscheAntworten;
-
-            bot.users.cache.get(newSession.userId).send("Schade, dass es nicht geklappt hat 😕");
-
-            for (const falscheAntwort of falscheAntworten) {
-              bot.users.cache.get(newSession.userId).send(`Du hast leider die Frage ***'${falscheAntwort.frage}'*** falsch beantwortet. Die korrekte Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.`);
-            }
+          if (collected.array()[0].emoji.name !== QuizAwnser) {
+            falscheAntworten.push(frage);
+            winning = false;
           }
-          await newSession.save();
-        }
-      });
+
+          counter++;
+
+          if (counter === AnzahlFragen) {
+            if (winning) {
+              newSession.status = "closed";
+              newSession.won = true;
+              bot.users.cache.get(newSession.userId).send("***Herzlichen Glückwunsch 🎉*** – gut gemacht!\nEinen Moment, dein Gutschein-Code wird gerade erstellt und dir hier in Kürze zugestellt.");
+            } else {
+              newSession.status = "closed";
+              newSession.falscheAntworten = falscheAntworten;
+
+              bot.users.cache.get(newSession.userId).send("Schade, dass es nicht geklappt hat 😕");
+
+              for (const falscheAntwort of falscheAntworten) {
+                bot.users.cache.get(newSession.userId).send(`Du hast leider die Frage ***'${falscheAntwort.frage}'*** falsch beantwortet. Die korrekte Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.`);
+              }
+            }
+            await newSession.save();
+          }
+        });
+    }
+  } catch (error) {
+    newSession.status = "error";
+    await newSession.save();
+    throw new DmExecption("Ein Fehler ist aufgetreten... Bite wende dich an einen Administrator!", msg.author);
   }
 };
 
