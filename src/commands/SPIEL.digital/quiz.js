@@ -85,9 +85,14 @@ exports.run = async (bot, msg) => {
           max: 1,
         })
         .then(async (collected) => {
-          const QuizAwnser = ["🇦", "🇧", "🇨"][frage.richtig];
+          const array = ["🇦", "🇧", "🇨"];
+          const correctAnswer = array[frage.richtig];
 
-          if (collected.array()[0].emoji.name !== QuizAwnser) {
+          const answerEmoji = collected.array()[0].emoji.name;
+
+          newSession.fragen[index].eingabe = array.findIndex((elt) => elt === answerEmoji);
+
+          if (answerEmoji !== correctAnswer) {
             falscheAntworten.push(frage);
             winning = false;
           }

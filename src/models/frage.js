@@ -8,6 +8,7 @@ const FrageSchema = new Schema({
   frage: String,
   antworten: [String],
   richtig: Number,
+  eingabe: Number,
 });
 
 exports.schema = FrageSchema;
