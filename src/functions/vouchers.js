@@ -16,7 +16,11 @@ exports.run = async (bot) => {
   for (const session of sessions) {
     const voucher = vouchers[Math.floor(Math.random() * vouchers.length)];
 
-    bot.users.cache.get(session.userId).send(`Hier ist dein Gutscheincode: ${voucher.code}`);
+    bot.users.cache
+      .get(session.userId)
+      .send(
+        `Dein Gutschein-Code für unseren Webshop https://pegasusshop.de lautet ***${voucher.code}***. Diesen kannst du im Warenkorb einlösen und erhältst dort einen Rabatt von 10% auf lieferbaren und nicht preisgebunden Artikel.\n\nDein Pegabot 🤖`,
+      );
 
     voucher.used = true;
     voucher._session = session._id;

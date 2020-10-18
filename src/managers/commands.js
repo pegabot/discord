@@ -123,6 +123,10 @@ class Commands {
 
       if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
+      if (command.info.channelId && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+        if (command.info.channelId !== msg.channel.id) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.info.channelId}>.`);
+      }
+
       if (command.info.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 

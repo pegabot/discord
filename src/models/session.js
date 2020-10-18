@@ -13,6 +13,7 @@ const SessionSchema = new Schema({
   quiz: QuizSchema,
   status: String,
   fragen: [FrageSchema],
+  falscheAntworten: [FrageSchema],
   won: { type: Boolean, default: false },
   shipped: { type: Boolean, default: false },
   voucher: VoucherSchema,

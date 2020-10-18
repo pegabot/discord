@@ -51,15 +51,28 @@ exports.run = async (bot, msg) => {
   let winning = true;
   let counter = 0;
 
+  let falscheAntworten = [];
+
+  await bot.users.cache
+    .get(msg.author.id)
+    .send(
+      new MessageEmbed()
+        .setColor("#FF9033")
+        .setTitle(`${QuizName} - das Quiz!`)
+        .setDescription(
+          "Unten findest du nun drei Fragen. Klicke jeweils auf A, B oder C unterhalb der jeweiligen Frage. \n\n Tipps zur richtigen Beantwortung findest du auf unserem Messestand unter https://SPIEL.digital \n\n Viel Erfolg 🍀",
+        )
+        .setTimestamp(),
+    );
+
   for (const [index, frage] of newSession.fragen.entries()) {
     const quizEmbed = new MessageEmbed()
       .setColor("#0099ff")
-      .setAuthor(msg.author.username)
       .setTitle(`${QuizName} - das Quiz!`)
       .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
-      .addField("🇦", frage.antworten[0])
-      .addField("🇧", frage.antworten[1])
-      .addField("🇨", frage.antworten[2])
+      .addField("🇦 - " + frage.antworten[0], "-----")
+      .addField("🇧 - " + frage.antworten[1], "-----")
+      .addField("🇨 - " + frage.antworten[2], "-----")
       .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
       .setTimestamp();
 
@@ -75,17 +88,27 @@ exports.run = async (bot, msg) => {
       .then(async (collected) => {
         const QuizAwnser = ["🇦", "🇧", "🇨"][frage.richtig];
 
-        if (collected.array()[0].emoji.name !== QuizAwnser) winning = false;
+        if (collected.array()[0].emoji.name !== QuizAwnser) {
+          falscheAntworten.push(frage);
+          winning = false;
+        }
 
         counter++;
+
         if (counter === AnzahlFragen) {
           if (winning) {
             newSession.status = "closed";
             newSession.won = true;
-            bot.users.cache.get(newSession.userId).send("Du hast alle Fragen richtig beantwortet und gewonnen. Ein Gutscheincode wird dir gleich zugesandt!");
+            bot.users.cache.get(newSession.userId).send("Herzlichen Glückwunsch 🎉 – gut gemacht! Einen Moment, dein Gutschein kommt wird generiert und dir hier in Kürze zugestellt.");
           } else {
             newSession.status = "closed";
-            bot.users.cache.get(newSession.userId).send(`Du hast leider nicht gewonnen!`);
+            newSession.falscheAntworten = falscheAntworten;
+
+            bot.users.cache.get(newSession.userId).send("Du hast leider nicht gewonnen! 😕");
+
+            for (const falscheAntwort of falscheAntworten) {
+              bot.users.cache.get(newSession.userId).send(`Du hast leider die Frage ***'${falscheAntwort.frage}'*** falsch beantwortet. Die korrekte Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.`);
+            }
           }
           await newSession.save();
         }
@@ -97,5 +120,7 @@ exports.info = {
   name: "quiz",
   usage: "quiz",
   help: "Das Quiz zur SPIEL.digital.",
-  unlock: 1603335600000, // Donnerstag, 22. Oktober 2020 05:00:00 GMT+02:00 https://www.epochconverter.com
+  unlock: 1603353600000, // Donnerstag, 22. Oktober 2020 10:00:00 GMT+02:00 https://www.epochconverter.com,
+  lock: 1603666740000, // Sonntag, 25. Oktober 2020 23:59:00 GMT+01:00 https://www.epochconverter.com,
+  channelId: "767346892467863572",
 };
