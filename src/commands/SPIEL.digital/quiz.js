@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { DmExecption, stripIndents } = require("../../utils");
+const { DmExecption, DmError, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
@@ -78,8 +78,9 @@ exports.run = async (bot, msg) => {
         .addField("🇦 - " + frage.antworten[0], "-----")
         .addField("🇧 - " + frage.antworten[1], "-----")
         .addField("🇨 - " + frage.antworten[2], "-----")
-        // .addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig])
         .setTimestamp();
+
+      if (process.env.NODE_ENV !== "production") quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
 
       const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
       runningQuiz.react("🇦");
@@ -148,7 +149,7 @@ exports.run = async (bot, msg) => {
   } catch (error) {
     newSession.status = "error";
     await newSession.save();
-    throw new DmExecption("Ein Fehler ist aufgetreten... Bite wende dich an einen Administrator!", msg.author);
+    throw new DmError("Ein Fehler ist aufgetreten... Bite wende dich an einen Administrator!", msg.author, error);
   }
 };
 

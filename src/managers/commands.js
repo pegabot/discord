@@ -5,7 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Collection, MessageEmbed } = require("discord.js");
-const { BotExecption, DmExecption } = require("../utils.js");
+const { BotExecption, DmExecption, DmError } = require("../utils.js");
 
 class Commands {
   constructor(bot) {
@@ -153,13 +153,19 @@ class Commands {
         await command.run(this.bot, msg, args);
       } catch (e) {
         if (e instanceof BotExecption) {
-          await msg.channel.send(`:x: ${e.message}`);
+          await msg.channel.send(`:x: ${e.error}`);
         } else if (e instanceof DmExecption) {
-          this.bot.users.cache.get(e.user.id).send(`:x: ${e.message}`);
+          await this.bot.users.cache.get(e.user.id).send(`:x: ${e.error}`);
+        } else if (e instanceof DmError) {
+          const embed = new MessageEmbed()
+            .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
+            .addField("Fehlermeldung", e.error ? e.error : "Es ist keine Fehlermeldung vorhanden!");
+          await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
+          await this.bot.users.cache.get(e.user.id).send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         } else {
           const embed = new MessageEmbed()
             .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
-            .addField("Fehlermeldung", e.message ? e.message : "Es ist keine Fehlermeldung vorhanden!");
+            .addField("Fehlermeldung", e.error ? e.error : "Es ist keine Fehlermeldung vorhanden!");
           await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }

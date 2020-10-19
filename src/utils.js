@@ -28,17 +28,27 @@ exports.resolveUser = (msg, username) => {
 };
 
 exports.BotExecption = class {
-  constructor(message) {
+  constructor(error) {
     this.name = "BotExecption";
-    this.message = message;
+    this.error = error;
   }
 };
 
 //Error message will be sent via direct message to the author
 exports.DmExecption = class {
-  constructor(message, user) {
+  constructor(message, user, error) {
     this.name = "DmExecption";
     this.message = message;
     this.user = user;
+  }
+};
+
+//Error message will be sent via direct message to the author
+exports.DmError = class {
+  constructor(message, user, error) {
+    this.name = "DmError";
+    this.message = message;
+    this.user = user;
+    this.error = error;
   }
 };
