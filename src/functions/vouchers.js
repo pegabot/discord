@@ -2,6 +2,8 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
+const { stripIndents } = require("../utils");
+
 exports.run = async (bot) => {
   const SessionModel = bot.db.model("session");
 
@@ -16,11 +18,19 @@ exports.run = async (bot) => {
   for (const [index, session] of sessions.entries()) {
     const voucher = vouchers[index];
 
-    bot.users.cache
-      .get(session.userId)
-      .send(
-        `Dein Gutschein-Code für den Pegasusshop https://pegasusshop.de lautet ***${voucher.code}***. Diesen kannst du im Warenkorb einlösen und erhältst dort einen Rabatt von ***10%*** auf lieferbare und nicht preisgebundene Artikel.\n\nDein Pegabot 🤖`,
-      );
+    bot.users.cache.get(session.userId).send(
+      stripIndents(`
+      Dein Gutscheincode für den Pegasus Shop lautet ***${voucher.code}***. Auf deine nächste Bestellung unter https://pegasusshop.de erhältst du mit diesem Gutscheincode einen Rabatt von ***10%*** auf alle lieferbaren, nicht preisgebundenen Artikel. Löse den Code dazu vor dem Absenden deiner Bestellung im Warenkorb ein.
+      
+      Wir wünschen dir viel Spaß beim Stöbern! :partying_face:
+
+      Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
+
+      Dein Pegabot :robot:
+
+      Pegasusshop.de - Wir machen Spaß!
+      `),
+    );
 
     voucher.used = true;
     voucher._session = session._id;

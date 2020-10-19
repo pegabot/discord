@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { DmExecption } = require("../../utils");
+const { DmExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
@@ -59,7 +59,13 @@ exports.run = async (bot, msg) => {
         .setColor("#FF9033")
         .setTitle(`${QuizName} - das Quiz!`)
         .setDescription(
-          "Unten findest du nun deine Fragen. Klicke jeweils auf A, B oder C unterhalb der jeweiligen Frage. \n\n Tipps zur richtigen Beantwortung findest du auf unserem Messestand unter https://SPIEL.digital \n\n Viel Erfolg 🍀",
+          stripIndents(`
+          Beantworte uns folgende Fragen rund um Pegasus Spiele richtig und erhalte sofort einen ***10%*** Gutscheincode für den Pegasus Shop.
+
+          Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage. Hinweise auf die richtigen Antworten findest du an unserem Messestand unter https://spiel.digital/
+
+          Viel Erfolg! :four_leaf_clover:
+          `),
         )
         .setTimestamp()
         .setFooter("SessionId - " + newSession._id),
@@ -103,16 +109,37 @@ exports.run = async (bot, msg) => {
             if (winning) {
               newSession.status = "closed";
               newSession.won = true;
-              bot.users.cache.get(newSession.userId).send("***Herzlichen Glückwunsch 🎉*** – gut gemacht!\nEinen Moment, dein Gutschein-Code wird gerade erstellt und dir hier in Kürze zugestellt.");
+              bot.users.cache.get(newSession.userId).send(
+                stripIndents(`
+                Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet! :tada:
+                
+                Dein Gutscheincode wird gerade erstellt. Bitte warte einen Moment  - dein Gutscheincode wird dir hier in wenigen Sekunden angezeigt.\n\n
+                `),
+              );
             } else {
               newSession.status = "closed";
               newSession.falscheAntworten = falscheAntworten;
 
-              bot.users.cache.get(newSession.userId).send("Schade, dass es nicht geklappt hat 😕");
+              let wrongQuestionsText = "";
 
               for (const falscheAntwort of falscheAntworten) {
-                bot.users.cache.get(newSession.userId).send(`Du hast leider die Frage ***'${falscheAntwort.frage}'*** falsch beantwortet. Die korrekte Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.`);
+                wrongQuestionsText += `Deine Antwort auf die Frage ***'${falscheAntwort.frage}'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`;
               }
+
+              bot.users.cache.get(newSession.userId).send(
+                stripIndents(
+                  `
+                Vielen Dank fürs Mitmachen! :clap:
+                
+                Leider waren jedoch eine oder mehrere deiner Antworten nicht korrekt. Auch wenn du dieses Mal kein Glück hattest, sichere dir noch bis 25.10.2020 23:59 Uhr die Chance auf eines von drei Überraschungspaketen im Wert von mindestens ***200€*** indem du an unserer kurzen SPIEL.digital Umfrage teilnimmst: www.surveymonkey.de/r/Y57Z6HH
+
+                Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
+
+                ${wrongQuestionsText}
+                Dein Pegabot :robot:
+                `,
+                ),
+              );
             }
             await newSession.save();
           }
