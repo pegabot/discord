@@ -21,15 +21,15 @@ exports.run = async (bot, msg, args) => {
   const member = resolveUser(msg, session.userId);
 
   const embed = new MessageEmbed()
-    .setColor(session.status === "error" ? "#f80000" : "#FF9033")
+    .setColor(session.status === "error" ? "#f80000" : session.won ? "#7cfc00" : "#FF9033")
     .setAuthor(member.user.tag, member.user.displayAvatarURL())
     .setTitle(`Informationen zur Session ${sessionId}`)
     .addField("Benutzername", member.user.username, true)
     .addField("Zeitstempel", new Date(session.created).toLocaleString("de-DE"), true)
     .addField(`Quizset`, session.quiz.name, true)
     .addField("Status", session.status, true)
-    .addField("Gewonnen?", session.won === true ? "Ja" : "Nein", true)
-    .addField("Ausgeliefert?", session.shipped === true ? "Ja" : "Nein", true);
+    .addField("Gewonnen?", session.won ? "Ja" : "Nein", true)
+    .addField("Ausgeliefert?", session.shipped ? "Ja" : "Nein", true);
 
   msg.channel.send(embed);
 };
