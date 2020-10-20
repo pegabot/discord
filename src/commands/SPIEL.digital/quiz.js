@@ -62,7 +62,7 @@ exports.run = async (bot, msg) => {
           stripIndents(`
           Beantworte uns folgende Fragen rund um Pegasus Spiele richtig und erhalte sofort einen ***10%*** Gutscheincode für den Pegasus Shop.
 
-          Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage. Hinweise auf die richtigen Antworten findest du an unserem Messestand unter https://spiel.digital/
+          Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage. Hinweise auf die richtigen Antworten findest du an unserem Messestand unter https://pegasus.de/spiel.digital.pegasus.stand
 
           Viel Erfolg! :four_leaf_clover:
           `),

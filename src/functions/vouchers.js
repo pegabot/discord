@@ -31,10 +31,8 @@ exports.run = async (bot) => {
 
     bot.users.cache.get(session.userId).send(
       stripIndents(`
-      Dein Gutscheincode für den Pegasus Shop lautet ***${voucher.code}***. Auf deine nächste Bestellung unter https://pegasusshop.de erhältst du mit diesem Gutscheincode einen Rabatt von ***10%*** auf alle lieferbaren, nicht preisgebundenen Artikel. Löse den Code dazu vor dem Absenden deiner Bestellung im Warenkorb ein.
+      Dein Gutscheincode für den Pegasus Shop lautet ***${voucher.code}***. Mit diesem Gutscheincode erhältst du einmalig auf eine Bestellung unter https://pegasusshop.de einen Rabatt von ***10%*** auf alle lieferbaren, nicht preisgebundenen Artikel. Gib den Code dazu vor Absenden deiner Bestellung im Warenkorb ein. Der Code ist bis 25.10.2020 23:59 Uhr gültig.
       
-      Ich wünsche dir viel Spaß beim Stöbern! :partying_face:
-
       Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
 
       Dein Pegabot :robot:
