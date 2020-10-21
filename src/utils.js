@@ -28,9 +28,9 @@ exports.resolveUser = (msg, username) => {
 };
 
 exports.BotExecption = class {
-  constructor(error) {
+  constructor(message) {
     this.name = "BotExecption";
-    this.error = error;
+    this.message = error;
   }
 };
 
