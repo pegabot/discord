@@ -3,7 +3,6 @@
  */
 
 const { BotExecption, resolveUser } = require("../../utils");
-const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, msg, args) => {
   if (args.length < 1) throw new BotExecption("Du musst eine SessionId oder einen Benutzer mit übergeben!");
@@ -19,6 +18,11 @@ exports.run = async (bot, msg, args) => {
 
     sessions = await SessionModel.find({ userId: user.id });
     if (sessions.length < 1) throw new BotExecption(`Es wurde keine Session für den User <@${user.id}> gefunden.`);
+
+    for (const session of sessions) {
+      msg.channel.send(`Lösche Session ${session._id}`);
+      session.remove();
+    }
   } else {
     const sessionId = args[0];
 
@@ -26,29 +30,16 @@ exports.run = async (bot, msg, args) => {
 
     sessions = await SessionModel.find({ _id: sessionId });
     if (sessions.length < 1) throw new BotExecption(`Die Session mit der Id ${sessionId} existiert nicht.`);
-  }
 
-  for (const session of sessions) {
-    const member = resolveUser(msg, session.userId);
-
-    const embed = new MessageEmbed()
-      .setColor(session.status === "error" ? "#f80000" : session.won ? "#7cfc00" : "#FF9033")
-      .setAuthor(member.user.tag, member.user.displayAvatarURL())
-      .setTitle(`Informationen zur Session ${session._id}`)
-      .addField("Benutzername", member.user.username, true)
-      .addField("Zeitstempel", new Date(session.created).toLocaleString("de-DE"), true)
-      .addField(`Quizset`, session.quiz.name, true)
-      .addField("Status", session.status, true)
-      .addField("Gewonnen?", session.won ? "Ja" : "Nein", true)
-      .addField("Ausgeliefert?", session.shipped ? "Ja" : "Nein", true);
-
-    msg.channel.send(embed);
+    const session = sessions[0];
+    msg.channel.send(`Lösche Session ${session._id}`);
+    session.remove();
   }
 };
 
 exports.info = {
-  name: "sessioninfo",
-  usage: "sessioninfo <SessionId/ User>",
-  help: "Informationen zu einer Quiz-Session.",
+  name: "sessionreset",
+  usage: "sessionreset <SessionId/ User>",
+  help: "Löschen von Sessions.",
   admin: true,
 };
