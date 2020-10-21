@@ -153,7 +153,7 @@ class Commands {
         await command.run(this.bot, msg, args);
       } catch (e) {
         if (e instanceof BotExecption) {
-          await msg.channel.send(`:x: ${e.error}`);
+          await msg.channel.send(`:x: ${e.message}`);
         } else if (e instanceof DmExecption) {
           await this.bot.users.cache.get(e.user.id).send(`:x: ${e.message}`);
         } else if (e instanceof DmError) {
