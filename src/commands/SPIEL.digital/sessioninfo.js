@@ -6,6 +6,8 @@ const { BotExecption, resolveUser } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, msg, args) => {
+  if (args.length < 1) throw new BotExecption("Du musst eine SessionId mit übergeben oder einen Benutzer mit übergeben!");
+
   const SessionModel = bot.db.model("session");
 
   let sessions;
@@ -18,8 +20,6 @@ exports.run = async (bot, msg, args) => {
     sessions = await SessionModel.find({ userId: user.id });
     if (sessions.length < 1) throw new BotExecption(`Es wurde keine Session für den User <@${user.id}> gefunden.`);
   } else {
-    if (args.length < 1) throw new BotExecption("Du musst eine SessionId mit übergeben.");
-
     const sessionId = args[0];
 
     if (!bot.db.Types.ObjectId.isValid(sessionId)) throw new BotExecption("Die übergebene SessionId ist nicht korrekt.");
