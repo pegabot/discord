@@ -4,18 +4,6 @@
 
 const { stripIndents } = require("../utils");
 
-exports.setup = async (bot) => {
-  const SessionModel = bot.db.model("session");
-
-  const sessions = await SessionModel.find({ status: "in progress" });
-  if (sessions.length === 0) return;
-
-  sessions.forEach(async (session) => {
-    if (session.created < new Date().getTime() - 72000000) return;
-    await session.remove();
-  });
-};
-
 exports.run = async (bot) => {
   const SessionModel = bot.db.model("session");
 
