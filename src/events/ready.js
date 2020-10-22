@@ -18,5 +18,5 @@ exports.run = (bot) => {
   let membersCount = 0;
   bot.users.cache.map((users) => (users.id ? (membersCount += 1) : false)).pop();
 
-  bot.user.setActivity(`${membersCount} members wohoo 🎉`, { type: "WATCHING" });
+  bot.user.setActivity(`Schaut nach dem Rechten 👀`, { type: "WATCHING" });
 };
