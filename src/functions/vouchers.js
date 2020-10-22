@@ -11,6 +11,7 @@ exports.setup = async (bot) => {
   if (sessions.length === 0) return;
 
   sessions.forEach(async (session) => {
+    if (new Date().getTime() - session.created < 72000000) return;
     await session.remove();
   });
 };

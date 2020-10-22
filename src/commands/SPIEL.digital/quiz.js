@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { DmExecption, DmError, stripIndents } = require("../../utils");
+const { BotExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
@@ -19,19 +19,19 @@ exports.run = async (bot, msg) => {
 
   const closedSession = await SessionModel.find({ userId: newSession.userId, status: "closed" });
   if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-    throw new DmExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
+    throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
   }
 
   const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
   if (activeSession.length != 0) {
-    throw new DmExecption("Du spielst schon eine Partie!", msg.author);
+    throw new BotExecption("Du spielst schon eine Partie!", msg.author);
   }
 
   const quizzes = await QuizModel.find({ name: QuizName });
   if (quizzes.length == 0) {
     newSession.status = "error";
     await newSession.save();
-    throw new DmExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
+    throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
   }
 
   newSession.quiz = quizzes[0];
@@ -41,7 +41,7 @@ exports.run = async (bot, msg) => {
   if (vouchers.length == 0) {
     newSession.status = "error";
     await newSession.save();
-    throw new DmExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
+    throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
   }
 
   await newSession.save();
@@ -54,7 +54,7 @@ exports.run = async (bot, msg) => {
   let falscheAntworten = [];
 
   try {
-    await bot.users.cache.get(msg.author.id).send(
+    await msg.author.send(
       new MessageEmbed()
         .setColor("#FF9033")
         .setTitle(`${QuizName} - das Quiz!`)
@@ -82,7 +82,7 @@ exports.run = async (bot, msg) => {
 
       if (process.env.NODE_ENV !== "production") quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
 
-      const runningQuiz = await bot.users.cache.get(msg.author.id).send(quizEmbed);
+      const runningQuiz = await msg.author.send(quizEmbed);
       runningQuiz.react("🇦");
       runningQuiz.react("🇧");
       runningQuiz.react("🇨");
@@ -110,7 +110,7 @@ exports.run = async (bot, msg) => {
             if (winning) {
               newSession.status = "closed";
               newSession.won = true;
-              bot.users.cache.get(newSession.userId).send(
+              msg.author.send(
                 stripIndents(`
                 Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet! :tada:
                 
@@ -127,7 +127,7 @@ exports.run = async (bot, msg) => {
                 wrongQuestionsText += `Deine Antwort auf die Frage ***'${falscheAntwort.frage}'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`;
               }
 
-              bot.users.cache.get(newSession.userId).send(
+              msg.author.send(
                 stripIndents(
                   `
                 Vielen Dank fürs Mitmachen! :clap:
@@ -149,7 +149,8 @@ exports.run = async (bot, msg) => {
   } catch (error) {
     newSession.status = "error";
     await newSession.save();
-    throw new DmError("Ein Fehler ist aufgetreten... Bite wende dich an einen Administrator!", msg.author, error);
+    if (error.code === 50007) throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
+    throw new Error(error);
   }
 };
 
