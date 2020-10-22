@@ -15,5 +15,8 @@ exports.run = (bot) => {
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.channels.resolve(bot.config.adminChannel).send(message);
-  bot.user.setActivity(`${Array.from(bot.guilds.cache)[0][1].members.cache.size} members wohoo 🎉`, { type: "WATCHING" });
+  let membersCount = 0;
+  bot.users.cache.map((users) => (users.id ? (membersCount += 1) : false)).pop();
+
+  bot.user.setActivity(`${membersCount} members wohoo 🎉`, { type: "WATCHING" });
 };

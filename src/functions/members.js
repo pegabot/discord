@@ -14,5 +14,5 @@ exports.run = async (bot) => {
 exports.info = {
   name: "Members Rich Presence",
   env: "members",
-  interval: 1000,
+  interval: 60000,
 };
