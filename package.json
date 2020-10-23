@@ -10,6 +10,7 @@
     "server": "node server/server.js",
     "createQuiz": "node tools/createQuiz.js",
     "createVouchers": "node tools/createVouchers.js",
+    "pruneVouchers": "node tools/pruneVouchers.js",
     "resetQuiz": "node tools/resetQuiz.js"
   },
   "dependencies": {
