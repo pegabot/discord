@@ -27,4 +27,5 @@ exports.info = {
   name: "miau",
   usage: ["miau", "miau <text>"],
   help: "Liefert ein zufälliges Katzenbild zurück.",
+  channel: "718145438339039325",
 };

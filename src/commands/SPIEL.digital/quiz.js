@@ -160,5 +160,5 @@ exports.info = {
   help: "Das Quiz zur SPIEL.digital.",
   unlock: 1603353600000, // Donnerstag, 22. Oktober 2020 10:00:00 GMT+02:00 https://www.epochconverter.com,
   lock: 1603666740000, // Sonntag, 25. Oktober 2020 23:59:00 GMT+01:00 https://www.epochconverter.com,
-  channelId: "767346892467863572",
+  channel: "767346892467863572",
 };
