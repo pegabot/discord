@@ -6,23 +6,16 @@ require("dotenv").config();
 
 const mongoose = require("mongoose");
 const { schema: VoucherSchema } = require("../src/models/voucher");
-const { schema: SessionSchema } = require("../src/models/session");
 
 (async () => {
   await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
-  const SessionModel = mongoose.model("session", SessionSchema);
 
-  const usedVouchers = await VoucherModel.find({ used: true });
-  const sessions = await SessionModel.find({ status: "closed", won: true });
+  const unusedVouchers = await VoucherModel.find({ used: false });
 
-  const sessionVouchers = sessions.map((elt) => elt.voucher.code);
-
-  for (const voucher of usedVouchers) {
-    if (!sessionVouchers.includes(voucher.code)) {
-      console.log(`Deleting voucher ${voucher.code}`);
-      await voucher.remove();
-    }
+  for (const voucher of unusedVouchers) {
+    console.log(`Deleting voucher ${voucher.code}`);
+    await voucher.remove();
   }
   process.exit(0);
 })();
