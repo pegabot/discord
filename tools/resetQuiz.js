@@ -10,8 +10,6 @@ const { schema: SessionSchema } = require("../src/models/session");
 const { schema: QuizSchema } = require("../src/models/quiz");
 const { schema: VoucherSchema } = require("../src/models/voucher");
 
-const { exec } = require("child_process");
-
 (async () => {
   await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
 
@@ -42,9 +40,6 @@ const { exec } = require("child_process");
       await elt.remove();
     });
   }
-
-  exec("yarn createQuiz");
-  exec("yarn createVouchers");
 
   process.exit(0);
 })();

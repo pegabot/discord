@@ -11,7 +11,8 @@
     "createQuiz": "node tools/createQuiz.js",
     "createVouchers": "node tools/createVouchers.js",
     "pruneVouchers": "node tools/pruneVouchers.js",
-    "resetQuiz": "node tools/resetQuiz.js"
+    "resetQuiz": "node tools/resetQuiz.js",
+    "cleanupVouchers": "node tools/cleanupVouchers.js"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
