@@ -56,7 +56,7 @@ class Commands {
         const dir = fs.readdirSync(absolutePath);
         this.walkSync(dir, absolutePath, fileList);
       } else {
-        if (!absolutePath.includes(".js")) continue;
+        if (!absolutePath.includes(".js") || absolutePath.includes("#")) continue;
         fileList.push(path.relative(__dirname, absolutePath));
       }
     }
