@@ -19,7 +19,7 @@
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
     "express": "^4.17.1",
-    "mongoose": "^5.10.9",
+    "mongoose": "^5.10.10",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.0",
     "twit": "^2.2.11"
