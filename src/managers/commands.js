@@ -124,7 +124,7 @@ class Commands {
       if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
       if (command.info.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
-        if (command.info.channel !== msg.channel.id) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.info.channel}>.`);
+        if (command.info.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.info.channel}>.`);
       }
 
       if (command.info.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
