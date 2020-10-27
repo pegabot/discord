@@ -6,7 +6,7 @@ const { stripIndents } = require("../../utils");
 
 exports.run = async (bot, msg) => {
   const m = await msg.channel.send("Pong!");
-  m.edit(
+  await m.edit(
     stripIndents(
       `Pong!
         Zeit, die in Anspruch genommen wurde: ${m.createdTimestamp - msg.createdTimestamp}ms :timer:
