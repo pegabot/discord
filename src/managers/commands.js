@@ -101,7 +101,7 @@ class Commands {
         .map((elt) => elt.id)
         .includes(this.bot.user.id)
     ) {
-      msg.react("🤗");
+      await msg.react("🤗");
     }
 
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;

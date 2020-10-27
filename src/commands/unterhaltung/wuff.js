@@ -6,15 +6,11 @@ const fetch = require("node-fetch");
 const { MessageAttachment } = require("discord.js");
 
 exports.run = async (bot, msg, args) => {
-  fetch(`https://dog.ceo/api/breeds/image/random`)
-    .then((response) => response.json())
-    .then((json) =>
-      fetch(json.message)
-        .then((response) => response.buffer())
-        .then((buffer) => {
-          msg.channel.send("", new MessageAttachment(buffer));
-        }),
-    );
+  const responseJson = await fetch(`https://dog.ceo/api/breeds/image/random`);
+  const json = await responseJson.json();
+  const response = await fetch(json.message);
+  const buffer = await response.buffer();
+  msg.channel.send("", new MessageAttachment(buffer));
 };
 
 exports.info = {
