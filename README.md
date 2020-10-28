@@ -1,6 +1,6 @@
 # Pegabot
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
  Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://pegasus.de/conspiracy) verwendet wird.
@@ -17,6 +17,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://gruselhaus.com"><img src="https://avatars2.githubusercontent.com/u/33380107?v=4" width="100px;" alt=""/><br /><sub><b>Nico Finkernagel</b></sub></a><br /><a href="https://github.com/pegabot/pegabot/commits?author=gruselhaus" title="Code">💻</a> <a href="#infra-gruselhaus" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#projectManagement-gruselhaus" title="Project Management">📆</a> <a href="#business-gruselhaus" title="Business development">💼</a></td>
+    <td align="center"><a href="https://github.com/cnh003"><img src="https://avatars2.githubusercontent.com/u/14107949?v=4" width="100px;" alt=""/><br /><sub><b>Christian N. Hofmann</b></sub></a><br /><a href="https://github.com/pegabot/pegabot/commits?author=cnh003" title="Code">💻</a></td>
   </tr>
 </table>
 
