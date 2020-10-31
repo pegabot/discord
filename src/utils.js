@@ -2,6 +2,8 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
+const fetch = require("node-fetch");
+
 exports.stripIndents = (string) => string.replace(/^[ \\t]+/gm, "");
 
 exports.resolveUser = (msg, username) => {
@@ -32,4 +34,8 @@ exports.BotExecption = class {
     this.name = "BotExecption";
     this.message = message;
   }
+};
+
+exports.fetchWithTimeout = (url, options, timeout = 7000) => {
+  return Promise.race([fetch(url, options), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), timeout))]);
 };
