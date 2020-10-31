@@ -21,7 +21,7 @@ exports.run = async (bot, msg, args) => {
     const buffer = await result.buffer();
     msg.channel.send("", new MessageAttachment(buffer));
   } catch (e) {
-    msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Katzenbilder für dich laden kan 😿`);
+    msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Katzenbilder für dich laden kann 😿`);
   }
 };
 

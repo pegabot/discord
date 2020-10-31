@@ -13,7 +13,7 @@ exports.run = async (bot, msg) => {
     const buffer = await response.buffer();
     msg.channel.send("", new MessageAttachment(buffer));
   } catch (e) {
-    msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Hundebilder für dich laden kan 🐶`);
+    msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Hundebilder für dich laden kann 🐶`);
   }
 };
 
