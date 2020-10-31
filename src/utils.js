@@ -36,6 +36,6 @@ exports.BotExecption = class {
   }
 };
 
-exports.fetchWithTimeout = (url, options, timeout = 7000) => {
+exports.fetchWithTimeout = (url, options = {}, timeout = 4000) => {
   return Promise.race([fetch(url, options), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), timeout))]);
 };

@@ -7,9 +7,9 @@ const { MessageAttachment } = require("discord.js");
 
 exports.run = async (bot, msg) => {
   try {
-    const responseJson = await fetchWithTimeout(`http://shibe.online/api/birds`, {}, 4000);
+    const responseJson = await fetchWithTimeout(`http://shibe.online/api/birds`);
     const json = await responseJson.json();
-    const response = await fetchWithTimeout(json[0], {}, 4000);
+    const response = await fetchWithTimeout(json[0]);
     const buffer = await response.buffer();
     msg.channel.send("", new MessageAttachment(buffer));
   } catch (e) {
