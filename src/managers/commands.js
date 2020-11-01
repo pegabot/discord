@@ -5,9 +5,9 @@
 const fs = require("fs");
 const path = require("path");
 const { Collection, MessageEmbed } = require("discord.js");
-const { BotExecption } = require("../utils.js");
+const { walkSync, BotExecption } = require("../utils.js");
 
-class Commands {
+exports.Commands = class {
   constructor(bot) {
     this.bot = bot;
     this.cmds = new Collection();
@@ -35,7 +35,7 @@ class Commands {
 
   loadCommands() {
     const commands = fs.readdirSync(path.join(__dirname, "..", "commands"));
-    const files = this.walkSync(commands, path.join(__dirname, "..", "commands"));
+    const files = walkSync(commands, path.join(__dirname, "..", "commands"));
     for (const command of files) {
       const base = path.parse(command).name;
       const category = path.dirname(command).split(path.sep).pop();
@@ -47,20 +47,6 @@ class Commands {
 
       this.loadCommand(base, cmd);
     }
-  }
-
-  walkSync(files, fileDir, fileList = []) {
-    for (const file of files) {
-      const absolutePath = path.join(fileDir, file);
-      if (fs.statSync(absolutePath).isDirectory()) {
-        const dir = fs.readdirSync(absolutePath);
-        this.walkSync(dir, absolutePath, fileList);
-      } else {
-        if (!absolutePath.includes(".js") || absolutePath.includes("#")) continue;
-        fileList.push(path.relative(__dirname, absolutePath));
-      }
-    }
-    return fileList;
   }
 
   checkCommand(cmd, name) {
@@ -155,6 +141,7 @@ class Commands {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
         } else {
+          console.log(e);
           const embed = new MessageEmbed()
             .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
             .addField("Fehlermeldung", e.message ? e.message : "Es ist keine Fehlermeldung vorhanden!");
@@ -166,6 +153,4 @@ class Commands {
       msg.channel.send(`:x: Sorry, der Command ${base} wurde nicht gefunden.`);
     }
   }
-}
-
-module.exports = Commands;
+};

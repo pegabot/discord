@@ -4,7 +4,7 @@
 
 const { stripIndents } = require("../utils");
 
-class Logger {
+exports.Logger = class {
   info(msg) {
     console.log(stripIndents(msg));
   }
@@ -12,6 +12,4 @@ class Logger {
   error(msg) {
     console.error("⚠️ \x1b[31m%s\x1b[0m", stripIndents(msg));
   }
-}
-
-module.exports = Logger;
+};

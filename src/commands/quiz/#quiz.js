@@ -7,47 +7,46 @@ const { MessageEmbed } = require("discord.js");
 
 const QuizName = "SPIEL.digital";
 const AnzahlFragen = 3;
-const answerReactionOptions = ["🇦", "🇧", "🇨"];
 
 exports.run = async (bot, msg) => {
   const SessionModel = bot.db.model("session");
   const VoucherModel = bot.db.model("voucher");
   const QuizModel = bot.db.model("quiz");
 
-  const userSession = new SessionModel();
-  userSession.userId = msg.author.id;
-  userSession.status = "in progress";
+  const newSession = new SessionModel();
+  newSession.userId = msg.author.id;
+  newSession.status = "in progress";
 
-  const closedSession = await SessionModel.find({ userId: userSession.userId, status: "closed" });
-  if (closedSession.length !== 0 && msg.channel.id !== bot.config.adminChannel) {
+  const closedSession = await SessionModel.find({ userId: newSession.userId, status: "closed" });
+  if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
     throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
   }
 
-  const activeSession = await SessionModel.find({ userId: userSession.userId, status: "in progress" });
-  if (activeSession.length !== 0) {
+  const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
+  if (activeSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
     throw new BotExecption("Du spielst schon eine Partie!", msg.author);
   }
 
   const quizzes = await QuizModel.find({ name: QuizName });
-  if (quizzes.length === 0) {
-    userSession.status = "error";
-    await userSession.save();
+  if (quizzes.length == 0) {
+    newSession.status = "error";
+    await newSession.save();
     throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
   }
 
-  userSession.quiz = quizzes[0];
-  userSession.fragen = userSession.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
+  newSession.quiz = quizzes[0];
+  newSession.fragen = newSession.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
 
   const vouchers = await VoucherModel.find({ used: false });
-  if (vouchers.length === 0) {
-    userSession.status = "error";
-    await userSession.save();
+  if (vouchers.length == 0) {
+    newSession.status = "error";
+    await newSession.save();
     throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
   }
 
-  await userSession.save();
+  await newSession.save();
 
-  const filter = (reaction, user) => answerReactionOptions.indexOf(reaction.emoji.name) !== -1 && user.id === msg.author.id;
+  const filter = (reaction, user) => (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
   let winning = true;
   let counter = 0;
@@ -62,84 +61,90 @@ exports.run = async (bot, msg) => {
         .setDescription(
           stripIndents(`
           Beantworte uns folgende Fragen rund um Pegasus Spiele richtig und erhalte sofort einen ***10%*** Gutscheincode für den Pegasus Shop.
-
           Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage. Hinweise auf die richtigen Antworten findest du an unserem Messestand unter https://pegasus.de/spiel.digital.pegasus.stand
-
           Viel Erfolg! :four_leaf_clover:
           `),
         )
         .setTimestamp()
-        .setFooter("SessionId - " + userSession._id),
+        .setFooter("SessionId - " + newSession._id),
     );
 
-    for (const [index, frage] of userSession.fragen.entries()) {
+    for (const [index, frage] of newSession.fragen.entries()) {
       const quizEmbed = new MessageEmbed()
         .setColor("#0099ff")
         .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
-        .addField(`🇦 - ${frage.antworten[0]}`, "-----")
-        .addField(`🇧 - ${frage.antworten[1]}`, "-----")
-        .addField(`🇨 - ${frage.antworten[2]}`, "-----")
+        .addField("🇦 - " + frage.antworten[0], "-----")
+        .addField("🇧 - " + frage.antworten[1], "-----")
+        .addField("🇨 - " + frage.antworten[2], "-----")
         .setTimestamp();
 
-      if (process.env.NODE_ENV !== "production") quizEmbed.addField("Richtige Antwort", answerReactionOptions[frage.richtig]);
+      if (process.env.NODE_ENV !== "production") quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
 
       const runningQuiz = await msg.author.send(quizEmbed);
-      await Promise.all(runningQuiz.react("🇦"), runningQuiz.react("🇧"), runningQuiz.react("🇨"));
+      runningQuiz.react("🇦");
+      runningQuiz.react("🇧");
+      runningQuiz.react("🇨");
 
-      const userReactions = await runningQuiz.awaitReactions(filter, {max: 1});
-      const correctAnswer = answerReactionOptions[frage.richtig];
+      runningQuiz
+        .awaitReactions(filter, {
+          max: 1,
+        })
+        .then(async (collected) => {
+          const array = ["🇦", "🇧", "🇨"];
+          const correctAnswer = array[frage.richtig];
 
-      const [{emoji: {name: answerEmoji}}] = userReactions.array();
+          const answerEmoji = collected.array()[0].emoji.name;
 
-      userSession.fragen[index].eingabe = answerReactionOptions.findIndex((elt) => elt === answerEmoji);
+          newSession.fragen[index].eingabe = array.findIndex((elt) => elt === answerEmoji);
 
-      if (answerEmoji !== correctAnswer) {
-        falscheAntworten.push(frage);
-        winning = false;
-      }
+          if (answerEmoji !== correctAnswer) {
+            falscheAntworten.push(frage);
+            winning = false;
+          }
 
-      counter++;
+          counter++;
 
-      if (counter === AnzahlFragen) {
-        if (winning) {
-          userSession.status = "closed";
-          userSession.won = true;
-          await msg.author.send(
-            stripIndents(`
-            Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet! :tada:
-            
-            Dein Gutscheincode wird gerade erstellt. Bitte warte einen Moment  - dein Gutscheincode wird dir hier in wenigen Sekunden angezeigt.\n\n
-            `),
-          );
-        } else {
-          userSession.status = "closed";
-          userSession.falscheAntworten = falscheAntworten;
+          if (counter === AnzahlFragen) {
+            if (winning) {
+              newSession.status = "closed";
+              newSession.won = true;
+              msg.author.send(
+                stripIndents(`
+                Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet! :tada:
+                
+                Dein Gutscheincode wird gerade erstellt. Bitte warte einen Moment  - dein Gutscheincode wird dir hier in wenigen Sekunden angezeigt.\n\n
+                `),
+              );
+            } else {
+              newSession.status = "closed";
+              newSession.falscheAntworten = falscheAntworten;
 
-          const wrongQuestionsText = falscheAntworten.map(falscheAntwort =>
-            `Deine Antwort auf die Frage ***'${falscheAntwort.frage}'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`
-          ).join('');
+              let wrongQuestionsText = "";
 
-          await msg.author.send(
-            stripIndents(
-              `
-            Vielen Dank fürs Mitmachen! :clap:
-            
-            Leider waren jedoch eine oder mehrere deiner Antworten nicht korrekt. Auch wenn du dieses Mal kein Glück hattest, sichere dir noch bis 25.10.2020 23:59 Uhr die Chance auf eines von drei Überraschungspaketen im Wert von mindestens ***200€*** indem du an unserer kurzen SPIEL.digital Umfrage teilnimmst: www.surveymonkey.de/r/Y57Z6HH
+              for (const falscheAntwort of falscheAntworten) {
+                wrongQuestionsText += `Deine Antwort auf die Frage ***'${falscheAntwort.frage}'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`;
+              }
 
-            Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
-
-            ${wrongQuestionsText}
-            Dein Pegabot :robot:
-            `,
-            ),
-          );
-        }
-        await userSession.save();
-      }
+              msg.author.send(
+                stripIndents(
+                  `
+                Vielen Dank fürs Mitmachen! :clap:
+                
+                Leider waren jedoch eine oder mehrere deiner Antworten nicht korrekt. Auch wenn du dieses Mal kein Glück hattest, sichere dir noch bis 25.10.2020 23:59 Uhr die Chance auf eines von drei Überraschungspaketen im Wert von mindestens ***200€*** indem du an unserer kurzen SPIEL.digital Umfrage teilnimmst: www.surveymonkey.de/r/Y57Z6HH
+                Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
+                ${wrongQuestionsText}
+                Dein Pegabot :robot:
+                `,
+                ),
+              );
+            }
+            await newSession.save();
+          }
+        });
     }
   } catch (error) {
-    userSession.status = "error";
-    await userSession.save();
+    newSession.status = "error";
+    await newSession.save();
     if (error.code === 50007) throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
     throw new Error(error);
   }

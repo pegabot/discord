@@ -4,6 +4,7 @@
 
 exports.run = (bot) => {
   bot.commands.loadCommands();
+  bot.functions.loadFunctions();
 
   const message = `${bot.user.username}#${bot.user.discriminator} ist ready!
     -------------------------------
@@ -11,7 +12,7 @@ exports.run = (bot) => {
       Aktuell in ${bot.guilds.cache.size} Guilde(n)
       ${bot.commands.size} Command(s) geladen 🤖,
       ${bot.events.length} Event(s) geladen 🎟
-      ${bot.functions.length} Function(s) aktiviert ⚙️`;
+      ${bot.functions.size} Function(s) aktiviert ⚙️`;
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.channels.resolve(bot.config.adminChannel).send(message);
