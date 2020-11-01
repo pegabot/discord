@@ -24,10 +24,9 @@ const { Events } = require("./managers/events");
 bot.events = new Events(bot);
 bot.events.loadEvents();
 
-const { Models } = require("./managers/models");
-bot.models = new Models(mongoose);
-
-mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
-bot.db = mongoose;
+const { Database } = require("./managers/database");
+const { connection, models } = new Database(mongoose);
+bot.db = connection;
+bot.models = models;
 
 bot.login(bot.config.apiToken);
