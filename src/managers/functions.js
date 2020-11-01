@@ -47,10 +47,9 @@ exports.Functions = class {
 
   checkCommand(name, func) {
     if (this.functions.has(name)) return `Die Function ${name} existiert bereits.`;
-    if (!func.hasOwnProperty("info")) return `Der Command ${name} hat kein Info Objekt.`;
-    if (!func.info.hasOwnProperty("interval")) {
-      return `Die Function ${name} muss einen interval Eintrag in seinem Info Objekt besitzen.`;
-    }
+    if (!func.run) return `Die Function ${name} hat keine run Function.`;
+    if (!func.hasOwnProperty("info")) return `Die Function ${name} hat kein Info Objekt.`;
+    if (!func.info.hasOwnProperty("interval")) return `Die Function ${name} muss einen interval Eintrag in seinem Info Objekt besitzen.`;
     return null;
   }
 

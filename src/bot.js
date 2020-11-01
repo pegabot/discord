@@ -25,8 +25,7 @@ bot.events = new Events(bot);
 bot.events.loadEvents();
 
 const { Database } = require("./managers/database");
-const { connection, models } = new Database(mongoose);
+const { connection } = new Database(mongoose);
 bot.db = connection;
-bot.models = models;
 
 bot.login(bot.config.apiToken);
