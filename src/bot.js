@@ -10,20 +10,21 @@ const path = require("path");
 
 const bot = new Discord.Client();
 
-const config = process.env;
-bot.config = config;
+bot.config = process.env;
+bot.blacklist = new Discord.Collection();
 
-const { Commands } = require("./managers/commands");
-const { Functions } = require("./managers/functions");
 const { Logger } = require("./managers/logger");
-
-bot.commands = new Commands(bot);
-bot.functions = new Functions(bot);
 bot.logger = new Logger();
 
-bot.events = [];
+const { Commands } = require("./managers/commands");
+bot.commands = new Commands(bot);
 
-bot.blacklist = new Discord.Collection();
+const { Functions } = require("./managers/functions");
+bot.functions = new Functions(bot);
+
+const { Events } = require("./managers/events");
+bot.events = new Events(bot);
+bot.events.loadEvents();
 
 const models = fs.readdirSync(path.join(__dirname, "models"));
 for (const model of models) {
@@ -37,16 +38,4 @@ for (const model of models) {
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
 bot.db = mongoose;
 
-const events = fs.readdirSync(path.join(__dirname, "events"));
-for (const event of events) {
-  const name = event.split(".")[0];
-  if (/\w?#.+/.test(name)) continue;
-
-  const module = require(path.join(__dirname, "events", name));
-  if (module.disable) continue;
-
-  bot.events.push(module);
-  bot.on(name, (...args) => module.run(bot, ...args));
-}
-
-bot.login(config.apiToken);
+bot.login(bot.config.apiToken);

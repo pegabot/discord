@@ -33,12 +33,12 @@ exports.Functions = class {
   }
 
   loadFunctions() {
-    const funcs = fs.readdirSync(path.join(__dirname, "../functions"));
+    const funcs = fs.readdirSync(path.join(__dirname, "..", "functions"));
     for (const func of funcs) {
       const name = func.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
-      const module = require(path.join(__dirname, "../functions", name));
+      const module = require(path.join(__dirname, "..", "functions", name));
       if (module.info.env && process.env[`enable_${module.info.env}`] !== "true") continue;
 
       this.loadCommand(name, module);

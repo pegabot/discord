@@ -11,7 +11,7 @@ exports.run = (bot) => {
       ID: ${bot.user.id}
       Aktuell in ${bot.guilds.cache.size} Guilde(n)
       ${bot.commands.size} Command(s) geladen 🤖,
-      ${bot.events.length} Event(s) geladen 🎟
+      ${bot.events.size} Event(s) geladen 🎟
       ${bot.functions.size} Function(s) aktiviert ⚙️`;
 
   bot.logger.info(message);
