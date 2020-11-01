@@ -13,7 +13,7 @@ exports.Events = class {
   }
 
   get names() {
-    return [...this.cmds.keys()];
+    return [...this.events.keys()];
   }
 
   get size() {

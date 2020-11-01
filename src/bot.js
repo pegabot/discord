@@ -5,8 +5,6 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const mongoose = require("mongoose");
-const fs = require("fs");
-const path = require("path");
 
 const bot = new Discord.Client();
 
@@ -26,14 +24,8 @@ const { Events } = require("./managers/events");
 bot.events = new Events(bot);
 bot.events.loadEvents();
 
-const models = fs.readdirSync(path.join(__dirname, "models"));
-for (const model of models) {
-  const name = model.split(".")[0];
-  if (/\w?#.+/.test(name)) continue;
-
-  const module = require(path.join(__dirname, "models", name));
-  mongoose.model(name, module.schema);
-}
+const { Models } = require("./managers/models");
+bot.models = new Models(mongoose);
 
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
 bot.db = mongoose;
