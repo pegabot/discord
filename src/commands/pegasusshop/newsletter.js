@@ -34,6 +34,6 @@ exports.run = async (bot, msg) => {
 
 exports.info = {
   name: "newsletter",
-  usage: "newsletter <email-adresse>",
+  usage: "newsletter",
   help: "Registriere dich für den Pegasusshop Newsletter.",
 };
