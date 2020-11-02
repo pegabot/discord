@@ -19,7 +19,7 @@ exports.run = async (bot, msg, args) => {
     await fetchWithTimeout(`https://pegasusshop.de/saveNewNewsletter/subscribeToNewsletter?&newsletter=${args[0]}&subscribeToNewsletter=1&newslettergroup=1&crypt=${hash}.`);
     msg.channel.send("Du wurdest für den Newsletter angemeldet. Du bekommst gleich eine E-Mail, in der du die Anmeldung bitte einmal kurz bestätigen musst.");
   } catch (e) {
-    msg.channel.send(`<@${msg.author.id}> ich konnte dich gerade nicht für den Newsletter registrieren, versuch es bitte später noch einmal.`);
+    throw new BotExecption(`<@${msg.author.id}> ich konnte dich gerade nicht für den Newsletter registrieren, versuch es bitte später noch einmal.`);
   }
 };
 
