@@ -57,5 +57,5 @@ exports.info = {
   name: "piep",
   usage: ["piep"],
   help: "Liefert ein zufälliges Vogelbild zurück.",
-  channel: ["718145438339039325", "698189934879571999"],
+  //channel: ["718145438339039325", "698189934879571999"],
 };
