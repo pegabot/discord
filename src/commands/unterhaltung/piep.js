@@ -29,14 +29,16 @@ exports.run = async (bot, msg) => {
         .slice(bot.config.prefix.length + 4)
         .trim()
         .split(" ")
-        .filter((elt) => elt !== "");
+        .filter((elt) => elt !== '')
+        .map(t => t.trim())
+        .join(' ');
     if (text) {
       ctx.font = 'bold 34px sans-serif';
       ctx.shadowColor = 'white';
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
       ctx.shadowBlur = 15;
-      const {width, emHeightAscent} = ctx.measureText('Awesome!');
+      const {width, emHeightAscent} = ctx.measureText(text);
       ctx.fillStyle = 'black';
       const textX = (img.width - width) / 2;
       const textY = img.height - (emHeightAscent + 20);
@@ -55,7 +57,7 @@ exports.run = async (bot, msg) => {
 
 exports.info = {
   name: "piep",
-  usage: ["piep"],
+  usage: ["piep", "piep <text>"],
   help: "Liefert ein zufälliges Vogelbild zurück.",
   channel: ["718145438339039325", "698189934879571999"],
 };
