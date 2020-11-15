@@ -19,4 +19,5 @@ exports.info = {
   name: "ping",
   usage: "ping",
   help: "Reaktionszeit des Bots",
+  aliases: ["🏓"],
 };

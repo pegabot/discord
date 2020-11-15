@@ -63,7 +63,9 @@ exports.Commands = class {
     const error = this.checkCommand(cmd, name);
 
     if (!error) {
-      this.cmds.set(name, cmd);
+      [name, ...(cmd.info.aliases || [])].map((name) => {
+        this.cmds.set(name, cmd);
+      });
     } else {
       this.bot.logger.error(error);
     }
