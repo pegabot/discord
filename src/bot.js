@@ -4,7 +4,6 @@
 
 require("dotenv").config();
 const Discord = require("discord.js");
-const mongoose = require("mongoose");
 
 const bot = new Discord.Client();
 
@@ -25,7 +24,7 @@ bot.events = new Events(bot);
 bot.events.loadEvents();
 
 const { Database } = require("./managers/database");
-const { connection } = new Database(mongoose);
-bot.db = connection;
+const { instance } = new Database();
+bot.db = instance;
 
 bot.login(bot.config.apiToken);

@@ -2,12 +2,13 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
+const mongoose = require("mongoose");
+const { Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const { Collection } = require("discord.js");
 
 exports.Database = class {
-  constructor(mongoose) {
+  constructor() {
     this.mongoose = mongoose;
     this.models = new Collection();
     this.loadModels();
@@ -21,7 +22,7 @@ exports.Database = class {
     return this.models.size;
   }
 
-  get connection() {
+  get instance() {
     return this.mongoose;
   }
 
