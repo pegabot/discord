@@ -5,7 +5,7 @@
 const { BotExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
-const QuizName = "SPIEL.digital";
+const QuizName = "CONspiracy IV";
 const AnzahlFragen = 3;
 
 exports.run = async (bot, msg) => {
@@ -17,8 +17,9 @@ exports.run = async (bot, msg) => {
   newSession.userId = msg.author.id;
   newSession.status = "in progress";
 
-  const closedSession = await SessionModel.find({ userId: newSession.userId, status: "closed" });
-  if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
+  const closedSessions = await SessionModel.find({ userId: newSession.userId, status: "closed", "quiz.name": QuizName });
+  console.log(closedSessions);
+  if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
     throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
   }
 
@@ -154,10 +155,10 @@ exports.run = async (bot, msg) => {
 };
 
 exports.info = {
-  name: "quiz",
-  usage: "quiz",
-  help: "Das Quiz zur SPIEL.digital.",
-  unlock: 1603353600000, // Donnerstag, 22. Oktober 2020 10:00:00 GMT+02:00 https://www.epochconverter.com,
-  lock: 1603666740000, // Sonntag, 25. Oktober 2020 23:59:00 GMT+01:00 https://www.epochconverter.com,
-  channel: ["767346892467863572"],
+  name: "nerdquiz",
+  usage: "nerdquiz",
+  help: "Das Quiz zur CONspiracy IV.",
+  unlock: 1606467600000, // Freitag, 27. November 2020 10:00:00 GMT+01:00 https://www.epochconverter.com,
+  lock: 1606690799000, // Sonntag, 29. November 2020 23:59:59 GMT+01:00 https://www.epochconverter.com,
+  channel: ["772117889313931305"],
 };
