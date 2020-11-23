@@ -95,10 +95,18 @@ exports.Commands = class {
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
 
     if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
-    if (this.bot.blacklist.has(msg.author.id)) return null;
 
     const command = this.cmds.get(base);
+
     if (command) {
+      const LogModel = this.bot.db.model("log");
+      const entry = new LogModel();
+      entry.command = command;
+      entry.author = JSON.parse(JSON.stringify(msg.author));
+      await entry.save();
+
+      if (this.bot.blacklist.has(msg.author.id)) return null;
+
       if (
         command.info.owner &&
         !this.bot.config.ownerIds
