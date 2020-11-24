@@ -5,7 +5,7 @@
 const { BotExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 
-const QuizName = "SPIEL.digital";
+const QuizName = "CONspiracy IV";
 const AnzahlFragen = 3;
 
 exports.run = async (bot, msg) => {
@@ -17,8 +17,8 @@ exports.run = async (bot, msg) => {
   newSession.userId = msg.author.id;
   newSession.status = "in progress";
 
-  const closedSession = await SessionModel.find({ userId: newSession.userId, status: "closed" });
-  if (closedSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
+  const closedSessions = await SessionModel.find({ userId: newSession.userId, status: "closed", "quiz.name": QuizName });
+  if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
     throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
   }
 
@@ -60,12 +60,15 @@ exports.run = async (bot, msg) => {
         .setTitle(`${QuizName} - das Quiz!`)
         .setDescription(
           stripIndents(`
-          Beantworte uns folgende Fragen rund um Pegasus Spiele richtig und erhalte sofort einen ***10%*** Gutscheincode für den Pegasus Shop.
-          Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage. Hinweise auf die richtigen Antworten findest du an unserem Messestand unter https://pegasus.de/spiel.digital.pegasus.stand
-          
-          ***Zur Beantwortung der Fragen stehen dir 20 Minuten zur Verfügung ⏰***
+            Wie viel Geek steckt in dir? Zeig es uns und beantworte uns folgende Fragen rund um Filme, Serien, Bücher, Rollen-/Brettspiele und weitere absolut relevante Themen des Geek-Daseins.
 
-          Viel Erfolg! :four_leaf_clover:
+            ***Zur Beantwortung der Fragen hast du 20 Minuten Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode für ein kostenloses digitales Rollenspiel-Bundle, bei dem dein Geek-Herz höher schlagen wird: Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen.
+
+            Den Code kannst du sofort oder bis spätestens 14.12.2020 auf www.pegasusdigital.de einlösen.
+
+            Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage.
+
+            Viel Erfolg! :four_leaf_clover:
           `),
         )
         .setTimestamp()
@@ -131,10 +134,14 @@ exports.run = async (bot, msg) => {
               msg.author.send(
                 stripIndents(
                   `
-                Vielen Dank fürs Mitmachen! :clap:
-                
-                Leider waren jedoch eine oder mehrere deiner Antworten nicht korrekt. Auch wenn du dieses Mal kein Glück hattest, sichere dir noch bis 25.10.2020 23:59 Uhr die Chance auf eines von drei Überraschungspaketen im Wert von mindestens ***200€*** indem du an unserer kurzen SPIEL.digital Umfrage teilnimmst: www.surveymonkey.de/r/Y57Z6HH
-                Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
+                Vielen Dank fürs Mitmachen!
+
+                Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber keine Sorge, wir haben da was für dich vorbereitet: Von 27.-29.11.2020 23:59 Uhr erhältst du unter www.pegasusdigital.de 20% Rabatt auf Artikel, die innerhalb der letzten zwei Jahre erschienen sind und sogar 40% Rabatt auf Artikel, die schon älter als zwei Jahre sind (Oldies but Goldies!). Bundles und Neuheiten, die innerhalb der letzten 30 Tage erschienen sind, sind von der Rabattaktion ausgeschlossen.
+
+                Außerdem kannst du noch bis 29.11.2020 23:59 Uhr an unserer CONspiracy-Umfrage teilnehmen: https://de.surveymonkey.com/r/QK9YDD6 Unter allen, die uns dort ihre Meinung sagen, verlosen wir drei Überraschungspakete im Wert von mindestens 100€.
+
+                Und schließlich, falls du regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten möchtest, dann abonniere unseren allgemeinen Newsletter unter www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich dort auch das ein oder andere Wissen für unser nächstes Geek-Quiz sammeln!
+                                
                 ${wrongQuestionsText}
                 Dein Pegabot :robot:
                 `,
@@ -154,10 +161,10 @@ exports.run = async (bot, msg) => {
 };
 
 exports.info = {
-  name: "quiz",
-  usage: "quiz",
-  help: "Das Quiz zur SPIEL.digital.",
-  unlock: 1603353600000, // Donnerstag, 22. Oktober 2020 10:00:00 GMT+02:00 https://www.epochconverter.com,
-  lock: 1603666740000, // Sonntag, 25. Oktober 2020 23:59:00 GMT+01:00 https://www.epochconverter.com,
-  channel: ["767346892467863572"],
+  name: "nerdquiz",
+  usage: "nerdquiz",
+  help: "Das Quiz zur CONspiracy IV.",
+  unlock: 1606467600000, // Freitag, 27. November 2020 10:00:00 GMT+01:00 https://www.epochconverter.com,
+  lock: 1606690799000, // Sonntag, 29. November 2020 23:59:59 GMT+01:00 https://www.epochconverter.com,
+  channel: ["780482034522521600"],
 };
