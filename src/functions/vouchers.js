@@ -21,9 +21,13 @@ exports.run = async (bot) => {
     try {
       bot.users.cache.get(session.userId).send(
         stripIndents(`
-      Dein Gutscheincode für den Pegasus Shop lautet ***${voucher.code}***. Mit diesem Gutscheincode erhältst du einmalig auf eine Bestellung unter https://pegasusshop.de einen Rabatt von ***10%*** auf alle lieferbaren, nicht preisgebundenen Artikel. Gib den Code dazu vor Absenden deiner Bestellung im Warenkorb ein. Der Code ist bis 25.10.2020 23:59 Uhr gültig.
-      
-      Du möchtest regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten? Dann abonniere unseren Newsletter unter https://pegasus.de/newsletter 
+      Dein Gutscheincode lautet ***${voucher.code}***. Diesen kannst du ab sofort und bis spätestens 14.12.2020 23:59 Uhr auf www.pegasusdigital.de einlösen, um deinen Loot alias dein kostenloses digitales Rollenspiel-Bundle zu erhalten. (Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen)
+
+      Ebenfalls auf www.pegasusdigital.de erhältst du von 27.-29.11.2020 außerdem 20% Rabatt auf Artikel, die innerhalb der letzten zwei Jahre erschienen sind und sogar 40% Rabatt auf Artikel, die schon älter als zwei Jahre sind (Oldies but Goldies!). Bundles und Neuheiten, die innerhalb der letzten 30 Tage erschienen sind, sind von der Rabattaktion ausgeschlossen.
+
+      Außerdem kannst du noch bis 29.11.2020 23:59 Uhr an unserer CONspiracy-Umfrage teilnehmen: https://de.surveymonkey.com/r/QK9YDD6 Unter allen, die uns dort ihre Meinung sagen, verlosen wir drei Überraschungspakete im Wert von mindestens 100€.
+
+      Und schließlich, falls du regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten möchtest, dann abonniere unseren allgemeinen Newsletter unter www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich dort auch das ein oder andere Wissen für unser nächstes Geek-Quiz sammeln!
 
       Dein Pegabot :robot:
       `),
