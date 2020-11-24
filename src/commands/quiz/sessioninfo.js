@@ -37,7 +37,7 @@ exports.run = async (bot, msg, args) => {
       .setTitle(`Informationen zur Session ${session._id}`)
       .addField("Benutzername", member.user.username, true)
       .addField("Zeitstempel", new Date(session.created).toLocaleString("de-DE"), true)
-      .addField(`Quizset`, session.quiz.name, true)
+      .addField(`Quizset`, session.quiz ? session.quiz.name : "***Kein Quiz geladen***", true)
       .addField("Status", session.status, true)
       .addField("Gewonnen?", session.won ? "Ja" : "Nein", true)
       .addField("Ausgeliefert?", session.shipped ? "Ja" : "Nein", true);
