@@ -6,6 +6,18 @@ const { stripIndents } = require("../utils");
 
 const minutes = 20;
 
+exports.setup = async (bot) => {
+  const SessionModel = bot.db.model("session");
+
+  const sessions = await SessionModel.find({ status: "in progress" });
+  if (sessions.length === 0) return;
+
+  bot.logger.info(`Deleting ${sessions.length} stale session(s)!`);
+  for (const session of sessions) {
+    await session.remove();
+  }
+};
+
 exports.run = async (bot) => {
   const SessionModel = bot.db.model("session");
 

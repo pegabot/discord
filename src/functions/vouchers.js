@@ -23,6 +23,8 @@ exports.run = async (bot) => {
         stripIndents(`
       Dein Gutscheincode lautet ***${voucher.code}***. Diesen kannst du ab sofort und bis spätestens 14.12.2020 23:59 Uhr auf www.pegasusdigital.de einlösen, um deinen Loot alias dein kostenloses digitales Rollenspiel-Bundle zu erhalten. (Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen)
 
+      ***Lege dazu den Bundle-Artikel (https://www.pegasusdigital.de/product/337316/CONspiracy-Bundle-BUNDLE) in den Warenkorb und löse danach den Gutscheincode ein. Die Kosten für das Bundle werden dir dann im Warenkorb erstattet.***
+
       Ebenfalls auf www.pegasusdigital.de erhältst du von 27.-29.11.2020 außerdem 20% Rabatt auf Artikel, die innerhalb der letzten zwei Jahre erschienen sind und sogar 40% Rabatt auf Artikel, die schon älter als zwei Jahre sind (Oldies but Goldies!). Bundles und Neuheiten, die innerhalb der letzten 30 Tage erschienen sind, sind von der Rabattaktion ausgeschlossen.
 
       Außerdem kannst du noch bis 29.11.2020 23:59 Uhr an unserer CONspiracy-Umfrage teilnehmen: https://de.surveymonkey.com/r/QK9YDD6 Unter allen, die uns dort ihre Meinung sagen, verlosen wir drei Überraschungspakete im Wert von mindestens 100€.
