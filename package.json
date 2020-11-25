@@ -11,6 +11,7 @@
     "createQuiz": "node tools/createQuiz.js",
     "createVouchers": "node tools/createVouchers.js",
     "pruneVouchers": "node tools/pruneVouchers.js",
+    "removeVouchers": "node tools/removeVouchers.js",
     "resetQuiz": "node tools/resetQuiz.js",
     "cleanupVouchers": "node tools/cleanupVouchers.js"
   },
