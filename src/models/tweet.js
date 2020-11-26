@@ -12,6 +12,4 @@ const TweetSchema = new Schema({
   retweet: Boolean,
 });
 
-TweetSchema.set("versionKey", false);
-
 exports.schema = TweetSchema;
