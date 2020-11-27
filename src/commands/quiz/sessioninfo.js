@@ -32,7 +32,7 @@ exports.run = async (bot, msg, args) => {
     const member = resolveUser(msg, session.userId);
 
     const embed = new MessageEmbed()
-      .setColor(session.status === "error" ? "#f80000" : session.won ? "#7cfc00" : "#FF9033")
+      .setColor(session.status === "error" ? "#f80000" : ["timeout", "stale"].includes(session.status) ? "#FF9033" : session.won ? "#7cfc00" : "#1E90FF")
       .setAuthor(member.user.tag, member.user.displayAvatarURL())
       .setTitle(`Informationen zur Session ${session._id}`)
       .addField("Benutzername", member.user.username, true)
