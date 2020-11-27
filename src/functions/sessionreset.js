@@ -12,9 +12,10 @@ exports.setup = async (bot) => {
   const sessions = await SessionModel.find({ status: "in progress" });
   if (sessions.length === 0) return;
 
-  bot.logger.info(`Deleting ${sessions.length} stale session(s)!`);
+  bot.logger.info(`Setting stale status to ${sessions.length} session(s)!`);
   for (const session of sessions) {
-    await session.remove();
+    session.status = "stale";
+    await session.save();
   }
 };
 
@@ -34,7 +35,8 @@ exports.run = async (bot) => {
         Dein Pegabot :robot:
         `),
       );
-      await session.remove();
+      session.status = "timeout";
+      await session.save();
     } catch (e) {
       continue;
     }
