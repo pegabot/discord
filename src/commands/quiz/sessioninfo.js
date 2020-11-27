@@ -32,7 +32,7 @@ exports.run = async (bot, msg, args) => {
     const member = resolveUser(msg, session.userId);
 
     const embed = new MessageEmbed()
-      .setColor(session.status === "error" ? "#f80000" : ["timeout", "stale"].includes(session.status) ? "#FF9033" : session.won ? "#7cfc00" : "#1E90FF")
+      .setColor(session.status === "error" ? "#f80000" : session.status === "stale" ? "#FF9033" : session.won ? "#7cfc00" : "#1E90FF")
       .setAuthor(member.user.tag, member.user.displayAvatarURL())
       .setTitle(`Informationen zur Session ${session._id}`)
       .addField("Benutzername", member.user.username, true)
@@ -40,6 +40,7 @@ exports.run = async (bot, msg, args) => {
       .addField(`Quizset`, session.quiz ? session.quiz.name : "***Kein Quiz geladen***", true)
       .addField("Status", session.status, true)
       .addField("Gewonnen?", session.won ? "Ja" : "Nein", true)
+      .addField("Zeit abgelaufen?", session.timedOut ? "Ja" : "Nein", true)
       .addField("Ausgeliefert?", session.shipped ? "Ja" : "Nein", true);
 
     msg.channel.send(embed);

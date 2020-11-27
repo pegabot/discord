@@ -30,12 +30,15 @@ exports.run = async (bot) => {
     try {
       bot.users.cache.get(session.userId).send(
         stripIndents(`
-        Du hast dein Spiel leider nicht in der vorgegebenen Zeit zu Ende gespielt, daher schließe ich die Spielrunde für dich. Solltest du noch Einmal spielen wollen, so öffne bitte erneuet eine Runde mit dem entsprechenden Command!
+        Du hast dein Spiel leider nicht in der vorgegebenen Zeit zu Ende gespielt und somit die Chance auf den Gewinn verpasst.
         
         Dein Pegabot :robot:
         `),
       );
-      session.status = "timeout";
+
+      session.status = "closed";
+      session.timedOut = true;
+
       await session.save();
     } catch (e) {
       continue;
@@ -44,7 +47,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: "Setze sessions nach X Minuten zurück",
+  name: `Setze sessions nach ${minutes} Minuten zurück`,
   env: "sessionreset",
   interval: 20000,
 };

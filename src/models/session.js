@@ -12,6 +12,7 @@ const SessionSchema = new Schema({
   userId: String,
   quiz: QuizSchema,
   status: String,
+  timedOut: { type: Boolean, default: false },
   fragen: [FrageSchema],
   falscheAntworten: [FrageSchema],
   won: { type: Boolean, default: false },
