@@ -126,7 +126,7 @@ exports.Commands = class {
       if (command.info.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
-        if (localTime < command.info.unlock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command wird erst an folgendem Datum freigeschaltet: ***${new Date(command.info.unlock).toLocaleString("de-DE")}***.`);
+        if (localTime < command.info.unlock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command wird erst an folgendem Zeitpunkt freigeschaltet: ***${new Date(command.info.unlock).toLocaleString("de-DE")}***.`);
       }
 
       if (command.info.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
