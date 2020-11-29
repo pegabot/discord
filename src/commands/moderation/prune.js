@@ -2,8 +2,25 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
+const { BotExecption } = require("../../utils");
+
 exports.run = async (bot, msg, args) => {
-  if (args[0] > 99) throw new BotExecption("Ich kann nicht mehr als 99 Nachrichten auf Einmal löschen.");
+  if (args[0]) {
+    if (Number.isNaN(args[0])) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
+    if (args[0] > 50) throw new BotExecption("Ich kann nicht mehr als 50 Nachrichten auf Einmal löschen.");
+
+    const messages = await msg.channel.messages.fetch({ limit: Number(args[0]) + 1 });
+
+    for (const msgToDelete of messages.values()) {
+      if (msgToDelete.deletable) {
+        msgToDelete.delete();
+      } else {
+        msg.channel.send(`Die folgende Nachricht konnte von mir nicht gelöscht werden\n>>> ${msgToDelete.content}`);
+      }
+    }
+
+    return;
+  }
 
   await msg.channel.bulkDelete(args[0] ? Number(args[0]) + 1 : 100);
 };
