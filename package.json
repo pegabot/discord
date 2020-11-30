@@ -18,13 +18,13 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "date-fns": "^2.16.1",
-    "discord.js": "^12.4.1",
+    "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
     "erlpack": "^0.1.3",
     "express": "^4.17.1",
     "md5": "^2.3.0",
-    "mongoose": "^5.10.10",
+    "mongoose": "^5.11.0",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.0",
     "twit": "^2.2.11"
