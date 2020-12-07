@@ -13,6 +13,10 @@ bot.blacklist = new Discord.Collection();
 const { Logger } = require("./managers/logger");
 bot.logger = new Logger();
 
+const { Database } = require("./managers/database");
+const { instance } = new Database();
+bot.db = instance;
+
 const { Commands } = require("./managers/commands");
 bot.commands = new Commands(bot);
 
@@ -22,9 +26,5 @@ bot.functions = new Functions(bot);
 const { Events } = require("./managers/events");
 bot.events = new Events(bot);
 bot.events.loadEvents();
-
-const { Database } = require("./managers/database");
-const { instance } = new Database();
-bot.db = instance;
 
 bot.login(bot.config.apiToken);
