@@ -20,5 +20,5 @@ exports.run = (bot) => {
   let membersCount = 0;
   bot.users.cache.map((users) => (users.id ? (membersCount += 1) : false)).pop();
 
-  bot.user.setActivity(`pegasus.de/twitch 🍹`, { type: "WATCHING" });
+  bot.user.setActivity(`pegasus.de/youtube 🍹`, { type: "WATCHING" });
 };

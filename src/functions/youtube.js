@@ -10,7 +10,7 @@ let YouTubeModel, youtube, channels;
 exports.setup = (bot) => {
   YouTubeModel = bot.db.model("youtube");
   youtube = new Youtube(bot.config.YOUTUBE_KEY);
-  channels = (bot.config.YOUTUBE_CHANNELS || "").split(",");
+  channels = (bot.config.YOUTUBE_CHANNELS || "").split(",").filter((elt) => elt !== "");
 };
 
 async function getLastVideo(rssURL) {
@@ -59,6 +59,7 @@ async function getYoutubeChannelInfos(name) {
 }
 
 exports.run = async (bot) => {
+  console.log(channels);
   for (const channel of channels) {
     const channelInfos = await getYoutubeChannelInfos(channel);
     if (!channelInfos) return;
