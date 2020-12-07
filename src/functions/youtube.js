@@ -66,7 +66,7 @@ exports.run = async (bot) => {
     const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
     if (!video) continue;
     const guild = bot.guilds.cache.get(bot.config.guildId);
-    guild.channels.cache.get(bot.config.YOUTUBE_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`);
+    guild.channels.cache.get(bot.config.YOUTUBE_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`);
   }
 };
 
