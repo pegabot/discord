@@ -59,18 +59,22 @@ async function getYoutubeChannelInfos(name) {
 }
 
 exports.run = async (bot) => {
-  for (const channel of channels) {
-    const channelInfos = await getYoutubeChannelInfos(channel);
-    if (!channelInfos) return;
-    const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
-    if (!video) continue;
-    const guild = bot.guilds.cache.get(bot.config.guildId);
-    guild.channels.cache.get(bot.config.YOUTUBE_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`);
+  try {
+    for (const channel of channels) {
+      const channelInfos = await getYoutubeChannelInfos(channel);
+      if (!channelInfos) return;
+      const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
+      if (!video) continue;
+      const guild = bot.guilds.cache.get(bot.config.guildId);
+      guild.channels.cache.get(bot.config.YOUTUBE_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`);
+    }
+  } catch {
+    return;
   }
 };
 
 exports.info = {
   name: "Checkt, ob neue YouTube Videos hochgeladen wurden",
   env: "youtube",
-  interval: 10000,
+  interval: 20000,
 };
