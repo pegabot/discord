@@ -17,8 +17,6 @@ exports.run = (bot) => {
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.channels.resolve(bot.config.adminChannel).send(message);
-  let membersCount = 0;
-  bot.users.cache.map((users) => (users.id ? (membersCount += 1) : false)).pop();
 
   bot.user.setActivity(`pegasus.de/youtube 🍹`, { type: "WATCHING" });
 };
