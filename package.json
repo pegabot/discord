@@ -16,6 +16,8 @@
     "cleanupVouchers": "node tools/cleanupVouchers.js"
   },
   "dependencies": {
+    "basic-authorization-header": "^0.2.7",
+    "bent": "^7.3.12",
     "canvas": "^2.6.1",
     "date-fns": "^2.16.1",
     "discord.js": "^12.5.1",

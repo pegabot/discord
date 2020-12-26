@@ -4,9 +4,11 @@
 
 const { Schema } = require("mongoose");
 
-const YouTubeSchema = new Schema({
+const BlogPostSchema = new Schema({
   created: { type: Number, default: Date.now },
-  video_id: { type: String, unique: true },
+  blogPost_id: { type: String, unique: true },
+  url: String,
+  raw: Object,
 });
 
-exports.schema = YouTubeSchema;
+exports.schema = BlogPostSchema;
