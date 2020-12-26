@@ -5,6 +5,7 @@
   "author": "Nico Finkernagel, Pegasus Spiele Verlags- und Medienvetriebsgesellschaft mbH",
   "license": "MIT",
   "scripts": {
+    "test": "jest .",
     "dev": "nodemon .",
     "start": "node .",
     "server": "node server/server.js",
@@ -16,6 +17,7 @@
     "cleanupVouchers": "node tools/cleanupVouchers.js"
   },
   "dependencies": {
+    "@sindresorhus/slugify": "^1.1.0",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
     "canvas": "^2.6.1",
@@ -34,6 +36,7 @@
     "twit": "^2.2.11"
   },
   "devDependencies": {
+    "jest": "^26.6.3",
     "nodemon": "^2.0.6"
   }
 }

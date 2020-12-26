@@ -1,0 +1,28 @@
+name: Unit Tests
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: "Running unit tests"
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js "14.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: yarn install
+      - name: Run test
+        run: yarn test
+        env:
+          SESSION_SECRET: ${{secrets.SESSION_SECRET}}
