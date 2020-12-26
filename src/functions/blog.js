@@ -4,6 +4,7 @@
 
 const {
   shopApi: { getRequest },
+  formatBlogTitle,
 } = require("../utils");
 
 exports.run = async (bot) => {
@@ -21,43 +22,17 @@ exports.run = async (bot) => {
     try {
       const {
         category: { id: catId },
-        title: rawTitle,
+        title,
       } = entry;
-
-      let title = rawTitle
-        .toLowerCase()
-        .replace(/\s+(-|–)\s+/g, "-")
-        .replace(/\s/g, "-")
-        .replace(/:/g, "-")
-        .replace(/\(/g, "-")
-        .replace(/\)/g, "")
-        .replace(/!/g, "")
-        .replace(/,/g, "")
-        .replace(/´/g, "-")
-        .replace(/ä/g, "ae")
-        .replace(/ü/g, "ue")
-        .replace(/ö/g, "oe")
-        .replace(/ß/g, "ss")
-        .replace(/&/g, "")
-        .replace(/é/g, "e")
-        .replace(/í/g, "i")
-        .replace(/ó/g, "o")
-        .replace(/ō/g, "o")
-        .replace(/„/g, "-")
-        .replace(/“/g, "-")
-        .replace(/#/g, "-")
-        .replace(/'/g, "-")
-        .replace(/-$/g, "")
-        .replace(/-+/g, "-");
 
       let url, message;
       switch (catId) {
         case 115:
-          url = `https://pegasus.de/presse/pressemitteilungen/${title}`;
+          url = `https://pegasus.de/presse/pressemitteilungen/${formatBlogTitle(title)}`;
           message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
           break;
         case 560:
-          url = `https://pegasus.de/news/pegasus-spiele-blog/${title}`;
+          url = `https://pegasus.de/news/pegasus-spiele-blog/${formatBlogTitle(title)}`;
           message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
           break;
         default:
