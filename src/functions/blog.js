@@ -54,7 +54,7 @@ exports.run = async (bot) => {
       switch (catId) {
         case 115:
           url = `https://pegasus.de/presse/pressemitteilungen/${title}`;
-          message = `Unsere Pressetelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
+          message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
           break;
         case 560:
           url = `https://pegasus.de/news/pegasus-spiele-blog/${title}`;
