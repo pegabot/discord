@@ -10,7 +10,7 @@ const {
 exports.run = async (bot) => {
   let {
     data: { data: entries },
-  } = await getRequest(bot, `blog/?limit=9999999`);
+  } = await getRequest(bot, `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560`);
 
   const BlogModel = bot.db.model("blog");
 
