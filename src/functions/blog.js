@@ -4,7 +4,7 @@
 
 const {
   shopApi: { getRequest },
-  cleanupPath,
+  slugify,
 } = require("../utils");
 
 exports.run = async (bot) => {
@@ -28,11 +28,11 @@ exports.run = async (bot) => {
       let url, message;
       switch (catId) {
         case 115:
-          url = `https://pegasus.de/presse/pressemitteilungen/${cleanupPath(title)}`;
+          url = `https://pegasus.de/presse/pressemitteilungen/${slugify(title)}`;
           message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
           break;
         case 560:
-          url = `https://pegasus.de/news/pegasus-spiele-blog/${cleanupPath(title)}`;
+          url = `https://pegasus.de/news/pegasus-spiele-blog/${slugify(title)}`;
           message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
           break;
         default:

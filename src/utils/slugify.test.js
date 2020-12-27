@@ -2,7 +2,7 @@
  * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
-const { module: cleanupPath } = require("./cleanupPath");
+const { module: slugify } = require("./slugify");
 
 const testData = [
   [" a  b ", "a-b"],
@@ -43,7 +43,7 @@ const testData = [
 describe("Checking cleanupPath Function", () => {
   for (const test of testData) {
     it(`Checking: "${test[0]}"`, () => {
-      expect(cleanupPath(test[0])).toBe(test[1]);
+      expect(slugify(test[0])).toBe(test[1]);
     });
   }
 });
