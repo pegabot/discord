@@ -47,9 +47,8 @@ exports.Functions = class {
 
   checkCommand(name, func) {
     if (this.functions.has(name)) return `Die Function ${name} existiert bereits.`;
-    if (!func.run) return `Die Function ${name} hat keine run Function.`;
     if (!func.hasOwnProperty("info")) return `Die Function ${name} hat kein Info Objekt.`;
-    if (!func.info.hasOwnProperty("interval")) return `Die Function ${name} muss einen interval Eintrag in seinem Info Objekt besitzen.`;
+    if (func.run && !func.info.hasOwnProperty("interval")) return `Die Function ${name} muss einen interval Eintrag in seinem Info Objekt besitzen.`;
     return null;
   }
 
@@ -64,10 +63,14 @@ exports.Functions = class {
     }
   }
 
-  runFunction(func) {
-    if (func.setup) func.setup(this.bot);
-    setInterval(() => {
-      func.run(this.bot);
-    }, func.info.interval);
+  runFunction(module) {
+    console.log(`Setup 🔨: ${module.info.name}`);
+    if (module.setup) module.setup(this.bot);
+    if (module.run) {
+      setInterval(() => {
+        if (process.env.NODE_ENV !== "production") console.log(`Running ⚙️ : ${module.info.name}`);
+        module.run(this.bot);
+      }, module.info.interval);
+    }
   }
 };

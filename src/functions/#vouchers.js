@@ -49,7 +49,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: "Versende Vouchers",
+  name: "Vouchers",
   env: "voucher",
   interval: 20000,
 };

@@ -47,7 +47,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: `Setze sessions nach ${minutes} Minuten zurück`,
+  name: `Sessionreset: ${minutes} minutes`,
   env: "sessionreset",
   interval: 20000,
 };

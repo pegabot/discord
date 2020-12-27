@@ -74,7 +74,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: "Checkt, ob neue YouTube Videos hochgeladen wurden",
+  name: "YouTube",
   env: "youtube",
   interval: 20000,
 };

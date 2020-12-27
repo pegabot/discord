@@ -37,7 +37,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: "Lade Tweets",
+  name: "Tweets",
   env: "twitter",
   interval: 10000,
 };

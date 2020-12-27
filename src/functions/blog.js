@@ -7,10 +7,16 @@ const {
   slugify,
 } = require("../utils");
 
-exports.run = async (bot) => {
-  let {
-    data: { data: entries },
-  } = await getRequest(bot, `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`);
+exports.setup = async (bot) => {
+  let entries;
+  try {
+    let {
+      data: { data },
+    } = await getRequest(bot, `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`);
+    entries = data;
+  } catch {
+    return;
+  }
 
   const BlogModel = bot.db.model("blog");
 
@@ -60,13 +66,13 @@ exports.run = async (bot) => {
       blogPost.url = url;
       await blogPost.save();
     } catch (error) {
-      console.error(errror);
+      if (process.env.NODE_ENV !== "production") console.error(errror);
     }
   }
 };
 
 exports.info = {
-  name: "Checkt, ob neue Blogeinträge auf pegasus.de geposted wurden",
+  name: "Blogs",
   env: "blog",
   interval: 60000,
 };
