@@ -5,7 +5,7 @@
   "author": "Nico Finkernagel, Pegasus Spiele Verlags- und Medienvetriebsgesellschaft mbH",
   "license": "MIT",
   "scripts": {
-    "test": "jest .",
+    "test": "jest . --verbose",
     "dev": "nodemon .",
     "start": "node .",
     "server": "node server/server.js",
