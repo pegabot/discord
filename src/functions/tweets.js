@@ -18,8 +18,22 @@ exports.setup = (bot) => {
 exports.run = async (bot) => {
   const TweetModel = bot.db.model("tweet");
 
-  const response = await twitter.get("search/tweets", { q: "from:pegasusspiele" });
-  for (const tweet of response.data.statuses.filter((elt) => elt.retweeted_status === undefined && elt.in_reply_to_status_id === null).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))) {
+  const current_tweets = (await TweetModel.find({})) || [];
+
+  let entries;
+  try {
+    const response = await twitter.get("search/tweets", { q: "from:pegasusspiele" });
+
+    const {
+      data: { statuses },
+    } = response;
+
+    entries = statuses.filter((elt) => !current_tweets.map((elt) => elt.id).includes(elt.id_str) && elt.retweeted_status === undefined && elt.in_reply_to_status_id === null).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+  } catch {
+    return;
+  }
+
+  for (const tweet of entries) {
     const Tweet = new TweetModel();
     Tweet.id = tweet.id_str;
     Tweet.created = tweet.created_at;
