@@ -26,3 +26,15 @@ jobs:
         run: yarn test
         env:
           SESSION_SECRET: ${{secrets.SESSION_SECRET}}
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.4
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pegarobo"
+          heroku_email: "nico@gruselhaus.com"  
