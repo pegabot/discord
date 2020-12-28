@@ -7,7 +7,7 @@ const {
   slugify,
 } = require("../utils");
 
-exports.setup = async (bot) => {
+exports.run = async (bot) => {
   let entries;
   try {
     let {
@@ -66,7 +66,7 @@ exports.setup = async (bot) => {
       blogPost.url = url;
       await blogPost.save();
     } catch (error) {
-      if (process.env.NODE_ENV !== "production") console.error(errror);
+      if (process.env.NODE_ENV !== "production") console.error(error);
     }
   }
 };
