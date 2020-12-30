@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ * Copyright (c) 2020 - 2021 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 
 const fs = require("fs");
@@ -151,9 +151,7 @@ exports.Commands = class {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
         } else {
-          const embed = new MessageEmbed()
-            .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
-            .addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
+          const embed = new MessageEmbed().setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`).addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
           await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }

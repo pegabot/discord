@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
+ * Copyright (c) 2020 - 2021 Pegasus Spiele Verlags- und Medienvertriebsgesellschaft mbH, all rights reserved.
  */
 const { fetchWithTimeout } = require("./../../utils");
 const emojiStrip = require("emoji-strip");
@@ -29,5 +29,5 @@ exports.info = {
   name: "miau",
   usage: ["miau", "miau <text>"],
   help: "Liefert ein zufälliges Katzenbild zurück.",
-  channel: ["718145438339039325", "698189934879571999","697111104874348585"],
+  channel: ["718145438339039325", "698189934879571999", "697111104874348585"],
 };
