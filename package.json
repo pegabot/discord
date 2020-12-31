@@ -2,7 +2,7 @@
   "name": "pegabot",
   "version": "1.1.0",
   "main": "src/bot.js",
-  "author": "Nico Finkernagel, Pegasus Spiele Verlags- und Medienvetriebsgesellschaft mbH",
+  "author": "The Pegabot authors",
   "license": "MIT",
   "scripts": {
     "test": "jest . --verbose",
