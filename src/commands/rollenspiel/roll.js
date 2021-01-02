@@ -18,7 +18,7 @@ module.exports = {
       if (diceobj.failed) {
         throw new BotExecption("Die Eingabe scheint fehlerhaft zu sein, bitte überprüfe diese und versuche es erneut.");
       }
-      for (const [dicevalue, count] of Object.entries(diceobj.counts)) {
+      for (let [dicevalue, count] of Object.entries(diceobj.counts)) {
         if (count < 1) {
           continue;
         }
