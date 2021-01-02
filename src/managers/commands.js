@@ -42,8 +42,8 @@ exports.Commands = class {
       const category = path.dirname(command).split(path.sep).pop();
 
       const cmd = require(command);
-      if (!cmd.info) continue;
-      cmd.info.category = category[0].toUpperCase() + category.slice(1);
+      if (!cmd) continue;
+      cmd.category = category[0].toUpperCase() + category.slice(1);
       cmd.path = path.join(".", category, base);
 
       this.loadCommand(base, cmd);
@@ -52,19 +52,19 @@ exports.Commands = class {
 
   checkCommand(cmd, name) {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
-    if (!cmd.hasOwnProperty("info")) return `Der Command ${name} hat kein Info Objekt.`;
-    if (!cmd.info.hasOwnProperty("help") || !cmd.info.hasOwnProperty("usage")) {
-      return `Der Command ${name} muss einen help/usage Eintrag in seinem Info Objekt besitzen.`;
+    if (!cmd.hasOwnProperty("execute")) return `Der Command ${name} muss eine execute Function besitzen.`;
+    if (!cmd.hasOwnProperty("help") || !cmd.hasOwnProperty("usage")) {
+      return `Der Command ${name} muss einen help/usage Eintrag besitzen.`;
     }
     return null;
   }
 
   loadCommand(base, cmd) {
-    const name = cmd.info ? cmd.info.name : base;
+    const name = cmd.name;
     const error = this.checkCommand(cmd, name);
 
     if (!error) {
-      [name, ...(cmd.info.aliases || [])].map((name) => {
+      [name, ...(cmd.aliases || [])].map((name) => {
         this.cmds.set(name, cmd);
       });
     } else {
@@ -109,7 +109,7 @@ exports.Commands = class {
       if (this.bot.blacklist.has(msg.author.id)) return null;
 
       if (
-        command.info.owner &&
+        command.owner &&
         !this.bot.config.ownerIds
           .split(",")
           .map((elt) => elt.trim())
@@ -118,26 +118,26 @@ exports.Commands = class {
         return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
-      if (command.info.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
+      if (command.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
-      if (command.info.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
-        if (!command.info.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.info.channel.join(`>, <#`)}>.`);
+      if (command.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+        if (!command.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.channel.join(`>, <#`)}>.`);
       }
 
-      if (command.info.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+      if (command.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
-        if (localTime < command.info.unlock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command wird erst an folgendem Zeitpunkt freigeschaltet: ***${new Date(command.info.unlock).toLocaleString("de-DE")}***.`);
+        if (localTime < command.unlock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command wird erst an folgendem Zeitpunkt freigeschaltet: ***${new Date(command.unlock).toLocaleString("de-DE")}***.`);
       }
 
-      if (command.info.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+      if (command.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
-        if (localTime > command.info.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
+        if (localTime > command.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
       }
 
-      const { permissions } = command.info;
-      const { roles } = command.info;
+      const { permissions } = command;
+      const { roles } = command;
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
         return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
@@ -147,7 +147,7 @@ exports.Commands = class {
       }
 
       try {
-        await command.run(this.bot, msg, args);
+        await command.execute(this.bot, msg, args);
       } catch (e) {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
