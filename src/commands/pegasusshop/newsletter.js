@@ -3,9 +3,11 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const md5 = require("md5");
+const {
+  crypto: { computeSHA256 },
+  fetchWithTimeout,
+} = require("./../../utils");
 const { format } = require("date-fns");
-const { fetchWithTimeout } = require("./../../utils");
 
 module.exports = {
   name: "newsletter",
@@ -21,11 +23,10 @@ module.exports = {
       .then(async (collected) => {
         const email = collected.first().content;
 
-        const hash = md5(format(new Date(), "ddMMyyyy") + email + process.env.NEWSLETTER_SECRET);
+        const hash = computeSHA256(format(new Date(), "ddMMyyyy") + email + process.env.NEWSLETTER_SECRET);
 
         try {
           const resp = await fetchWithTimeout(`https://pegasusshop.de/saveNewNewsletter/subscribeToNewsletter?&newsletter=${email}&subscribeToNewsletter=1&newslettergroup=1&crypt=${hash}`);
-
           if (resp.status !== 200) throw new Error();
           await msg.author.send("Du wurdest für den Newsletter angemeldet. Du bekommst gleich eine E-Mail, in der du die Anmeldung bitte einmal kurz bestätigen musst.");
         } catch (e) {
