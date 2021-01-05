@@ -69,13 +69,13 @@ exports.run = async (bot) => {
       const guild = bot.guilds.cache.get(bot.config.guildId);
       guild.channels.cache.get(bot.config.YOUTUBE_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`);
     }
-  } catch {
-    return;
+  } catch (error) {
+    console.error(error);
   }
 };
 
 exports.info = {
   name: "YouTube",
   env: "youtube",
-  interval: 20000,
+  interval: 40000,
 };
