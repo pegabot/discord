@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const Trello = require("trello");
+const Trello = require("../lib/trello/main");
 const {
   trello: { getCustomFieldItemsOnBoard, updateCustomFieldOnCard },
 } = require("../utils");
@@ -32,29 +32,28 @@ exports.run = async (bot) => {
     // Kategorie, Tischname, Voicechannel
     if (!["5ff48430149da602aaa800a3", "5ff4844e96f0867d8a01f399", "5ff4846133e3a636715007b2"].every((i) => fields.map((elt) => elt.idCustomField).includes(i))) continue;
 
-    const category_field = fields.find((elt) => elt.idCustomField === "5ff48430149da602aaa800a3");
-    const tableName_field = fields.find((elt) => elt.idCustomField === "5ff4844e96f0867d8a01f399");
-    const voicechannel_field = fields.find((elt) => elt.idCustomField === "5ff4846133e3a636715007b2");
+    const categoryField = fields.find((elt) => elt.idCustomField === "5ff48430149da602aaa800a3");
+    const tableField = fields.find((elt) => elt.idCustomField === "5ff4844e96f0867d8a01f399");
+    const voiceField = fields.find((elt) => elt.idCustomField === "5ff4846133e3a636715007b2");
 
-    const category = await bot.guilds.cache.get(bot.config.guildId).channels.create(category_field.value.text, {
+    const category = await bot.guilds.cache.get(bot.config.guildId).channels.create(categoryField.value.text, {
       type: "category",
     });
 
-    await bot.guilds.cache.get(bot.config.guildId).channels.create(tableName_field.value.text, {
+    await bot.guilds.cache.get(bot.config.guildId).channels.create(tableField.value.text, {
       type: "text",
       topic: url,
       parent: category,
       position: 1,
     });
-    await bot.guilds.cache.get(bot.config.guildId).channels.create(voicechannel_field.value.text, {
+    await bot.guilds.cache.get(bot.config.guildId).channels.create(voiceField.value.text, {
       type: "voice",
       topic: url,
       parent: category,
       position: 2,
     });
 
-    // To-Do
-    // await updateCustomFieldOnCard(trello, cardId, "");
+    await trello.updateCustomFieldOnCard(cardId, "5ff4e85340aee5734ae67a76", { checked: "true" });
 
     const TrelloCard = new TrelloCardModel();
     TrelloCard.cardId = cardId;

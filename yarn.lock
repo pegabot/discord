@@ -4749,15 +4749,6 @@ tr46@^2.0.2:
   dependencies:
     punycode "^2.1.1"
 
-trello@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/trello/-/trello-0.10.0.tgz#01b5168575344b5d14f8fa881b25f48528694828"
-  integrity sha512-l2uDieuUkFU+qlZG1dtu11Uzg5yKZLl+NjVCAQWumaHnclH46cTuBEyHjnz7kPqZDNoGf7qzcsln0BOVjrFajw==
-  dependencies:
-    es6-promise "~3.0.2"
-    object-assign "~4.1.0"
-    restler "~3.3.0"
-
 tunnel-agent@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/tunnel-agent/-/tunnel-agent-0.6.0.tgz#27a5dea06b36b04a0a9966774b290868f0fc40fd"
