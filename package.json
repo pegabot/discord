@@ -33,7 +33,7 @@
     "rss-parser": "^3.10.0",
     "simple-youtube-api": "^5.2.1",
     "twit": "^2.2.11",
-    "es6-promise": "~3.0.2",
+    "es6-promise": "~4.2.8",
     "restler": "~3.3.0",
     "object-assign": "~4.1.0"
   },
