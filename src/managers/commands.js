@@ -76,6 +76,10 @@ exports.Commands = class {
     const guild = this.bot.guilds.cache.get(this.bot.config.guildId);
     const { name } = guild;
 
+    if (this.bot.config.ignoredChannels) {
+      if (this.bot.config.ignoredChannels.split(",").includes(msg.channel.id)) return;
+    }
+
     if (!msg.guild && msg.author.id !== this.bot.user.id && msg.content.includes(this.bot.config.prefix)) {
       msg.channel.send(`Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem **${name}** Server an :smile:`);
       return null;
