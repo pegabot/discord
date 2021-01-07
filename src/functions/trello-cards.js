@@ -51,7 +51,7 @@ exports.run = async (bot) => {
     const category = await guild.channels.create(categoryField.value.text, {
       type: "category",
       permissionOverwrites:
-        process.env.NODE_ENV !== "development"
+        process.env.NODE_ENV === "production"
           ? [
               {
                 type: "role",
