@@ -76,7 +76,7 @@ exports.run = async (bot) => {
 };
 
 exports.info = {
-  name: "Trello",
+  name: "Trello Cards",
   env: "trello",
   interval: 30000,
 };
