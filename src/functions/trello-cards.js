@@ -44,8 +44,102 @@ exports.run = async (bot) => {
 
     const guild = bot.guilds.cache.get(bot.config.guildId);
 
+    const everyone_role = guild.roles.cache.find((role) => role.name === "@everyone");
+    const conspirative_role = guild.roles.cache.find((role) => role.id === "694076637355966480");
+    const de_role = guild.roles.cache.find((role) => role.id === "737260355763306626");
+
     const category = await guild.channels.create(categoryField.value.text, {
       type: "category",
+      permissionOverwrites:
+        process.env.NODE_ENV !== "development"
+          ? [
+              {
+                type: "role",
+                id: everyone_role.id,
+                deny: [
+                  "CREATE_INSTANT_INVITE",
+                  "KICK_MEMBERS",
+                  "BAN_MEMBERS",
+                  "MANAGE_CHANNELS",
+                  "MANAGE_GUILD",
+                  "ADD_REACTIONS",
+                  "VIEW_AUDIT_LOG",
+                  "PRIORITY_SPEAKER",
+                  "STREAM",
+                  "VIEW_CHANNEL",
+                  "SEND_MESSAGES",
+                  "SEND_TTS_MESSAGES",
+                  "MANAGE_MESSAGES",
+                  "EMBED_LINKS",
+                  "ATTACH_FILES",
+                  "READ_MESSAGE_HISTORY",
+                  "MENTION_EVERYONE",
+                  "USE_EXTERNAL_EMOJIS",
+                  "VIEW_GUILD_INSIGHTS",
+                  "CONNECT",
+                  "SPEAK",
+                  "MUTE_MEMBERS",
+                  "DEAFEN_MEMBERS",
+                  "MOVE_MEMBERS",
+                  "USE_VAD",
+                  "CHANGE_NICKNAME",
+                  "MANAGE_NICKNAMES",
+                  "MANAGE_ROLES",
+                  "MANAGE_WEBHOOKS",
+                  "MANAGE_EMOJIS",
+                ],
+              },
+              {
+                type: "role",
+                id: de_role.id,
+                allow: ["USE_VAD", "STREAM", "CONNECT", "SPEAK", "USE_EXTERNAL_EMOJIS", "CREATE_INSTANT_INVITE", "VIEW_CHANNEL", "SEND_MESSAGES", "SEND_TTS_MESSAGES", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS"],
+                deny: [
+                  "KICK_MEMBERS",
+                  "BAN_MEMBERS",
+                  "MANAGE_CHANNELS",
+                  "MANAGE_GUILD",
+                  "VIEW_AUDIT_LOG",
+                  "PRIORITY_SPEAKER",
+                  "MANAGE_MESSAGES",
+                  "MENTION_EVERYONE",
+                  "VIEW_GUILD_INSIGHTS",
+                  "MUTE_MEMBERS",
+                  "DEAFEN_MEMBERS",
+                  "MOVE_MEMBERS",
+                  "CHANGE_NICKNAME",
+                  "MANAGE_NICKNAMES",
+                  "MANAGE_ROLES",
+                  "MANAGE_WEBHOOKS",
+                  "MANAGE_EMOJIS",
+                ],
+              },
+              {
+                type: "role",
+                id: conspirative_role.id,
+                allow: [
+                  "PRIORITY_SPEAKER",
+                  "MANAGE_MESSAGES",
+                  "MENTION_EVERYONE",
+                  "USE_VAD",
+                  "STREAM",
+                  "CONNECT",
+                  "SPEAK",
+                  "USE_EXTERNAL_EMOJIS",
+                  "CREATE_INSTANT_INVITE",
+                  "VIEW_CHANNEL",
+                  "SEND_MESSAGES",
+                  "SEND_TTS_MESSAGES",
+                  "EMBED_LINKS",
+                  "ATTACH_FILES",
+                  "READ_MESSAGE_HISTORY",
+                  "ADD_REACTIONS",
+                  "MUTE_MEMBERS",
+                  "DEAFEN_MEMBERS",
+                ],
+                deny: ["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD", "VIEW_AUDIT_LOG", "VIEW_GUILD_INSIGHTS", "MOVE_MEMBERS", "CHANGE_NICKNAME", "MANAGE_NICKNAMES", "MANAGE_ROLES", "MANAGE_WEBHOOKS", "MANAGE_EMOJIS"],
+              },
+            ]
+          : null,
     });
 
     await guild.channels.create(tableField.value.text, {
@@ -54,6 +148,7 @@ exports.run = async (bot) => {
       parent: category,
       position: 1,
     });
+
     await guild.channels.create(voiceField.value.text, {
       type: "voice",
       topic: url,
