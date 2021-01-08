@@ -48,6 +48,8 @@ exports.run = async (bot) => {
     const conspirative_role = guild.roles.cache.find((role) => role.id === "694076637355966480");
     const de_role = guild.roles.cache.find((role) => role.id === "737260355763306626");
 
+    bot.logger.admin(`Trello: erstelle Kanäle für Card: ${cardId}`);
+
     const category = await guild.channels.create(categoryField.value.text, {
       type: "category",
       permissionOverwrites:
