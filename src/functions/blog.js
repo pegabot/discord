@@ -5,7 +5,6 @@
 
 const {
   shopApi: { getRequest },
-  slugify,
 } = require("../utils");
 
 exports.run = async (bot) => {
@@ -28,30 +27,30 @@ exports.run = async (bot) => {
   for (const entry of entries) {
     try {
       const {
+        id: postId,
         category: { id: catId },
-        title,
       } = entry;
 
       let channel, url, message;
       switch (catId) {
         case 115:
           channel = bot.config.BLOG_CHANNEL_DE;
-          url = `https://pegasus.de/presse/pressemitteilungen/${slugify(title)}`;
+          url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
           message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
           break;
         case 560:
           channel = bot.config.BLOG_CHANNEL_DE;
-          url = `https://pegasus.de/news/pegasus-spiele-blog/${slugify(title)}`;
+          url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
           message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
           break;
         case 589:
           channel = bot.config.BLOG_CHANNEL_EN;
-          url = `https://pegasus-web.com/news/${slugify(title)}`;
+          url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
           message = `Our US-Team released a new article in our new room 📣  Check it out!${url}`;
           break;
         case 713:
           channel = bot.config.BLOG_CHANNEL_EN;
-          url = `https://pegasus-web.com/pegasus-spiele-blog/${slugify(title)}`;
+          url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
           message = `We've added a new article on our blog 📄  Check it out! ${url}`;
           break;
         default:
@@ -62,7 +61,7 @@ exports.run = async (bot) => {
       await guild.channels.cache.get(channel).send(message);
 
       const blogPost = new BlogModel();
-      blogPost.blogPost_id = entry.id;
+      blogPost.blogPost_id = postId;
       blogPost.raw = entry;
       blogPost.url = url;
       await blogPost.save();
