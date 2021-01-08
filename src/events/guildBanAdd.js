@@ -8,5 +8,5 @@ const { MessageEmbed } = require("discord.js");
 exports.run = (bot, guild, user) => {
   const embed = new MessageEmbed().setTitle(`${user.tag} wurde gerade vom Server gebannt.`);
 
-  bot.channels.resolve(bot.config.adminChannel).send(embed);
+  bot.logger.admin(embed);
 };

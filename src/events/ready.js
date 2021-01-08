@@ -17,7 +17,6 @@ exports.run = (bot) => {
       ${bot.functions.size} Function(s) aktiviert ⚙️`;
 
   bot.logger.info(message);
-  if (process.env.NODE_ENV === "production") bot.channels.resolve(bot.config.adminChannel).send(message);
-
+  if (process.env.NODE_ENV === "production") bot.logger.admin(message);
   bot.user.setActivity(`pegasus.de/youtube 🍹`, { type: "WATCHING" });
 };

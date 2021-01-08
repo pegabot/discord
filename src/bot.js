@@ -12,7 +12,7 @@ bot.config = process.env;
 bot.blacklist = new Discord.Collection();
 
 const { Logger } = require("./managers/logger");
-bot.logger = new Logger();
+bot.logger = new Logger(bot);
 
 const { Database } = require("./managers/database");
 const { instance } = new Database();

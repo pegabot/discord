@@ -6,6 +6,14 @@
 const { stripIndents } = require("../utils");
 
 exports.Logger = class {
+  constructor(bot) {
+    this.bot = bot;
+  }
+
+  admin(msg) {
+    this.bot.channels.resolve(this.bot.config.adminChannel).send(stripIndents(msg));
+  }
+
   info(msg) {
     console.log(stripIndents(msg));
   }

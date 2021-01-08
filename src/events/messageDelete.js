@@ -18,9 +18,9 @@ exports.run = async (bot, msg) => {
     embed.addField("Embed", "Diese Nachricht hatte eine zusätzliche Einbettung, welche nach dieser Nachricht geschickt wird.");
   }
 
-  await bot.channels.resolve(bot.config.adminChannel).send(embed);
+  await bot.logger.admin(embed);
 
   if (msg.embeds.length > 0) {
-    bot.channels.resolve(bot.config.adminChannel).send("Die gelöschte Einbettung", { embed: msg.embeds[0] });
+    await bot.logger.admin("Die gelöschte Einbettung", { embed: msg.embeds[0] });
   }
 };
