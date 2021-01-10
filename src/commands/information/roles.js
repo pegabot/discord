@@ -20,7 +20,7 @@ module.exports = {
       .setThumbnail(msg.guild.iconURL())
       .setTitle(`Rollen in ${msg.guild.name}`)
       .setDescription(roles.map((role) => `${role}\n`).join(""))
-      .setColor(roles[0]?.hexColor || "11ee11")
+      .setColor("dfc016")
       .setFooter(`Rollen: ${roles.length}`)
       .setTimestamp(new Date());
     msg.channel.send(embed);
