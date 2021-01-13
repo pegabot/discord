@@ -12,7 +12,7 @@ module.exports = {
   permissions: ["KICK_MEMBERS"],
   execute: async (bot, msg, args) => {
     if (args[0]) {
-      if (Number.isNaN(args[0])) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
+      if (isNaN(args[0])) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
       if (args[0] > 50) throw new BotExecption("Ich kann nicht mehr als 50 Nachrichten auf Einmal löschen.");
 
       const messages = await msg.channel.messages.fetch({ limit: Number(args[0]) + 1 });

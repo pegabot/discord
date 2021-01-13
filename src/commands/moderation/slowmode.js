@@ -11,12 +11,14 @@ module.exports = {
   help: "Einstellungen für den Slowmode",
   permissions: ["MANAGE_CHANNELS"],
   execute: async (bot, msg, args) => {
-    if (!args[0]) {
+    const [input] = args;
+    if (!input) {
       msg.channel.send(`Aktuell beträgt die Slowmode Rate ${msg.channel.rateLimitPerUser} Sekunde(n)`);
     } else {
-      if (Number.isNaN(args[0])) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
-      await msg.channel.setRateLimitPerUser(args[0]);
-      msg.channel.send(`Die neue Slowmode Rate beträgt nun ${args[0]} Sekunde(n)`);
+      console.log(typeof input);
+      if (isNaN(input)) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
+      await msg.channel.setRateLimitPerUser(input);
+      msg.channel.send(`Die neue Slowmode Rate beträgt nun ${input} Sekunde(n)`);
     }
   },
 };
