@@ -15,7 +15,6 @@ module.exports = {
     if (!input) {
       msg.channel.send(`Aktuell beträgt die Slowmode Rate ${msg.channel.rateLimitPerUser} Sekunde(n)`);
     } else {
-      console.log(typeof input);
       if (isNaN(input)) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
       await msg.channel.setRateLimitPerUser(input);
       msg.channel.send(`Die neue Slowmode Rate beträgt nun ${input} Sekunde(n)`);
