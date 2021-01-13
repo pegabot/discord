@@ -10,7 +10,7 @@ module.exports = {
   name: "blacklist",
   usage: ["blacklist", "blacklist add <user>", "blacklist remove <user>"],
   help: "Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.",
-  owner: true,
+  permissions: ["KICK_MEMBERS", "BAN_MEMBERS"],
   execute: (bot, msg, args) => {
     if (args.length === 0) {
       const list = bot.blacklist
