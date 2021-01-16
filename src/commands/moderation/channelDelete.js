@@ -4,8 +4,8 @@
  */
 
 module.exports = {
-  name: "extinguish",
-  usage: ["extinguish"],
+  name: "channelDelete",
+  usage: ["channelDelete"],
   help: "Lösche die Känale zur zugehörigen Kategorie und die Kategorie.",
   permissions: ["MANAGE_CHANNELS"],
   execute: async (bot, msg, args) => {
