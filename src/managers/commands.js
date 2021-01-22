@@ -65,7 +65,7 @@ exports.Commands = class {
 
     if (!error) {
       [name, ...(cmd.aliases || [])].map((name) => {
-        this.cmds.set(name, cmd);
+        this.cmds.set(name.toLowerCase(), cmd);
       });
     } else {
       this.bot.logger.error(error);
