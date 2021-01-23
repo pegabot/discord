@@ -41,7 +41,7 @@ const testData = [
   ["tiếng việt rất khó", "tieng-viet-rat-kho"],
 ];
 
-describe("Checking cleanupPath Function", () => {
+describe("Testing the cleanupPath function", () => {
   for (const test of testData) {
     it(`Checking: "${test[0]}"`, () => {
       expect(slugify(test[0])).toBe(test[1]);
