@@ -17,6 +17,7 @@
     "cleanupVouchers": "node tools/cleanupVouchers.js"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
     "@sindresorhus/slugify": "^1.1.0",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
@@ -36,7 +37,8 @@
     "restler": "~3.3.0",
     "rss-parser": "^3.10.0",
     "simple-youtube-api": "^5.2.1",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "ytdl-core": "^4.4.5"
   },
   "devDependencies": {
     "jest": "^26.6.3",

@@ -24,6 +24,9 @@ bot.commands = new Commands(bot);
 const { Functions } = require("./managers/functions");
 bot.functions = new Functions(bot);
 
+const { Jukebox } = require("./managers/jukebox");
+bot.jukebox = new Jukebox(bot);
+
 const { Events } = require("./managers/events");
 bot.events = new Events(bot);
 bot.events.loadEvents();
