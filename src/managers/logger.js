@@ -11,7 +11,7 @@ exports.Logger = class {
   }
 
   admin(msg) {
-    this.bot.channels.resolve(this.bot.config.adminChannel).send(stripIndents(msg));
+    this.bot.channels.resolve(this.bot.config.adminChannel).send(msg);
   }
 
   info(msg) {
