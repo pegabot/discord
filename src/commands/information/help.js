@@ -57,7 +57,7 @@ module.exports = {
         .setTitle(`Hilfe für **${bot.config.prefix}${name} ${disabled ? " (deaktiviert)" : ""}**`)
         .addField("Verwendung(en)", usage, true)
         .addField("Kategorie", category, true)
-        .addField("Berechtigungen", permissions.join("\n"), true)
+        .addField("Berechtigungen", permissions?.join("\n") || "keine", true)
         .setDescription(help);
 
       msg.channel.send(embed);
