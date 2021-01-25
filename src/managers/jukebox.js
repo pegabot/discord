@@ -66,7 +66,9 @@ exports.Jukebox = class {
     if (!serverQueue) return message.channel.send("Es scheint, als gäbe es nichts, was ich stoppen könnte!");
 
     serverQueue.songs = [];
-    if (serverQueue.connection.dispatcher) serverQueue.connection.dispatcher.end();
+    if (serverQueue.connection) {
+      if (serverQueue.connection.dispatcher) serverQueue.connection.dispatcher.end();
+    }
   }
 
   play(guild, song) {
