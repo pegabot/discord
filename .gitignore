@@ -3,7 +3,3 @@ node_modules/
 .DS_Store
 quiz.json
 vouchers.json
-
-#Appmetrics
-*.heapsnapshot
-*.log

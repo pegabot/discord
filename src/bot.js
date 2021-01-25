@@ -4,10 +4,6 @@
  */
 
 require("dotenv").config();
-if (process.env.NODE_ENV === "development") {
-  require("appmetrics-dash").attach();
-}
-
 require("./server/server");
 
 const Discord = require("discord.js");
