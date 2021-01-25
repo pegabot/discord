@@ -46,7 +46,7 @@ exports.Jukebox = class {
         queueContruct.connection = connection;
         this.play(message.guild, queueContruct.songs[0]);
       } catch (err) {
-        queue.delete(message.guild.id);
+        this.queue.delete(message.guild.id);
       }
     } else {
       serverQueue.songs.push(song);
