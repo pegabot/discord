@@ -7,7 +7,6 @@ module.exports = {
   name: "stop",
   usage: ["stop"],
   help: "Stoppe die Wiedergabe und setze die Wartschlange zurück.",
-  owner: true,
   channel: ["803042555025293332"],
   execute: async (bot, msg, args) => {
     const serverQueue = bot.jukebox.queue.get(msg.guild.id);
