@@ -3,10 +3,13 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-require("appmetrics-dash").attach();
+require("dotenv").config();
+if (process.env.NODE_ENV === "development") {
+  require("appmetrics-dash").attach();
+}
+
 require("./server/server");
 
-require("dotenv").config();
 const Discord = require("discord.js");
 
 const bot = new Discord.Client();
