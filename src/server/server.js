@@ -14,4 +14,6 @@ server.get("/", (_, res) => {
 
 server.use(express.static(path.resolve(__dirname, "static")));
 
-server.listen(process.env.PORT || 80, () => console.log("Webserver started!"));
+server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver started!`));
+
+exports.server = server;

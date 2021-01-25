@@ -14,6 +14,7 @@ exports.Jukebox = class {
   async execute(message, serverQueue, args) {
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.channel.send("Du musst dich in einem Sprachkanal befinden!");
+    if (!args[0]) return message.channel.send("Du musst mir eine URL oder eine Video ID mit übergeben!");
 
     let songInfo;
     try {

@@ -8,7 +8,6 @@
     "test": "jest . --verbose",
     "dev": "nodemon .",
     "start": "node .",
-    "server": "node server/server.js",
     "createQuiz": "node tools/createQuiz.js",
     "createVouchers": "node tools/createVouchers.js",
     "pruneVouchers": "node tools/pruneVouchers.js",
@@ -19,6 +18,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "@sindresorhus/slugify": "^1.1.0",
+    "appmetrics-dash": "^5.3.0",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
     "canvas": "^2.6.1",
