@@ -3,4 +3,6 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.module = (string) => string.replace(/^[ \\t]+/gm, "");
+exports.module = (input) => {
+  return typeof input === "string" ? input.replace(/^[ \\t]+/gm, "") : input;
+};
