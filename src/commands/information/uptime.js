@@ -9,7 +9,7 @@ module.exports = {
   name: "uptime",
   aliases: ["up"],
   usage: "uptime",
-  help: "Get the bots uptime",
+  help: "Wie lange ist der Bot schon aktiv?",
   execute: (bot, msg, args) => {
     msg.channel.send(`**${bot.user.username}** ist seit ${prettyMs(bot.uptime)} aktiv!`);
   },
