@@ -38,7 +38,7 @@ module.exports = {
     } else if (args.length > 0) {
       if (!bot.commands.has(args[0])) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
-      let { permissions, roles, usage, name, disabled, category, help } = bot.commands.get(args[0]);
+      let { aliases, permissions, roles, usage, name, disabled, category, help } = bot.commands.get(args[0]);
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
         return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
       }
@@ -57,6 +57,7 @@ module.exports = {
         .setTitle(`Hilfe für **${bot.config.prefix}${name} ${disabled ? " (deaktiviert)" : ""}**`)
         .addField("Verwendung(en)", usage, true)
         .addField("Kategorie", category, true)
+        .addField("Aliase", aliases ? aliases.join(", ") : "keine", true)
         .addField("Berechtigungen", permissions ? permissions.join("\n") : "keine", true)
         .setDescription(help);
 
