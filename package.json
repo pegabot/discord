@@ -28,7 +28,7 @@
     "erlpack": "^0.1.3",
     "es6-promise": "~3.0.2",
     "express": "^4.17.1",
-    "mongoose": "^5.11.13",
+    "mongoose": "^5.11.14",
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
     "pretty-ms": "^7.0.1",
