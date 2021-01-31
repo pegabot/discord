@@ -4,7 +4,7 @@
   "main": "src/bot.js",
   "author": "The Pegabot authors",
   "license": "MIT",
-    "engines": {
+  "engines": {
     "node": "14.x"
   },
   "scripts": {
