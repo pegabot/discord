@@ -9,10 +9,7 @@ exports.run = async (bot, oldMessage, newMessage) => {
   try {
     await oldMessage.fetch(true);
     await newMessage.fetch(true);
-    if (newMessage.author) {
-      if (newMessage.author.bot) return;
-    }
-
+    if (newMessage?.author?.bot) return;
     if (oldMessage.content === newMessage.content) return;
 
     const embed = new MessageEmbed()
