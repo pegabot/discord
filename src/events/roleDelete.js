@@ -6,5 +6,5 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, role) => {
-  bot.logger.admin(new MessageEmbed().setDescription(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`).setFooter(`ID: ${role.id}`).setTimestamp(role.createdAt).setColor("#11ee11"));
+  bot.logger.admin(new MessageEmbed().setDescription(`:inbox_tray: Die Rolle: ${role} **wurde gelöscht**.`).setFooter(`ID: ${role.id}`).setTimestamp(role.createdAt).setColor("#11ee11"));
 };
