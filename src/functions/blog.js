@@ -58,13 +58,13 @@ exports.run = async (bot) => {
       }
 
       const guild = bot.guilds.cache.get(bot.config.guildId);
-      await guild.channels.cache.get(channel).send(message);
+      guild.channels.cache.get(channel).send(message);
 
       const blogPost = new BlogModel();
       blogPost.blogPost_id = postId;
       blogPost.raw = entry;
       blogPost.url = url;
-      await blogPost.save();
+      blogPost.save();
     } catch (error) {
       if (process.env.NODE_ENV !== "production") console.error(error);
     }
