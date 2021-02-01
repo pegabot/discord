@@ -36,22 +36,22 @@ exports.run = async (bot) => {
         case 115:
           channel = bot.config.BLOG_CHANNEL_DE;
           url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
+          message = `<@&${bot.config.notificationRole}>, unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
           break;
         case 560:
           channel = bot.config.BLOG_CHANNEL_DE;
           url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
+          message = `<@&${bot.config.notificationRole}>, auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
           break;
         case 589:
           channel = bot.config.BLOG_CHANNEL_EN;
           url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Our US-Team released a new article in our new room 📣  Check it out!${url}`;
+          message = `<@&${bot.config.notificationRole}>, our US-Team released a new article in our new room 📣  Check it out!${url}`;
           break;
         case 713:
           channel = bot.config.BLOG_CHANNEL_EN;
           url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `We've added a new article on our blog 📄  Check it out! ${url}`;
+          message = `<@&${bot.config.notificationRole}>, we've added a new article on our blog 📄  Check it out! ${url}`;
           break;
         default:
           continue;
