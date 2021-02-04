@@ -37,7 +37,7 @@
     "pretty-ms": "^7.0.1",
     "querystring": "^0.2.0",
     "restler": "~3.3.0",
-    "rss-parser": "^3.10.0",
+    "rss-parser": "^3.11.0",
     "simple-youtube-api": "^5.2.1",
     "twit": "^2.2.11",
     "ytdl-core": "^4.4.5"
