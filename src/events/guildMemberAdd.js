@@ -52,7 +52,7 @@ exports.run = (bot, member) => {
     .addField(`Rollen [${size}]`, `\`${roles}\``);
   bot.channels.resolve(bot.config.welcomeChannel).send(embed);
 
-  const lockTime = 1606690800000; // Montag, 30. November 2020 00:00:00 GMT+01:00 https://www.epochconverter.com
+  const lockTime = 1616968799000; // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com
   const localTime = new Date().getTime();
 
   if (localTime > lockTime) return;
@@ -62,14 +62,14 @@ exports.run = (bot, member) => {
 Willkommen bei der CONspiracy
 
 Hier kannst du dich mit Freunden und weiteren Mitspielern austauschen, oder auch mit uns vom Pegasus-Spiele-Team in Kontakt treten. Ob mit oder ohne Voice-Chat – du hast die Wahl!
-Die CONspiracy ist eine Online-Spiele-Convention von Pegasus Spiele. Während der Convention werden Brett- und Kartenspiele auf Tabletopia und Rollenspielrunden auf dem Discord-Server angeboten. Zudem gibt es Livestreams zu Lesungen, Talkrunden, Workshops und Let’s Plays. Nach den drei erfolgreichen Conventions, ist auch schon die CONspiracy 4 eingeplant: vom 27. bis zum 29.11.2020!
+Die CONspiracy ist eine Online-Spiele-Convention von Pegasus Spiele. Während der Convention werden Brett- und Kartenspiele auf Tabletopia und Rollenspielrunden auf dem Discord-Server angeboten. Zudem gibt es Livestreams zu Lesungen, Talkrunden, Workshops und Let’s Plays. Nach den drei erfolgreichen Conventions, ist auch schon die CONspiracy 5 Meets GRT eingeplant: vom 26. bis zum 28.03.2021!
 
 Dein Pegabot
 ------
 
 Welcome to the CONspiracy!
 You can interact with friends and other players, or get in touch with us from the Pegasus Spiele-team. 
-The CONspiracy is an online gaming convention provided by Pegasus Spiele. During this convention board- and card games on Tabletopia and roleplaying rounds on the discord server are offered. Live streams with readings, talk shows, workshops and Let’s Plays are provided as well. And there’s even better news: After three successful convention, the CONspiracy comes with CONspiracy 4: from 27th to 29th of November 2020!,
+The CONspiracy is an online gaming convention provided by Pegasus Spiele. During this convention board- and card games on Tabletopia and roleplaying rounds on the discord server are offered. Live streams with readings, talk shows, workshops and Let’s Plays are provided as well. And there’s even better news: After three successful convention, the CONspiracy comes with CONspiracy 5: from 26th to 28th of March 2021!,
 
 Your Pegabot`),
   );
