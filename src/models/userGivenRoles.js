@@ -6,7 +6,6 @@
 const { Schema } = require("mongoose");
 
 const userGivenRoles = new Schema({
-  created: { type: Number, default: Date.now },
   expires: { type: Number },
   userId: String,
   roleId: String,
