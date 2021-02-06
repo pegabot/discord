@@ -8,13 +8,13 @@ const { BotExecption } = require("../../utils");
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
 module.exports = {
-  name: "temp",
-  usage: ["temp"],
-  help: "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, welche verwendet wird, um dich bei Neuigkeiten zu informieren.",
+  name: "spontansuche",
+  usage: ["spontansuche"],
+  help: "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, mit welcher du dich als spontan spielfähig kennzeichnen kannst.",
   execute: async (bot, msg, args) => {
     try {
       const { member } = msg;
-      const roleId = bot.config.tempRole;
+      const roleId = bot.config.playerSearchRole;
       const userId = member.id;
 
       const userGivenRolesModel = bot.db.model("userGivenRoles");
