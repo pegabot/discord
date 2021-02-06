@@ -13,7 +13,7 @@ exports.setup = async (bot) => {
   trello = new Trello(bot.config.TRELLO_KEY, bot.config.TRELLO_TOKEN);
 };
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   const boardId = "5e8b2177a8edb534a9bcf315";
   const fieldId = "5ff6e699dfef7e701eb5ffa5";
   const filter = (card) => {

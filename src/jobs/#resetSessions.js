@@ -20,7 +20,7 @@ exports.setup = async (bot) => {
   }
 };
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   const SessionModel = bot.db.model("session");
 
   const sessions = await SessionModel.find({ status: "in progress", created: { $lt: Date.now() - minutes * 60000 } });

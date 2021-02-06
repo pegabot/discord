@@ -16,7 +16,7 @@ exports.setup = (bot) => {
   });
 };
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   const TweetModel = bot.db.model("tweet");
 
   const current_tweets = (await TweetModel.find({})) || [];

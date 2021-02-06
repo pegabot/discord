@@ -5,7 +5,7 @@
 
 exports.run = (bot) => {
   bot.commands.loadCommands();
-  bot.functions.loadFunctions();
+  bot.jobs.loadJobs();
 
   const message = `${bot.user.username}#${bot.user.discriminator} ist ready!
     -------------------------------
@@ -14,7 +14,7 @@ exports.run = (bot) => {
       ${bot.commands.size} Command(s) geladen 🤖,
       ${bot.events.size} Event(s) geladen 🎟
       ${Object.keys(bot.db.modelSchemas).length} Models(s) geladen 🧭
-      ${bot.functions.size} Function(s) aktiviert ⚙️`;
+      ${bot.jobs.size} Job(s) aktiviert ⚙️`;
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.logger.admin(message);

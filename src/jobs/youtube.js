@@ -59,7 +59,7 @@ async function getYoutubeChannelInfos(name) {
   return channel;
 }
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   try {
     for (const channel of channels) {
       const channelInfos = await getYoutubeChannelInfos(channel);

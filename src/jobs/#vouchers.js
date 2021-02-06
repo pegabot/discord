@@ -5,7 +5,7 @@
 
 const { stripIndents } = require("../utils");
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   const SessionModel = bot.db.model("session");
 
   const sessions = await SessionModel.find({ status: "closed", won: true, shipped: false });

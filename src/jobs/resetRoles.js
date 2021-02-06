@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   const userGivenRolesModel = bot.db.model("userGivenRoles");
 
   const entries = await userGivenRolesModel.find({ expires: { $lt: Date.now() } });

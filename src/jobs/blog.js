@@ -7,7 +7,7 @@ const {
   shopApi: { getRequest },
 } = require("../utils");
 
-exports.run = async (bot) => {
+exports.execute = async (bot) => {
   let entries;
   try {
     let {
