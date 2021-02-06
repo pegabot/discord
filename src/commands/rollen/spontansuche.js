@@ -24,7 +24,7 @@ module.exports = {
 
         const entries = await userGivenRolesModel.find({ userId: userId, roleId: roleId });
         entries.forEach((entry) => entry.remove());
-        msg.reply("Die Rolle wurde wieder entfernt.");
+        msg.reply("die Rolle wurde wieder entfernt.");
       } else {
         await member.roles.add(roleId);
         const entry = new userGivenRolesModel();
