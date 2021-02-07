@@ -6,6 +6,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Collection } = require("discord.js");
+const prettyMs = require("pretty-ms");
 
 exports.Jobs = class {
   constructor(bot) {
@@ -65,7 +66,7 @@ exports.Jobs = class {
   }
 
   executeJob(module) {
-    console.log(`Setup 🔨: ${module.info.name} => ${module.info.interval / 1000} second(s)`);
+    console.log(`Setup 🔨: ${module.info.name} => ${prettyMs(module.info.interval)}`);
     if (module.setup) module.setup(this.bot);
     if (module.execute) {
       setInterval(() => {
