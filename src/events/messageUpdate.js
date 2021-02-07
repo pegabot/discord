@@ -3,6 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+const gitDiff = require("git-diff");
+
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (bot, oldMessage, newMessage) => {
@@ -15,8 +17,7 @@ exports.execute = async (bot, oldMessage, newMessage) => {
     const embed = new MessageEmbed()
       .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL())
       .setDescription(`Nachricht bearbeitet von ${newMessage.author} in ${newMessage.channel} [Springe zur Nachricht](${newMessage.url})`)
-      .addField("Vorher", oldMessage.content || "unknown content")
-      .addField("Nachher", newMessage.content || "unknown content")
+      .addField("Änderung", "```diff\n" + gitDiff(oldMessage.content, newMessage.content, { noHeaders: true, forceFake: true, flags: "--unified=3" }) + "\n```")
       .setTimestamp(new Date());
 
     bot.logger.admin(embed);
