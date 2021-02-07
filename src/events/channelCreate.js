@@ -4,5 +4,6 @@
  */
 
 exports.execute = async (bot, channel) => {
+  if (channel.type === "dm") return;
   bot.logger.admin_green(`:inbox_tray: Der Kanal: ${channel} **wurde erstellt**.`);
 };
