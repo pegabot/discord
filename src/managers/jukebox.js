@@ -81,7 +81,7 @@ exports.Jukebox = class {
     }
 
     const dispatcher = serverQueue.connection
-      .play(ytdl(song.url))
+      .play(ytdl(song.url, { type: "opus" }), { highWaterMark: 70 })
       .on("finish", () => {
         serverQueue.songs.shift();
         this.play(guild, serverQueue.songs[0]);
