@@ -17,49 +17,39 @@ exports.setup = (bot) => {
 };
 
 exports.execute = async (bot) => {
-  const TweetModel = bot.db.model("tweet");
+  twitter.get("search/tweets", { q: "from:pegasusspiele" }, async (error, data, response) => {
+    if (error) return;
 
-  const current_tweets = (await TweetModel.find({})) || [];
+    const { statuses } = data;
 
-  let entries;
-  try {
-    const response = await twitter.get("search/tweets", { q: "from:pegasusspiele" });
+    if (statuses.length < 1) return;
 
-    const {
-      data: { statuses },
-    } = response;
+    const TweetModel = bot.db.model("tweet");
 
-    entries = statuses
-      .filter(
-        (elt) =>
-          !current_tweets.map((elt) => elt.id).includes(elt.id_str) &&
-          elt.retweeted_status === undefined &&
-          elt.in_reply_to_status_id === null,
-      )
+    const current_tweets = (await TweetModel.find({})) || [];
+
+    const entries = statuses
+      .filter((elt) => !current_tweets.map((elt) => elt.id).includes(elt.id_str) && elt.retweeted_status === undefined && elt.in_reply_to_status_id === null)
       .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-  } catch {
-    return;
-  }
 
-  for (const tweet of entries) {
-    const Tweet = new TweetModel();
-    Tweet.id = tweet.id_str;
-    Tweet.created = tweet.created_at;
-    Tweet.username = tweet.user.screen_name;
-    Tweet.url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
-    Tweet.retweet = tweet.retweeted_status !== undefined;
-    Tweet.save((error) => {
-      if (error) {
-        return;
-      }
-      const guild = bot.guilds.cache.get(bot.config.guildId);
-      guild.channels.cache
-        .get(bot.config.TWITTER_CHANNEL)
-        .send(
-          `Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`,
-        );
-    });
-  }
+    for (const tweet of entries) {
+      const Tweet = new TweetModel();
+      Tweet.id = tweet.id_str;
+      Tweet.created = tweet.created_at;
+      Tweet.username = tweet.user.screen_name;
+      Tweet.url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
+      Tweet.retweet = tweet.retweeted_status !== undefined;
+      Tweet.save((error) => {
+        if (error) {
+          return;
+        }
+        const guild = bot.guilds.cache.get(bot.config.guildId);
+        guild.channels.cache
+          .get(bot.config.TWITTER_CHANNEL)
+          .send(`Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`);
+      });
+    }
+  });
 };
 
 exports.info = {

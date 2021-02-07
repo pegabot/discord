@@ -36,11 +36,7 @@ exports.execute = async (bot) => {
     }
 
     // Kategorie, Tischname, Voicechannel
-    if (
-      !["5ff48430149da602aaa800a3", "5ff4844e96f0867d8a01f399", "5ff4846133e3a636715007b2"].every((i) =>
-        fields.map((elt) => elt.idCustomField).includes(i),
-      )
-    )
+    if (!["5ff48430149da602aaa800a3", "5ff4844e96f0867d8a01f399", "5ff4846133e3a636715007b2"].every((i) => fields.map((elt) => elt.idCustomField).includes(i)))
       continue;
 
     const categoryField = fields.find((elt) => elt.idCustomField === "5ff48430149da602aaa800a3");
@@ -176,14 +172,14 @@ exports.execute = async (bot) => {
           : null,
     });
 
-    await guild.channels.create(tableField.value.text, {
+    guild.channels.create(tableField.value.text, {
       type: "text",
       topic: url,
       parent: category,
       position: 1,
     });
 
-    await guild.channels.create(voiceField.value.text, {
+    guild.channels.create(voiceField.value.text, {
       type: "voice",
       topic: url,
       parent: category,
@@ -193,14 +189,14 @@ exports.execute = async (bot) => {
     guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(url);
     if (attachmentUrl) guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(attachmentUrl);
 
-    await trello.updateCustomFieldOnCard(cardId, "5ff4e85340aee5734ae67a76", { checked: "true" });
+    trello.updateCustomFieldOnCard(cardId, "5ff4e85340aee5734ae67a76", { checked: "true" });
 
     const TrelloCard = new TrelloCardModel();
     TrelloCard.cardId = cardId;
     TrelloCard.name = name;
     TrelloCard.url = url;
     TrelloCard.fields = fields;
-    await TrelloCard.save();
+    TrelloCard.save();
   }
 };
 

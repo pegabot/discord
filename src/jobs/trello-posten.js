@@ -36,7 +36,7 @@ exports.execute = async (bot) => {
     guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(url);
     if (attachmentUrl) guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(attachmentUrl);
 
-    await trello.updateCustomFieldOnCard(cardId, fieldId, { checked: "false" });
+    trello.updateCustomFieldOnCard(cardId, fieldId, { checked: "false" });
   }
 };
 

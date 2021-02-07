@@ -16,7 +16,7 @@ exports.setup = async (bot) => {
   bot.logger.info(`Setting stale status to ${sessions.length} session(s)!`);
   for (const session of sessions) {
     session.status = "stale";
-    await session.save();
+    session.save();
   }
 };
 
@@ -40,7 +40,7 @@ exports.execute = async (bot) => {
       session.status = "closed";
       session.timedOut = true;
 
-      await session.save();
+      session.save();
     } catch (e) {
       continue;
     }

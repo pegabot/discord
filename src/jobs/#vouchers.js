@@ -38,11 +38,11 @@ exports.execute = async (bot) => {
 
       voucher.used = true;
       voucher._session = session._id;
-      await voucher.save();
+      voucher.save();
 
       session.voucher = voucher;
       session.shipped = true;
-      await session.save();
+      session.save();
     } catch (e) {
       continue;
     }

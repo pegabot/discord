@@ -13,7 +13,7 @@ exports.execute = async (bot) => {
     const memberCache = guild.members.cache;
     const member = memberCache.find((member) => member.id === userId);
     if (member.roles.cache.has(roleId)) {
-      await member.roles.remove(roleId);
+      member.roles.remove(roleId);
     }
     entry.remove();
   });
