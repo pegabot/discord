@@ -44,7 +44,7 @@ exports.Events = class {
 
       this.events.set(name, module);
 
-      this.bot.on(name, (...args) => module.run(this.bot, ...args));
+      this.bot.on(name, (...args) => module.execute(this.bot, ...args));
     }
   }
 };

@@ -32,7 +32,10 @@ module.exports = {
         .map((cmd) => (bot.commands.get(cmd).disabled ? `${cmd} (deaktiviert)` : cmd))
         .map((cmd) => `\`${cmd}\``)
         .join(", ");
-      const embed = new MessageEmbed().setTitle("Hilfe").addField("Verfügbare Commands", cmdsString, true).setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
+      const embed = new MessageEmbed()
+        .setTitle("Hilfe")
+        .addField("Verfügbare Commands", cmdsString, true)
+        .setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
 
       msg.channel.send(embed);
     } else if (args.length > 0) {

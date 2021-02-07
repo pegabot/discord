@@ -3,8 +3,6 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { MessageEmbed } = require("discord.js");
-
-exports.run = async (bot, role) => {
-  bot.logger.admin(new MessageEmbed().setDescription(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`).setFooter(`ID: ${role.id}`).setTimestamp(role.createdAt).setColor("#11ee11"));
+exports.execute = async (bot, role) => {
+  bot.logger.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);
 };

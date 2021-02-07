@@ -10,7 +10,13 @@ const { schema: VoucherSchema } = require("../src/models/voucher");
 const { schema: SessionSchema } = require("../src/models/session");
 
 (async () => {
-  await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+  await mongoose.connect(process.env.DB_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    autoIndex: true,
+    useFindAndModify: false,
+  });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
   const SessionModel = mongoose.model("session", SessionSchema);
 

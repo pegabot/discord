@@ -21,7 +21,8 @@ exports.execute = async (bot) => {
 
   const boardId = "5e8b2177a8edb534a9bcf315";
 
-  const filter = (card) => card.customFieldItems.filter((elt) => elt.idCustomField !== "5ff4e85340aee5734ae67a76").length > 0;
+  const filter = (card) =>
+    card.customFieldItems.filter((elt) => elt.idCustomField !== "5ff4e85340aee5734ae67a76").length > 0;
   const cards = new Array(await getCustomFieldItemsOnBoard(trello, boardId))[0].filter(filter);
 
   const matches = current_trelloCards.filter((elt) => !cards.map((elt) => elt.id).includes(elt.cardId));

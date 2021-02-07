@@ -9,7 +9,13 @@ const mongoose = require("mongoose");
 const { schema: VoucherSchema } = require("../src/models/voucher");
 
 (async () => {
-  await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+  await mongoose.connect(process.env.DB_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    autoIndex: true,
+    useFindAndModify: false,
+  });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
 
   const vouchers = await VoucherModel.find({});

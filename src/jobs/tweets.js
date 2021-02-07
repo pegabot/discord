@@ -29,7 +29,14 @@ exports.execute = async (bot) => {
       data: { statuses },
     } = response;
 
-    entries = statuses.filter((elt) => !current_tweets.map((elt) => elt.id).includes(elt.id_str) && elt.retweeted_status === undefined && elt.in_reply_to_status_id === null).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    entries = statuses
+      .filter(
+        (elt) =>
+          !current_tweets.map((elt) => elt.id).includes(elt.id_str) &&
+          elt.retweeted_status === undefined &&
+          elt.in_reply_to_status_id === null,
+      )
+      .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
   } catch {
     return;
   }
@@ -46,7 +53,11 @@ exports.execute = async (bot) => {
         return;
       }
       const guild = bot.guilds.cache.get(bot.config.guildId);
-      guild.channels.cache.get(bot.config.TWITTER_CHANNEL).send(`Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`);
+      guild.channels.cache
+        .get(bot.config.TWITTER_CHANNEL)
+        .send(
+          `Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`,
+        );
     });
   }
 };

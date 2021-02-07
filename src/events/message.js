@@ -3,6 +3,6 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.run = (bot, message) => {
+exports.execute = (bot, message) => {
   bot.commands.handleCommand(message);
 };

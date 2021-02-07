@@ -3,10 +3,6 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { MessageEmbed } = require("discord.js");
-
-exports.run = (bot, guild, user) => {
-  const embed = new MessageEmbed().setTitle(`${user.tag} wurde gerade vom Server gebannt.`);
-
-  bot.logger.admin(embed);
+exports.execute = (bot, guild, user) => {
+  bot.logger.admin_red(`${user.tag} wurde gerade vom Server gebannt.`);
 };

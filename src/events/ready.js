@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.run = (bot) => {
+exports.execute = (bot) => {
   bot.commands.loadCommands();
   bot.jobs.loadJobs();
 

@@ -17,7 +17,13 @@ const filename = "vouchers.json";
   if (!fs.existsSync(path.join(__dirname, filename))) throw new Error(`${filename} existiert nicht!`);
   const vouchers = require(path.join(__dirname, filename));
 
-  await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+  await mongoose.connect(process.env.DB_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    autoIndex: true,
+    useFindAndModify: false,
+  });
   const VoucherModel = mongoose.model("voucher", VoucherSchema);
 
   const existingVouchers = await VoucherModel.find({});

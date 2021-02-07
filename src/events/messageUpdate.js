@@ -5,7 +5,7 @@
 
 const { MessageEmbed } = require("discord.js");
 
-exports.run = async (bot, oldMessage, newMessage) => {
+exports.execute = async (bot, oldMessage, newMessage) => {
   try {
     await oldMessage.fetch(true);
     await newMessage.fetch(true);

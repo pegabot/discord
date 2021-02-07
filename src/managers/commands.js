@@ -131,7 +131,12 @@ exports.Commands = class {
       if (command.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
-        if (localTime < command.unlock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command wird erst an folgendem Zeitpunkt freigeschaltet: ***${new Date(command.unlock).toLocaleString("de-DE")}***.`);
+        if (localTime < command.unlock)
+          return msg.channel.send(
+            `:hourglass_flowing_sand: Dieser Command wird erst an folgendem Zeitpunkt freigeschaltet: ***${new Date(command.unlock).toLocaleString(
+              "de-DE",
+            )}***.`,
+          );
       }
 
       if (command.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
@@ -156,7 +161,9 @@ exports.Commands = class {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
         } else {
-          const embed = new MessageEmbed().setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`).addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
+          const embed = new MessageEmbed()
+            .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
+            .addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
           await this.bot.channels.resolve(this.bot.config.errorChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }

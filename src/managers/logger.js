@@ -4,6 +4,7 @@
  */
 
 const { stripIndents } = require("../utils");
+const { MessageEmbed } = require("discord.js");
 
 exports.Logger = class {
   constructor(bot) {
@@ -12,6 +13,42 @@ exports.Logger = class {
 
   admin(msg) {
     this.bot.channels.resolve(this.bot.config.adminChannel).send(stripIndents(msg));
+  }
+
+  admin_red(msg, footer) {
+    this.bot.channels.resolve(this.bot.config.adminChannel).send(
+      stripIndents(
+        new MessageEmbed()
+          .setDescription(msg)
+          .setTimestamp(Date.now())
+          .setColor("#f35858")
+          .setFooter(footer || ""),
+      ),
+    );
+  }
+
+  admin_green(msg, footer) {
+    this.bot.channels.resolve(this.bot.config.adminChannel).send(
+      stripIndents(
+        new MessageEmbed()
+          .setDescription(msg)
+          .setTimestamp(Date.now())
+          .setColor("#70f470")
+          .setFooter(footer || ""),
+      ),
+    );
+  }
+
+  admin_blue(msg, footer) {
+    this.bot.channels.resolve(this.bot.config.adminChannel).send(
+      stripIndents(
+        new MessageEmbed()
+          .setDescription(msg)
+          .setTimestamp(Date.now())
+          .setColor("#6666ff")
+          .setFooter(footer || ""),
+      ),
+    );
   }
 
   info(msg) {

@@ -26,9 +26,13 @@ module.exports = {
         const hash = computeSHA256(format(new Date(), "ddMMyyyy") + email + process.env.NEWSLETTER_SECRET);
 
         try {
-          const resp = await fetchWithTimeout(`https://pegasusshop.de/saveNewNewsletter/subscribeToNewsletter?&newsletter=${email}&subscribeToNewsletter=1&newslettergroup=1&crypt=${hash}`);
+          const resp = await fetchWithTimeout(
+            `https://pegasusshop.de/saveNewNewsletter/subscribeToNewsletter?&newsletter=${email}&subscribeToNewsletter=1&newslettergroup=1&crypt=${hash}`,
+          );
           if (resp.status !== 200) throw new Error();
-          await msg.author.send("Du wurdest für den Newsletter angemeldet. Du bekommst gleich eine E-Mail, in der du die Anmeldung bitte einmal kurz bestätigen musst.");
+          await msg.author.send(
+            "Du wurdest für den Newsletter angemeldet. Du bekommst gleich eine E-Mail, in der du die Anmeldung bitte einmal kurz bestätigen musst.",
+          );
         } catch (e) {
           await msg.author.send(`:x: <@${msg.author.id}> ich konnte dich gerade nicht für den Newsletter registrieren, versuch es bitte später noch einmal.`);
         }

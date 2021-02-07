@@ -12,7 +12,13 @@ const { schema: QuizSchema } = require("../src/models/quiz");
 const { schema: VoucherSchema } = require("../src/models/voucher");
 
 (async () => {
-  await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+  await mongoose.connect(process.env.DB_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    autoIndex: true,
+    useFindAndModify: false,
+  });
 
   const SessionModel = mongoose.model("session", SessionSchema);
   const QuizModel = mongoose.model("quiz", QuizSchema);

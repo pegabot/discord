@@ -21,7 +21,9 @@ module.exports = {
     if (text.length < 1) text = ["pegasus"];
 
     try {
-      const result = await fetchWithTimeout(`https://api.tenor.com/v1/search?q=${querystring.escape(text.join(" "))}&key=${bot.config.TENOR_API_KEY}&limit=1&${new Date().getTime()}`);
+      const result = await fetchWithTimeout(
+        `https://api.tenor.com/v1/search?q=${querystring.escape(text.join(" "))}&key=${bot.config.TENOR_API_KEY}&limit=1&${new Date().getTime()}`,
+      );
       const json = await result.json();
       msg.channel.send(json.results[0].itemurl);
     } catch (e) {

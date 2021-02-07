@@ -23,7 +23,9 @@ module.exports = {
     if (text.length < 1) text = ["miau"];
 
     try {
-      const result = await fetchWithTimeout(`https://cataas.com/cat/says/${querystring.escape(text.join(" "))}?${new Date().getTime()}&size=50&color=white&type=large`);
+      const result = await fetchWithTimeout(
+        `https://cataas.com/cat/says/${querystring.escape(text.join(" "))}?${new Date().getTime()}&size=50&color=white&type=large`,
+      );
       const buffer = await result.buffer();
       msg.channel.send("", new MessageAttachment(buffer));
     } catch (e) {

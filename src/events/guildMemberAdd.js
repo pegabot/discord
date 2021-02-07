@@ -8,7 +8,7 @@ const formatDistanceToNow = require("date-fns/formatDistanceToNow");
 const { de } = require("date-fns/locale");
 const { stripIndents } = require("../utils");
 
-exports.run = (bot, member) => {
+exports.execute = (bot, member) => {
   const status = {
     online: `Benutzer ist online!`,
     idle: `Benutzer macht Pause, wahrscheinlich trinkt er gerade eine Tasse Tee`,

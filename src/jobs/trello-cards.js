@@ -36,7 +36,12 @@ exports.execute = async (bot) => {
     }
 
     // Kategorie, Tischname, Voicechannel
-    if (!["5ff48430149da602aaa800a3", "5ff4844e96f0867d8a01f399", "5ff4846133e3a636715007b2"].every((i) => fields.map((elt) => elt.idCustomField).includes(i))) continue;
+    if (
+      !["5ff48430149da602aaa800a3", "5ff4844e96f0867d8a01f399", "5ff4846133e3a636715007b2"].every((i) =>
+        fields.map((elt) => elt.idCustomField).includes(i),
+      )
+    )
+      continue;
 
     const categoryField = fields.find((elt) => elt.idCustomField === "5ff48430149da602aaa800a3");
     const tableField = fields.find((elt) => elt.idCustomField === "5ff4844e96f0867d8a01f399");
@@ -94,7 +99,21 @@ exports.execute = async (bot) => {
               {
                 type: "role",
                 id: de_role.id,
-                allow: ["USE_VAD", "STREAM", "CONNECT", "SPEAK", "USE_EXTERNAL_EMOJIS", "CREATE_INSTANT_INVITE", "VIEW_CHANNEL", "SEND_MESSAGES", "SEND_TTS_MESSAGES", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY", "ADD_REACTIONS"],
+                allow: [
+                  "USE_VAD",
+                  "STREAM",
+                  "CONNECT",
+                  "SPEAK",
+                  "USE_EXTERNAL_EMOJIS",
+                  "CREATE_INSTANT_INVITE",
+                  "VIEW_CHANNEL",
+                  "SEND_MESSAGES",
+                  "SEND_TTS_MESSAGES",
+                  "EMBED_LINKS",
+                  "ATTACH_FILES",
+                  "READ_MESSAGE_HISTORY",
+                  "ADD_REACTIONS",
+                ],
                 deny: [
                   "KICK_MEMBERS",
                   "BAN_MEMBERS",
@@ -138,7 +157,20 @@ exports.execute = async (bot) => {
                   "MUTE_MEMBERS",
                   "DEAFEN_MEMBERS",
                 ],
-                deny: ["KICK_MEMBERS", "BAN_MEMBERS", "MANAGE_CHANNELS", "MANAGE_GUILD", "VIEW_AUDIT_LOG", "VIEW_GUILD_INSIGHTS", "MOVE_MEMBERS", "CHANGE_NICKNAME", "MANAGE_NICKNAMES", "MANAGE_ROLES", "MANAGE_WEBHOOKS", "MANAGE_EMOJIS"],
+                deny: [
+                  "KICK_MEMBERS",
+                  "BAN_MEMBERS",
+                  "MANAGE_CHANNELS",
+                  "MANAGE_GUILD",
+                  "VIEW_AUDIT_LOG",
+                  "VIEW_GUILD_INSIGHTS",
+                  "MOVE_MEMBERS",
+                  "CHANGE_NICKNAME",
+                  "MANAGE_NICKNAMES",
+                  "MANAGE_ROLES",
+                  "MANAGE_WEBHOOKS",
+                  "MANAGE_EMOJIS",
+                ],
               },
             ]
           : null,

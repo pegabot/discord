@@ -54,7 +54,8 @@ module.exports = {
 
     await newSession.save();
 
-    const filter = (reaction, user) => (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
+    const filter = (reaction, user) =>
+      (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
     let winning = true;
     let counter = 0;
@@ -136,7 +137,9 @@ module.exports = {
                 let wrongQuestionsText = "";
 
                 for (const falscheAntwort of falscheAntworten) {
-                  wrongQuestionsText += `Deine Antwort auf die Frage ***'${falscheAntwort.frage}'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`;
+                  wrongQuestionsText += `Deine Antwort auf die Frage ***'${
+                    falscheAntwort.frage
+                  }'*** war leider nicht korrekt. Die richtige Antwort lautet: ***„${falscheAntwort.antworten[falscheAntwort.richtig]}“***.\n\n`;
                 }
 
                 msg.author.send(
@@ -163,7 +166,8 @@ module.exports = {
     } catch (error) {
       newSession.status = "error";
       await newSession.save();
-      if (error.code === 50007) throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
+      if (error.code === 50007)
+        throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
       throw new Error(error);
     }
   },

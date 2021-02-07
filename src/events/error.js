@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.run = (bot, error) => {
+exports.execute = (bot, error) => {
   const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: ${error}`);
 
   bot.channels.resolve(bot.config.errorChannel).send(embed);

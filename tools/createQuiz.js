@@ -17,7 +17,13 @@ const filename = "quiz.json";
   if (!fs.existsSync(path.join(__dirname, filename))) throw new Error(`${filename} existiert nicht!`);
   const quizzes = require(path.join(__dirname, filename));
 
-  await mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, autoIndex: true, useFindAndModify: false });
+  await mongoose.connect(process.env.DB_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    autoIndex: true,
+    useFindAndModify: false,
+  });
   const QuizModel = mongoose.model("quiz", QuizSchema);
 
   for (const quiz of quizzes) {

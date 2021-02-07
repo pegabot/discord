@@ -12,7 +12,10 @@ exports.execute = async (bot) => {
   try {
     let {
       data: { data },
-    } = await getRequest(bot, `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`);
+    } = await getRequest(
+      bot,
+      `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`,
+    );
     entries = data;
   } catch {
     return;
@@ -22,7 +25,12 @@ exports.execute = async (bot) => {
 
   const current_blogPosts = await BlogModel.find({});
 
-  entries = entries.filter((elt) => new Date() > new Date(elt.displayDate) && elt.active && !current_blogPosts.map((elt) => elt.blogPost_id).includes(elt.id.toString()));
+  entries = entries.filter(
+    (elt) =>
+      new Date() > new Date(elt.displayDate) &&
+      elt.active &&
+      !current_blogPosts.map((elt) => elt.blogPost_id).includes(elt.id.toString()),
+  );
 
   for (const entry of entries) {
     try {
