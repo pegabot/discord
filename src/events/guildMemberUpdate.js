@@ -3,6 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+const prettyMs = require("pretty-ms");
+
 exports.execute = async (bot, oldMember, newMember) => {
   if (oldMember.roles.cache.size < newMember.roles.cache.size) {
     const fetchedLogs = await oldMember.guild.fetchAuditLogs({
@@ -13,7 +15,18 @@ exports.execute = async (bot, oldMember, newMember) => {
     const roleAddLog = fetchedLogs.entries.first();
     if (!roleAddLog) return;
     const { executor, target } = roleAddLog;
-    bot.logger.admin_green(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von <@${executor.id}> dem Benutzer <@${target.id}> gegeben.`);
+
+    const userGivenRolesModel = bot.db.model("userGivenRoles");
+    const userId = target.id;
+    const roleId = roleAddLog.changes[0].new[0].id;
+
+    const entries = await userGivenRolesModel.find({ userId: userId, roleId: roleId });
+
+    bot.logger.admin_green(
+      `:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von <@${executor.id}> dem Benutzer <@${target.id}> gegeben. ${
+        entries.length > 0 ? `Die Rolle wird in ${prettyMs(entries[0].expires - Date.now())} wieder entfernt.` : ""
+      }`,
+    );
   }
 
   if (oldMember.roles.cache.size > newMember.roles.cache.size) {
