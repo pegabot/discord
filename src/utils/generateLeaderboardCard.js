@@ -14,8 +14,6 @@ exports.module = async (leaderboard) => {
     const userData = leaderboard[i].userData;
     const user = leaderboard[i].user;
 
-    ctx.translate(0, 250 * i);
-
     const xpToNextLevel = Levels.xpFor(userData.level + 1);
     const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
     const xpLevelDif = Math.abs(xpToNextLevel - xpForCurrentLevel);
@@ -91,6 +89,7 @@ exports.module = async (leaderboard) => {
     const statusUrl = statuses[user.presence.status];
     const statusImage = await Canvas.loadImage(statusUrl);
     ctx.drawImage(statusImage, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, iconWidth, iconWidth);
+    ctx.translate(0, 250);
   }
   return canvas;
 };
