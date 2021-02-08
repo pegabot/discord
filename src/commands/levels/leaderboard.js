@@ -15,7 +15,7 @@ module.exports = {
     LevelsModel.find({}, async (error, data) => {
       if (data.length === 0) return msg.reply("Aktuell befindet sich noch Niemand auf dem Leaderboard.");
 
-      const sorted = data.sort((a, b) => b.xp - a.xp).slice(0, 9);
+      const sorted = data.sort((a, b) => b.xp - a.xp).slice(0, 5);
 
       let leaderboard = new Array();
       for (const userData of sorted) {
