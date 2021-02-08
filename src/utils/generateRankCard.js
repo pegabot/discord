@@ -23,7 +23,7 @@ exports.module = async (userData, user) => {
   const canvas = Canvas.createCanvas(700, 250);
   const ctx = canvas.getContext("2d");
   const xpToNextLevel = Levels.xpFor(userData.level + 1);
-  const xpForCurrentLevel = Levels.xpFor(userData.level);
+  const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
   const xpLevelDif = Math.abs(xpToNextLevel - xpForCurrentLevel);
   const xpProgress = Math.abs(userData.xp - xpForCurrentLevel);
   const percentDone = xpProgress / xpLevelDif;
