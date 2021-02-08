@@ -18,11 +18,13 @@ exports.execute = async (bot, message) => {
     }
   }
 
-  const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
-  const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-  if (hasLeveledUp) {
-    const user = await Levels.fetch(message.author.id, message.guild.id);
-    message.channel.send(`${message.author}, glückwunsch! Du hast Level **${user.level}** erreicht. :tada:`);
+  if (!message.content.startsWith(bot.config.prefix)) {
+    const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
+    const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+    if (hasLeveledUp) {
+      const user = await Levels.fetch(message.author.id, message.guild.id);
+      message.channel.send(`${message.author}, glückwunsch! Du hast Level **${user.level}** erreicht. :tada:`);
+    }
   }
 
   bot.commands.handleCommand(message);
