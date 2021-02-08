@@ -24,7 +24,7 @@
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
     "canvas": "^2.6.1",
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.17.0",
     "discord-xp": "^1.1.7",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
