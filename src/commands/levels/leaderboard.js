@@ -10,7 +10,6 @@ module.exports = {
   name: "leaderboard",
   usage: ["leaderboard"],
   help: "Gibt das aktuelle Leaderboard aus.",
-  owner: true,
   execute: async (bot, msg) => {
     const LevelsModel = bot.db.model("Levels");
     LevelsModel.find({}, async (error, data) => {
