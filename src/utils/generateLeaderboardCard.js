@@ -65,7 +65,7 @@ exports.module = async (leaderboard) => {
     ctx.fillText(xpText, canvas.width - xpTextWidth - 80, textY);
     ctx.fillStyle = "#ffffff";
     ctx.font = "24px Poppins";
-    const levelText = `Level ${userData.level + 1}`;
+    const levelText = `Level ${userData.level}`;
     const levelTextWidth = ctx.measureText(levelText).width;
     ctx.fillText(levelText, canvas.width / 3, textY);
     if (userData.rank) {
