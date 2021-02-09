@@ -9,9 +9,9 @@ const { MessageAttachment } = require("discord.js");
 
 module.exports = {
   name: "rank",
+  aliases: ["rang"],
   usage: ["rank", "rank <user>"],
   help: "Zeigt dir deinen Rang oder den Rang von dem Mitglied, welches du übergeben hast, an.",
-  aliases: ["rang"],
   execute: async (bot, msg) => {
     const target = msg.mentions.users.first() || msg.author;
     const user = resolveUser(msg, target.username);

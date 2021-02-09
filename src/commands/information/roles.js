@@ -7,6 +7,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "roles",
+  aliases: ["rollen"],
   help: "Zeige alle Rollen des Server an",
   usage: "roles",
   execute: async (bot, msg, args) => {

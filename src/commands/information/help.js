@@ -8,6 +8,7 @@ const { BotExecption, findCommand } = require("../../utils");
 
 module.exports = {
   name: "help",
+  aliases: ["hilfe"],
   usage: ["help", "help <command>"],
   help: "Gibt alle verfügbaren Command oder Informationen zu einem spezifischen Command zurück.",
   execute: (bot, msg, args) => {
