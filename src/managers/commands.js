@@ -6,7 +6,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Collection, MessageEmbed } = require("discord.js");
-const { walkSync, BotExecption } = require("../utils.js");
+const { walkSync, findCommand, BotExecption } = require("../utils.js");
 
 exports.Commands = class {
   constructor(bot) {
@@ -64,9 +64,7 @@ exports.Commands = class {
     const error = this.checkCommand(cmd, name);
 
     if (!error) {
-      [name, ...(cmd.aliases || [])].map((name) => {
-        this.cmds.set(name.toLowerCase(), cmd);
-      });
+      this.cmds.set(name.toLowerCase(), cmd);
     } else {
       this.bot.logger.error(error);
     }
@@ -97,7 +95,7 @@ exports.Commands = class {
 
     if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
 
-    const command = this.cmds.get(base);
+    const command = findCommand(this.cmds, base);
 
     if (command) {
       const LogModel = this.bot.db.model("log");
