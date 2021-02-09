@@ -18,5 +18,5 @@ exports.execute = (bot) => {
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.logger.admin(message);
-  bot.user.setActivity(`pegasus.de/youtube 🍹`, { type: "WATCHING" });
+  bot.user.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
 };
