@@ -9,8 +9,6 @@ module.exports = {
   help: "Überspringe einen Titel in der Warteschlange.",
   channel: ["803042555025293332"],
   execute: async (bot, msg, args) => {
-    const serverQueue = bot.jukebox.queue.get(msg.guild.id);
-
-    bot.jukebox.skip(msg, serverQueue);
+    bot.jukebox.skip(msg);
   },
 };

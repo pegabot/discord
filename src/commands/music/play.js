@@ -5,12 +5,10 @@
 
 module.exports = {
   name: "play",
-  usage: ["play <video url>", "play <video id>"],
+  usage: ["play <name|url>"],
   help: "Füge einen Titel zur Warteschlange hinzu.",
   channel: ["803042555025293332"],
   execute: async (bot, msg, args) => {
-    const serverQueue = bot.jukebox.queue.get(msg.guild.id);
-
-    bot.jukebox.execute(msg, serverQueue, args);
+    bot.jukebox.play(msg, args);
   },
 };

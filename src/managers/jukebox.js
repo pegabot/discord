@@ -3,91 +3,57 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const ytdl = require("ytdl-core");
-
+const DisTube = require("distube");
 exports.Jukebox = class {
   constructor(bot) {
     this.bot = bot;
-    this.queue = new Map();
-  }
+    this.tube = new DisTube(bot, { updateYouTubeDL: false, searchSongs: true });
 
-  async execute(message, serverQueue, args) {
-    const voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.channel.send("Du musst dich in einem Sprachkanal befinden!");
-    if (!args[0]) return message.channel.send("Du musst mir eine URL oder eine Video ID mit übergeben!");
-
-    let songInfo;
-    try {
-      songInfo = await ytdl.getInfo(args[0]);
-    } catch {
-      message.channel.send("Ich konnte dieses Video nicht finden.");
-    }
-
-    const song = {
-      title: songInfo.videoDetails.title,
-      url: songInfo.videoDetails.video_url,
-    };
-
-    if (!serverQueue) {
-      const queueContruct = {
-        textChannel: message.channel,
-        voiceChannel: voiceChannel,
-        connection: null,
-        songs: [],
-        volume: 5,
-        playing: true,
-      };
-
-      this.queue.set(message.guild.id, queueContruct);
-
-      queueContruct.songs.push(song);
-
-      try {
-        const connection = await voiceChannel.join();
-        queueContruct.connection = connection;
-        this.play(message.guild, queueContruct.songs[0]);
-      } catch (err) {
-        this.queue.delete(message.guild.id);
-      }
-    } else {
-      serverQueue.songs.push(song);
-      return message.channel.send(`${song.title} wurde zur Wartschlange hinzugefügt!`);
-    }
-  }
-
-  skip(message, serverQueue) {
-    if (!message.member.voice.channel) return message.channel.send("Du musst dich in einem Sprachkanal befinden, um einen Titel überspringen zu können!");
-    if (!serverQueue) return message.channel.send("Es scheint, als gäbe es nichts, was ich überspringen könnte!");
-    serverQueue.connection.dispatcher.end();
-  }
-
-  stop(message, serverQueue) {
-    if (!message.member.voice.channel) return message.channel.send("Du musst dich in einem Sprachkanal befinden, um die Wiedergabe zu stoppen!");
-
-    if (!serverQueue) return message.channel.send("Es scheint, als gäbe es nichts, was ich stoppen könnte!");
-
-    serverQueue.songs = [];
-    if (serverQueue.connection) {
-      if (serverQueue.connection.dispatcher) serverQueue.connection.dispatcher.end();
-    }
-  }
-
-  play(guild, song) {
-    const serverQueue = this.queue.get(guild.id);
-    if (!song) {
-      serverQueue.voiceChannel.leave();
-      this.queue.delete(guild.id);
-      return;
-    }
-
-    const dispatcher = serverQueue.connection
-      .play(ytdl(song.url, { type: "opus" }), { highWaterMark: 70 })
-      .on("finish", () => {
-        serverQueue.songs.shift();
-        this.play(guild, serverQueue.songs[0]);
+    this.tube
+      .on("playSong", (message, queue, song) => message.channel.send(`Spiele \`${song.name}\` - \`${song.formattedDuration}\`\nAngefordert von: ${song.user}`))
+      .on("addSong", (message, queue, song) =>
+        message.channel.send(`Ich habe ${song.name} - \`${song.formattedDuration}\` von ${song.user} zur Warteschlange hinzugefügt`),
+      )
+      .on("playList", (message, queue, playlist, song) =>
+        message.channel.send(
+          `Spiele die Playlist: \`${playlist.name}\` (${playlist.songs.length} songs).\nAngefordert von: ${song.user}\nSpiele: \`${song.name}\` - \`${song.formattedDuration}\`}`,
+        ),
+      )
+      .on("addList", (message, queue, playlist) =>
+        message.channel.send(`Ich habe die Playliste \`${playlist.name}\` (${playlist.songs.length} songs) zur Warteschlange hinzugefügt}`),
+      )
+      .on("searchResult", (message, result) => {
+        let i = 0;
+        message.channel.send(
+          `**Suche dir einen Track von unten aus und schreibe die Zahl in den Chat:**\n${result
+            .map((song) => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``)
+            .join("\n")}\n*Gib irgendetwas ein oder warte 60 Sekunden um abzubrechen*`,
+        );
       })
-      .on("error", (error) => console.error(error));
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-    serverQueue.textChannel.send(`Spiele: **${song.title}**`);
+      .on("searchCancel", (message) => message.channel.send(`Suche abgebrochen`))
+      .on("error", (message, e) => {
+        console.error(e);
+        message.channel.send("Ein Fehler ist aufgetreten: " + e);
+      });
+  }
+
+  getQueue(message) {
+    return this.tube.getQueue(message);
+  }
+
+  play(message, args) {
+    this.tube.play(message, args.join(" "));
+  }
+
+  loop(message, args) {
+    this.tube.setRepeatMode(message, parseInt(args[0]));
+  }
+
+  stop(message) {
+    this.tube.stop(message);
+  }
+
+  skip(message) {
+    this.tube.skip(message);
   }
 };
