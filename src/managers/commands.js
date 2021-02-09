@@ -22,6 +22,10 @@ exports.Commands = class {
     return this.cmds.size;
   }
 
+  get all() {
+    return this.cmds;
+  }
+
   get(command) {
     return this.cmds.get(command);
   }

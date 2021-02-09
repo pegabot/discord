@@ -4,7 +4,7 @@
  */
 
 const { MessageEmbed } = require("discord.js");
-const { BotExecption } = require("../../utils");
+const { BotExecption, findCommand } = require("../../utils");
 
 module.exports = {
   name: "help",
@@ -29,19 +29,29 @@ module.exports = {
           }
           return false;
         })
-        .map((cmd) => (bot.commands.get(cmd).disabled ? `${cmd} (deaktiviert)` : cmd))
+        .sort()
+        .map(
+          (cmd) =>
+            `${bot.commands.get(cmd).disabled ? `${cmd} (deaktiviert)` : cmd}${
+              bot.commands.get(cmd).aliases ? ` (${bot.commands.get(cmd).aliases.join(", ")})` : ""
+            }`,
+        )
         .map((cmd) => `\`${cmd}\``)
-        .join(", ");
+        .join("\n");
       const embed = new MessageEmbed()
-        .setTitle("Hilfe")
-        .addField("Verfügbare Commands", cmdsString, true)
-        .setDescription(`Tip: verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`);
+        .setAuthor(bot.user.tag, bot.user.displayAvatarURL())
+        .setTitle(`Commands für ${msg.guild.name}`)
+        .setDescription(`**Tip:** verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`)
+        .addField("Prefix", bot.config.prefix)
+        .addField("Verfügbare Commands (Aliase)", cmdsString, true)
+        .setColor("#6666ff");
 
       msg.channel.send(embed);
     } else if (args.length > 0) {
-      if (!bot.commands.has(args[0])) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
+      const command = findCommand(bot.commands.all, args[0]);
+      if (!command) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
-      let { aliases, permissions, roles, usage, name, disabled, category, help } = bot.commands.get(args[0]);
+      let { aliases, permissions, roles, usage, name, disabled, category, help } = command;
       if (permissions && permissions.some((e) => !msg.member.hasPermission(e))) {
         return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
       }
@@ -57,12 +67,14 @@ module.exports = {
       }
 
       const embed = new MessageEmbed()
+        .setAuthor(bot.user.tag, bot.user.displayAvatarURL())
         .setTitle(`Hilfe für **${bot.config.prefix}${name} ${disabled ? " (deaktiviert)" : ""}**`)
         .addField("Verwendung(en)", usage, true)
         .addField("Kategorie", category, true)
         .addField("Aliase", aliases ? aliases.join(", ") : "keine", true)
         .addField("Berechtigungen", permissions ? permissions.join("\n") : "keine", true)
-        .setDescription(help);
+        .setDescription(help)
+        .setColor("#6666ff");
 
       msg.channel.send(embed);
     }
