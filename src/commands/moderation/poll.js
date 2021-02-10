@@ -23,7 +23,7 @@ module.exports = {
           .then(async (collected) => {
             const answers = collected.first().content;
 
-            const timeoutMessage = await msg.reply("wie lange soll die Abstimmunge geöffnet bleiben (Sekunden)?");
+            const timeoutMessage = await msg.reply("wie lange soll die Abstimmung geöffnet bleiben (Sekunden)?");
             timeoutMessage.channel
               .awaitMessages(() => true, { max: 1, time: 30000, errors: ["time"] })
               .then(async (collected) => {
