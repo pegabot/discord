@@ -3,6 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+const { ChannelTypes } = require("../utils");
+
 exports.execute = async (bot, channel) => {
-  bot.logger.admin_red(`:inbox_tray: Der Kanal: #${channel.name} **wurde gelöscht**.`);
+  bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: ${channel} **wurde gelöscht**.`);
 };
