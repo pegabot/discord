@@ -19,6 +19,11 @@ exports.execute = async (bot, message) => {
   }
 
   if (!message.content.startsWith(bot.config.prefix)) {
+    const MessageModel = bot.db.model("message");
+    const messageToSave = new MessageModel();
+    messageToSave.message = JSON.parse(JSON.stringify(message));
+    messageToSave.save();
+
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
     if (hasLeveledUp) {
