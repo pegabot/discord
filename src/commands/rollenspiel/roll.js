@@ -9,6 +9,7 @@ const validDice = [4, 6, 8, 10, 12, 20, 100];
 
 module.exports = {
   name: "roll",
+  aliases: ["r"],
   usage: ["roll d4 | roll 2d4 | roll 2d4 d4"],
   help: "Würfelcommand nach DnD Schreibweise",
   execute: async (bot, msg, args) => {
