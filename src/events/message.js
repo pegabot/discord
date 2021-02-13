@@ -23,6 +23,7 @@ exports.execute = async (bot, message) => {
     const messageToSave = new MessageModel();
     messageToSave.message = JSON.parse(JSON.stringify(message));
     messageToSave.author = JSON.parse(JSON.stringify(message.author));
+    messageToSave.channel = JSON.parse(JSON.stringify(message.channel));
     messageToSave.save();
 
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30

@@ -8,6 +8,7 @@ const { Schema } = require("mongoose");
 const MessageSchema = new Schema({
   message: Object,
   author: Object,
+  channel: Object,
 });
 
 exports.schema = MessageSchema;
