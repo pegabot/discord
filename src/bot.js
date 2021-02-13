@@ -34,3 +34,5 @@ bot.events = new Events(bot);
 bot.events.loadEvents();
 
 bot.login(bot.config.apiToken);
+
+exports.bot = bot;
