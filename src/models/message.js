@@ -9,7 +9,7 @@ const MessageSchema = new Schema({
   message: Object,
   author: Object,
   channel: Object,
-  date: { type: Date, default: new Date() },
+  date: { type: Date, default: Date.now },
 });
 
 exports.schema = MessageSchema;
