@@ -81,5 +81,5 @@ exports.execute = async (bot) => {
 exports.info = {
   name: "YouTube",
   env: "youtube",
-  interval: 300000,
+  interval: 1000 * 60 * 20,
 };
