@@ -9,14 +9,14 @@ module.exports = {
   name: "subscribe",
   usage: ["subscribe"],
   help: "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, welche verwendet wird, um dich bei Neuigkeiten zu informieren.",
-  execute: async (bot, msg, args) => {
+  execute: (bot, msg, args) => {
     try {
       const { member } = msg;
       if (member.roles.cache.has(bot.config.notificationRole)) {
-        await member.roles.remove(bot.config.notificationRole);
+        member.roles.remove(bot.config.notificationRole);
         msg.reply("Rolle entfernt. Du wirst nicht weiter informiert.");
       } else {
-        await member.roles.add(bot.config.notificationRole);
+        member.roles.add(bot.config.notificationRole);
         msg.reply("Rolle hinzugefügt. Du wirst ab sofort informiert.");
       }
     } catch (err) {

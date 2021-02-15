@@ -9,7 +9,7 @@ module.exports = {
   name: "name",
   usage: ["name <de/en/ww> <m/w>"],
   help: "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.",
-  execute: async (bot, msg, args) => {
+  execute: (bot, msg, args) => {
     if (!["de", "en", "ww"].includes(args[0]))
       throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
     if (!["w", "m"].includes(args[1])) throw new BotExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);

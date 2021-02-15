@@ -12,7 +12,7 @@ module.exports = {
   aliases: ["r"],
   usage: ["roll d4 | roll 2d4 | roll 2d4 d4"],
   help: "Würfelcommand nach DnD Schreibweise",
-  execute: async (bot, msg, args) => {
+  execute: (bot, msg, args) => {
     let reply = "";
     for (const arg of args) {
       const diceobj = parseNotation(arg);

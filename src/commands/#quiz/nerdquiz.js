@@ -38,7 +38,7 @@ module.exports = {
     const quizzes = await QuizModel.find({ name: QuizName });
     if (quizzes.length == 0) {
       newSession.status = "error";
-      await newSession.save();
+      newSession.save();
       throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
     }
 
@@ -48,11 +48,11 @@ module.exports = {
     const vouchers = await VoucherModel.find({ used: false });
     if (vouchers.length == 0) {
       newSession.status = "error";
-      await newSession.save();
+      newSession.save();
       throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
     }
 
-    await newSession.save();
+    newSession.save();
 
     const filter = (reaction, user) =>
       (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
@@ -63,7 +63,7 @@ module.exports = {
     let falscheAntworten = [];
 
     try {
-      await msg.author.send(
+      msg.author.send(
         new MessageEmbed()
           .setColor("#FF9033")
           .setTitle(`${QuizName} - das Quiz!`)
@@ -159,13 +159,13 @@ module.exports = {
                   ),
                 );
               }
-              await newSession.save();
+              newSession.save();
             }
           });
       }
     } catch (error) {
       newSession.status = "error";
-      await newSession.save();
+      newSession.save();
       if (error.code === 50007)
         throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
       throw new Error(error);
