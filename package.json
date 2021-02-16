@@ -38,7 +38,7 @@
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
     "pretty-ms": "^7.0.1",
-    "querystring": "^0.2.0",
+    "querystring": "^0.2.1",
     "restler": "~3.3.0",
     "rss-parser": "^3.11.0",
     "simple-youtube-api": "^5.2.1",
