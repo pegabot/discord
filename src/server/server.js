@@ -12,6 +12,10 @@ server.get("/", (_, res) => {
   res.redirect(process.env.inviteUrl || "https://pegasus.de");
 });
 
+server.get("/ping", (_, res) => {
+  res.send("Pong!");
+});
+
 server.use(express.static(path.resolve(__dirname, "static")));
 
 server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver started!`));
