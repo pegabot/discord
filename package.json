@@ -34,7 +34,7 @@
     "es6-promise": "~3.0.2",
     "express": "^4.17.1",
     "git-diff": "^2.0.6",
-    "mongoose": "^5.11.16",
+    "mongoose": "^5.11.17",
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
     "pretty-ms": "^7.0.1",
