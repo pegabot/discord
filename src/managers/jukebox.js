@@ -7,7 +7,7 @@ const DisTube = require("distube");
 exports.Jukebox = class {
   constructor(bot) {
     this.bot = bot;
-    this.tube = new DisTube(bot, { updateYouTubeDL: false, searchSongs: true });
+    this.tube = new DisTube(bot, { updateYouTubeDL: false, searchSongs: true, leaveOnFinish: true });
 
     this.tube
       .on("playSong", (message, queue, song) => message.channel.send(`Spiele \`${song.name}\` - \`${song.formattedDuration}\`\nAngefordert von: ${song.user}`))
