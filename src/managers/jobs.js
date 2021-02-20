@@ -66,7 +66,7 @@ exports.Jobs = class {
   }
 
   executeJob(module) {
-    console.log(`Setup 🔨: ${module.info.name} => ${prettyMs(module.info.interval)}`);
+    console.log(`Setup 🔨: ${module.info.name}${module.info.interval ? `=> ${prettyMs(module.info.interval)}` : ""}`);
     if (module.setup) module.setup(this.bot);
     if (module.execute) {
       setInterval(() => {
