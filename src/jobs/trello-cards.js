@@ -191,8 +191,10 @@ exports.execute = (bot) => {
 
       guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(url);
       if (attachmentUrl) guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(attachmentUrl);
+      trello.addCommentToCard(cardId, "Eine entsprechende Benarichtung wurde in den Rundenaushang geschickt.");
 
       trello.updateCustomFieldOnCard(cardId, "5ff4e85340aee5734ae67a76", { checked: "true" });
+      trello.addCommentToCard(cardId, "Die Kanäle wurden erfolgreich angelegt.");
 
       const TrelloCard = new TrelloCardModel();
       TrelloCard.cardId = cardId;
