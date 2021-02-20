@@ -3,10 +3,10 @@
   "image": "heroku/nodejs",
   "buildpacks": [
     {
-      "url": "https://github.com/grcdeepak1/heroku-buildpack-youtube-dl.git"
+      "url": "https://github.com/pegabot/heroku-buildpack-youtube-dl.git"
     },
     {
-      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+      "url": "https://github.com/pegabot/heroku-buildpack-ffmpeg-latest.git"
     }
   ]
 }
