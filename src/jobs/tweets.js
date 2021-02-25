@@ -16,8 +16,10 @@ exports.setup = (bot) => {
   });
 };
 
+const TWITTER_USER = ["pegasusspiele", "GRT2014"];
+
 exports.execute = (bot) => {
-  twitter.get("search/tweets", { q: "from:pegasusspiele" }, async (error, data, response) => {
+  twitter.get("search/tweets", { q: `from:${TWITTER_USER.join(" OR ")}` }, async (error, data, response) => {
     if (error) return;
 
     const { statuses } = data;
@@ -29,7 +31,13 @@ exports.execute = (bot) => {
       if (error) return;
 
       const entries = statuses
-        .filter((elt) => !current_tweets.map((elt) => elt.id).includes(elt.id_str) && elt.retweeted_status === undefined && elt.in_reply_to_status_id === null)
+        .filter(
+          (elt) =>
+            !current_tweets.map((elt) => elt.id).includes(elt.id_str) &&
+            TWITTER_USER.includes(elt.user.screen_name) &&
+            elt.retweeted_status === undefined &&
+            elt.in_reply_to_status_id === null,
+        )
         .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
       for (const tweet of entries) {
