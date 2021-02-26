@@ -49,7 +49,7 @@ exports.execute = async (bot, oldMember, newMember) => {
             .setThumbnail(newMember.user.displayAvatarURL())
             .setDescription(`${oldMember} hat einen neuen Anzeigename!`)
             .setColor(bot.colors.blue)
-            .addField("Alter Anzeigename", oldMember.nickname ? oldMember.name : oldMember.user.username, true)
+            .addField("Alter Anzeigename", oldMember.nickname ? oldMember.nickname : oldMember.user.username, true)
             .addField("Neuer Anzeigename", newMember.nickname, true),
         )
       : bot.logger.admin(
