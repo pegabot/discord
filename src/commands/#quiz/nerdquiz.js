@@ -65,7 +65,7 @@ module.exports = {
     try {
       msg.author.send(
         new MessageEmbed()
-          .setColor("#FF9033")
+          .setColor(bot.colors.orange)
           .setTitle(`${QuizName} - das Quiz!`)
           .setDescription(
             stripIndents(`
@@ -86,7 +86,7 @@ module.exports = {
 
       for (const [index, frage] of newSession.fragen.entries()) {
         const quizEmbed = new MessageEmbed()
-          .setColor("#0099ff")
+          .setColor(bot.colors.babyblue)
           .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
           .addField("🇦 - " + frage.antworten[0], "-----")
           .addField("🇧 - " + frage.antworten[1], "-----")

@@ -21,7 +21,7 @@ module.exports = {
       .setThumbnail(msg.guild.iconURL())
       .setTitle(`Rollen in ${msg.guild.name}`)
       .setDescription(roles.map((role) => `${role}\n`).join(""))
-      .setColor("dfc016")
+      .setColor(bot.colors.orange)
       .setFooter(`Rollen: ${roles.length}`)
       .setTimestamp(new Date());
     msg.channel.send(embed);

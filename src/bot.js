@@ -13,6 +13,9 @@ const bot = new Discord.Client();
 bot.config = process.env;
 bot.blacklist = new Discord.Collection();
 
+const colors = require("../colors.json");
+bot.colors = colors;
+
 const { Logger } = require("./managers/logger");
 bot.logger = new Logger(bot);
 

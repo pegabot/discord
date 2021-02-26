@@ -45,7 +45,7 @@ module.exports = {
         .setDescription(`**Tip:** verwende ${bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`)
         .addField("Prefix", bot.config.prefix)
         .addField("Verfügbare Commands (Aliase)", cmdsString, true)
-        .setColor("#6666ff");
+        .setColor(bot.colors.blue);
 
       msg.channel.send(embed);
     } else if (args.length > 0) {
@@ -75,7 +75,7 @@ module.exports = {
         .addField("Aliase", aliases ? aliases.join(", ") : "keine", true)
         .addField("Berechtigungen", permissions ? permissions.join("\n") : "keine", true)
         .setDescription(help)
-        .setColor("#6666ff");
+        .setColor(bot.colors.blue);
 
       msg.channel.send(embed);
     }

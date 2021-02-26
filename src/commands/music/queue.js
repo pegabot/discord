@@ -25,7 +25,7 @@ module.exports = {
           .slice(0, 10)
           .join("\n")}`,
       )
-      .setColor("dfc016")
+      .setColor(bot.colors.orange)
       .setTimestamp(new Date());
     msg.channel.send(embed);
     console.log(queue.songs.slice(1));

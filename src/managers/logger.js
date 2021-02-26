@@ -21,7 +21,7 @@ exports.Logger = class {
         new MessageEmbed()
           .setDescription(msg)
           .setTimestamp(Date.now())
-          .setColor("#f35858")
+          .setColor(this.bot.colors.red)
           .setFooter(footer || ""),
       ),
     );
@@ -33,7 +33,7 @@ exports.Logger = class {
         new MessageEmbed()
           .setDescription(msg)
           .setTimestamp(Date.now())
-          .setColor("#70f470")
+          .setColor(this.bot.colors.green)
           .setFooter(footer || ""),
       ),
     );
@@ -45,7 +45,7 @@ exports.Logger = class {
         new MessageEmbed()
           .setDescription(msg)
           .setTimestamp(Date.now())
-          .setColor("#6666ff")
+          .setColor(this.bot.colors.blue)
           .setFooter(footer || ""),
       ),
     );
