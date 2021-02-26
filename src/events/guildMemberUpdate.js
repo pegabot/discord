@@ -4,6 +4,7 @@
  */
 
 const prettyMs = require("pretty-ms");
+const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (bot, oldMember, newMember) => {
   if (oldMember.roles.cache.size < newMember.roles.cache.size) {
@@ -41,8 +42,24 @@ exports.execute = async (bot, oldMember, newMember) => {
     bot.logger.admin_red(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von <@${executor.id}> dem Benutzer <@${target.id}> genommen.`);
   }
 
-  if (oldMember.nickname !== newMember.nickname)
-    bot.logger.admin_blue(newMember.nickname ? `${oldMember} hat einen neuen Nicknamen!` : `${newMember} hat seinen Nickname entfernt!`);
+  if (oldMember.nickname !== newMember.nickname) {
+    newMember.nickname
+      ? bot.logger.admin(
+          new MessageEmbed()
+            .setThumbnail(newMember.user.displayAvatarURL())
+            .setDescription(`${oldMember} hat einen neuen Anzeigename!`)
+            .setColor("#6666ff")
+            .addField("Alter Anzeigename", oldMember.nickname ? oldMember.name : oldMember.user.username, true)
+            .addField("Neuer Anzeigename", newMember.nickname, true),
+        )
+      : bot.logger.admin(
+          new MessageEmbed()
+            .setThumbnail(newMember.user.displayAvatarURL())
+            .setDescription(`${newMember} hat seinen Anzeigename entfernt!`)
+            .setColor("#6666ff")
+            .addField("Alter Anzeigename", oldMember.nickname, true),
+        );
+  }
 
   if (oldMember.user.avatar !== newMember.user.avatar) bot.logger.admin_blue(`Das Profilbild von ${newMember} hat sich geändert!`);
 
