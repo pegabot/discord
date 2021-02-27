@@ -9,7 +9,8 @@ const { schema: QuizSchema } = require("./quiz");
 const { schema: VoucherSchema } = require("./voucher");
 
 const SessionSchema = new Schema({
-  created: { type: Number, default: Date.now },
+  date: { type: Date, default: Date.now },
+  expires: { type: Number },
   userId: String,
   quiz: QuizSchema,
   status: String,

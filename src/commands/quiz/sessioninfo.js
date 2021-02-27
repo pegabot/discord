@@ -13,7 +13,6 @@ module.exports = {
   admin: true,
   execute: async (bot, msg, args) => {
     if (args.length < 1) throw new BotExecption("Du musst eine SessionId oder einen Benutzer mit übergeben!");
-
     const SessionModel = bot.db.model("session");
 
     let sessions;

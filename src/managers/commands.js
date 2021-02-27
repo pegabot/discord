@@ -155,7 +155,7 @@ exports.Commands = class {
 
       try {
         msg.react("👌");
-        command.execute(this.bot, msg, args);
+        await command.execute(this.bot, msg, args || []);
       } catch (e) {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);

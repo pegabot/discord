@@ -5,9 +5,11 @@
 
 const { BotExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
+const prettyMs = require("pretty-ms");
 
 const QuizName = "CONspiracy IV";
 const AnzahlFragen = 3;
+const expiresInterval = 1000 * 45; // Milliseconds * Seconds * Minutes
 
 module.exports = {
   name: "nerdquiz",
@@ -52,6 +54,7 @@ module.exports = {
       throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
     }
 
+    newSession.expires = Number(Date.now()) + expiresInterval;
     newSession.save();
 
     const filter = (reaction, user) =>
@@ -71,7 +74,9 @@ module.exports = {
             stripIndents(`
             Wie viel Geek steckt in dir? Zeig es uns und beantworte uns folgende Fragen rund um Filme, Serien, Bücher, Rollen-/Brettspiele und weitere absolut relevante Themen des Geek-Daseins.
 
-            ***Zur Beantwortung der Fragen hast du 20 Minuten Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode für ein kostenloses digitales Rollenspiel-Bundle, bei dem dein Geek-Herz höher schlagen wird: Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen.
+            ***Zur Beantwortung der Fragen hast du ${prettyMs(
+              expiresInterval,
+            )} Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode für ein kostenloses digitales Rollenspiel-Bundle, bei dem dein Geek-Herz höher schlagen wird: Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen.
 
             Den Code kannst du sofort oder bis spätestens 14.12.2020 auf www.pegasusdigital.de einlösen.
 
