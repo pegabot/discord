@@ -9,7 +9,7 @@ const prettyMs = require("pretty-ms");
 
 const QuizName = "CONspiracy IV";
 const AnzahlFragen = 3;
-const expiresInterval = 1000 * 60 * 2; // Milliseconds * Seconds * Minutes
+const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
 module.exports = {
   name: "nerdquiz",
