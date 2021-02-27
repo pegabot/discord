@@ -39,4 +39,10 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "pegarobo"
-          heroku_email: "nico@gruselhaus.com"  
+          heroku_email: "nico@gruselhaus.com"
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Pegabot has been deployed.'
