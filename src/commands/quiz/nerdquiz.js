@@ -9,7 +9,7 @@ const prettyMs = require("pretty-ms");
 
 const QuizName = "CONspiracy IV";
 const AnzahlFragen = 3;
-const expiresInterval = 1000 * 45; // Milliseconds * Seconds * Minutes
+const expiresInterval = 1000 * 15; // Milliseconds * Seconds * Minutes
 
 module.exports = {
   name: "nerdquiz",
@@ -108,8 +108,11 @@ module.exports = {
         runningQuiz
           .awaitReactions(filter, {
             max: 1,
+            time: expiresInterval,
           })
           .then(async (collected) => {
+            if (collected.array().length === 0) return;
+
             const array = ["🇦", "🇧", "🇨"];
             const correctAnswer = array[frage.richtig];
 
