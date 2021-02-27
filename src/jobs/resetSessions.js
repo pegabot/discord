@@ -47,7 +47,7 @@ exports.execute = async (bot) => {
 };
 
 exports.info = {
-  name: `Reset old sessions`,
+  name: `Reset expired sessions`,
   env: "sessionreset",
   interval: 20000,
 };
