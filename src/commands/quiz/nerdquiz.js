@@ -15,9 +15,8 @@ module.exports = {
   name: "nerdquiz",
   usage: "nerdquiz",
   help: "Das Quiz zur CONspiracy IV.",
-  unlock: 1606467600000, // Freitag, 27. November 2020 10:00:00 GMT+01:00 https://www.epochconverter.com,
-  lock: 1606690799000, // Sonntag, 29. November 2020 23:59:59 GMT+01:00 https://www.epochconverter.com,
-  channel: ["780482034522521600"],
+  unlock: 1616749200000, // Freitag, 26. März 2021 10:00:00 GMT+01:00 https://www.epochconverter.com
+  lock: 1616968799000, // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com
   execute: async (bot, msg) => {
     const SessionModel = bot.db.model("session");
     const VoucherModel = bot.db.model("voucher");
