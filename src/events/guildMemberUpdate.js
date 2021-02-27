@@ -47,7 +47,7 @@ exports.execute = async (bot, oldMember, newMember) => {
       ? bot.logger.admin(
           new MessageEmbed()
             .setThumbnail(newMember.user.displayAvatarURL())
-            .setDescription(`${oldMember} hat einen neuen Anzeigename!`)
+            .setDescription(`Der Anzeigename von ${oldMember} hat sich geändert!`)
             .setColor(bot.colors.blue)
             .addField("Alter Anzeigename", oldMember.nickname ? oldMember.nickname : oldMember.user.username, true)
             .addField("Neuer Anzeigename", newMember.nickname, true),
@@ -55,7 +55,7 @@ exports.execute = async (bot, oldMember, newMember) => {
       : bot.logger.admin(
           new MessageEmbed()
             .setThumbnail(newMember.user.displayAvatarURL())
-            .setDescription(`${newMember} hat seinen Anzeigename entfernt!`)
+            .setDescription(`Der Anzeigename von ${newMember} wurde entfernt!`)
             .setColor(bot.colors.blue)
             .addField("Alter Anzeigename", oldMember.nickname, true),
         );
