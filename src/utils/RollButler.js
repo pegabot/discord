@@ -21,7 +21,7 @@ exports.module = {
     params.append("format", "markdown");
     return params;
   },
-  roll: async (bot, params) => {
+  roll: (bot, params) => {
     const handler = bent(`https://rollbutler.net/index.php?`, "string", {
       HttpMethod: "GET",
       Headers: {
