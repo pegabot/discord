@@ -4,88 +4,42 @@
  */
 
 const { BotExecption } = require("../../utils");
-
-const validDice = [4, 6, 8, 10, 12, 20, 100];
+const bent = require("bent");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "roll",
   aliases: ["r"],
-  usage: ["roll d4 | roll 2d4 | roll 2d4 d4"],
-  help: "Würfelcommand nach DnD Schreibweise",
-  execute: (bot, msg, args) => {
-    let reply = "";
-    for (const arg of args) {
-      const diceobj = parseNotation(arg);
-      if (diceobj.failed) {
-        throw new BotExecption("Die Eingabe scheint fehlerhaft zu sein, bitte überprüfe diese und versuche es erneut.");
-      }
-      for (let [dicevalue, count] of Object.entries(diceobj.counts)) {
-        if (count < 1) {
-          continue;
-        }
-        let rolledValues = [];
-        for (let i = 0; i < count; i++) {
-          rolledValues.push(Math.ceil(Math.random() * dicevalue));
-        }
-        let valuesString = "";
-        for (const value of rolledValues) {
-          valuesString += "  `" + value + "`";
-        }
-        if (count == 1) {
-          count = "";
-        }
-        reply += count + "d" + dicevalue + ":" + valuesString + "\n";
-      }
-    }
-    if (reply == "") {
-      msg.reply("Es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
-      return;
-    }
-    msg.reply("\n" + reply);
-    return;
+  usage: ["roll"],
+  help: "Der RollButler eingebaut im Pegabot",
+  execute: async (bot, msg, args) => {
+    const params = new URLSearchParams();
+    params.append("job", "api");
+    params.append("source", "Pegabot");
+    params.append("user_id", msg.author.id);
+    params.append("usr", msg.author.username);
+    params.append("api_key", bot.config.ROLLBUTTLER_KEY);
+    params.append("api_pass", bot.config.ROLLBUTLER_PASS);
+    params.append("roll", "3d6");
+    params.append("logit", "true");
+    params.append("lang", "DE");
+    params.append("format", "markdown");
+
+    const handler = bent(`https://rollbutler.net/index.php?`, "string", {
+      HttpMethod: "GET",
+      Headers: {
+        Authorization: `BOT ${bot.config.ROLLBUTTLER_KEY}`,
+        Accept: "application/json",
+        "User-Agent": "Pegabot",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const response = await handler(`${params.toString()}`);
+    const embed = new MessageEmbed();
+    embed.setColor(bot.colors.babyblue);
+    embed.setDescription(`${msg.author}, ${response}`);
+    embed.setFooter("powered by RollButler");
+    msg.reply(embed);
   },
-};
-
-const parseNotation = (notation) => {
-  let diceobj = {
-    failed: false,
-    errorcode: 0,
-    counts: {
-      100: 0,
-      20: 0,
-      12: 0,
-      10: 0,
-      8: 0,
-      6: 0,
-      4: 0,
-    },
-  };
-
-  let notationSplit = notation.split(/[Dd]/);
-  let numberOfDice = 1;
-
-  if (notationSplit[0] != "") {
-    if (isNaN(notationSplit[0]) || notationSplit[0] < 0) {
-      diceobj.failed = true;
-      diceobj.errorcode = 1;
-      return diceobj;
-    }
-    numberOfDice = parseInt(notationSplit[0]);
-  }
-
-  if (isNaN(notationSplit[1])) {
-    diceobj.failed = true;
-    diceobj.errorcode = 2;
-    return diceobj;
-  }
-
-  if (validDice.includes(parseInt(notationSplit[1])) && notationSplit[1] != "") {
-    diceobj.counts[notationSplit[1]] += numberOfDice;
-  } else {
-    diceobj.failed = true;
-    diceobj.errorcode = 3;
-    return diceobj;
-  }
-
-  return diceobj;
 };
