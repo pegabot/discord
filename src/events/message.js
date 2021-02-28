@@ -18,6 +18,8 @@ exports.execute = async (bot, message) => {
     }
   }
 
+  if (message.content.match(/(\/r\s?.*|\/roll\s?.*)/)) return message.reply(`bitte verwende \`${bot.config.prefix}roll\` oder \`${bot.config.prefix}r\`!`);
+
   if (!message.content.startsWith(bot.config.prefix)) {
     const MessageModel = bot.db.model("message");
     const messageToSave = new MessageModel();
