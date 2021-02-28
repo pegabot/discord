@@ -1,13 +1,17 @@
-# Pegabot on Discord
+![Pegasus_Spiele_Github-min](https://user-images.githubusercontent.com/33380107/109431567-91898280-7a07-11eb-94bb-fef982bd75a3.png)
+
+# Pegabot auf Discord
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
- Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://pegasus.de/conspiracy) verwendet wird.
+Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://pegasus.de/conspiracy) verwendet wird. Dieser Bot wurde auschließlich auf die Bedürfnisse von Pegasus Spiele zugeschnitten und wird in einem anderen Ökosystem ohne größere Anpassungen wahrscheinlich nicht laufen.
+ 
+## Releases
+ 
+Die Pegabot auf dem CONspiracy Discord Server entspricht immer dem `main` Branch. Wir veröffentlichen zu jeder größeren Online-Veranstaltung von Pegasus Spiele einen Minor-Release, welcher dann alle neuen Funktionen und Bug-Fixes beinhaltet. 
 
- ***Die Sprache dieses Bots ist Deutsch***
-
- ## Autoren ✨
+## Autoren ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
