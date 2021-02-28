@@ -25,6 +25,9 @@ module.exports = {
 
     const embed = generateEmbed(bot, dice, msg.author, response);
     const replied = await msg.reply(embed);
+
+    if (response.match(/.*fehlgeschlagen.*/)) return;
+
     replied.react("🎲");
 
     const RollsModel = bot.db.model("rolls");
