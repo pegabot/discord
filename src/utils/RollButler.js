@@ -14,7 +14,7 @@ exports.module = {
     params.append("user_id", author.id);
     params.append("usr", author.username);
     params.append("api_key", bot.config.ROLLBUTLER_KEY);
-    params.append("api_pass", bot.config.ROLLBUTER_PASS);
+    params.append("api_pass", bot.config.ROLLBUTLER_PASS);
     params.append("roll", dice);
     params.append("logit", "true");
     params.append("lang", "DE");
