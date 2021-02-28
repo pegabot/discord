@@ -13,8 +13,8 @@ exports.module = {
     params.append("source", "Pegabot");
     params.append("user_id", author.id);
     params.append("usr", author.username);
-    params.append("api_key", bot.config.ROLLBUTTLER_KEY);
-    params.append("api_pass", bot.config.ROLLBUTLER_PASS);
+    params.append("api_key", bot.config.ROLLBUTLER_KEY);
+    params.append("api_pass", bot.config.ROLLBUTER_PASS);
     params.append("roll", dice);
     params.append("logit", "true");
     params.append("lang", "DE");
@@ -25,7 +25,7 @@ exports.module = {
     const handler = bent(`https://rollbutler.net/index.php?`, "string", {
       HttpMethod: "GET",
       Headers: {
-        Authorization: `BOT ${bot.config.ROLLBUTTLER_KEY}`,
+        Authorization: `BOT ${bot.config.ROLLBUTLER_KEY}`,
         Accept: "application/json",
         "User-Agent": "Pegabot",
         "Content-Type": "application/json",

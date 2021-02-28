@@ -11,7 +11,7 @@ module.exports = {
   name: "roll",
   aliases: ["r"],
   usage: ["roll (https://pegabot.pegasus.de/dice-rules)"],
-  help: "powered by RollButtler",
+  help: "powered by RollButler",
   execute: async (bot, msg, args) => {
     if (args.length < 1) return msg.reply("es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
     if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i))
