@@ -3,43 +3,34 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption } = require("../../utils");
-const bent = require("bent");
-const { MessageEmbed } = require("discord.js");
+const {
+  RollButler: { generateParams, roll, generateEmbed },
+} = require("../../utils");
 
 module.exports = {
   name: "roll",
   aliases: ["r"],
-  usage: ["roll"],
-  help: "Der RollButler eingebaut im Pegabot",
+  usage: ["roll (https://pegabot.pegasus.de/dice-rules)"],
+  help: "powered by RollButtler",
   execute: async (bot, msg, args) => {
-    const params = new URLSearchParams();
-    params.append("job", "api");
-    params.append("source", "Pegabot");
-    params.append("user_id", msg.author.id);
-    params.append("usr", msg.author.username);
-    params.append("api_key", bot.config.ROLLBUTTLER_KEY);
-    params.append("api_pass", bot.config.ROLLBUTLER_PASS);
-    params.append("roll", "3d6");
-    params.append("logit", "true");
-    params.append("lang", "DE");
-    params.append("format", "markdown");
+    if (args.length < 1) return msg.reply("es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
+    if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i))
+      return msg.reply(`dieser Wurf ist nicht valide. Nutze \`${bot.config.prefix}help roll\` für mehr Hilfe.`);
 
-    const handler = bent(`https://rollbutler.net/index.php?`, "string", {
-      HttpMethod: "GET",
-      Headers: {
-        Authorization: `BOT ${bot.config.ROLLBUTTLER_KEY}`,
-        Accept: "application/json",
-        "User-Agent": "Pegabot",
-        "Content-Type": "application/json",
-      },
-    });
+    const dice = args.join(" ");
 
-    const response = await handler(`${params.toString()}`);
-    const embed = new MessageEmbed();
-    embed.setColor(bot.colors.babyblue);
-    embed.setDescription(`${msg.author}, ${response}`);
-    embed.setFooter("powered by RollButler");
-    msg.reply(embed);
+    const params = generateParams(bot, msg.author, dice);
+
+    const response = await roll(bot, params);
+
+    const embed = generateEmbed(bot, dice, msg.author, response);
+    const replied = await msg.reply(embed);
+    replied.react("🎲");
+
+    const RollsModel = bot.db.model("rolls");
+    const entry = new RollsModel();
+    entry.messageId = replied.id;
+    entry.dice = dice;
+    entry.save();
   },
 };
