@@ -7,3 +7,6 @@ vouchers.json
 #Appmetrics
 *.heapsnapshot
 *.log
+
+#Clinic
+.clinic/*

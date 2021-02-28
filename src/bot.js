@@ -4,7 +4,7 @@
  */
 
 require("dotenv").config();
-if (process.env.NODE_ENV === "development") {
+if (process.env.APPMETRICS === "true") {
   require("appmetrics-dash").attach();
 }
 
