@@ -34,11 +34,12 @@ exports.module = {
 
     return handler(`${params.toString()}`);
   },
+
   generateEmbed: (bot, dice, author, response) => {
     const embed = new MessageEmbed();
     embed.setColor(bot.colors.babyblue);
     embed.setTitle(`Ergebnis für ${dice}`);
-    embed.setDescription(`${author}, ${response}`);
+    embed.setDescription(`${author}, ${response.charAt(0).toLowerCase() + response.slice(1)}`);
     embed.setFooter("powered by RollButler");
     return embed;
   },
