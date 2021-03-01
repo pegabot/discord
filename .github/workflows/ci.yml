@@ -40,6 +40,12 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "pegarobo-staging"
           heroku_email: "nico@gruselhaus.com"
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_STAGING }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Pegabot has been deployed.'
   deploy-production:
     needs: test
     if: github.ref == 'refs/heads/main'
