@@ -1,9 +1,9 @@
 name: Unit Tests
 on:
   push:
-    branches: [ main ]
+    branches: [ main, staging ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, staging ]
 
 jobs:
   test:
@@ -28,10 +28,22 @@ jobs:
         run: yarn test
         env:
           SESSION_SECRET: ${{secrets.SESSION_SECRET}}
-  deploy:
+  deploy-staging:
+    needs: test
+    if: github.ref == 'refs/heads/staging'
+    name: "Deploy to staging"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pegarobo-staging"
+          heroku_email: "nico@gruselhaus.com"
+  deploy-production:
     needs: test
     if: github.ref == 'refs/heads/main'
-    name: "Deploy"
+    name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
