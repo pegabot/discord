@@ -4,5 +4,5 @@
  */
 
 exports.execute = async (bot, role) => {
-  bot.logger.admin_red(`:inbox_tray: Die Rolle: ${role} **wurde gelöscht**.`, `ID: ${role.id}`);
+  bot.logger.admin_red(`:inbox_tray: Die Rolle: \`${role.name}\` **wurde gelöscht**.`, `ID: ${role.id}`);
 };
