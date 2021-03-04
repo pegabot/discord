@@ -9,6 +9,10 @@ module.exports = {
   help: "Stoppe die Wiedergabe und setze die Wartschlange zurück.",
   channel: ["803042555025293332"],
   execute: async (bot, msg, args) => {
-    bot.jukebox.stop(msg);
+    try {
+      bot.jukebox.stop(msg);
+    } catch (error) {
+      msg.reply("so wie es aussschaut, spiele ich im Moment keine Musik ab.");
+    }
   },
 };
