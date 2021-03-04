@@ -36,7 +36,7 @@ exports.execute = async (bot) => {
     guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(url);
     if (attachmentUrl) guild.channels.cache.get(bot.config.TRELLO_INFO_CHANNEL).send(attachmentUrl);
 
-    trello.addCommentToCard(cardId, "Eine entsprechende Benarichtung wurde in den Rundenaushang geschickt.");
+    trello.addCommentToCard(cardId, "Eine entsprechende Benachrichtigung wurde in den Rundenaushang geschickt.");
     trello.updateCustomFieldOnCard(cardId, fieldId, { checked: "false" });
   }
 };
