@@ -32,8 +32,7 @@ exports.Jukebox = class {
       })
       .on("searchCancel", (message) => message.channel.send(`Suche abgebrochen`))
       .on("error", (message, e) => {
-        console.error(e);
-        message.channel.send("Ein Fehler ist aufgetreten: " + e);
+        message.reply("du musst dich in einem Sprachkanal befinden!");
       });
   }
 
