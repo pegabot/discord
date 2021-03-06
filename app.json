@@ -7,6 +7,9 @@
     },
     {
       "url": "https://github.com/pegabot/heroku-buildpack-ffmpeg-latest.git"
+    },
+    {
+      "url": "https://github.com/pegasusspiele/heroku-buildpack-datadog.git"
     }
   ]
 }
