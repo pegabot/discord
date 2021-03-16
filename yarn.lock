@@ -327,12 +327,12 @@
     streamify "~1.0.0"
     universalify "~2.0.0"
 
-"@distube/ytdl@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@distube/ytdl/-/ytdl-1.0.7.tgz#b9d8ca9bbcbf37c17c40a83c79e1b2912f5c9314"
-  integrity sha512-6tvsnIP7eg3wPL+r5/di0BJdXHcx8v1oMqrFdCe4o5xcpRmCLst77I7vcztRuZXLtcwoPgZ9MXbQWdLhXL1DPQ==
+"@distube/ytdl@^2.0.3":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@distube/ytdl/-/ytdl-2.0.4.tgz#9627ff18599e2f53f9930f5e1379bfc02bf9c3d4"
+  integrity sha512-WirOzCiNbYdubSzFoTutXJxS8mJDYgxz+B/io+TaYNXxYce8KTl9GqcGMc9IsaCi8jfvrgSvM8IaxHX5zFlhEQ==
   dependencies:
-    prism-media "^1.2.3"
+    prism-media "^1.2.8"
 
 "@distube/ytpl@^1.0.11":
   version "1.0.11"
@@ -1825,13 +1825,13 @@ discord.js@^12.5.1:
     tweetnacl "^1.0.3"
     ws "^7.3.1"
 
-distube@^2.8.10:
-  version "2.8.10"
-  resolved "https://registry.yarnpkg.com/distube/-/distube-2.8.10.tgz#03c9d2f50d99a604d2c294e25e0da9d8ea9e4fca"
-  integrity sha512-lFHJ2hTAbYcAkZ0V4CA3BwLlV3hTAEF++Fu24BI+4HTVfAB9wMSsXt1tfIT3tCswk8F7RKiBzRR1OOO+h5lylQ==
+distube@^2.8.11:
+  version "2.8.11"
+  resolved "https://registry.yarnpkg.com/distube/-/distube-2.8.11.tgz#65e00c2359bb8d3170514e20fe1568d586869f12"
+  integrity sha512-ZpcDSExw4VJhdTrZCr0HhXMelppglB5WVW59IVY9tVkWvoAM17fCJ2Yzlqxeyki2H9hw9+EtnyeIcygxg8s9VA==
   dependencies:
     "@distube/youtube-dl" "^1.0.4"
-    "@distube/ytdl" "^1.0.7"
+    "@distube/ytdl" "^2.0.3"
     "@distube/ytpl" "^1.0.11"
     "@distube/ytsr" "^1.0.8"
     ytdl-core "^4.5.0"
@@ -4596,10 +4596,10 @@ prism-media@^1.2.2:
   resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.2.2.tgz#4f1c841f248b67d325a24b4e6b1a491b8f50a24f"
   integrity sha512-I+nkWY212lJ500jLe4tN9tWO7nRiBAVdMv76P9kffZjYhw20raMlW1HSSvS+MLXC9MmbNZCazMrAr+5jEEgTuw==
 
-prism-media@^1.2.3:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.2.5.tgz#a3fcb4f7873336d6fcf420213434c1bf5272efe1"
-  integrity sha512-YqSnMCugv+KUNE9PQec48Dq22jSxB/B6UcfD9jTpPN1Mbuh+RqELdTJmRPj106z3aa8ZuXrWGQllXPeIGmKbvw==
+prism-media@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.2.8.tgz#41e0d0c788eeb12068960cb60c546fef82fa9d44"
+  integrity sha512-bJ8J9PKpUdG6GmtnlaPSi2cMdGDLsS9o4iOlOncJasku73uJucgcN9Yr7/jlENqfh7hoR6LDqPr17JEzp6srjg==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
