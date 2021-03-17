@@ -7,7 +7,15 @@ const {
   RollButler: { generateParams, roll, generateEmbed },
 } = require("../utils");
 
-exports.execute = (bot, reaction, user) => {
+exports.execute = async (bot, reaction, user) => {
+  if (reaction.partial) {
+    try {
+      await reaction.fetch();
+    } catch (error) {
+      return;
+    }
+  }
+
   if (user.bot) return;
   if (reaction._emoji.name !== "🎲") return;
 

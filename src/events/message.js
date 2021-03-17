@@ -6,6 +6,8 @@
 const Levels = require("discord-xp");
 
 exports.execute = async (bot, message) => {
+  if (message.partial) return;
+
   if (!message.guild) return;
   if (message.author.bot) return;
   if (bot.config.ignoredChannels) {

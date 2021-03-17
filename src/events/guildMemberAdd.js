@@ -9,6 +9,8 @@ const { de } = require("date-fns/locale");
 const { stripIndents } = require("../utils");
 
 exports.execute = (bot, member) => {
+  if (member.partial) return;
+
   const status = {
     online: `Benutzer ist online!`,
     idle: `Benutzer macht Pause, wahrscheinlich trinkt er gerade eine Tasse Tee`,

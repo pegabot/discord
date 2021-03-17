@@ -4,5 +4,7 @@
  */
 
 exports.execute = (bot, guild, user) => {
+  if (guild.partial) return;
+
   bot.logger.admin_red(`${user.tag} wurde gerade vom Server gebannt.`);
 };

@@ -4,5 +4,7 @@
  */
 
 exports.execute = async (bot, role) => {
+  if (role.partial) return;
+
   bot.logger.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);
 };

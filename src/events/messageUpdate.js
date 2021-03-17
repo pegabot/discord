@@ -8,6 +8,9 @@ const gitDiff = require("git-diff");
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (bot, oldMessage, newMessage) => {
+  if (oldMessage.partial) return;
+  if (newMessage.partial) return;
+
   try {
     await oldMessage.fetch(true);
     await newMessage.fetch(true);

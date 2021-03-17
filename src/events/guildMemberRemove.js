@@ -6,6 +6,8 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = (bot, member) => {
+  if (member.partial) return;
+
   const LevelsModel = bot.db.model("levels");
   LevelsModel.find({ userID: member.user.id }, (error, data) => {
     if (error) return;

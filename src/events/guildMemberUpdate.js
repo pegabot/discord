@@ -7,6 +7,9 @@ const prettyMs = require("pretty-ms");
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (bot, oldMember, newMember) => {
+  if (oldMember.partial) return;
+  if (newMember.partial) return;
+
   if (oldMember.roles.cache.size < newMember.roles.cache.size) {
     const fetchedLogs = await oldMember.guild.fetchAuditLogs({
       limit: 1,

@@ -4,5 +4,7 @@
  */
 
 exports.execute = async (bot, invite) => {
+  if (invite.partial) return;
+
   bot.logger.admin_green(`:inbox_tray: Die Einladung: ${invite.url} wurde von ${invite.inviter} **erstellt**.`, `Code: ${invite.code}`);
 };

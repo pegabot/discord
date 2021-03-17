@@ -6,5 +6,7 @@
 const { ChannelTypes } = require("../utils");
 
 exports.execute = async (bot, channel) => {
+  if (channel.partial) return;
+
   bot.logger.admin_red(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${channel.name}\` **wurde gelöscht**.`);
 };
