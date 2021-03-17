@@ -4,9 +4,6 @@
  */
 
 require("dotenv").config();
-if (process.env.APPMETRICS === "true") {
-  require("appmetrics-dash").attach();
-}
 
 require("./server/server");
 
