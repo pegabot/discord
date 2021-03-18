@@ -16,7 +16,8 @@ module.exports = {
   usage: "nerdquiz",
   help: "Das Quiz zur CONspiracy IV.",
   unlock: 1616749200000, // Freitag, 26. März 2021 10:00:00 GMT+01:00 https://www.epochconverter.com
-  lock: 1616968799000, // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com
+  lock: 1616968799000, // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com,
+  channel: ["822130448808411179"],
   execute: async (bot, msg) => {
     const SessionModel = bot.db.model("session");
     const VoucherModel = bot.db.model("voucher");
@@ -157,7 +158,7 @@ module.exports = {
                 Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber wir sind uns sicher, du weißt noch mehr! Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
 
                 Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
-                
+
                 Und schließlich, falls du regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten möchtest, dann abonniere unseren allgemeinen Pegasus Spiele-Newsletter unter www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich dort auch das ein oder andere Wissen für unser nächstes Geek-Quiz sammeln!
 
                 ${wrongQuestionsText}
