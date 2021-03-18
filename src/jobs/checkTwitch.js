@@ -9,7 +9,7 @@ const {
 
 let online = false;
 
-exports.setup = async (bot) => {
+exports.execute = async (bot) => {
   if (await isStreaming("176169616")) {
     if (online) return;
     online = true;
