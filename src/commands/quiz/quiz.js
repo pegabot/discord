@@ -12,8 +12,8 @@ const AnzahlFragen = 3;
 const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
 module.exports = {
-  name: "nerdquiz",
-  usage: "nerdquiz",
+  name: "quiz",
+  usage: "quiz",
   help: "Das Quiz zur CONspiracy IV.",
   unlock: 1616749200000, // Freitag, 26. März 2021 10:00:00 GMT+01:00 https://www.epochconverter.com
   lock: 1616968799000, // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com,
