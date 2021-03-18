@@ -77,9 +77,7 @@ module.exports = {
 
             ***Zur Beantwortung der Fragen hast du ${prettyMs(
               expiresInterval,
-            )} Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode für ein kostenloses digitales Rollenspiel-Bundle, bei dem dein Geek-Herz höher schlagen wird: Talisman Adventures Fantasy RPG Core Rulebook, Shadowrun Roman Alter Ego, Shadowrun Roman Marlene lebt, Shadowrun: Neo-Anarchistische Enzyklopädie, Cthulhu: Bestimmungsbuch der unaussprechlichen Kreaturen.
-
-            Den Code kannst du sofort oder bis spätestens 14.12.2020 auf www.pegasusdigital.de einlösen.
+            )} Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode (gültig bis 31.03.2021). Mit diesem erhältst du auf www.pegasusshop.de 30% Rabatt auf die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“.
 
             Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage.
 
@@ -156,10 +154,10 @@ module.exports = {
                     `
                 Vielen Dank fürs Mitmachen!
 
-                Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber keine Sorge, wir haben da was für dich vorbereitet: Von 26.-30.11.2020 erhältst du unter www.pegasusdigital.de 20% Rabatt auf Artikel, die innerhalb der letzten zwei Jahre erschienen sind und sogar 40% Rabatt auf Artikel, die schon älter als zwei Jahre sind (Oldies but Goldies!). Neuheiten, die innerhalb der letzten 30 Tage erschienen sind, und Bundles sind von der Rabattaktion ausgeschlossen.
+                Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber wir sind uns sicher, du weißt noch mehr! Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
 
-                Außerdem kannst du noch bis 29.11.2020 23:59 Uhr an unserer CONspiracy-Umfrage teilnehmen: https://de.surveymonkey.com/r/QK9YDD6. Unter allen, die uns dort ihre Meinung sagen, verlosen wir drei Überraschungspakete im Wert von mindestens 100€.
-
+                Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
+                
                 Und schließlich, falls du regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten möchtest, dann abonniere unseren allgemeinen Pegasus Spiele-Newsletter unter www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich dort auch das ein oder andere Wissen für unser nächstes Geek-Quiz sammeln!
 
                 ${wrongQuestionsText}
