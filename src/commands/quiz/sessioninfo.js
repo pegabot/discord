@@ -38,7 +38,7 @@ module.exports = {
 
       const embed = new MessageEmbed()
         .setColor(
-          session.status === "error" ? bot.colors.red : session.status === "stale" ? bot.colors.orange : session.won ? bot.colors.green : bot.colors.babyblue,
+          session.status === "error" ? bot.colors.red : session.status === "stale" ? bot.colors.babyblue : session.won ? bot.colors.green : bot.colors.orange,
         )
         .setAuthor(member.user.tag, member.user.displayAvatarURL())
         .setTitle(`Informationen zur Session ${session._id}`)
