@@ -1,0 +1,14 @@
+{
+  "name": "NAME",
+  "fragen": [
+    {
+      "frage": "A, B oder C?",
+      "antworten": [
+        "A",
+        "B",
+        "C"
+      ],
+      "richtig": 0
+    }
+  ]
+}
