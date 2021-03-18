@@ -5,7 +5,9 @@
 
 const {
   RollButler: { generateParams, roll, generateEmbed },
+  fetchWithTimeout,
 } = require("../utils");
+const { MessageAttachment } = require("discord.js");
 
 exports.execute = async (bot, reaction, user) => {
   if (reaction.partial) {
@@ -31,10 +33,24 @@ exports.execute = async (bot, reaction, user) => {
 
     const params = generateParams(bot, user, dice);
 
-    const response = await roll(bot, params);
+    let response = await roll(bot, params);
 
-    const embed = generateEmbed(bot, dice, user, response);
-    const replied = await reaction.message.channel.send(embed);
+    try {
+      response = JSON.parse(response);
+    } catch {
+      return;
+    }
+
+    let replied;
+    if (response?.image) {
+      const result = await fetchWithTimeout(`https:${response.image}?${new Date().getTime()}`);
+      const buffer = await result.buffer();
+      replied = await reaction.message.channel.send(response.message, new MessageAttachment(buffer));
+    } else {
+      embed = generateEmbed(bot, dice, user, response);
+      replied = await reaction.message.channel.send(embed);
+    }
+
     replied.react("🎲");
 
     const entry = new RollsModel();

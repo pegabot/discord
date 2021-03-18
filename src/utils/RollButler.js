@@ -18,7 +18,7 @@ exports.module = {
     params.append("roll", dice);
     params.append("logit", "true");
     params.append("lang", "DE");
-    params.append("format", "markdown");
+    params.append("format", "extended");
     return params;
   },
   roll: (bot, params) => {
@@ -39,7 +39,7 @@ exports.module = {
     const embed = new MessageEmbed();
     embed.setColor(bot.colors.babyblue);
     embed.setTitle(`Ergebnis für ${dice}`);
-    embed.setDescription(`${author}, ${response.charAt(0).toLowerCase() + response.slice(1)}`);
+    embed.setDescription(`${author}, ${response.message.charAt(0).toLowerCase() + response.message.slice(1)}`);
     embed.setFooter("powered by RollButler");
     return embed;
   },
