@@ -5,7 +5,10 @@
 
 const {
   RollButler: { generateParams, roll, generateEmbed },
+  BotExecption,
+  fetchWithTimeout,
 } = require("../../utils");
+const { MessageAttachment } = require("discord.js");
 
 module.exports = {
   name: "roll",
@@ -21,12 +24,25 @@ module.exports = {
 
     const params = generateParams(bot, msg.author, dice);
 
-    const response = await roll(bot, params);
+    let response = await roll(bot, params);
 
-    const embed = generateEmbed(bot, dice, msg.author, response);
-    const replied = await msg.reply(embed);
+    try {
+      response = JSON.parse(response);
+    } catch {
+      throw new BotExecption("Ein Fehler ist aufgetreten!");
+    }
 
-    if (response.match(/.*fehlgeschlagen.*/)) return;
+    if (response.message.match(/.*fehlgeschlagen.*/)) return;
+
+    let replied;
+    if (response?.image) {
+      const result = await fetchWithTimeout(`https:${response.image}?${new Date().getTime()}`);
+      const buffer = await result.buffer();
+      replied = await msg.reply(response.message, new MessageAttachment(buffer));
+    } else {
+      embed = generateEmbed(bot, dice, msg.author, response);
+      replied = await msg.reply(embed);
+    }
 
     replied.react("🎲");
 
