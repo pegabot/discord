@@ -11,12 +11,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { schema: QuizSchema } = require("../src/models/quiz");
 
-const filename = "quiz.json";
-
 (async () => {
-  if (!fs.existsSync(path.join(__dirname, filename))) throw new Error(`${filename} existiert nicht!`);
-  const quizzes = require(path.join(__dirname, filename));
-
   await mongoose.connect(process.env.DB_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -26,21 +21,25 @@ const filename = "quiz.json";
   });
   const QuizModel = mongoose.model("quiz", QuizSchema);
 
-  for (const quiz of quizzes) {
-    const newQuiz = new QuizModel();
-    newQuiz.name = quiz.name;
-    newQuiz.fragen = quiz.fragen;
+  const files = fs.readdirSync(path.join(__dirname, "quiz-sets"));
 
-    const existingQuiz = await QuizModel.find({ name: newQuiz.name });
-    if (existingQuiz.length !== 0) {
-      existingQuiz.forEach(async (elt) => {
-        console.log(`${elt.name} exists - deleting!`);
-        await elt.remove();
-      });
-    }
-    console.log(`Saving ${newQuiz.name}!`);
-    await newQuiz.save();
-  }
+  files
+    .filter((elt) => !elt.match("sample"))
+    .forEach(async (filename) => {
+      const quiz = require(path.join(__dirname, "quiz-sets", filename));
 
-  process.exit(0);
+      const newQuiz = new QuizModel();
+      newQuiz.name = quiz.name;
+      newQuiz.fragen = quiz.fragen;
+
+      const existingQuiz = await QuizModel.find({ name: newQuiz.name });
+      if (existingQuiz.length !== 0) {
+        existingQuiz.forEach(async (elt) => {
+          console.log(`${elt.name} exists - deleting!`);
+          await elt.remove();
+        });
+      }
+      console.log(`Saving ${newQuiz.name}!`);
+      await newQuiz.save();
+    });
 })();

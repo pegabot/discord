@@ -47,6 +47,4 @@ const { schema: VoucherSchema } = require("../src/models/voucher");
       await elt.remove();
     });
   }
-
-  process.exit(0);
 })();

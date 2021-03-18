@@ -7,7 +7,7 @@ const { BotExecption, stripIndents } = require("../../utils");
 const { MessageEmbed } = require("discord.js");
 const prettyMs = require("pretty-ms");
 
-const QuizName = "CONspiracy IV";
+const QuizName = "CONspiracy V";
 const AnzahlFragen = 3;
 const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
@@ -26,10 +26,12 @@ module.exports = {
     newSession.userId = msg.author.id;
     newSession.status = "in progress";
 
-    const closedSessions = await SessionModel.find({ userId: newSession.userId, status: "closed", "quiz.name": QuizName });
-    if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-      throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
-    }
+    // Zur CONspiracy V wurde diese Sperre rausgenommen
+
+    // const closedSessions = await SessionModel.find({ userId: newSession.userId, status: "closed", "quiz.name": QuizName });
+    // if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
+    //   throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
+    // }
 
     const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
     if (activeSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {

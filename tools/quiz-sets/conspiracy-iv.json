@@ -1,0 +1,957 @@
+{
+  "name": "CONspiracy IV",
+  "fragen": [
+    {
+      "frage": "Seit wann gibt es Pegasus Spiele?",
+      "antworten": ["1993", "1990", "1995"],
+      "richtig": 0
+    },
+    {
+      "frage": "Die wie vielte CONspiracy steht bevor?",
+      "antworten": ["5", "2", "4"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welches Volk verkörpern die Spieler in dem Spiel „Bonfire“?",
+      "antworten": ["Zwerge", "Elfen", "Gnome"],
+      "richtig": 2
+    },
+    {
+      "frage": "Woran nehmen die Spieler bei „Cubitos“ teil?",
+      "antworten": ["Einem Wettrennen", "Einem Glücksspiel", "Einem Stapelwettbewerb"],
+      "richtig": 0
+    },
+    {
+      "frage": "In welcher Zeit spielt die Handlung in „City of Angels“?",
+      "antworten": ["1930ger Jahre", "1940ger Jahre", "1950ger Jahre"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Plättchen enthält die zweite Auflage des Spiels „Eclipse“?",
+      "antworten": ["726", "694", "572"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was steuern die Spieler in „Magic Maze on Mars“?",
+      "antworten": ["Roboter", "Marsianer", "Astronauten"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Farben hat das Dach des Verkaufsstandes bei „My Farm Shop“?",
+      "antworten": ["grün-weiß", "rot-weiß", "rot-grün"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche/r Spieler/in gewinnt eine Partie bei „My Farm Shop“?",
+      "antworten": ["Die/Der mit den meisten Waren", "Die/Der mit dem meisten Geld", "Die/Der mit dem meisten Holz vor der Hütte"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Feldfrucht gibt es NICHT im Spiel „Punktesalat“?",
+      "antworten": ["Zwiebel", "Möhre", "Kartoffel"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher Baumtyp kommt NICHT in „Renature“ vor?",
+      "antworten": ["Eiche", "Tanne", "Kiefer"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Karten enthält die Roll Player Erweiterung „Fiends & Familiars“?",
+      "antworten": ["205", "190", "235"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche beiden neuen Reiche invadieren die Insel bei „Spirit Island: Zerklüftete Erde“?",
+      "antworten": ["Schwaben und China", "Die Ottonen und Japan", "Die Habsburgermonarchie und Russland"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welchen Kontinent bereisen die Spieler bei Spy Connection?",
+      "antworten": ["Südamerika", "Europa", "Afrika"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Edelsteine enthält „The Magnificent“?",
+      "antworten": ["48", "46", "50"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie hoch ist der Wert aller vier Zahlen, die auf der mittleren Karte, auf der Rückseite der Schachtel von „Valentine´s Day“ zu sehen ist?",
+      "antworten": ["2", "6", "8"],
+      "richtig": 2
+    },
+    {
+      "frage": "Von welchem Spiel des Jahres-Design gibt es eine eigene „5211“-Edition?",
+      "antworten": ["Camel Up", "Azul", "Kingdomino"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wer ist der Autor des Spiels „5211“?",
+      "antworten": ["Tsuyoshi Hashiguchi", "Yoshi Hashimoto", "Tsyuoshi Hushigachi"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Karten werden bei „5211 - Azul Edition“ zuerst geprüft?",
+      "antworten": ["Wolfkarten", "Hahnkarten", "Eisbärkarten"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Spielidee steckt hinter „Celtic“?",
+      "antworten": ["Axio", "Talisman", "Wunderland"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wo wurde der Keltenfürst, der in „Celtic“ eine Rolle spielt, entdeckt?",
+      "antworten": ["Hessen", "Nordrhein-Westfalen", "Rheinland-Pfalz"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wo auf dem Spielbrett von „Celtic“ findet man den Keltenfürsten?",
+      "antworten": ["links", "rechts", "mitte"],
+      "richtig": 1
+    },
+    {
+      "frage": "In den Dracheneiern von welchem Gebiet sind in „Dragomino“ am wahrscheinlichsten Babydrachen versteckt?",
+      "antworten": ["Schnee", "Wald", "Vulkan"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher Autor und Spiel des Jahres-Gewinner steckt hinter dem Spiel „Dragomino“?",
+      "antworten": ["Bruno Cathala", "Michael Kiesling", "Rainer Knizia"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele Dracheneier befinden sich im Spiel „Dragomino“?",
+      "antworten": ["105", "69", "43"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viel Teile haben die Puzzlefische in „Foto Fish“?",
+      "antworten": ["14", "9", "20"],
+      "richtig": 0
+    },
+    {
+      "frage": "In welchem Setting spielt „Foto Fish“?",
+      "antworten": ["Zoo", "Aquarium", "Fluss"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welchen Beruf spielst du bei „Foto Fish“?",
+      "antworten": ["Fischer", "Perlentaucher", "Fotograf"],
+      "richtig": 2
+    },
+    {
+      "frage": "Mit welcher Spielfigur fährst du bei „Ghost Adventure“ über den Spielplan?",
+      "antworten": ["Kreisel", "Magnetfigur", "Würfel"],
+      "richtig": 0
+    },
+    {
+      "frage": "Um welches Spielsystem handelt es sich bei „Ghost Adventure“?",
+      "antworten": ["Einer gegen alle", "Kooperativ", "Kompetitiv"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Welt gibt es in „Ghost Adventure“ nicht?",
+      "antworten": ["Die Eischolle der Wölfe", "Das Dorf der Mäuse", "Die Insel der Magier"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Lebensmittel stehen bei „Go Slow“ im Vordergrund?",
+      "antworten": ["Gemüse", "Obst", "Fleisch"],
+      "richtig": 0
+    },
+    {
+      "frage": "Warum zeigen die Schneckenkarten in „Go Slow“ sowohl Zahlen als auch Punkte?",
+      "antworten": ["Weil es hübsch aussieht.", "Zum Zahlen lernen und Abzählen. ", "Damit Erwachsene und Kinder gemeinsam spielen können. "],
+      "richtig": 1
+    },
+    {
+      "frage": "Was ist bei „Go Slow“ das Spielziel?",
+      "antworten": ["Die Schnecken vor mir anzuschieben.", "Als erster das Ende des Gemüsegartens zur erreichen.", "Der letzte auf dem Feld zu sein."],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie werden die Spielzüge bei „Kanonen und Dublonen“ gespielt?",
+      "antworten": ["Alle gleichzeitig", "Gegen den Uhrzeigersinn", "Nach Alter"],
+      "richtig": 0
+    },
+    {
+      "frage": "Was bedeutet das Ankerplättchen in „Kanonen und Dublonen“?",
+      "antworten": ["Du beginnst in der nächsten Runde als Erster.", "Du darfst nächste Runde nicht die Insel wechseln.", "Du bekommst alle Dublonen."],
+      "richtig": 1
+    },
+    {
+      "frage": "In „Kanonen und Dublonen“ gewinnt derjenige, der die meisten…",
+      "antworten": ["Schiffe geentert hat", "Kanonen besitzt", "Dublonen erbeutet hat"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele Spiele gehören aktuell zu unserer Langlandreihe?",
+      "antworten": ["4", "3", "2"],
+      "richtig": 0
+    },
+    {
+      "frage": "Was ist das Besondere an „Langland Domino“?",
+      "antworten": [
+        "Es geht nicht darum die gleichen Teile anzulegen.",
+        "Erst wenn ein Tier vollständig ist, darf man das nächste Tier legen.",
+        "Man kann Kurven legen."
+      ],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele Spieler dürfen bei „Langland Yatzy“ mitspielen?",
+      "antworten": ["2-6", "1-9", "2-4"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Spielmaterierialien sind in „Langland Yatzy“ enthalten?",
+      "antworten": ["Würfel, Pöppel, Block, Filzstifte", "Würfel, Würfelbecher, Block, Bleistifte", "Pöppel, Spielbrett, Karten, Buntstifte"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welches Tier ist bei „Langland Yatzy“ nicht dabei?",
+      "antworten": ["Katze", "Einhorn", "Pegasus"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Kleidung sucht „Mary Magica“?",
+      "antworten": [
+        "Hut, Besen, Stiefel, Umhang, Kleid, Strumpfhose",
+        "Stiefel, Strumpfhose, Latzhose, Zauberstab, Regenmantel, T-Shirt.",
+        "Mütze, Hemd, Hose, Socken, Jacke, Schal."
+      ],
+      "richtig": 0
+    },
+    {
+      "frage": "Was löst bei „Mary Magica“ die Magie aus?",
+      "antworten": ["Klettverschluss", "Magnet", "Klebeband"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wo landen die Kleidungsstücke von „Mary Magica“?",
+      "antworten": ["Auf dem Schrank.", "Auf dem Bett.", "Auf dem Boden."],
+      "richtig": 2
+    },
+    {
+      "frage": "Was machen die Schnecken in „Schneckenslalom“, was sonst sehr untypisch für sie ist?",
+      "antworten": ["Sprinten", "Klettern", "Schlafen"],
+      "richtig": 0
+    },
+    {
+      "frage": "Worauf haben die Schnecken in „Schneckenslalom“ es abgesehen?",
+      "antworten": ["Gurken", "Salat", "Bohnen"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was trägt die lila Schnecke in „Schneckenslalom“ auf dem Kopf?",
+      "antworten": ["Stirnband", "Kopftuch", "Helm"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was macht Timmy bei „Timmy im Zoo“?",
+      "antworten": ["Tiere füttern", "Übernachten", "Schwimmen"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele verschiedene Tiere darf Timmy bei „Timmy im Zoo“ füttern?",
+      "antworten": ["4", "8", "7"],
+      "richtig": 1
+    },
+    {
+      "frage": "Womit kann Timmy bei „Timmy im Zoo“ die Tiere füttern?",
+      "antworten": ["Bananen, Erdbeeren, Vollkornbrot, Suppe", "Zucker, Brötchen, Birne, Müsliriegel", "Fisch, Fleisch, Apfel, Getreide"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welches Genre gehört das Spiel „Micro Macro: Crime City“ an?",
+      "antworten": ["Detective", "Fantasy", "Science Fiction"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele Kriminalfälle gilt es in „Micro Macro: Crime City“ zu lösen?",
+      "antworten": ["12", "16", "20"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie groß ist der Spielplan von „Micro Macro: Crime City“",
+      "antworten": ["55x75 cm", "75x75 cm", "75x110 cm"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie hoch ist der UVP (d.h. die Preisempfehlung von Pegasus Spiele) für die „Hansa Teutonica Big Box“?",
+      "antworten": ["34,95€", "39,95€", "49,95€"],
+      "richtig": 1
+    },
+    {
+      "frage": "Bis zu wie vielen Spielern ist „Bad Bones“ spielbar?",
+      "antworten": ["4", "5", "6"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wann war das Erscheinungsdatum von dem Grundspiel „ERA – Das Mittelalter“?",
+      "antworten": ["15.10.2019", "15.03.2020", "15.01.2019"],
+      "richtig": 0
+    },
+    {
+      "frage": "Zu welcher Kategorie gehört „Kyoto“?",
+      "antworten": ["Expertenspiele", "Kennerspiele", "Familienspiele"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Spieldauer wird für „Munchkin Fellinge“ angegeben?",
+      "antworten": ["90-120 Minuten", "30-60 Minuten", "60-90 Minuten"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele Spielekarten hat die Erweiterung „Munchkin Warhammer Age of Sigmar: Tod und Zerstörung“?",
+      "antworten": ["112", "118", "224"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie heißt der Drache in „Nidavellir“, der das Zwergenreich bedroht?",
+      "antworten": ["Smaug", "Fafnir", "Glurak"],
+      "richtig": 1
+    },
+    {
+      "frage": "Von welchem unserer Partnerverlage ist „Sherlock Holmes – Die Nachwuchsinvestigatoren“?",
+      "antworten": ["Frosted Games ", "Edition Spielwiese", "Blue Orange"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele (Lebe)Wesen sind auf dem Cover von „Spiele-Comic Abenteuer: Hokus Pokus“ zu sehen?",
+      "antworten": ["5", "4", "3"],
+      "richtig": 0
+    },
+    {
+      "frage": "In welcher US-Stadt findet der „Spiele-Comic Abenteuer: Mystery“ statt?",
+      "antworten": ["Detroit", "Chigaco", "Miami"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viel wiegt der „Spiele-Comic Noir: Magica Tenebrae“?",
+      "antworten": ["ca. 0,75 Kilogramm", "ca. 0,5 Kilogramm", "ca. 0,3 Kilogramm"],
+      "richtig": 2
+    },
+    {
+      "frage": "Von welchem Spiel handelte das erste Interview mit der Redaktion im Pegasus Spiele-Blog?",
+      "antworten": ["Tainted Grail", "Spirit Island", "Kitchen Rush"],
+      "richtig": 0
+    },
+    {
+      "frage": "Was war das erste Cover-Motiv von unserem neuen Hausmagazin Der Ringbote?",
+      "antworten": ["My Farm Shop", "Kitchen Rush", "Renature"],
+      "richtig": 1
+    },
+    {
+      "frage": "„Shadowrun: Hinter dem Vorhang (Hardcover)“: Auf welchen Vorhang bezieht sich der Titel?",
+      "antworten": [
+        "Den zwischen dem zivilen Leben und den Schatten",
+        "Den zwischen der Astralebene und unserer Welt",
+        "Den zwischen Werten eines Charakters und seiner Hintergrundgeschichte"
+      ],
+      "richtig": 2
+    },
+    {
+      "frage": "„Shadowrun: Netzgewitter (Hardcover)“: In welcher deutschen Großstadt spielt die Kampagne?",
+      "antworten": ["Berlin", "Frankfurt", "Essen"],
+      "richtig": 0
+    },
+    {
+      "frage": "„Shadowrun: Freiheit für Seattle (Softcover)“: An welchem wichtigen Schritt in der Geschichte Seattles können die Runner in diesem Abenteuer mitwirken?",
+      "antworten": [
+        "Die Stadt soll sich in die Lüfte erheben.",
+        "Die Stadt soll die Unabhängigkeit von der UCAS erlangen.",
+        "Die Stadt soll durch eine Kuppel vom Rest der Welt abgetrennt werden."
+      ],
+      "richtig": 1
+    },
+    {
+      "frage": "„Shadowrun: Phantome (Hardcover)“: Was ist der Fokus dieses Buches?",
+      "antworten": ["Geister und die Geisterwelt", "Phantome und Illusionen", "Geheime und einflussreiche Organisationen"],
+      "richtig": 2
+    },
+    {
+      "frage": "„Shadowrun: Schlagschatten (Hardcover)“: Welche Bedrohung wird in diesem Buch betrachtet?",
+      "antworten": ["Das Gewebe der Realität zerreißt.", "Ein globaler Ausfall der Kommunikationstechnik.", "Das plötzliche Verschwinden der Magie."],
+      "richtig": 0
+    },
+    {
+      "frage": "„Shadowrun: Alter Ratio (Roman)“: Welches Relikt aus vergangener Zeit will jemand in diesem Roman wieder aktivieren?",
+      "antworten": ["Eine alte Funktantenne", "Die Kabelmatrix", "Die Berliner U-Bahn"],
+      "richtig": 1
+    },
+    {
+      "frage": "„Shadowrun: Nachtmeisters Erben (Roman)“: Wer oder was war Nachtmeister?",
+      "antworten": ["Eine Alptraumgestalt aus vergangener Zeit.", "Ein Clubbesitzer dessen Club „Nacht“ hieß.", "Ein einflussreicher Drache aus der ADL."],
+      "richtig": 2
+    },
+    {
+      "frage": "„Splittermond: Aufbruch ins Abenteuer (Box)“: Was ist das besondere an Lorakis, der Welt von Splittermond?",
+      "antworten": ["Sie hat mehrere Monde.", "Die Welt ist eine Scheibe.", "Es gibt dort keine Menschen."],
+      "richtig": 0
+    },
+    {
+      "frage": "„Der Kartograph: Neue Entdeckungen“: Von welcher Kartenart sind in dieser Erweiterung neue Karten enthalten?",
+      "antworten": ["Erkundung", "Hinterhalt", "Wertung"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie lautet der Untertitel des eigenständigen „Der Kartograph“-Grundspiels, das 2021 erscheinen wird?",
+      "antworten": ["Zeit der Helden", "Rückkehr der Helden", "Ära der Helden"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was ist das besondere an der Spielerreihenfolge bei „Aeon’s End“?",
+      "antworten": ["Alle spielen gleichzeitig", "Sie richtet sich nach dem Alter der Spieler", "Sie wird zufällig bestimmt"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele neue Riss-Magier eilen den Spielern in der Erweiterung „Aen's End: Aus den Tiefen“ zur Unterstützung?",
+      "antworten": ["3", "4", "5"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele neue Erzfeinde stellen die Spieler in der Erweiterung „Aeon's End: Das Namenlose“ auf die Probe?",
+      "antworten": ["1", "2", "3"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißen die beiden Clans, die in der Erweiterung „Empires of the North: Japanische Inseln“ enthalten sind?",
+      "antworten": ["Date und Oda", "Sarutobi und Maeda", "Umineko und Saikoro"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was steht auf dem Segel des Schiffes auf der Coverabbildung von „Empires of the North: Römische Banner“?",
+      "antworten": ["SPQR", "R.I.P.", "R S R"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wodurch zeichnet sich der neue Urvart-Clan in „Empires of the North: Barbaren-Horde“ aus?",
+      "antworten": [
+        "Es fällt ihm leichter Inseln zu erobern.",
+        "Durch seine Spione nutzt er die Karten anderer.",
+        "Die Spione beschaffen Ressourcen von den Inseln."
+      ],
+      "richtig": 1
+    },
+    {
+      "frage": "Um welche Spielart wird „Imperial Settlers“ mit der Erweiterung „Aufstieg eines Imperiums“ bereichert?",
+      "antworten": ["Legacy", "Kooperativ", "Kampagne"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie viele Erweiterungen sind zusätzlich zum Grundspiel in „Die Zwerge Big Box“ enthalten?",
+      "antworten": ["5", "4", "9"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wo geht man einkaufen, um einen eigenen „Doodle-Dungeon“ zum Schnäppchenpreis zu erhalten? (Tipp: Die Antwort findet ihr in der Produktbeschreibung im Webshop)",
+      "antworten": ["Fallen-Möbelhaus", "Fallen-Outlet-Center", "Pegasus-Webshop"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was trägt der Kellner auf dem Cover von „Kitchen Rush“ auf seinem Tablett?",
+      "antworten": ["Salar-Teller", "Dreckiges Geschirr", "Champagner und Gläser"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Bedürfnisse unserer Gäste wollen wir in „Kitchen Rush: Aber bitte mit Sahne!“ stillen?",
+      "antworten": ["Desserts", "Cocktails", "Veganes Essen"],
+      "richtig": 0
+    },
+    {
+      "frage": "An welchem Datum ist die „Sagrada“-Erweiterung „Passion“ bei Pegasus Spiele erschienen?",
+      "antworten": ["10.01.2020", "12.06.2020", "01.06.2020"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Unterstützung erhalten die Spieler zusätzlich in „Sagrada: Vita“?",
+      "antworten": ["Priester", "Architekten", "Lehrlinge"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Neuheit gibt es für die Bewohnter von „Tiny Towns“ in der Erweiterung „Fortune“?",
+      "antworten": ["Geld", "Wahrsagerei", "Zauberei"],
+      "richtig": 0
+    },
+    {
+      "frage": "„UNDO-Gipfel ohne Wiederkehr“ ist der wievielte Teil der UNDO-Serie bei Pegasus Spiele?",
+      "antworten": ["4", "7", "6"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Personen können bei unserem neuen Science-Fiction-Verhandlungsspiel „Siderische Konfluenz“ mitspielen?",
+      "antworten": ["Genau 3", "Bis zu 12", "Bis zu 9"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welches ist einer der Orte, an den eine der Expeditionen im gleichnamigen Cthulhu-Band hinführt?",
+      "antworten": ["Grönland", "Istanbul", "Straßburg"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Charakterklasse ist laut „Talisman Adventures RPG Core Rulebook“ spielbar?",
+      "antworten": ["Mönch", "Barde", "Wahrsagerin"],
+      "richtig": 1
+    },
+    {
+      "frage": "In welchem Jahr spielt der Cthulhu-Band „Das Grausame Reich Tsan Chan“?",
+      "antworten": ["2020", "1924", "5000"],
+      "richtig": 2
+    },
+    {
+      "frage": "Zu welcher Zeit spielt der Cthulhu-Band „Das Weinen der Frau aus den Hügeln“?",
+      "antworten": ["Amerikanischer Bürgerkrieg", "Amerikanische Prohibiton", "Cäsars Krönung zum Imperator"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wo startet die Cthulhu-Kampagne „Grenzland“?",
+      "antworten": ["Friedberg (Hessen)", "Berlin", "London"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was kostet die Cthulhu-Abenteuersammlung „Halloween“?",
+      "antworten": ["99,95€", "19,95€", "9,95€"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Tiere sieht man auf dem Cover des Cthulhu-Bandes „Unter Freunden“?",
+      "antworten": ["Schlangen", "Hunde", "Delphine"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Farbe hat der Karton der „Detective“-Erweiterung „Doppelter Boden“ hauptsächlich?",
+      "antworten": ["Blau", "Rot", "Schwarz"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Figurenportraits sind in dem eigenständigen Familienspiel „Detective – Erste Fälle“ enthalten?",
+      "antworten": ["20", "12", "24"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher deutsche Partnerverlag von Pegasus Spiele veröffentlichte das Spiel „Pharaon“?",
+      "antworten": ["Frosted Games", "Hall Games", "Lautapelit"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele Gramm wiegt ein „Tainted Grail“ laut www.pegasusshop.de?",
+      "antworten": ["9800", "4280", "2020"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche coole Farbe hat das „Talisman Advenutes RPG Core Rulebook“ in seiner limitierten Auflage hauptsächlich? (Die Antwort findest Du auf www.pegasusshop.de)",
+      "antworten": ["Weiß", "Rot", "Schwarz"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Tiere sind bei „Langland Domino“ dabei?",
+      "antworten": ["Hund, Katze, Maus, Huhn, Schwein", "Katze, Schwein, Kuh, Schaf, Pferd", "Tiger, Elefant, Büffel, Zebra, Krokodil"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt das Gasthaus, in dem Frodo und seine Hobbit-Freunde einkehren und das erste Mal auf Streicher treffen?",
+      "antworten": ["Zum tänzelnden Fräulein", "Zum tanzelnden Hobbit", "Zum tänzelnden Pony"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Farbe hat das Lichtschwert des Jedi Meisters Plo-Koon im PS1 Spiel „Star Wars – Episode I: Jedi Power Battles“",
+      "antworten": ["Gelb", "Blau", "Grün"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie lautet der Nachname von Kanan, einer der Hauptfiguren in „Star Wars: Rebels“?",
+      "antworten": ["Wren", "Jarrus", "Bridger"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie lauten die Worte, die Aragorn im dritten „Herr der Ringe“-Film direkt im Anschluss an seine Krönung in Minas Tirith an seine Hobbitgefährten richtet?",
+      "antworten": ["Meine Freunde, ihr verneigt euch vor niemandem.", "Meine Freunde, ihr kniet vor niemandem", "Meine Brüder, ihr bückt euch vor niemandem"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie heißt in der deutschen Übersetzung das treue Pony, das im „Herrn der Ringe“ die späteren Gefährten von Bree über Bruchtal bis vor die Türen von Durin begleitet?",
+      "antworten": ["Peter", "Hartmut", "Lutz"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welches Mythos-Wesen ist auf der Pegasus-Corona-Maske?",
+      "antworten": ["Cthulhu", "Azatoth", "Nyarlathothep"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie lautet der Name des Vorvorvorvorgängers des Spieleverlages Queen Games?",
+      "antworten": ["Gamesshop Spiele", "Citadel", "Sternenhändler Spiele"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Sorte Eier taucht in der 2. Folge der 2. Staffel von „The Mandalorian“ NICHT auf?",
+      "antworten": ["Reptilieneier", "Vogeleier", "Spinneneier"],
+      "richtig": 1
+    },
+    {
+      "frage": "Warum ist der Doktor in „Star Trek Voyager“ so besonders?",
+      "antworten": ["Er ist ein Hologramm", "Er ist ein Klingone", "Er ist ein Android"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Manafarbe gibt es bei „Magic the Gathering“ nicht?",
+      "antworten": ["Violett", "Blau", "Grün "],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie hieß das erste Gruppenabenteuer von „Das Schwarze Auge 1“?",
+      "antworten": ["Im Wirtshaus zum Schwarzen Keiler", "Silvanas Befreiung", "Borbarads Fluch"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt der Begleiter der Helden im „Midgard“-Abenteuer „Unter den Nebelbergen“?",
+      "antworten": ["Smauglin", "Boromir", "Thalion"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was gewinnt gegen die Echse bei „Stein, Schere, Papier, Echse, Spock“?",
+      "antworten": ["Spock und Papier", "Schere und Stein", "Papier und Schere"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wir heißt der Wikingervampir bei „True Blood“?",
+      "antworten": ["Ulf", "Eric", "Hägar"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie nennt Luzifer in der gleichnamigen Serie seine Freundin Chloe?",
+      "antworten": ["Mistress", "My Love ", "Detective"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher Clan in „Vampire the Masquerade“ stammt nicht von Cain ab?",
+      "antworten": ["Tremere", "Ventrue", "Brujah"],
+      "richtig": 0
+    },
+    {
+      "frage": "An welcher Küste von Faerun liegt die Schwerküste bei „Dungeons & Dragons“?",
+      "antworten": ["Südküste", "Westküste", "Ostküste"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt bei „WarCraft“ der Aspekt des roten Drachenschwarms?",
+      "antworten": ["Neltharion", "Malygos", "Alexstrasza"],
+      "richtig": 2
+    },
+    {
+      "frage": "Weswegen verurteilte Cain seinen Leutnant Raziel in „Legacy of Cain/SoulReaver“ zum Tode?",
+      "antworten": ["Ihm wuchsen Flügel", "Er hat Cain verraten", "Ihm wuchs ein drittes Auge"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie heißt bei „Batman“ der erste Robin mit bürgerlichem Namen?",
+      "antworten": ["Jason Todd", "Dick Grayson", " Tim Drake"],
+      "richtig": 1
+    },
+    {
+      "frage": "In „The Legend of Zelda“ ist Link der Träger welches Triforces?",
+      "antworten": ["Triforce der Kraft", "Triforce der Weisheit", "Triforce des Mutes"],
+      "richtig": 2
+    },
+    {
+      "frage": "Prinzessin Zelda ist in „The Legend of Zelda“ die Reinkarnation welcher Göttin?",
+      "antworten": ["Hylia", "Din", "Nayru"],
+      "richtig": 0
+    },
+    {
+      "frage": "Vier Stämme von Zwergen bewachen die Eingänge in das Geborgene Land. Wie viele Stämme gibt es in „Die Zwerge“ insgesammt?",
+      "antworten": ["Vier ", "Fünf", "Sechs"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt die Welt in der die „Talisman“-Spiele spielen.",
+      "antworten": ["Avalon", "Midgard", "Talisman"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt die fünfköpfige Göttin der chromatischen Drachenin „Dungeons & Dragons“?",
+      "antworten": ["Tiamat", "Shiva", "Amaterasu"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wer spielte die erste Assistentin in der 80er Sitcom „Hör mal wer da hämmert“?",
+      "antworten": ["Pamela Anderson", "Julia Roberts", "Meryl Streep"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie heißt der gelbe Teletubby?",
+      "antworten": ["Po", "Lala", "Tinky Winky"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was ist das UNGLAUBLICHE am Kot der Wombats?",
+      "antworten": ["Der Kot ist spiralförmig", "Der Kot ist einen Meter lang", "Der Kot ist würfelförmig."],
+      "richtig": 2
+    },
+    {
+      "frage": "Wem gehörte bei „Harry Potter“ einst das Diadem, das Voldemort später als Horkrux nutzte?",
+      "antworten": ["Rowena Ravenclaw", "Romina Ravenclaw", "Helena Ravenclaw"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welcher Schauspieler spielte in allen Teilen von „Star Wars“ mit?",
+      "antworten": ["Sir Alec Guinness", "Harrison Ford", "Anthony Daniels"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt der Hund in der 80er Serie „Hart aber herzlich“?",
+      "antworten": ["Friedward", "Dankward", "Adalbert"],
+      "richtig": 0
+    },
+    {
+      "frage": "Was sagt Sheldon Cooper in „The Big Bang Theory“ (bzw. „Young Sheldon“), wenn er jemanden zum Narren gehalten hat?",
+      "antworten": ["Was geht?", "Kazam", "Bazinga"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher Charakter bei „Edna bricht aus“ trägt ein Kissen auf dem Kopf?",
+      "antworten": ["Moti", "Droggelbecher", "Der Alumann"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was muss man bei „The Legend of Zelda – Ocarina of Time“ tun, um den Wettlauf gegen den Marathonläufer zu gewinnen?",
+      "antworten": [
+        "Man muss ihn in einen Kampf verwickeln und K.O. schlagen",
+        "Man muss eine Abkürzung nehmen, die man als junger Link erst freischalten muss",
+        "Man muss als junger Link auf der Brücke in Kokiri warten. Dazu muss man die Konsole 7 Tage anlassen"
+      ],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt der Schatz aus „Monkey Island“?",
+      "antworten": ["Big Whoop", "One Piece", "Schatz des Cortés"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wem verpasst Samantha Carter in „Stargate SG1“ eine Ohrfeige, als sie mit demjenigen auf einem Planeten festsitzt?",
+      "antworten": ["Teal’c", "Ba’al", "Jack O’Neil "],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie nennt Special Agent Seeley Booth Bones und ihr Team?",
+      "antworten": ["Nerds", "Wissenschaftler", "Blinzler"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welchem Typ gehört die letzte vorgestellte Evoli-Evolution in „Pokémon“ an?",
+      "antworten": ["Fee", "Gift", "Drache"],
+      "richtig": 0
+    },
+    {
+      "frage": "Welcher mystische Gegenstand lässt für J.D. in „Scrubs“ Frauen unsichtbar erscheinen?",
+      "antworten": ["Alkohol", "Narkosemittel", "Ehering"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche Wesen sind in dem Brettspiel „Bonfire“ von Stefan Feld verschwunden?",
+      "antworten": ["Die Ersten", "Die Alten", "Die Menschen"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele Sherlock Holmes Spiele-Comics sind bei Pegasus Spiele erschienen?",
+      "antworten": ["Vier", "Fünf", "Sechs"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt eine Edition des Sammelkartenspiels „Magic the Gathering“, von der nur wenige Karten je an die Öffentlichkeit gelangten und die in Sammlerkreisen Höchstpreise erzielt?",
+      "antworten": ["Summer Magic", "Autumn Magic ", "Winter Magic "],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele Ringe wurden in „Der Herr der Ringe“ insgesamt geschmiedet?",
+      "antworten": ["9", "15", "20"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was für ein Wesen ist der Atagonist in der Netflix-Serie „Stranger Things“?",
+      "antworten": ["Demogorgon", "Nyarlathotep", "Rakghul"],
+      "richtig": 0
+    },
+    {
+      "frage": "In den Wilsberg-Krimis taucht neben Münster immer ein weitere Stadt auf. Welche?",
+      "antworten": ["Osnabrück", "Bielefeld", "Coesfeld"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welcher Drache war für den Bosten Lockdown in „Shadowrun“ verantwortlich? ",
+      "antworten": ["Dunkelzahn", "Lofwyr", "Celedyr"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher berühmte Regisseur taucht in all seinen Filmen auf?",
+      "antworten": ["Woody Allen", "Steven Spielberg ", "Alfred Hitchcock"],
+      "richtig": 2
+    },
+    {
+      "frage": "Was besagt die Bielefeld-Verschwörung?",
+      "antworten": [
+        "Bielefeld gibt es gar nicht",
+        "In Bielefeld wurde das Coronavirus ursprünglich entwickelt",
+        "Das Bernsteinzimmer befindet sich in der Sparrenburg in Bielefeld"
+      ],
+      "richtig": 0
+    },
+    {
+      "frage": "Welche Serie verbindet man mit John Sheridan, Michael Garibaldi und Susan Ivanova?",
+      "antworten": ["Star Trek", "Babylon 5", "Dr. Who"],
+      "richtig": 1
+    },
+    {
+      "frage": "Für welches Accessoire ist der prominente Bewohner der Baker Street 221b bekannt? ",
+      "antworten": ["Manschettenknöpfe", "Deerstalker", "Monokel"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wer ist das unmögliche Mädchen?",
+      "antworten": ["Kes aus „Star Trek Voyager“", "Clara Oswald aus „Dr. Who“", "Zev Bellringer aus „Lexx - The Dark Zone“"],
+      "richtig": 1
+    },
+    {
+      "frage": "WER SPRICHT SO?",
+      "antworten": ["Zaphod Beeblebrox", "Smaug", "Der Tod"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welcher dieser Schauspieler war bisher nicht Dr. Who?",
+      "antworten": ["Matt McCoy", "Tom Baker", "John Hurt"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie viele Scheibenwelt-Romane gibt es?",
+      "antworten": ["43", "42", "41"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißen die Inwelt-Kommentare in „Shadowrun“-Regelwerken?",
+      "antworten": ["Shadowbeat", "Shadowtalk", "Shadowcomments"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was ist die Antwort auf die Frage nach dem Leben, dem Universum und dem ganzen Rest?",
+      "antworten": ["42", "Geld", "Das Ende des Regenbogens"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wer oder was ist Detritus?",
+      "antworten": ["Ein Zauberer", "Ein Drache", "Ein Troll"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welche drei Straßen liegen auf dem Monopoly-Brett zwischen Gefängnis und Westbahnhof?",
+      "antworten": ["Neue Straße, Hafenstraße, Chausseestraße", "Neue Straße, Hafenstraße, Seestraße", "Poststraße, Hafenstraße, Chausseestraße "],
+      "richtig": 1
+    },
+    {
+      "frage": "Welches war das erste auf Deutsch herausgebrachte Rollenspiel?",
+      "antworten": ["„Das Schwarze Auge“", "„Magira“, später als „Midgard“ bekannt", "„Dungeons & Dragons“"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie viele verschiedene „Tetris“-Steine gibt es?",
+      "antworten": ["Fünf", "Sechs", "Sieben"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wer oder was liegt laut eines modernen Mythos auf dem Atari-Friedhof begraben?",
+      "antworten": [
+        "Nolan Bushnell, der Gründer von Atari",
+        "100.000 Atari-Computer, deren Prozessor einen Serienherstellungsfehler hatten",
+        "3,5 Millionen Exemplare des Atari-Spiels „E.T.“"
+      ],
+      "richtig": 2
+    },
+    {
+      "frage": "Aus welchem Holz sind die besten Begleiter geschnitzt?",
+      "antworten": ["Mut und Freundschaft", "Eiche und Esche ", "Intelligentes Birnbaumholz"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt die älteste Schwester aus „Charmed - Zauberhafte Hexen“?",
+      "antworten": ["Phoebe", "Prue", "Paige"],
+      "richtig": 1
+    },
+    {
+      "frage": "In welcher Serie ist eine Phoebe keine Protagonistin?",
+      "antworten": ["„Buffy - Im Bann der Dämonen“", "„Charmed - Zauberhafte Hexen“", "„Friends“"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wer war Captain der USS Enterprise NCC-1701-C?",
+      "antworten": ["Captain James T. Kirk", "Captain John Harriman", "Captain Rachel Garret"],
+      "richtig": 2
+    },
+    {
+      "frage": "Womit bekämpft der Doctor aus „Doctor Who“ seine Feinde?",
+      "antworten": ["Lichthammer", "Schallschraubenzieher", "Wasserzange"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wann erschien das erste „Pokémon“-Spiel in Europa?",
+      "antworten": ["1997", "1999", "2001"],
+      "richtig": 1
+    },
+    {
+      "frage": "Wie heißt der Geist Buu Huu aus den „Super Mario“-Spielen in Japan?",
+      "antworten": ["Teresa", "Yuumi", "Whity"],
+      "richtig": 0
+    },
+    {
+      "frage": "In der Serie „Darkwing Duck“ schließen sich mehrere Feinde des Titelhelden zusammen. Wie nennen sie sich?",
+      "antworten": ["Die bösen Buben", "Die fürchterlichen Fünf", "Die ätzenden Sieben"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche Digitationsform gibt es erst seit der 2. „Digimon Adventures“-Staffel?",
+      "antworten": ["Ultra-Digitation", "Armor-Digitation", "Warp-Digitation"],
+      "richtig": 1
+    },
+    {
+      "frage": "Welche beiden Autorennamen kombiniert der in ein Kind verwandelte Detektiv Shinichi Kudo für seinen Alias?",
+      "antworten": ["Stephen King und Murakami Ryu", "Agatha Christie und Mishima Yukio", "Arthur Conan Doyle und Edogawa Rampo"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt das Flugzeug von Käpt'n Balu in der gleichnamigen Serie?",
+      "antworten": ["Seegans", "Wildgans", "Seente"],
+      "richtig": 0
+    },
+    {
+      "frage": "Aus welchen Komponenten besteht Hermines Zauberstab in „Harry Potter“?",
+      "antworten": ["Eschenholz mit Einhornhaar-Kern", "Weinrebenholz mit Drachenherzfaser-Kern", "Stechpalme mit Phönixfeder-Kern"],
+      "richtig": 1
+    },
+    {
+      "frage": "Laut Legolas' Aussage in den „Herr der Ringe“-Filmen füllt ein Bissen Lembasbrot den Magen eines ausgewachsenen Mannes. Wie viele der Brote hat Pippin zum Zeitpunkt dieser Aussage bereits gegessen?",
+      "antworten": ["Zwei", "Drei", "Vier"],
+      "richtig": 2
+    },
+    {
+      "frage": "Wie heißt der Captain der USS Enterprise im ursprünglichen Pilotfilm von „Raumschiff Enterprise“ („Star Trek: The Original Series“)?",
+      "antworten": ["James T. Kirk", "Robert April", "Christopher Pike"],
+      "richtig": 2
+    },
+    {
+      "frage": "Welches markante Detail wurde am Protagonisten bei der Verfilmung von „Harry Potter“ geändert?",
+      "antworten": ["Harrys Augenfarbe", "Harrys Haarfarbe", "Harrys Brillenform"],
+      "richtig": 0
+    },
+    {
+      "frage": "Wie hieß das erste Point-and-Click Adventure von LucasArts?",
+      "antworten": ["Maniac Mansion", "Labyrinth", "The Secret of Monkey Island"],
+      "richtig": 1
+    },
+    {
+      "frage": "Was ist eine Lüge?",
+      "antworten": ["Die Pizza", "Der Kuchen", "Der Keks"],
+      "richtig": 1
+    }
+  ]
+}
