@@ -20,8 +20,10 @@ exports.execute = async (bot) => {
         try {
           bot.users.cache.get(session.userId).send(
             stripIndents(`
-            Dein Gutscheincode lautet ***${voucher.code}***. Dieser Code ist nicht valide und dient nur zu Testzwecken.
-
+            Dein Gutscheincode lautet ***${voucher.code}***. Du kannst ihn ab sofort und bis spätestens 31.03.2021 auf www.pegasusshop.de einlösen, um dir dein Exemplar der nagelneuen Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ mit 30% Rabatt zu sichern. 
+            
+            Falls du regelmäßige Updates zu Aktionen wie dieser, aber auch zu Events und Angeboten erhalten möchtest, dann abonniere jetzt unseren Newsletter auf www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich auf www.pegasusdigital.de auch schon Wissen für unser nächstes Geek Quiz sammeln! 
+            
             Dein Pegabot :robot:
             `),
           );
