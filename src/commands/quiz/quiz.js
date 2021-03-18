@@ -27,23 +27,11 @@ module.exports = {
     newSession.userId = msg.author.id;
     newSession.status = "in progress";
 
-    // Zur CONspiracy V wurde diese Sperre rausgenommen
-
-    // const closedSessions = await SessionModel.find({ userId: newSession.userId, status: "closed", "quiz.name": QuizName });
-    // if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-    //   throw new BotExecption("Du hast bereits schon eine Partie gespielt!", msg.author);
-    // }
-
-    const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
-    if (activeSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-      throw new BotExecption("Du spielst schon eine Partie!", msg.author);
-    }
-
     const quizzes = await QuizModel.find({ name: QuizName });
     if (quizzes.length == 0) {
       newSession.status = "error";
       newSession.save();
-      throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!", msg.author);
+      throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!");
     }
 
     newSession.quiz = quizzes[0];
@@ -53,7 +41,17 @@ module.exports = {
     if (vouchers.length == 0) {
       newSession.status = "error";
       newSession.save();
-      throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!", msg.author);
+      throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!");
+    }
+
+    const closedSessions = await SessionModel.find({ userId: newSession.userId, won: true, status: "closed", "quiz.name": QuizName });
+    if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
+      throw new BotExecption("Du hast bereits schon eine Partie gewonnen!");
+    }
+
+    const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
+    if (activeSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
+      throw new BotExecption("Du spielst schon eine Partie!");
     }
 
     newSession.expires = Number(Date.now()) + expiresInterval;
