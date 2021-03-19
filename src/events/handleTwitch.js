@@ -8,22 +8,26 @@ const {
   presence: { setDefault },
 } = require("../utils");
 
+let isHosting = false;
 let isStreaming = false;
 
 exports.execute = async (bot, HosttargetMessage) => {
   if (HosttargetMessage) {
     if (HosttargetMessage.wasHostModeEntered()) {
-      return bot.user.setActivity(`${HosttargetMessage.hostedChannelName} on Twitch!`, {
+      if (isHosting) return;
+      return bot.user.setActivity(`${HosttargetMessage.hostedChannelName} auf Twitch!`, {
         type: "STREAMING",
         url: `https://www.twitch.tv/${HosttargetMessage.hostedChannelName}`,
       });
     }
   }
 
+  isHosting = false;
+
   if (await checkIfStreaming("176169616")) {
     if (isStreaming) return;
     isStreaming = true;
-    bot.user.setActivity("Pegasus on Twitch!", {
+    bot.user.setActivity("Pegasus auf Twitch!", {
       type: "STREAMING",
       url: "https://www.twitch.tv/pegasusspiele",
     });
