@@ -13,7 +13,10 @@ exports.execute = async (bot) => {
   if (await isStreaming("176169616")) {
     if (online) return;
     online = true;
-    bot.user.setActivity(`twitch.tv/pegasusspiele`, { type: "WATCHING" });
+    bot.user.setActivity("Pegasus on Twitch!", {
+      type: "STREAMING",
+      url: "https://www.twitch.tv/pegasusspiele",
+    });
   } else {
     if (!online) return;
     online = false;
