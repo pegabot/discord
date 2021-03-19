@@ -6,7 +6,7 @@
 const bent = require("bent");
 
 exports.module = {
-  isStreaming: async (streamerId) => {
+  checkIfStreaming: async (streamerId) => {
     try {
       const getJSON = bent("json", {
         "Client-ID": "3zzmx0l2ph50anf78iefr6su9d8byj8",

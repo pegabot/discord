@@ -2,26 +2,28 @@
  * Copyright (c) 2020 - 2021 The Pegabot authors
  * This code is licensed under MIT license (see LICENSE for details)
  */
+const { ChatClient } = require("dank-twitch-irc");
+const twitchClient = new ChatClient({});
 
-const {
-  twitch: { isStreaming },
-} = require("../utils");
+const connect = async () => {
+  try {
+    await twitchClient.connect();
+    twitchClient.join("pegasusspiele");
+  } catch {
+    connect();
+  }
+};
 
-let online = false;
+exports.setup = (bot) => {
+  twitchClient.on("HOSTTARGET", (HosttargetMessage) => {
+    bot.emit("handleTwitch", HosttargetMessage);
+  });
+
+  connect();
+};
 
 exports.execute = async (bot) => {
-  if (await isStreaming("176169616")) {
-    if (online) return;
-    online = true;
-    bot.user.setActivity("Pegasus on Twitch!", {
-      type: "STREAMING",
-      url: "https://www.twitch.tv/pegasusspiele",
-    });
-  } else {
-    if (!online) return;
-    online = false;
-    bot.user.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
-  }
+  bot.emit("handleTwitch");
 };
 
 exports.info = {

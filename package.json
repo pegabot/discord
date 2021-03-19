@@ -24,6 +24,7 @@
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
     "canvas": "^2.7.0",
+    "dank-twitch-irc": "^4.3.0",
     "date-fns": "^2.19.0",
     "discord-xp": "^1.1.8",
     "discord.js": "^12.5.1",

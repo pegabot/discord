@@ -3,6 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+const {
+  presence: { setDefault },
+} = require("../utils");
+
 exports.execute = (bot) => {
   bot.commands.loadCommands();
   bot.jobs.loadJobs();
@@ -18,5 +22,5 @@ exports.execute = (bot) => {
 
   bot.logger.info(message);
   if (process.env.NODE_ENV === "production") bot.logger.admin(message);
-  bot.user.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
+  setDefault(bot);
 };
