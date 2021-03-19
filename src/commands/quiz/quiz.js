@@ -46,7 +46,19 @@ module.exports = {
 
     const closedSessions = await SessionModel.find({ userId: newSession.userId, won: true, status: "closed", "quiz.name": QuizName });
     if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-      throw new BotExecption("Du hast bereits schon eine Partie gewonnen!");
+      return msg.author.send(
+        stripIndents(`
+        Es sieht so aus, als hättest du bereits erfolgreich an unserem Geek Quiz teilgenommen und einen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ erhalten. 
+        
+        Auch wenn wir uns freuen, dass dir unser Quiz so viel Spaß gemacht hat, dass du noch mehr Fragen beantworten möchtest, kann jede Person leider nur 1x teilnehmen. 
+        
+        Aber bleib doch trotzdem noch ein bisschen hier. Auf unserem Discord-Server findest du nicht nur während der CONspiracy viele andere Rollen- und Brettspiel-Fans, mit denen du dich austauschen kannst! Während der CONspiracy kannst du über Discord außerdem an vielen geleiteten Brett- und Rollenspielrunden teilnehmen. 
+        
+        Bis Sonntag kannst du auch noch an unserem Gewinnspiel teilnehmen, bei dem es drei Pegasus Spiele-Fanpakete zu gewinnen gibt. Und natürlich streamen wir zusammen mit unseren Partnern Orkenspalter TV und Gratisrollenspieltag noch bis Sonntag ein abwechslungsreiches Programm.
+
+        Dein Pegabot :robot:
+        `),
+      );
     }
 
     const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
