@@ -43,7 +43,7 @@ module.exports = {
         .setAuthor(member.user.tag, member.user.displayAvatarURL())
         .setTitle(`Informationen zur Session ${session._id}`)
         .addField("Benutzername", member.user.username, true)
-        .addField("Zeitstempel", new Date(session.created).toLocaleString("de-DE"), true)
+        .addField("Zeitstempel", new Date(session.date).toLocaleString("de-DE"), true)
         .addField(`Quizset`, session.quiz ? session.quiz.name : "***Kein Quiz geladen***", true)
         .addField("Status", session.status, true)
         .addField("Gewonnen?", session.won ? "Ja" : "Nein", true)
