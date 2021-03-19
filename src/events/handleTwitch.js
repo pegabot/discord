@@ -20,9 +20,14 @@ exports.execute = async (bot, HosttargetMessage) => {
         url: `https://www.twitch.tv/${HosttargetMessage.hostedChannelName}`,
       });
     }
+
+    if (HosttargetMessage.wasHostModeExited()) {
+      isHosting = false;
+      setDefault(bot);
+    }
   }
 
-  isHosting = false;
+  if (isHosting) return;
 
   if (await checkIfStreaming("176169616")) {
     if (isStreaming) return;
