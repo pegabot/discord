@@ -7,4 +7,10 @@ exports.module = {
   setDefault: (bot) => {
     bot.user.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
   },
+  setStreaming: (bot, streamer, name) => {
+    bot.user.setActivity(`${name || streamer} auf Twitch!`, {
+      type: "STREAMING",
+      url: `https://www.twitch.tv/${streamer}`,
+    });
+  },
 };

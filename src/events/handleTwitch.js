@@ -5,7 +5,7 @@
 
 const {
   twitch: { checkIfStreaming },
-  presence: { setDefault },
+  presence: { setDefault, setStreaming },
 } = require("../utils");
 
 let isHosting = false;
@@ -15,10 +15,7 @@ exports.execute = async (bot, HosttargetMessage) => {
   if (HosttargetMessage) {
     if (HosttargetMessage.wasHostModeEntered()) {
       if (isHosting) return;
-      return bot.user.setActivity(`${HosttargetMessage.hostedChannelName} auf Twitch!`, {
-        type: "STREAMING",
-        url: `https://www.twitch.tv/${HosttargetMessage.hostedChannelName}`,
-      });
+      return setStreaming(bot, HosttargetMessage.hostedChannelName);
     }
 
     if (HosttargetMessage.wasHostModeExited()) {
@@ -32,10 +29,7 @@ exports.execute = async (bot, HosttargetMessage) => {
   if (await checkIfStreaming("176169616")) {
     if (isStreaming) return;
     isStreaming = true;
-    bot.user.setActivity("Pegasus auf Twitch!", {
-      type: "STREAMING",
-      url: "https://www.twitch.tv/pegasusspiele",
-    });
+    return setStreaming(bot, "pegasusspiele", "Pegasus");
   } else {
     if (!isStreaming) return;
     isStreaming = false;

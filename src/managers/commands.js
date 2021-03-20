@@ -50,7 +50,7 @@ exports.Commands = class {
       cmd.category = category[0].toUpperCase() + category.slice(1);
       cmd.path = path.join(".", category, base);
 
-      this.loadCommand(base, cmd);
+      this.loadCommand(cmd);
     }
   }
 
@@ -63,7 +63,7 @@ exports.Commands = class {
     return null;
   }
 
-  loadCommand(base, cmd) {
+  loadCommand(cmd) {
     const name = cmd.name;
     const error = this.checkCommand(cmd, name);
 

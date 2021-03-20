@@ -2,6 +2,7 @@
  * Copyright (c) 2020 - 2021 The Pegabot authors
  * This code is licensed under MIT license (see LICENSE for details)
  */
+
 const { ChatClient } = require("dank-twitch-irc");
 const twitchClient = new ChatClient({});
 
@@ -28,5 +29,5 @@ exports.execute = async (bot) => {
 
 exports.info = {
   name: `Prüfe, ob Pegasus Spiele auf Twitch streamt`,
-  interval: 60000,
+  interval: 20000,
 };
