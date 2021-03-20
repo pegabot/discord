@@ -32,8 +32,6 @@ module.exports = {
       throw new BotExecption("Ein Fehler ist aufgetreten!");
     }
 
-    if (response.message.match(/.*fehlgeschlagen.*/)) return;
-
     let replied;
     if (response?.image) {
       const result = await fetchWithTimeout(`https:${response.image}?${new Date().getTime()}`);
@@ -43,6 +41,8 @@ module.exports = {
       embed = generateEmbed(bot, dice, msg.author, response);
       replied = await msg.reply(embed);
     }
+
+    if (response.message.match(/.*fehlgeschlagen.*/)) return;
 
     replied.react("🎲");
 
