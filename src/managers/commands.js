@@ -92,7 +92,7 @@ exports.Commands = class {
         .map((elt) => elt.id)
         .includes(this.bot.user.id)
     ) {
-      await msg.react("🤗");
+      await msg.react(this.bot.globals.hugReaction);
     }
 
     if (!msg.content.startsWith(this.bot.config.prefix)) return null;
@@ -154,7 +154,7 @@ exports.Commands = class {
       }
 
       try {
-        msg.react("👌");
+        msg.react(this.bot.globals.commandReaction);
         await command.execute(this.bot, msg, args || []);
       } catch (e) {
         if (e instanceof BotExecption) {
