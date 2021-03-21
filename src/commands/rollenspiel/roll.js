@@ -44,7 +44,7 @@ module.exports = {
 
     if (response.message.match(/.*fehlgeschlagen.*/)) return;
 
-    replied.react("🎲");
+    replied.react(bot.globals.rollReaction);
 
     const RollsModel = bot.db.model("rolls");
     const entry = new RollsModel();

@@ -19,7 +19,13 @@ exports.execute = async (bot, reaction, user) => {
   }
 
   if (user.bot) return;
-  if (reaction._emoji.name !== "🎲") return;
+
+  if (
+    !Object.entries(bot.globals)
+      .map((elt) => elt[1])
+      .includes(reaction._emoji.name)
+  )
+    return;
 
   const {
     message: { id: messageId },
@@ -51,7 +57,7 @@ exports.execute = async (bot, reaction, user) => {
       replied = await reaction.message.channel.send(embed);
     }
 
-    replied.react("🎲");
+    replied.react(bot.globals.rollReaction);
 
     const entry = new RollsModel();
     entry.messageId = replied.id;
