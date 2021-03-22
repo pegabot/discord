@@ -28,7 +28,7 @@
     "date-fns": "^2.19.0",
     "discord-xp": "^1.1.8",
     "discord.js": "^12.5.1",
-    "distube": "^2.8.11",
+    "distube": "^2.8.12",
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
     "erlpack": "^0.1.3",
