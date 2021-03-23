@@ -27,7 +27,7 @@ exports.execute = async (bot, oldMember, newMember) => {
     const entries = await userGivenRolesModel.find({ userId: userId, roleId: roleId });
 
     bot.logger.admin_green(
-      `:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von <@${executor.id}> dem Benutzer <@${target.id}> gegeben. ${
+      `:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von ${executor} dem Benutzer ${target} gegeben. ${
         entries.length > 0 ? `Die Rolle wird in ${prettyMs(entries[0].expires - Date.now())} wieder entfernt.` : ""
       }`,
     );
@@ -42,7 +42,7 @@ exports.execute = async (bot, oldMember, newMember) => {
     const roleAddLog = fetchedLogs.entries.first();
     if (!roleAddLog) return;
     const { executor, target } = roleAddLog;
-    bot.logger.admin_red(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von <@${executor.id}> dem Benutzer <@${target.id}> genommen.`);
+    bot.logger.admin_red(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von ${executor} dem Benutzer ${target} genommen.`);
   }
 
   if (oldMember.nickname !== newMember.nickname) {
