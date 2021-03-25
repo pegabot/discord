@@ -20,6 +20,7 @@ exports.setup = (bot) => {
     bot.emit("handleTwitch", HosttargetMessage);
   });
 
+  bot.twitchClient = twitchClient;
   connect();
 };
 

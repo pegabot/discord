@@ -42,4 +42,15 @@ bot.events.loadEvents();
 
 bot.login(bot.config.apiToken);
 
+process.on("SIGTERM", () => {
+  console.info("SIGTERM signal received.");
+
+  bot.twitchClient.close();
+  bot.destroy();
+
+  bot.db.connection.close(false, () => {
+    process.exit(0);
+  });
+});
+
 exports.bot = bot;
