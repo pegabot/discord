@@ -1,6 +1,6 @@
 {
   "name": "pegabot",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "src/bot.js",
   "author": "The Pegabot authors",
   "license": "MIT",
