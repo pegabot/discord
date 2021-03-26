@@ -21,13 +21,13 @@ module.exports = {
     if (user.bannable) {
       msg.channel.send("Was ist der Grund des Bannes?");
       const collector = new MessageCollector(msg.channel, (m) => m.author === msg.author, { max: 1, time: 60000 });
-      await collector.on("collect", async (m) => {
-        await user.ban(m.content);
+      collector.on("collect", async (m) => {
+        await user.ban({ reason: m.content });
         msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich gebannt. Grund: \`${m.content}\``);
         collector.stop();
       });
 
-      await collector.on("end", async (collected, reason) => {
+      collector.on("end", async (collected, reason) => {
         if (reason === "time") {
           msg.channel.send("Das Zeitfenster wurde nicht eingehalten.");
         }

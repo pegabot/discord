@@ -6,5 +6,5 @@
 exports.execute = (bot, guild, user) => {
   if (guild.partial) return;
 
-  bot.logger.admin_green(`${user.tag} wurde gerade vom Server unbannt.`);
+  bot.logger.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
 };
