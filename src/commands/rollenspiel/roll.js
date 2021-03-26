@@ -20,7 +20,7 @@ module.exports = {
     if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i))
       return msg.reply(`dieser Wurf ist nicht valide. Nutze \`${bot.config.prefix}help roll\` für mehr Hilfe.`);
 
-    const dice = args.join(" ");
+    const dice = args.join(" ").replace(" ", "");
 
     const params = generateParams(bot, msg.author, dice);
 
