@@ -10,19 +10,20 @@ exports.execute = async (bot, message) => {
 
   if (!message.guild) return;
   if (message.author.bot) return;
-  if (bot.config.ignoredChannels) {
-    if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
-  }
-
-  if (bot.config.ignoredCategories) {
-    if (message.channel.parentID) {
-      if (bot.config.ignoredCategories.split(",").includes(message.channel.parentID)) return;
-    }
-  }
 
   if (message.content.match(/^(\/r\s?.*|\/roll\s?.*)/)) return message.reply(`bitte verwende \`${bot.config.prefix}roll\` oder \`${bot.config.prefix}r\`!`);
 
   if (!message.content.startsWith(bot.config.prefix)) {
+    if (bot.config.ignoredChannels) {
+      if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
+    }
+
+    if (bot.config.ignoredCategories) {
+      if (message.channel.parentID) {
+        if (bot.config.ignoredCategories.split(",").includes(message.channel.parentID)) return;
+      }
+    }
+
     const MessageModel = bot.db.model("message");
     const messageToSave = new MessageModel();
     messageToSave.message = JSON.parse(JSON.stringify(message));
