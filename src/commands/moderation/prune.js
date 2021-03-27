@@ -9,7 +9,7 @@ module.exports = {
   name: "prune",
   usage: "prune <Anzahl der zu löschenden Nachrichten>",
   help: "Löscht eine gewisse Anzahl an Nachrichten",
-  permissions: ["KICK_MEMBERS"],
+  permissions: ["MANAGE_MESSAGES"],
   execute: async (bot, msg, args) => {
     if (args[0]) {
       if (isNaN(args[0])) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
