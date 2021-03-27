@@ -11,7 +11,7 @@ module.exports = {
   name: "miau",
   usage: ["miau", "miau <text>"],
   help: "Liefert ein zufälliges Katzenbild zurück.",
-  channel: ["718145438339039325", "697111104874348585", "815903133707272213"],
+  channel: ["718145438339039325", "697111104874348585", "815903133707272213", "801788525099352122"],
   execute: async (bot, msg, args) => {
     let text = emojiStrip(msg.cleanContent)
       .replace(/[^a-üA-Ü0-9-_]/g, " ")
