@@ -1,10 +1,9 @@
 name: Unit Tests
 on:
   push:
-    branches: [ staging ]
+    branches: [ main, staging ]
   pull_request:
     branches: [ main, staging ]
-  workflow_dispatch:
 
 jobs:
   test:
@@ -44,24 +43,6 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_STAGING }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'Pegabot has been deployed.'
-  deploy-production:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    name: "Deploy to production"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.8.8
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "pegarobo"
-          heroku_email: "nico@gruselhaus.com"
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: 'Pegabot has been deployed.'
