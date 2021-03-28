@@ -10,7 +10,7 @@ module.exports = {
   name: "wuff",
   usage: ["wuff"],
   help: "Liefert ein zufälliges Hundebild zurück.",
-  channel: ["718145438339039325", "698189934879571999"],
+  channel: ["718145438339039325"],
   execute: async (bot, msg) => {
     try {
       const responseJson = await fetchWithTimeout(`https://dog.ceo/api/breeds/image/random`);

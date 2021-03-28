@@ -12,7 +12,7 @@ module.exports = {
   name: "piep",
   usage: ["piep", "piep <text>"],
   help: "Liefert ein zufälliges Vogelbild zurück.",
-  channel: ["718145438339039325", "698189934879571999"],
+  channel: ["718145438339039325"],
   execute: async (bot, msg) => {
     try {
       const responseJson = await fetchWithTimeout(`http://shibe.online/api/birds`);
