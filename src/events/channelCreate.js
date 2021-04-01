@@ -7,5 +7,5 @@ const { ChannelTypes } = require("../utils");
 exports.execute = async (bot, channel) => {
   if (channel.partial) return;
   if (channel.type === "dm") return;
-  bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: ${channel} **wurde erstellt**.`);
+  bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${channel.name}\` **wurde erstellt**.`);
 };
