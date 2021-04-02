@@ -28,7 +28,7 @@
     "date-fns": "^2.19.0",
     "discord-backup": "^2.4.1",
     "discord-xp": "^1.1.8",
-    "discord.js": "^12.5.1",
+    "discord.js": "^12.5.2",
     "distube": "^2.8.12",
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
