@@ -3,14 +3,14 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { Command } from "../../classes/command";
+import { BotCommand } from "../../classes/command";
 import { Message, MessageAttachment } from "discord.js";
 import { generateEmbed, generateParams, rollDice } from "../../utils/RollButler";
 import { RollsModel } from "../../models/rolls";
 import { BotExecption } from "../../utils/BotExecption";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
-export class RollCommand extends Command {
+export class RollCommand extends BotCommand {
   name = "roll";
   usage = "roll (https://pegabot.pegasus.de/dice-rules)";
   help = "powered by RollButler";

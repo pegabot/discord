@@ -4,7 +4,7 @@
       "Command"
     ],
     "body": [
-      "export class ${2: className} extends Command {\t async execute(): Promise<void>  {",
+      "export class ${2: className} extends BotCommand {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
     ],

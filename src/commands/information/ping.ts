@@ -3,11 +3,11 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { Command } from "../../classes/command";
+import { BotCommand } from "../../classes/command";
 import { Message } from "discord.js";
 import { stripIndents } from "../../utils/stripIndents";
 
-export class PingCommand extends Command {
+export class PingCommand extends BotCommand {
   name = "ping";
   usage = "ping";
   help = "Reaktionszeit des Bots";

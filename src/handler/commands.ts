@@ -12,10 +12,10 @@ import { BotType } from "../types/bot";
 import { findCommand } from "../utils/findCommand";
 import { BotExecption } from "../utils/BotExecption";
 import { LogModel } from "../models/log";
-import { Command } from "../classes/command";
+import { BotCommand } from "../classes/command";
 
 export class CommandHandler {
-  cmds: Collection<string, Command> = new Collection();
+  cmds: Collection<string, BotCommand> = new Collection();
   constructor(protected bot: BotType) {}
 
   get names() {
@@ -30,7 +30,7 @@ export class CommandHandler {
     return this.cmds;
   }
 
-  get(command: string): Command | undefined {
+  get(command: string): BotCommand | undefined {
     return this.cmds.get(command);
   }
 
@@ -49,7 +49,7 @@ export class CommandHandler {
       const category = path.dirname(command).split(path.sep).pop() || [];
 
       const importedCommand: any = require(command);
-      const cmd: Command = importedCommand[Object.keys(importedCommand)[0]];
+      const cmd: BotCommand = importedCommand[Object.keys(importedCommand)[0]];
 
       if (!cmd) continue;
       cmd.category = (category[0] || "").toUpperCase() + category.slice(1);
@@ -62,7 +62,7 @@ export class CommandHandler {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
   }
 
-  loadCommand(importedCommand: Command) {
+  loadCommand(importedCommand: BotCommand) {
     const _cmd: any = importedCommand;
     const cmd = new _cmd(this.bot);
 
