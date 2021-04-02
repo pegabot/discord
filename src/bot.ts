@@ -7,7 +7,7 @@ import { config } from "dotenv";
 config();
 
 import { server } from "./server/server";
-server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver started!`));
+server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver gestartet!`));
 
 import { BotType } from "./types/bot";
 
@@ -34,8 +34,8 @@ bot.db = database.connection;
 import { CommandHandler } from "./handler/commands";
 bot.commands = new CommandHandler(bot);
 
-// const { Jobs } = require("./managers/jobs");
-// bot.jobs = new Jobs(bot);
+import { JobHandler } from "./handler/jobs";
+bot.jobs = new JobHandler(bot);
 
 import { EventHandler } from "./handler/events";
 bot.events = new EventHandler(bot);
@@ -43,15 +43,13 @@ bot.events.loadEvents();
 
 bot.login(bot.config.apiToken);
 
-// process.on("SIGTERM", () => {
-//   console.info("SIGTERM signal received.");
+process.on("SIGTERM", () => {
+  console.info("SIGTERM signal received.");
 
-//   bot.twitchClient.close();
-//   bot.destroy();
+  bot.twitchClient?.close();
+  bot.destroy();
 
-//   bot.db.connection.close(false, () => {
-//     process.exit(0);
-//   });
-// });
+  process.exit(0);
+});
 
 export default bot;

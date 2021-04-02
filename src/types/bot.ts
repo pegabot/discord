@@ -3,10 +3,12 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { ChatClient } from "dank-twitch-irc";
 import { Collection, Client } from "discord.js";
 import { CommandHandler } from "../handler/commands";
 import { MongoConnector } from "../handler/database";
 import { EventHandler } from "../handler/events";
+import { JobHandler } from "../handler/jobs";
 import { LogHandler } from "../handler/log";
 import { ColorTypes } from "./colors";
 import { ReactionTypes } from "./reactions";
@@ -20,5 +22,7 @@ export interface BotType extends Client {
   MongoConnector?: MongoConnector;
   db?: typeof import("mongoose");
   commands?: CommandHandler;
+  jobs?: JobHandler;
   events?: EventHandler;
+  twitchClient?: ChatClient;
 }

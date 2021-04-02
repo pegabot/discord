@@ -9,7 +9,7 @@ import { setDefault } from "../utils/presence";
 export class ReadyEvent extends BotEvent {
   execute() {
     this.bot.commands?.loadCommands();
-    // this.bot.jobs.loadJobs();
+    this.bot.jobs?.loadJobs();
 
     const message = `${this.bot.user?.username}#${this.bot.user?.discriminator} ist ready!
       -------------------------------
@@ -17,7 +17,8 @@ export class ReadyEvent extends BotEvent {
         Aktuell in ${this.bot.guilds.cache.size} Guilde(n)
         ${this.bot.commands?.size} Command(s) geladen 🤖,
         ${this.bot.MongoConnector?.size} Models(s) geladen 🧭
-        ${this.bot.events?.size} Event(s) geladen 🎟`;
+        ${this.bot.events?.size} Event(s) geladen 🎟
+        ${this.bot.jobs?.size} Job(s) aktiviert ⚙️`;
 
     this.bot.logger?.info(message);
     if (process.env.NODE_ENV === "production") this.bot.logger?.admin(message);

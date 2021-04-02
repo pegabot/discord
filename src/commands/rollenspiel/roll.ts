@@ -17,9 +17,7 @@ export class RollCommand extends BotCommand {
   aliases = ["r"];
 
   async execute(msg: Message, args: string[]): Promise<void> {
-    console.log(this.bot);
     if (!this.bot) return;
-    console.log("HI2");
 
     if (args.length < 1) {
       msg.reply("es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
