@@ -10,6 +10,7 @@ import { BotCommand } from "../classes/command";
 import { LogModel } from "../models/log";
 import { BotType } from "../types/bot";
 import { BotExecption } from "../utils/BotExecption";
+import { cloneClass } from "../utils/cloneClass";
 import { findCommand } from "../utils/findCommand";
 import { walkSync } from "../utils/walkSync";
 
@@ -51,9 +52,7 @@ export class CommandHandler {
       const cmd: BotCommand = importedCommand[Object.keys(importedCommand)[0]];
 
       if (!cmd) continue;
-      cmd.category = (category[0] || "").toUpperCase() + category.slice(1);
-
-      this.loadCommand(cmd);
+      this.loadCommand(cmd, (category as string) || "-");
     }
   }
 
@@ -61,9 +60,11 @@ export class CommandHandler {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
   }
 
-  loadCommand(importedCommand: BotCommand) {
+  loadCommand(importedCommand: BotCommand, category: string) {
     const _cmd: any = importedCommand;
     const cmd = new _cmd(this.bot);
+
+    cmd.category = (category[0] || "").toUpperCase() + category.slice(1);
 
     const { name } = cmd;
     const error = this.checkCommand(name);
@@ -106,8 +107,9 @@ export class CommandHandler {
 
     if (command) {
       const entry = new LogModel();
-      delete command.bot;
-      entry.command = command;
+      const c: BotCommand = cloneClass(command);
+      delete c.bot;
+      entry.command = c;
       entry.author = JSON.parse(JSON.stringify(msg.author));
       entry.save();
 

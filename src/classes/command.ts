@@ -8,7 +8,7 @@ import { BotType } from "../types/bot";
 export abstract class BotCommand {
   bot?: BotType;
   abstract name: string;
-  abstract usage: string;
+  abstract usage: string | string[];
   abstract help: string;
   owner?: boolean;
   aliases?: string[];
@@ -24,5 +24,5 @@ export abstract class BotCommand {
     this.bot = bot;
   }
 
-  abstract execute(msg: Message, args?: string[]): Promise<void>;
+  abstract execute(msg: Message, args?: string[]): Promise<void> | void;
 }
