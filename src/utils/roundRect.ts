@@ -3,7 +3,9 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-exports.module = (ctx, x, y, w, h, r = 0) => {
+import Canvas from "./Canvas";
+
+export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r = 0): Canvas.CanvasRenderingContext2D => {
   if (w < 2 * r) r = w / 2;
   if (h < 2 * r) r = h / 2;
   ctx.beginPath();

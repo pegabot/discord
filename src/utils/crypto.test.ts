@@ -3,9 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const {
-  module: { computeSHA256 },
-} = require("./crypto");
+import { computeSHA256 } from "./crypto";
 
 const input = "o9LDhp0Qd11XVPLaRhVB";
 const expected_hash = "04367d84ac10b41a7999c0f6ceb60ee4d9431fcac3217c4cad5df1759b4cae55";

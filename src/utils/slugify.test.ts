@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { module: slugify } = require("./slugify");
+import { slugify } from "./slugify";
 
 const testData = [
   [" a  b ", "a-b"],

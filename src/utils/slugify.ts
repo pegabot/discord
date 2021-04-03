@@ -3,14 +3,14 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const slugify = require("@sindresorhus/slugify");
+import slugifyLib from "@sindresorhus/slugify";
 
-exports.module = (path) => {
+export const slugify = (path: string): string => {
   return (
     path
       .split("/")
       .map((elt) => {
-        return slugify(elt, {
+        return slugifyLib(elt, {
           lowercase: false,
           decamelize: false,
           customReplacements: [

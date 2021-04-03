@@ -3,16 +3,17 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { module: Canvas } = require("./Canvas");
+import { GuildMember } from "discord.js";
+import Canvas from "./Canvas";
+import { roundRect } from "./roundRect";
 const Levels = require("discord-xp");
-const { module: roundRect } = require("./roundRect");
 
-exports.module = async (leaderboard) => {
+export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.Canvas> => {
   const canvas = Canvas.createCanvas(700, 250 * leaderboard.length);
   const ctx = canvas.getContext("2d");
   for (let i = 0; i < leaderboard.length; i++) {
     const userData = leaderboard[i].userData;
-    const user = leaderboard[i].user;
+    const user: GuildMember = leaderboard[i].user;
 
     const xpToNextLevel = Levels.xpFor(userData.level + 1);
     const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
@@ -78,7 +79,7 @@ exports.module = async (leaderboard) => {
     const profileUrl = user.user.displayAvatarURL({ format: "png" });
     const avatar = await Canvas.loadImage(profileUrl);
     ctx.drawImage(avatar, 25 * 1.75, 25 * 1.75, 200 / 1.25, 200 / 1.25);
-    const statuses = {
+    const statuses: any = {
       online: "https://cdn.discordapp.com/emojis/726982918064570400.png?v=1",
       idle: "https://cdn.discordapp.com/emojis/726982942181818450.png?v=1",
       dnd: "https://cdn.discordapp.com/emojis/726982954580181063.png?v=1",
@@ -86,7 +87,7 @@ exports.module = async (leaderboard) => {
     };
     ctx.restore();
     const iconWidth = 60;
-    const statusUrl = statuses[user.presence.status];
+    const statusUrl = statuses[user.presence.status] || "";
     const statusImage = await Canvas.loadImage(statusUrl);
     ctx.drawImage(statusImage, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, iconWidth, iconWidth);
     ctx.translate(0, 250);
