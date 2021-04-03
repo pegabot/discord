@@ -3,8 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const Levels = require("discord-xp");
-
+import Levels from "discord-xp";
 import { Message, MessageAttachment } from "discord.js";
 import { BotCommand } from "../../classes/command";
 import { LevelModel } from "../../models/levels";
@@ -24,7 +23,7 @@ export class LeaderBoardCommand extends BotCommand {
 
     if (!user) throw new BotExecption("Dieser Benutzer exisitert nicht!");
 
-    const userData = await Levels.fetch(user?.user.id, msg.guild?.id);
+    const userData = await Levels.fetch(user?.user.id, msg.guild?.id || "");
     if (!userData) {
       msg.channel.send("Sieht so aus, als hätte dieses Mitglied noch keine xp gesammelt.");
       return;

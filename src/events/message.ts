@@ -3,11 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import Levels from "discord-xp";
 import { Message, TextChannel } from "discord.js";
 import { BotEvent } from "../classes/event";
 import { MessageModel } from "../models/message";
-
-const Levels = require("discord-xp");
 
 export class MessageEvent extends BotEvent {
   async execute(message: Message): Promise<void> {

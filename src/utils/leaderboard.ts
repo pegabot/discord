@@ -3,11 +3,9 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { xpFor } = require("discord-xp");
+import Levels from "discord-xp";
 import { GuildMember } from "discord.js";
 import Canvas from "./Canvas";
-
-const Levels = require("discord-xp");
 
 export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r = 0): Canvas.CanvasRenderingContext2D => {
   if (w < 2 * r) r = w / 2;
@@ -29,8 +27,8 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
     const userData = leaderboard[i].userData;
     const user: GuildMember = leaderboard[i].user;
 
-    const xpToNextLevel = Levels.xpFor(userData.level + 1);
-    const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
+    const xpToNextLevel = Number(Levels.xpFor(userData.level + 1));
+    const xpForCurrentLevel = userData.level === 0 ? 0 : Number(Levels.xpFor(userData.level));
     const xpLevelDif = Math.abs(xpToNextLevel - xpForCurrentLevel);
     const xpProgress = Math.abs(userData.xp - xpForCurrentLevel);
     const percentDone = xpProgress / xpLevelDif;
@@ -112,8 +110,8 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
 export const generateRankCard = async (userData: any, user: GuildMember): Promise<Canvas.Canvas> => {
   const canvas = Canvas.createCanvas(700, 250);
   const ctx = canvas.getContext("2d");
-  const xpToNextLevel = xpFor(userData.level + 1);
-  const xpForCurrentLevel = userData.level === 0 ? 0 : xpFor(userData.level);
+  const xpToNextLevel = Number(Levels.xpFor(userData.level + 1));
+  const xpForCurrentLevel = userData.level === 0 ? 0 : Number(Levels.xpFor(userData.level));
   const xpLevelDif = Math.abs(xpToNextLevel - xpForCurrentLevel);
   const xpProgress = Math.abs(userData.xp - xpForCurrentLevel);
   const percentDone = xpProgress / xpLevelDif;
