@@ -3,10 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotType } from "../types/bot";
+import { Bot } from "./bot";
 
 export abstract class BotEvent {
-  constructor(protected bot: BotType) {}
+  constructor(protected bot: Bot) {}
 
   abstract execute(...args: any): void | Promise<void>;
 }

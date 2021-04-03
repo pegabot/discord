@@ -17,7 +17,7 @@ export class TrelloReminderJob extends BotJob {
   trello: any;
 
   setup(): void {
-    this.trello = new Trello(this.bot.config?.TRELLO_KEY, this.bot.config?.TRELLO_TOKEN);
+    this.trello = new Trello(this.bot.config.TRELLO_KEY, this.bot.config.TRELLO_TOKEN);
   }
 
   async execute(): Promise<void> {
@@ -39,10 +39,10 @@ export class TrelloReminderJob extends BotJob {
         attachmentUrl = url;
       }
 
-      const guild = this.bot.guilds.cache.get(this.bot.config?.guildId || "");
+      const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
       if (!guild) continue;
 
-      const channel = guild.channels.cache.get(this.bot.config?.TRELLO_INFO_CHANNEL || "");
+      const channel = guild.channels.cache.get(this.bot.config.TRELLO_INFO_CHANNEL || "");
       if (!channel) continue;
 
       (channel as TextChannel).send(url);

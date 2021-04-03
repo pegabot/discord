@@ -17,8 +17,8 @@ export class YouTubeJob extends BotJob {
   YouTubeChannels?: string[];
 
   setup(): void {
-    this.YouTubeClient = new Youtube(this.bot.config?.YOUTUBE_KEY);
-    this.YouTubeChannels = (this.bot.config?.YOUTUBE_CHANNELS || "").split(",").filter((elt) => elt !== "");
+    this.YouTubeClient = new Youtube(this.bot.config.YOUTUBE_KEY);
+    this.YouTubeChannels = (this.bot.config.YOUTUBE_CHANNELS || "").split(",").filter((elt) => elt !== "");
   }
 
   async execute(): Promise<void> {
@@ -29,10 +29,10 @@ export class YouTubeJob extends BotJob {
         const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
         if (!video) continue;
 
-        const guild = this.bot.guilds.cache?.get(this.bot.config?.guildId || "");
+        const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
         if (!guild) return;
 
-        const channel = guild.channels.cache.get(this.bot.config?.YOUTUBE_CHANNEL || "");
+        const channel = guild.channels.cache.get(this.bot.config.YOUTUBE_CHANNEL || "");
         if (!channel) return;
 
         (channel as TextChannel).send(

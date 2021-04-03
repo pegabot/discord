@@ -5,16 +5,16 @@
 
 import bent from "bent";
 import { MessageEmbed, User } from "discord.js";
-import { BotType } from "../types/bot";
+import { Bot } from "../classes/bot";
 
-export const generateParams = (bot: BotType, user: User, dice: string): URLSearchParams => {
+export const generateParams = (bot: Bot, user: User, dice: string): URLSearchParams => {
   const params = new URLSearchParams();
   params.append("job", "api");
   params.append("source", "Pegabot");
   params.append("user_id", user.id);
   params.append("usr", user.username);
-  params.append("api_key", bot.config?.ROLLBUTLER_KEY || "");
-  params.append("api_pass", bot.config?.ROLLBUTLER_PASS || "");
+  params.append("api_key", bot.config.ROLLBUTLER_KEY || "");
+  params.append("api_pass", bot.config.ROLLBUTLER_PASS || "");
   params.append("roll", dice);
   params.append("logit", "true");
   params.append("lang", "DE");
@@ -22,11 +22,11 @@ export const generateParams = (bot: BotType, user: User, dice: string): URLSearc
   return params;
 };
 
-export const rollDice = (bot: BotType, params: URLSearchParams): Promise<string> => {
+export const rollDice = (bot: Bot, params: URLSearchParams): Promise<string> => {
   const handler = bent(`https://rollbutler.net/index.php?`, "string", {
     HttpMethod: "GET",
     Headers: {
-      Authorization: `BOT ${bot.config?.ROLLBUTLER_KEY}`,
+      Authorization: `BOT ${bot.config.ROLLBUTLER_KEY}`,
       Accept: "application/json",
       "User-Agent": "Pegabot",
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const rollDice = (bot: BotType, params: URLSearchParams): Promise<string>
   return handler(`${params.toString()}`);
 };
 
-export const generateEmbed = (bot: BotType, dice: string, user: User, response: any): MessageEmbed => {
+export const generateEmbed = (bot: Bot, dice: string, user: User, response: any): MessageEmbed => {
   const embed = new MessageEmbed();
   embed.setColor(bot.colors?.babyblue || "");
   embed.setTitle(`Ergebnis für ${dice}`);

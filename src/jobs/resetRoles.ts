@@ -17,7 +17,7 @@ export class ResetRolesJob extends BotJob {
 
       entries.forEach(async (entry) => {
         const { roleId, userId } = entry;
-        const guild: Guild | undefined = this.bot.guilds.cache.get(this.bot.config?.guildId || "");
+        const guild: Guild | undefined = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
         if (!guild) return;
         const memberCache = guild.members.cache;
         const member: GuildMember | undefined = memberCache.find((member) => member.id === userId);

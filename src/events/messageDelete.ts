@@ -10,9 +10,9 @@ export class messageDeleteEvent extends BotEvent {
   execute(message: Message): void {
     if (message.partial) return;
 
-    if (message.channel.id === this.bot.config?.adminChannel) return;
-    if (message.author.id === this.bot.user?.id) return;
-    if (this.bot.config?.ignoredChannels) {
+    if (message.channel.id === this.bot.config.adminChannel) return;
+    if (message.author.id === this.bot.client.user?.id) return;
+    if (this.bot.config.ignoredChannels) {
       if (this.bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
     }
 
@@ -20,6 +20,6 @@ export class messageDeleteEvent extends BotEvent {
       .setDescription(`Neue gelöschte Nachricht von ${message.member} in ${message.channel}`)
       .addField("Inhalt der gelöschten Nachricht", message.content ? message.content : "Diese Nachricht hatte keinen Inhalt.");
 
-    this.bot.logger?.admin(embed);
+    this.bot.logger.admin(embed);
   }
 }

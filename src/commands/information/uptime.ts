@@ -13,6 +13,6 @@ export class UptimeCommand extends BotCommand {
   usage = "uptime";
   help = "Wie lange ist der Bot schon aktiv?";
   execute(msg: Message): void {
-    msg.channel.send(`**${this.bot?.user?.username}** ist seit ${prettyMs(this.bot?.uptime || -1)} aktiv!`);
+    msg.channel.send(`**${this.bot.client.user?.username}** ist seit ${prettyMs(this.bot.client.uptime || -1)} aktiv!`);
   }
 }

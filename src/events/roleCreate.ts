@@ -8,6 +8,6 @@ import { BotEvent } from "../classes/event";
 
 export class roleCreateEvent extends BotEvent {
   execute(role: Role): void {
-    this.bot.logger?.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);
+    this.bot.logger.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);
   }
 }

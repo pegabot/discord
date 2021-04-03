@@ -20,7 +20,7 @@ export class guildMemberRemoveEvent extends BotEvent {
 
     const embed = new MessageEmbed().setTitle(`${member.user.tag} hat gerade den Server verlassen.`);
 
-    const channel = this.bot.channels?.resolve(this.bot.config?.goodbyeChannel || "");
+    const channel = this.bot.client.channels?.resolve(this.bot.config.goodbyeChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(embed);
   }

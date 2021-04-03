@@ -11,6 +11,6 @@ export class channelDeleteEvent extends BotEvent {
   execute(channel: DMChannel | GuildChannel): void {
     if (typeof channel === typeof DMChannel) return;
 
-    this.bot.logger?.admin_red(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde gelöscht**.`);
+    this.bot.logger.admin_red(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde gelöscht**.`);
   }
 }

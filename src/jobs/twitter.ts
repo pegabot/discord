@@ -19,10 +19,10 @@ export class twitterJob extends BotJob {
 
   setup(): void {
     twitter = new Twit({
-      consumer_key: this.bot.config?.TWITTER_CONSUMER_KEY || "",
-      consumer_secret: this.bot.config?.TWITTER_CONSUMER_SECRET || "",
-      access_token: this.bot.config?.TWITTER_TOKEN,
-      access_token_secret: this.bot.config?.TWITTER_TOKEN_SECRET,
+      consumer_key: this.bot.config.TWITTER_CONSUMER_KEY || "",
+      consumer_secret: this.bot.config.TWITTER_CONSUMER_SECRET || "",
+      access_token: this.bot.config.TWITTER_TOKEN,
+      access_token_secret: this.bot.config.TWITTER_TOKEN_SECRET,
     });
   }
 
@@ -58,10 +58,10 @@ export class twitterJob extends BotJob {
             if (error) {
               return;
             }
-            const guild = this.bot.guilds.cache?.get(this.bot.config?.guildId || "");
+            const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
             if (!guild) return;
 
-            const channel = guild.channels.cache.get(this.bot.config?.TWITTER_CHANNEL || "");
+            const channel = guild.channels.cache.get(this.bot.config.TWITTER_CHANNEL || "");
             if (!channel) return;
             (channel as TextChannel).send(
               `Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`,

@@ -24,7 +24,7 @@ export class VoucherJob extends BotJob {
           const voucher = vouchers[index];
 
           try {
-            const user = this.bot?.users?.cache?.get(session.userId || "");
+            const user = this.bot.client.users?.cache?.get(session.userId || "");
             if (!user) continue;
             user.send(
               stripIndents(`

@@ -3,14 +3,14 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotType } from "../types/bot";
+import { Bot } from "../classes/bot";
 
-export const setDefault = (bot: BotType): void => {
-  bot.user?.setActivity(`${bot.config?.prefix}help`, { type: "LISTENING" });
+export const setDefault = (bot: Bot): void => {
+  bot.client.user?.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
 };
 
-export const setStreaming = (bot: BotType, streamer: string, name?: string) => {
-  bot.user?.setActivity(`${name || streamer} auf Twitch!`, {
+export const setStreaming = (bot: Bot, streamer: string, name?: string) => {
+  bot.client.user?.setActivity(`${name || streamer} auf Twitch!`, {
     type: "STREAMING",
     url: `https://www.twitch.tv/${streamer}`,
   });

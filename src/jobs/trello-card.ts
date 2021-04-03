@@ -18,7 +18,7 @@ export class TrelloCardJob extends BotJob {
   trello: any;
 
   setup(): void {
-    this.trello = new Trello(this.bot.config?.TRELLO_KEY, this.bot.config?.TRELLO_TOKEN);
+    this.trello = new Trello(this.bot.config.TRELLO_KEY, this.bot.config.TRELLO_TOKEN);
   }
 
   execute(): void {
@@ -55,7 +55,7 @@ export class TrelloCardJob extends BotJob {
         const tableField = fields.find((elt: any) => elt.idCustomField === "5ff4844e96f0867d8a01f399");
         const voiceField = fields.find((elt: any) => elt.idCustomField === "5ff4846133e3a636715007b2");
 
-        const guild = this.bot.guilds.cache.get(this.bot.config?.guildId || "");
+        const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
 
         if (!guild) continue;
 
@@ -63,7 +63,7 @@ export class TrelloCardJob extends BotJob {
         const conspirative_role = guild.roles.cache.find((role) => role.id === "694076637355966480");
         const de_role = guild.roles.cache.find((role) => role.id === "737260355763306626");
 
-        this.bot?.logger?.admin(`Trello: erstelle Kanäle für Card: ${cardId}`);
+        this.bot.logger.admin(`Trello: erstelle Kanäle für Card: ${cardId}`);
 
         let category: CategoryChannel;
         if (process.env.NODE_ENV === "production") {
@@ -204,7 +204,7 @@ export class TrelloCardJob extends BotJob {
           position: 2,
         });
 
-        const channel = guild?.channels?.cache.get(this.bot.config?.TRELLO_INFO_CHANNEL || "");
+        const channel = guild?.channels?.cache.get(this.bot.config.TRELLO_INFO_CHANNEL || "");
         if (!channel) continue;
 
         (channel as TextChannel).send(url);

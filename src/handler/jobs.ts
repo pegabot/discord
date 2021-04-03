@@ -7,12 +7,12 @@ import { Collection } from "discord.js";
 import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
+import { Bot } from "../classes/bot";
 import { BotJob } from "../classes/job";
-import { BotType } from "../types/bot";
 
 export class JobHandler {
   jobs: Collection<string, BotJob> = new Collection();
-  constructor(protected bot: BotType) {}
+  constructor(protected bot: Bot) {}
 
   get names() {
     return [...this.jobs.keys()];
@@ -61,7 +61,7 @@ export class JobHandler {
       this.jobs.set(name, job);
       this.executeJob(job);
     } else {
-      this.bot.logger?.error(error);
+      this.bot.logger.error(error);
     }
   }
 

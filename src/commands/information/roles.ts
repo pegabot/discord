@@ -19,7 +19,7 @@ export class RolesCommand extends BotCommand {
       .sort((a, b) => b.rawPosition - a.rawPosition);
 
     const embed = new MessageEmbed()
-      .setAuthor(this.bot?.user?.username, this.bot?.user?.displayAvatarURL())
+      .setAuthor(this.bot.client.user?.username, this.bot.client.user?.displayAvatarURL())
       .setThumbnail(msg?.guild?.iconURL() || "")
       .setTitle(`Rollen in ${msg.guild?.name}`)
       .setDescription(roles?.map((role) => `${role}\n`).join(""))

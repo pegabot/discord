@@ -17,15 +17,15 @@ export class MessageEvent extends BotEvent {
     if (message.author.bot) return;
 
     if (message.content.match(/^(\/r\s?.*|\/roll\s?.*)/)) {
-      message.reply(`bitte verwende \`${this.bot.config?.prefix}roll\` oder \`${this.bot.config?.prefix}r\`!`);
+      message.reply(`bitte verwende \`${this.bot.config.prefix}roll\` oder \`${this.bot.config.prefix}r\`!`);
       return;
     }
-    if (!message.content.startsWith(this.bot.config?.prefix || "")) {
-      if (this.bot.config?.ignoredChannels) {
-        if (this.bot.config?.ignoredChannels.split(",").includes(message.channel.id)) return;
+    if (!message.content.startsWith(this.bot.config.prefix || "")) {
+      if (this.bot.config.ignoredChannels) {
+        if (this.bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
       }
 
-      if (this.bot.config?.ignoredCategories) {
+      if (this.bot.config.ignoredCategories) {
         if (message.channel.type !== "dm" && message.channel.parentID) {
           if (this.bot.config.ignoredCategories.split(",").includes(message.channel.parentID)) return;
         }
@@ -45,6 +45,6 @@ export class MessageEvent extends BotEvent {
       }
     }
 
-    this.bot.commands?.handleCommand(message);
+    this.bot.commands.handleCommand(message);
   }
 }

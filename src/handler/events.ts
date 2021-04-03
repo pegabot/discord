@@ -6,12 +6,12 @@
 import { Collection } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
+import { Bot } from "../classes/bot";
 import { BotEvent } from "../classes/event";
-import { BotType } from "../types/bot";
 
 export class EventHandler {
   events: Collection<string, BotEvent> = new Collection();
-  constructor(protected bot: BotType) {}
+  constructor(protected bot: Bot) {}
 
   get names() {
     return [...this.events.keys()];
@@ -44,7 +44,7 @@ export class EventHandler {
 
       const _event: BotEvent = new importedEvent[Object.keys(importedEvent)[0]](this.bot);
 
-      this.bot.on(name, (...args) => _event.execute(...args));
+      this.bot.client.on(name, (...args) => _event.execute(...args));
     }
   }
 }

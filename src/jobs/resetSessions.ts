@@ -16,7 +16,7 @@ export class ResetSessionJob extends BotJob {
     SessionModel.find({ status: "in progress" }, (error, sessions) => {
       if (sessions.length === 0) return;
 
-      this.bot.logger?.info(`Setting stale status to ${sessions.length} session(s)!`);
+      this.bot.logger.info(`Setting stale status to ${sessions.length} session(s)!`);
       for (const session of sessions) {
         session.status = "stale";
         session.save();
@@ -30,7 +30,7 @@ export class ResetSessionJob extends BotJob {
 
       for (const session of sessions) {
         try {
-          this.bot.users.cache.get(session.userId || "")?.send(
+          this.bot.client.users.cache.get(session.userId || "")?.send(
             stripIndents(`
           Du hast dein Spiel leider nicht in der vorgegebenen Zeit zu Ende gespielt und somit die Chance auf den Gewinn verpasst.
           

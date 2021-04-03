@@ -4,9 +4,9 @@
  */
 
 import { Message } from "discord.js";
-import { BotType } from "../types/bot";
+import { Bot } from "./bot";
 export abstract class BotCommand {
-  bot?: BotType;
+  bot: Bot;
   abstract name: string;
   abstract usage: string | string[];
   abstract help: string;
@@ -20,7 +20,7 @@ export abstract class BotCommand {
   permissions?: string[];
   roles?: string[];
 
-  constructor(bot: BotType) {
+  constructor(bot: Bot) {
     this.bot = bot;
   }
 

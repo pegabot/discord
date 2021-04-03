@@ -14,7 +14,7 @@ export class LevelAddUserJob extends BotJob {
     LevelModel.find({ user: { $exists: false } }, (error, entries) => {
       if (error) return;
       entries.forEach(async (entry) => {
-        const user = await this.bot.users.fetch(entry.userID);
+        const user = await this.bot.client.users.fetch(entry.userID);
         entry.user = JSON.parse(JSON.stringify(user));
         entry.save();
       });

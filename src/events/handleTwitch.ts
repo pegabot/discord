@@ -5,17 +5,17 @@
 
 import { HosttargetMessage } from "dank-twitch-irc";
 import { TextChannel } from "discord.js";
+import { Bot } from "../classes/bot";
 import { BotEvent } from "../classes/event";
-import { BotType } from "../types/bot";
 import { setDefault, setStreaming } from "../utils/presence";
 import { checkIfStreaming } from "../utils/twitch";
 
 let isHosting = false;
 let isStreaming = false;
 
-const sendNotification = (bot: BotType, name: string) => {
-  const guild = bot.guilds.cache.get(bot.config?.guildId || "");
-  const channel = guild?.channels.cache.get(bot.config?.TWITCH_INFO_CHANNEL || "");
+const sendNotification = (bot: Bot, name: string) => {
+  const guild = bot.client.guilds.cache.get(bot.config.guildId || "");
+  const channel = guild?.channels.cache.get(bot.config.TWITCH_INFO_CHANNEL || "");
   (channel as TextChannel).send(`📣 ***${name}*** ist eben auf Twitch live gegangen 🍾 \n https://twitch.tv/${name}`);
 };
 
@@ -24,7 +24,7 @@ export class handleTwitchEvent extends BotEvent {
     if (HosttargetMessage) {
       if (HosttargetMessage.wasHostModeEntered()) {
         if (isHosting) return;
-        if (this.bot.config?.TWITCH_INFO_CHANNEL) {
+        if (this.bot.config.TWITCH_INFO_CHANNEL) {
         }
         sendNotification(this.bot, HosttargetMessage.hostedChannelName);
         return setStreaming(this.bot, HosttargetMessage.hostedChannelName);

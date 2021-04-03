@@ -27,7 +27,7 @@ export class messageUpdateEvent extends BotEvent {
         )
         .setTimestamp(new Date());
 
-      this.bot.logger?.admin(embed);
+      this.bot.logger.admin(embed);
     } catch (err) {
       console.log(err.message);
     }

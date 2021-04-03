@@ -8,6 +8,6 @@ import { BotEvent } from "../classes/event";
 
 export class guildBanRemoveEvent extends BotEvent {
   execute(guild: Guild, user: User): void {
-    this.bot.logger?.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
+    this.bot.logger.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
   }
 }

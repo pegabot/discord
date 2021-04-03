@@ -3,12 +3,12 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotCommand } from "../../classes/command";
 import { Message, MessageAttachment } from "discord.js";
-import { generateEmbed, generateParams, rollDice } from "../../utils/RollButler";
+import { BotCommand } from "../../classes/command";
 import { RollsModel } from "../../models/rolls";
 import { BotExecption } from "../../utils/BotExecption";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
+import { generateEmbed, generateParams, rollDice } from "../../utils/RollButler";
 
 export class RollCommand extends BotCommand {
   name = "roll";
@@ -24,7 +24,7 @@ export class RollCommand extends BotCommand {
       return;
     }
     if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i)) {
-      msg.reply(`dieser Wurf ist nicht valide. Nutze \`${this.bot.config?.prefix}help roll\` für mehr Hilfe.`);
+      msg.reply(`dieser Wurf ist nicht valide. Nutze \`${this.bot.config.prefix}help roll\` für mehr Hilfe.`);
       return;
     }
     const dice = args.join(" ").replace(" ", "");

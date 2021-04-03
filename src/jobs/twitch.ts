@@ -23,7 +23,7 @@ export class TwitchJob extends BotJob {
 
   setup(): void {
     twitchClient.on("HOSTTARGET", (HosttargetMessage) => {
-      this.bot.emit("handleTwitch", HosttargetMessage);
+      this.bot.client.emit("handleTwitch", HosttargetMessage);
     });
 
     this.bot.twitchClient = twitchClient;
@@ -31,6 +31,6 @@ export class TwitchJob extends BotJob {
   }
 
   execute(): void {
-    this.bot.emit("handleTwitch");
+    this.bot.client.emit("handleTwitch");
   }
 }

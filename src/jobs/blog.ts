@@ -12,6 +12,7 @@ export class BlogJob extends BotJob {
   name = "Suche nach neuen Blogbeiträgen";
   env = "blog";
   interval = 60000;
+
   async execute(): Promise<void> {
     let entries;
     try {
@@ -42,22 +43,22 @@ export class BlogJob extends BotJob {
         let channelId, url, message;
         switch (catId) {
           case 115:
-            channelId = this.bot.config?.BLOG_CHANNEL_DE;
+            channelId = this.bot.config.BLOG_CHANNEL_DE;
             url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
             message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
             break;
           case 560:
-            channelId = this.bot.config?.BLOG_CHANNEL_DE;
+            channelId = this.bot.config.BLOG_CHANNEL_DE;
             url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
             message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
             break;
           case 589:
-            channelId = this.bot.config?.BLOG_CHANNEL_EN;
+            channelId = this.bot.config.BLOG_CHANNEL_EN;
             url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
             message = `Our US-Team released a new article in our new room 📣  Check it out!${url}`;
             break;
           case 713:
-            channelId = this.bot.config?.BLOG_CHANNEL_EN;
+            channelId = this.bot.config.BLOG_CHANNEL_EN;
             url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
             message = `We've added a new article on our blog 📄  Check it out! ${url}`;
             break;
@@ -65,7 +66,7 @@ export class BlogJob extends BotJob {
             continue;
         }
 
-        const guild = this.bot.guilds.cache.get(this.bot.config?.guildId || "");
+        const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
         if (!guild) continue;
 
         const channel = guild.channels.cache.get(channelId || "");

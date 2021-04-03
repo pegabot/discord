@@ -6,9 +6,9 @@
 import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
+import { Bot } from "../classes/bot";
 import { BotCommand } from "../classes/command";
 import { LogModel } from "../models/log";
-import { BotType } from "../types/bot";
 import { BotExecption } from "../utils/BotExecption";
 import { cloneClass } from "../utils/cloneClass";
 import { findCommand } from "../utils/findCommand";
@@ -16,7 +16,7 @@ import { walkSync } from "../utils/walkSync";
 
 export class CommandHandler {
   cmds: Collection<string, BotCommand> = new Collection();
-  constructor(protected bot: BotType) {}
+  constructor(protected bot: Bot) {}
 
   get names() {
     return [...this.cmds.keys()];
@@ -72,54 +72,58 @@ export class CommandHandler {
     if (!error) {
       this.cmds.set(name.toLowerCase(), cmd);
     } else {
-      this.bot.logger?.error(error);
+      this.bot.logger.error(error);
     }
   }
 
   async handleCommand(msg: Message) {
-    const guild = this.bot.guilds.cache.get(this.bot.config?.guildId || "");
+    const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
     if (!guild) return;
 
     const { name } = guild;
 
-    if (!msg.guild && msg.author.id !== this.bot.user?.id && msg.content.includes(this.bot.config?.prefix || "")) {
+    if (!msg.guild && msg.author.id !== this.bot.client.user?.id && msg.content.includes(this.bot.config.prefix || "")) {
       msg.channel.send(`Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem **${name}** Server an :smile:`);
       return null;
     }
 
-    const args = msg.content.slice(this.bot.config?.prefix?.length).trim().split(" ");
+    const args = msg.content.slice(this.bot.config.prefix?.length).trim().split(" ");
     const base = args?.shift()?.toLowerCase();
 
     if (
       msg.mentions.users
         .array()
         .map((elt) => elt.id)
-        .includes(this.bot.user?.id || "")
+        .includes(this.bot.client.user?.id || "")
     ) {
-      await msg.react(this.bot.reactions?.hugReaction || "");
+      await msg.react(this.bot.reactions.hugReaction || "");
     }
 
-    if (!msg.content.startsWith(this.bot.config?.prefix || "")) return null;
+    if (!msg.content.startsWith(this.bot.config.prefix || "")) return null;
 
     if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
 
     const command = findCommand(this.cmds, base);
 
     if (command) {
+      interface C extends Omit<BotCommand, "bot"> {
+        bot: Bot | undefined;
+      }
       const entry = new LogModel();
-      const c: BotCommand = cloneClass(command);
+      const c: C = cloneClass(command);
       delete c.bot;
+
       entry.command = c;
       entry.author = JSON.parse(JSON.stringify(msg.author));
       entry.save();
 
       command.bot = this.bot;
 
-      if (this.bot.blacklist?.has(msg.author.id)) return null;
+      if (this.bot.blacklist.has(msg.author.id)) return null;
 
       if (
         command?.owner &&
-        !(this.bot.config?.ownerIds || "")
+        !(this.bot.config.ownerIds || "")
           .split(",")
           .map((elt) => elt.trim())
           .includes(msg.author.id)
@@ -129,11 +133,11 @@ export class CommandHandler {
 
       if (command?.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
-      if (command?.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config?.adminChannel) {
+      if (command.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         if (!command?.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.channel.join(`>, <#`)}>.`);
       }
 
-      if (command?.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config?.adminChannel) {
+      if (command.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime < command.unlock)
@@ -144,13 +148,13 @@ export class CommandHandler {
           );
       }
 
-      if (command?.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config?.adminChannel) {
+      if (command.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime > command.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
       }
 
-      if (command?.permissions && command.permissions.some((e: string) => !msg.member?.hasPermission(e as PermissionResolvable))) {
+      if (command.permissions && command.permissions.some((e: string) => !msg.member?.hasPermission(e as PermissionResolvable))) {
         return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
 
@@ -161,7 +165,7 @@ export class CommandHandler {
       }
 
       try {
-        msg.react(this.bot.reactions?.commandReaction || "");
+        msg.react(this.bot.reactions.commandReaction || "");
         await command?.execute(msg, args || []);
       } catch (e) {
         if (e instanceof BotExecption) {
@@ -171,9 +175,9 @@ export class CommandHandler {
             .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
             .addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
 
-          const channel = this.bot.channels.resolve(this.bot.config?.errorChannel || "");
+          const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
           if (!channel) return;
-          (channel as TextChannel).send(`<@&${this.bot.config?.engineerRole}>`, embed);
+          (channel as TextChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }
       }

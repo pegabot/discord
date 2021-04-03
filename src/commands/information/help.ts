@@ -16,16 +16,16 @@ export class HelpCommand extends BotCommand {
 
   execute(msg: Message, args: string[]): void {
     if (args.length === 0) {
-      const cmdsString = this.bot?.commands?.names
-        .filter((cmd) => !this.bot?.commands?.get(cmd)?.owner)
+      const cmdsString = this.bot.commands.names
+        .filter((cmd) => !this.bot.commands.get(cmd)?.owner)
         .filter((cmd) => {
-          const perms = this.bot?.commands?.get(cmd)?.permissions;
+          const perms = this.bot.commands.get(cmd)?.permissions;
           if (perms && !perms.every((e: any) => !msg.member?.hasPermission(e))) return true;
           if (!perms) return true;
           return false;
         })
         .filter((cmd) => {
-          const roles = this.bot?.commands?.get(cmd)?.roles;
+          const roles = this.bot.commands.get(cmd)?.roles;
           if (!roles) return true;
           const roleCheck = roles.some((e) => msg.member?.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
           if (roles && roleCheck) {
@@ -36,23 +36,23 @@ export class HelpCommand extends BotCommand {
         .sort()
         .map(
           (cmd) =>
-            `${this.bot?.commands?.get(cmd)?.disabled ? `${cmd} (deaktiviert)` : cmd}${
-              this.bot?.commands?.get(cmd)?.aliases ? ` (${this.bot?.commands?.get(cmd)?.aliases?.join(", ")})` : ""
+            `${this.bot.commands.get(cmd)?.disabled ? `${cmd} (deaktiviert)` : cmd}${
+              this.bot.commands.get(cmd)?.aliases ? ` (${this.bot.commands?.get(cmd)?.aliases?.join(", ")})` : ""
             }`,
         )
         .map((cmd) => `\`${cmd}\``)
         .join("\n");
       const embed = new MessageEmbed()
-        .setAuthor(this.bot?.user?.tag, this.bot?.user?.displayAvatarURL())
+        .setAuthor(this.bot.client.user?.tag, this.bot.client.user?.displayAvatarURL())
         .setTitle(`Commands für ${msg.guild?.name}`)
-        .setDescription(`**Tip:** verwende ${this.bot?.config?.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`)
-        .addField("Prefix", this.bot?.config?.prefix)
+        .setDescription(`**Tip:** verwende ${this.bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`)
+        .addField("Prefix", this.bot.config.prefix)
         .addField("Verfügbare Commands (Aliase)", cmdsString, true)
-        .setColor(this.bot?.colors?.blue || "");
+        .setColor(this.bot.colors?.blue || "");
 
       msg.channel.send(embed);
     } else if (args.length > 0) {
-      const command = findCommand(this.bot?.commands?.all, args[0]);
+      const command = findCommand(this.bot.commands?.all, args[0]);
       if (!command) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
       let { aliases, permissions, roles, usage, name, disabled, category, help } = command;
@@ -69,20 +69,20 @@ export class HelpCommand extends BotCommand {
       }
 
       if (Array.isArray(usage)) {
-        usage = usage.map((el) => this.bot?.config?.prefix + el).join("\n");
+        usage = usage.map((el) => this.bot.config.prefix + el).join("\n");
       } else {
-        usage = this.bot?.config?.prefix + usage;
+        usage = this.bot.config.prefix + usage;
       }
 
       const embed = new MessageEmbed()
-        .setAuthor(this.bot?.user?.tag, this.bot?.user?.displayAvatarURL())
-        .setTitle(`Hilfe für **${this.bot?.config?.prefix}${name} ${disabled ? " (deaktiviert)" : ""}**`)
+        .setAuthor(this.bot.client.user?.tag, this.bot.client.user?.displayAvatarURL())
+        .setTitle(`Hilfe für **${this.bot.config.prefix}${name} ${disabled ? " (deaktiviert)" : ""}**`)
         .addField("Verwendung(en)", usage, true)
         .addField("Kategorie", category, true)
         .addField("Aliase", aliases ? aliases.join(", ") : "keine", true)
         .addField("Berechtigungen", permissions ? permissions.join("\n") : "keine", true)
         .setDescription(help)
-        .setColor(this.bot?.colors?.blue || "");
+        .setColor(this.bot.colors?.blue || "");
 
       msg.channel.send(embed);
     }

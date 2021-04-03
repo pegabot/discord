@@ -31,7 +31,7 @@ export class guildMemberUpdateEvent extends BotEvent {
 
       const entries = await userGivenRolesModel.find({ userId: userId, roleId: roleId });
 
-      this.bot.logger?.admin_green(
+      this.bot.logger.admin_green(
         `:inbox_tray: Die Rolle <@&${roleAddLog?.changes[0].new[0].id}> wurde von ${executor} dem Benutzer ${target} gegeben. ${
           entries.length > 0 ? `Die Rolle wird in ${prettyMs(entries[0].expires - Date.now())} wieder entfernt.` : ""
         }`,
@@ -49,12 +49,12 @@ export class guildMemberUpdateEvent extends BotEvent {
       const { executor, target } = roleAddLog;
 
       if (!roleAddLog.changes) return;
-      this.bot.logger?.admin_red(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von ${executor} dem Benutzer ${target} genommen.`);
+      this.bot.logger.admin_red(`:inbox_tray: Die Rolle <@&${roleAddLog.changes[0].new[0].id}> wurde von ${executor} dem Benutzer ${target} genommen.`);
     }
 
     if (oldMember.nickname !== newMember.nickname) {
       newMember.nickname
-        ? this.bot.logger?.admin(
+        ? this.bot.logger.admin(
             new MessageEmbed()
               .setThumbnail(newMember.user.displayAvatarURL())
               .setDescription(`Der Anzeigename von ${oldMember} hat sich geändert!`)
@@ -62,7 +62,7 @@ export class guildMemberUpdateEvent extends BotEvent {
               .addField("Alter Anzeigename", oldMember.nickname ? oldMember.nickname : oldMember.user.username, true)
               .addField("Neuer Anzeigename", newMember.nickname, true),
           )
-        : this.bot.logger?.admin(
+        : this.bot.logger.admin(
             new MessageEmbed()
               .setThumbnail(newMember.user.displayAvatarURL())
               .setDescription(`Der Anzeigename von ${newMember} wurde entfernt!`)
@@ -71,11 +71,11 @@ export class guildMemberUpdateEvent extends BotEvent {
           );
     }
 
-    if (oldMember.user.avatar !== newMember.user.avatar) this.bot.logger?.admin_blue(`Das Profilbild von ${newMember} hat sich geändert!`);
+    if (oldMember.user.avatar !== newMember.user.avatar) this.bot.logger.admin_blue(`Das Profilbild von ${newMember} hat sich geändert!`);
 
-    if (oldMember.user.username !== newMember.user.username) this.bot.logger?.admin_blue(`${oldMember} neuer Benutzername ist ${newMember}!`);
+    if (oldMember.user.username !== newMember.user.username) this.bot.logger.admin_blue(`${oldMember} neuer Benutzername ist ${newMember}!`);
 
     if (oldMember.user.discriminator !== newMember.user.discriminator)
-      this.bot.logger?.admin_blue(`${newMember} neuer Diskriminator ist ${newMember.user.discriminator}!`);
+      this.bot.logger.admin_blue(`${newMember} neuer Diskriminator ist ${newMember.user.discriminator}!`);
   }
 }

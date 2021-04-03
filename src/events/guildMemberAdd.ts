@@ -55,7 +55,7 @@ export class guildMemberAddEvent extends BotEvent {
       .addField("Bot", member.user.bot ? "Bleep bxloop, ich bin ein Bot!" : "Dieser Benutzer ist kein Bot!", true)
       .addField(`Rollen [${size}]`, `\`${roles}\``);
 
-    const channel = this.bot.channels.resolve(this.bot.config?.welcomeChannel || "");
+    const channel = this.bot.client.channels.resolve(this.bot.config.welcomeChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(embed);
 
@@ -64,7 +64,7 @@ export class guildMemberAddEvent extends BotEvent {
 
     if (localTime > lockTime) return;
 
-    this.bot.users.cache?.get(member.user.id)?.send(
+    this.bot.client.users.cache?.get(member.user.id)?.send(
       stripIndents(`
 Willkommen bei der CONspiracy
 
