@@ -1727,13 +1727,6 @@ diff@^3.5.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
-discord-backup@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/discord-backup/-/discord-backup-2.4.1.tgz#28bea44e1369b5cb6358aafc2056f7d68067cafb"
-  integrity sha512-5Ii5MIyBvsHOW/IXjUJKn+8v6ntIGTxUDKOBMmRPphhg+ny9XJXN8e9RmRouX76M8ve8IFL2xIQjS2sNUm7ZeA==
-  dependencies:
-    discord.js "^12.5.1"
-
 discord-xp@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/discord-xp/-/discord-xp-1.1.8.tgz#626f914a217721a21b66cb6421d7028eae84985c"
@@ -1741,7 +1734,7 @@ discord-xp@^1.1.8:
   dependencies:
     mongoose "^5.11.11"
 
-discord.js@^12.5.1, discord.js@^12.5.2:
+discord.js@^12.5.2:
   version "12.5.2"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.5.2.tgz#7a81c39d11b56747656c60127709ee9dfa3119bf"
   integrity sha512-PAJv2azCHZNz5VlSOcEYS3SPBmYvka0WHlWhTlHgorfJVRcm1xPwYFqPeU+8+YsWlUxkfgGUD2bnNkVx6vIqPw==
