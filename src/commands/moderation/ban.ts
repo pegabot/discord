@@ -3,24 +3,27 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { resolveUser, BotExecption } = require("../../utils");
-const { MessageCollector } = require("discord.js");
+import { Message, MessageCollector, TextChannel } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { BotExecption } from "../../utils/BotExecption";
+import { resolveUser } from "../../utils/resolveUser";
 
-module.exports = {
-  name: "ban",
-  usage: "ban <user>",
-  help: "Bannt einen bestimmen Benutzer",
-  permissions: ["BAN_MEMBERS"],
-  execute: async (bot, msg, args) => {
-    if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum bannen!");
+export class BanCommand extends BotCommand {
+  name = "ban";
+  usage = "ban <user>";
+  help = "Bann einen bestimmten Benutzer";
+  permissions = ["BAN_MEMBERS"];
 
-    const user = resolveUser(msg, args.join(" "));
-    if (!user) throw new BotExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden`);
+  execute(msg: Message): void {
+    const target = msg.mentions.users.first() || msg.author;
+    const user = resolveUser(msg, target.username);
+    if (!user) throw new BotExecption(`Der Benutzer ${target} wurde nicht gefunden`);
+
     if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht bannen!`);
 
     if (user.bannable) {
       msg.channel.send("Was ist der Grund des Bannes?");
-      const collector = new MessageCollector(msg.channel, (m) => m.author === msg.author, { max: 1, time: 60000 });
+      const collector = new MessageCollector(msg.channel as TextChannel, (m) => m.author === msg.author, { max: 1, time: 60000 });
       collector.on("collect", async (m) => {
         await user.ban({ reason: m.content });
         msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich gebannt. Grund: \`${m.content}\``);
@@ -35,5 +38,5 @@ module.exports = {
     } else {
       throw new BotExecption("Der Benutzer konnte nicht gebannt werden!");
     }
-  },
-};
+  }
+}

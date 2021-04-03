@@ -3,15 +3,18 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { resolveUser, BotExecption } = require("../../utils");
-const { MessageCollector } = require("discord.js");
+import { Message, MessageCollector, TextChannel } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { BotExecption } from "../../utils/BotExecption";
+import { resolveUser } from "../../utils/resolveUser";
 
-module.exports = {
-  name: "kick",
-  usage: "kick <user>",
-  help: "Kickt einen spezifischen Benutzer",
-  permissions: ["KICK_MEMBERS"],
-  execute: async (bot, msg, args) => {
+export class KickCommand extends BotCommand {
+  name = "kick";
+  usage = "kick <user>";
+  help = "Kickt einen spezifischen Benutzer";
+  permissions = ["KICK_MEMBERS"];
+
+  async execute(msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum kicken.");
 
     const user = resolveUser(msg, args.join(" "));
@@ -20,14 +23,14 @@ module.exports = {
 
     if (user.kickable) {
       msg.channel.send("Was ist der Grund für den Kick?");
-      const collector = new MessageCollector(msg.channel, (m) => m.author === msg.author, { max: 1, time: 120000 });
-      await collector.on("collect", async (m) => {
+      const collector = new MessageCollector(msg.channel as TextChannel, (m) => m.author === msg.author, { max: 1, time: 120000 });
+      collector.on("collect", async (m) => {
         await user.kick(m.content);
         msg.channel.send(`Der Benutzer ${user.user.username} wurde erfolgreich gekickt. Grund: \`${m.content}\``);
         collector.stop();
       });
 
-      await collector.on("end", async (collected, reason) => {
+      collector.on("end", async (collected, reason) => {
         if (reason === "time") {
           msg.channel.send("Das Zeitfenster wurde nicht eingehalten.");
         }
@@ -35,5 +38,5 @@ module.exports = {
     } else {
       throw new BotExecption("Der Benutzer konnte nicht gekickt werden!");
     }
-  },
-};
+  }
+}
