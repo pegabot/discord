@@ -178,7 +178,7 @@ export class CommandHandler {
         }
       }
     } else {
-      msg.channel.send(`:x: Sorry, der Command ${base} wurde nicht gefunden.`);
+      msg.channel.send(`:x: Sorry, der Command \`${base}\` wurde nicht gefunden.`);
     }
   }
 }

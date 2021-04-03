@@ -623,6 +623,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/emoji-strip@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/emoji-strip/-/emoji-strip-1.0.0.tgz#988a40fb6a5a0f5c182b2b5d08a2d731b31174c2"
+  integrity sha512-u10CwsWUxAEz3T6aZQJinjv+Q47Bc9yiBrfaJAvtbTOnKdg1BdI8kuQjgc0kmBOdzYEpcE+1Jp6BZm2MVLv+pw==
+
 "@types/express-serve-static-core@^4.17.18":
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.19.tgz#00acfc1632e729acac4f1530e9e16f6dd1508a1d"
