@@ -9,7 +9,7 @@ import { setDefault } from "../utils/presence";
 export class ReadyEvent extends BotEvent {
   execute() {
     this.bot.commands.loadCommands();
-    this.bot.jobs?.loadJobs();
+    this.bot.jobs.loadJobs();
 
     const message = `${this.bot.client.user?.username}#${this.bot.client.user?.discriminator} ist ready!
       -------------------------------
