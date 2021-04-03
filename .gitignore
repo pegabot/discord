@@ -4,6 +4,7 @@ node_modules/
 quiz.json
 vouchers.json
 backups/
+build/
 
 #Appmetrics
 *.heapsnapshot
