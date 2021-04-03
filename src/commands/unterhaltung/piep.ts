@@ -3,22 +3,24 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { fetchWithTimeout } = require("./../../utils");
-const { MessageAttachment } = require("discord.js");
-const { Image, createCanvas, loadImage } = require("canvas");
-const emojiStrip = require("emoji-strip");
+import { createCanvas, Image } from "canvas";
+import { Message, MessageAttachment } from "discord.js";
+import emojiStrip from "emoji-strip";
+import { BotCommand } from "../../classes/command";
+import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
-module.exports = {
-  name: "piep",
-  usage: ["piep", "piep <text>"],
-  help: "Liefert ein zufälliges Vogelbild zurück.",
-  channel: ["718145438339039325"],
-  execute: async (bot, msg) => {
+export class className extends BotCommand {
+  name = "piep";
+  usage = ["piep", "piep <text>"];
+  help = "Liefert ein zufälliges Vogelbild zurück.";
+  channel = ["718145438339039325"];
+
+  async execute(msg: Message, args: string[]): Promise<void> {
     try {
-      const responseJson = await fetchWithTimeout(`http://shibe.online/api/birds`);
+      const responseJson: any = await fetchWithTimeout(`http://shibe.online/api/birds`);
       const json = await responseJson.json();
-      /* @type {Image} */
-      const img = await new Promise((resolve, reject) => {
+
+      const img: Image = await new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
           resolve(img);
@@ -32,7 +34,7 @@ module.exports = {
 
       const text = emojiStrip(msg.cleanContent)
         .replace(/[^a-üA-Ü0-9-_]/g, " ")
-        .slice(bot.config.prefix.length + 4)
+        .slice((this.bot?.config?.prefix?.length || 1) + 4)
         .trim()
         .split(" ")
         .filter((elt) => elt !== "")
@@ -44,10 +46,10 @@ module.exports = {
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 15;
-        const { width, emHeightAscent } = ctx.measureText(text);
+        const { width } = ctx.measureText(text);
         ctx.fillStyle = "black";
         const textX = (img.width - width) / 2;
-        const textY = img.height - (emHeightAscent + 20);
+        const textY = img.height - 20;
         ctx.fillText(text, textX, textY);
         ctx.strokeStyle = "white";
         ctx.strokeText(text, textX, textY);
@@ -57,5 +59,5 @@ module.exports = {
     } catch (e) {
       msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Vogelbilder für dich laden kann 🦜`);
     }
-  },
-};
+  }
+}
