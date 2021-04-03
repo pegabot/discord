@@ -3,21 +3,27 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption } = require("../../utils");
+import { Message } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { userGivenRolesModel } from "../../models/userGivenRoles";
+import { BotExecption } from "../../utils/BotExecption";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
-module.exports = {
-  name: "spontansuche",
-  usage: ["spontansuche"],
-  help: "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, mit welcher du dich als spontan spielfähig kennzeichnen kannst.",
-  execute: (bot, msg, args) => {
+export class SpontansucheCommand extends BotCommand {
+  name = "spontansuche";
+  usage = ["spontansuche"];
+  help = "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, mit welcher du dich als spontan spielfähig kennzeichnen kannst.";
+
+  execute(msg: Message): void {
     try {
       const { member } = msg;
-      const roleId = bot.config.playerSearchRole;
-      const userId = member.id;
+      if (!member) throw new BotExecption("Ein Fehler ist aufgetreten!");
 
-      const userGivenRolesModel = bot.db.model("userGivenRoles");
+      const roleId = this.bot?.config?.playerSearchRole;
+      if (!roleId) throw new BotExecption("Ein Fehler ist aufgetreten!");
+
+      const userId = member.id;
 
       if (member.roles.cache.has(roleId)) {
         member.roles.remove(roleId);
@@ -38,5 +44,5 @@ module.exports = {
     } catch (err) {
       throw new BotExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
     }
-  },
-};
+  }
+}

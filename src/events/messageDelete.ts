@@ -19,5 +19,7 @@ export class messageDeleteEvent extends BotEvent {
     const embed = new MessageEmbed()
       .setDescription(`Neue gelöschte Nachricht von ${message.member} in ${message.channel}`)
       .addField("Inhalt der gelöschten Nachricht", message.content ? message.content : "Diese Nachricht hatte keinen Inhalt.");
+
+    this.bot.logger?.admin(embed);
   }
 }

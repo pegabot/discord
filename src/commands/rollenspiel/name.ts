@@ -3,29 +3,33 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption } = require("../../utils");
+import { Message } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { BotExecption } from "../../utils/BotExecption";
 
-module.exports = {
-  name: "name",
-  usage: ["name <de/en/ww> <m/w>"],
-  help: "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.",
-  execute: (bot, msg, args) => {
+export class NameCommand extends BotCommand {
+  name = "name";
+  usage = ["name <de/en/ww> <m/w>"];
+  help = "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.";
+
+  execute(msg: Message, args: string[]): void {
     if (!["de", "en", "ww"].includes(args[0]))
-      throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
-    if (!["w", "m"].includes(args[1])) throw new BotExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${bot.config.prefix}help name für weitere Hilfe.`);
+      throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
+    if (!["w", "m"].includes(args[1]))
+      throw new BotExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
 
     const vornamen = args[1] === "w" ? namen[args[0]].weiblich : namen[args[0]].männlich;
-    const beinamen = namen[args[0]].beinamen;
+    const beinamen: string = namen[args[0]].beinamen;
 
     msg.channel.send(
       `Dein zufällig generierter Name lautet: **${vornamen[Math.floor(Math.random() * vornamen.length)]} ${
         beinamen[Math.floor(Math.random() * beinamen.length)]
       }**`,
     );
-  },
-};
+  }
+}
 
-const namen = {
+const namen: any = {
   de: {
     männlich: [
       "Achim",

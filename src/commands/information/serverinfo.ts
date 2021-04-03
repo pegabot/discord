@@ -3,17 +3,21 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { MessageEmbed } = require("discord.js");
+import { Message, MessageEmbed } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { BotExecption } from "../../utils/BotExecption";
 
-module.exports = {
-  name: "serverinfo",
-  help: "Server Informationen",
-  usage: "serverinfo",
-  execute: async (bot, message, args) => {
-    const guild = message.guild;
+export class ServerinfoCommand extends BotCommand {
+  name = "serverinfo";
+  help = "Server Informationen";
+  usage = "serverinfo";
+
+  execute(msg: Message): void {
+    const guild = msg.guild;
+    if (!guild) throw new BotExecption("Ein Fehler ist aufgetreten!");
 
     const embed = new MessageEmbed()
-      .setAuthor(guild.name, guild.iconURL())
+      .setAuthor(guild.name, guild?.iconURL() || "")
       .setTitle(`Infos über ${guild.name}`)
       .addField("Discord Partnerschaft?", guild.partnered ? "Ja" : "Nein", true)
       .addField("Region", guild.region, true)
@@ -32,6 +36,6 @@ module.exports = {
       .setFooter(`ID: ${guild.id} | Server erstellt:`)
       .setTimestamp(guild.createdAt);
 
-    message.channel.send(embed);
-  },
-};
+    msg.channel.send(embed);
+  }
+}
