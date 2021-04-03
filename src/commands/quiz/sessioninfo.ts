@@ -3,17 +3,21 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption, resolveUser } = require("../../utils");
-const { MessageEmbed } = require("discord.js");
+import { Message, MessageEmbed } from "discord.js";
+import bot from "../../bot";
+import { BotCommand } from "../../classes/command";
+import { SessionModel } from "../../models/session";
+import { BotExecption } from "../../utils/BotExecption";
+import { resolveUser } from "../../utils/resolveUser";
 
-module.exports = {
-  name: "sessioninfo",
-  usage: "sessioninfo <SessionId/ User>",
-  help: "Informationen zu einer Quiz-Session.",
-  admin: true,
-  execute: async (bot, msg, args) => {
+export class SessionInfoCommand extends BotCommand {
+  name = "sessioninfo";
+  usage = "sessioninfo <SessionId/ User>";
+  help = "Informationen zu einer Quiz-Session.";
+  admin = true;
+
+  async execute(msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) throw new BotExecption("Du musst eine SessionId oder einen Benutzer mit übergeben!");
-    const SessionModel = bot.db.model("session");
 
     let sessions;
 
@@ -27,7 +31,7 @@ module.exports = {
     } else {
       const sessionId = args[0];
 
-      if (!bot.db.Types.ObjectId.isValid(sessionId)) throw new BotExecption("Die übergebene SessionId ist nicht korrekt.");
+      if (!this.bot.db?.Types.ObjectId.isValid(sessionId)) throw new BotExecption("Die übergebene SessionId ist nicht korrekt.");
 
       sessions = await SessionModel.find({ _id: sessionId });
       if (sessions.length < 1) throw new BotExecption(`Die Session mit der Id ${sessionId} existiert nicht.`);
@@ -40,9 +44,9 @@ module.exports = {
         .setColor(
           session.status === "error" ? bot.colors.red : session.status === "stale" ? bot.colors.babyblue : session.won ? bot.colors.green : bot.colors.orange,
         )
-        .setAuthor(member.user.tag, member.user.displayAvatarURL())
+        .setAuthor(member?.user.tag, member?.user.displayAvatarURL())
         .setTitle(`Informationen zur Session ${session._id}`)
-        .addField("Benutzername", member.user.username, true)
+        .addField("Benutzername", member?.user.username, true)
         .addField("Zeitstempel", new Date(session.date).toLocaleString("de-DE"), true)
         .addField(`Quizset`, session.quiz ? session.quiz.name : "***Kein Quiz geladen***", true)
         .addField("Status", session.status, true)
@@ -52,5 +56,5 @@ module.exports = {
 
       msg.channel.send(embed);
     }
-  },
-};
+  }
+}

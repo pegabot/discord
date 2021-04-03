@@ -3,26 +3,28 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption, stripIndents } = require("../../utils");
-const { MessageEmbed } = require("discord.js");
-const prettyMs = require("pretty-ms");
+import { Message, MessageEmbed, MessageReaction, User } from "discord.js";
+import prettyMs from "pretty-ms";
+import bot from "../../bot";
+import { BotCommand } from "../../classes/command";
+import { IFrage } from "../../models/frage";
+import { QuizModel } from "../../models/quiz";
+import { SessionModel } from "../../models/session";
+import { VoucherModel } from "../../models/voucher";
+import { BotExecption } from "../../utils/BotExecption";
+import { stripIndents } from "../../utils/stripIndents";
 
 const QuizName = "CONspiracy V";
 const AnzahlFragen = 3;
 const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
-module.exports = {
-  name: "quiz",
-  usage: "quiz",
-  help: "Das Quiz zur CONspiracy IV.",
-  unlock: 1616749200000, // Freitag, 26. März 2021 10:00:00 GMT+01:00 https://www.epochconverter.com
-  lock: 1616968799000, // Sonntag, 28. März 2021 23:59:59 GMT+02:00 https://www.epochconverter.com,
-  channel: ["822130448808411179"],
-  execute: async (bot, msg) => {
-    const SessionModel = bot.db.model("session");
-    const VoucherModel = bot.db.model("voucher");
-    const QuizModel = bot.db.model("quiz");
+export class QuizCommand extends BotCommand {
+  name = "quiz";
+  usage = "quiz";
+  help = "Das Quiz zur CONspiracy IV.";
+  admin = true;
 
+  async execute(msg: Message): Promise<void> {
     const newSession = new SessionModel();
     newSession.userId = msg.author.id;
     newSession.status = "in progress";
@@ -46,7 +48,7 @@ module.exports = {
 
     const closedSessions = await SessionModel.find({ userId: newSession.userId, won: true, status: "closed", "quiz.name": QuizName });
     if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-      return msg.author.send(
+      msg.author.send(
         stripIndents(`
         Es sieht so aus, als hättest du bereits erfolgreich an unserem Geek Quiz teilgenommen und einen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ erhalten. 
         
@@ -59,6 +61,7 @@ module.exports = {
         Dein Pegabot :robot:
         `),
       );
+      return;
     }
 
     const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
@@ -69,13 +72,13 @@ module.exports = {
     newSession.expires = Number(Date.now()) + expiresInterval;
     newSession.save();
 
-    const filter = (reaction, user) =>
+    const filter = (reaction: MessageReaction, user: User) =>
       (reaction.emoji.name === "🇦" || reaction.emoji.name === "🇧" || reaction.emoji.name === "🇨") && user.id === msg.author.id;
 
     let winning = true;
     let counter = 0;
 
-    let falscheAntworten = [];
+    let falscheAntworten: IFrage[] = [];
 
     try {
       msg.author.send(
@@ -188,5 +191,5 @@ module.exports = {
         throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
       throw new Error(error);
     }
-  },
-};
+  }
+}

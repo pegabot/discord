@@ -3,17 +3,20 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-const { BotExecption, resolveUser } = require("../../utils");
+import { Message } from "discord.js";
+import { BotCommand } from "../../classes/command";
+import { SessionModel } from "../../models/session";
+import { BotExecption } from "../../utils/BotExecption";
+import { resolveUser } from "../../utils/resolveUser";
 
-module.exports = {
-  name: "sessionreset",
-  usage: "sessionreset <SessionId/ User>",
-  help: "Löschen von Sessions.",
-  admin: true,
-  execute: async (bot, msg, args) => {
+export class SessionResetCommand extends BotCommand {
+  name = "sessionreset";
+  usage = "sessionreset <SessionId/ User>";
+  help = "Löschen von Sessions.";
+  admin = true;
+
+  async execute(msg: Message, args: string[]): Promise<void> {
     if (args.length < 1) throw new BotExecption("Du musst eine SessionId oder einen Benutzer mit übergeben!");
-
-    const SessionModel = bot.db.model("session");
 
     let sessions;
 
@@ -32,7 +35,7 @@ module.exports = {
     } else {
       const sessionId = args[0];
 
-      if (!bot.db.Types.ObjectId.isValid(sessionId)) throw new BotExecption("Die übergebene SessionId ist nicht korrekt.");
+      if (!this.bot.db?.Types.ObjectId.isValid(sessionId)) throw new BotExecption("Die übergebene SessionId ist nicht korrekt.");
 
       sessions = await SessionModel.find({ _id: sessionId });
       if (sessions.length < 1) throw new BotExecption(`Die Session mit der Id ${sessionId} existiert nicht.`);
@@ -41,5 +44,5 @@ module.exports = {
       msg.channel.send(`Lösche Session ${session._id}`);
       session.remove();
     }
-  },
-};
+  }
+}
