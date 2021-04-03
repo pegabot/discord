@@ -3,11 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { Collection, GuildMember, MessageEmbed, Role, TextChannel } from "discord.js";
-import { BotEvent } from "../classes/event";
-
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
+import { Collection, GuildMember, MessageEmbed, Role, TextChannel } from "discord.js";
+import { BotEvent } from "../classes/event";
 import { stripIndents } from "../utils/stripIndents";
 
 export class guildMemberAddEvent extends BotEvent {

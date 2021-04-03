@@ -3,9 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import gitDiff from "git-diff";
-
 import { Message, MessageEmbed } from "discord.js";
+import gitDiff from "git-diff";
 import { BotEvent } from "../classes/event";
 
 export class messageUpdateEvent extends BotEvent {

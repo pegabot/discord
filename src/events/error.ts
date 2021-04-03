@@ -7,9 +7,7 @@ import { MessageEmbed, TextChannel } from "discord.js";
 import { BotEvent } from "../classes/event";
 
 export class errorEvent extends BotEvent {
-  execute(error: any): void {
-    if (error.partial) return;
-
+  execute(error: Error): void {
     const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: ${error}`);
 
     const channel = this.bot.channels.resolve(this.bot.config?.errorChannel || "");
