@@ -3,13 +3,18 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, Schema } from "mongoose";
-import { FrageSchema } from "./frage";
+import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
+import { FrageSchema, IFrage } from "./frage";
+
+export interface IQuiz extends Document {
+  name: string;
+  fragen: IFrage[];
+}
 
 export const QuizSchema = new Schema({
   name: String,
   fragen: [FrageSchema],
 });
 
-export const QuizModel = setModel(path.basename(__filename).split(".js")[0], QuizSchema);
+export const QuizModel = setModel<IQuiz>(path.basename(__filename).split(".js")[0], QuizSchema);

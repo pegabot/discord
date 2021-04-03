@@ -4,7 +4,7 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Error } from "mongoose";
+import { CallbackError } from "mongoose";
 import Twit from "twit";
 import { BotJob } from "../classes/job";
 import { TweetModel } from "../models/tweet";
@@ -54,7 +54,7 @@ export class twitterJob extends BotJob {
           Tweet.username = tweet.user.screen_name;
           Tweet.url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
           Tweet.retweet = tweet.retweeted_status !== undefined;
-          Tweet.save((error: Error) => {
+          Tweet.save((error: CallbackError) => {
             if (error) {
               return;
             }

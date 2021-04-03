@@ -3,8 +3,14 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, Schema} from "mongoose";
+import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
+
+export interface IVoucher extends Document {
+  code: string;
+  used: boolean;
+  _session: Schema.Types.ObjectId;
+}
 
 export const VoucherSchema = new Schema({
   code: String,
@@ -12,4 +18,4 @@ export const VoucherSchema = new Schema({
   _session: { type: Schema.Types.ObjectId, ref: "session" },
 });
 
-export const VoucherModel = setModel(path.basename(__filename).split(".js")[0], VoucherSchema);
+export const VoucherModel = setModel<IVoucher>(path.basename(__filename).split(".js")[0], VoucherSchema);

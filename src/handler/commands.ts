@@ -8,7 +8,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
 import { BotCommand } from "../classes/command";
-import { LogModel } from "../models/log";
+import { ILogCommand, LogModel } from "../models/log";
 import { BotExecption } from "../utils/BotExecption";
 import { cloneClass } from "../utils/cloneClass";
 import { findCommand } from "../utils/findCommand";
@@ -106,11 +106,8 @@ export class CommandHandler {
     const command = findCommand(this.cmds, base);
 
     if (command) {
-      interface C extends Omit<BotCommand, "bot"> {
-        bot: Bot | undefined;
-      }
       const entry = new LogModel();
-      const c: C = cloneClass(command);
+      const c: ILogCommand = cloneClass(command);
       delete c.bot;
 
       entry.command = c;

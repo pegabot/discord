@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 import { BotEvent } from "../classes/event";
 import { MessageModel } from "../models/message";
 
@@ -34,7 +34,7 @@ export class MessageEvent extends BotEvent {
       const messageToSave = new MessageModel();
       messageToSave.message = JSON.parse(JSON.stringify(message));
       messageToSave.author = JSON.parse(JSON.stringify(message.author));
-      messageToSave.channel = JSON.parse(JSON.stringify(message.channel));
+      messageToSave.channel = JSON.parse(JSON.stringify(message.channel as TextChannel));
       messageToSave.save();
 
       const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30

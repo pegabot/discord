@@ -3,8 +3,16 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, Schema } from "mongoose";
+import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
+
+export interface ITweet extends Document {
+  created: Date;
+  id: string;
+  username: string;
+  url: string;
+  retweet: boolean;
+}
 
 const TweetSchema = new Schema({
   created: Date,
@@ -14,4 +22,4 @@ const TweetSchema = new Schema({
   retweet: Boolean,
 });
 
-export const TweetModel = setModel(path.basename(__filename).split(".js")[0], TweetSchema);
+export const TweetModel = setModel<ITweet>(path.basename(__filename).split(".js")[0], TweetSchema);

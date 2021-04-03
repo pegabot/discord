@@ -3,8 +3,15 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, Schema } from "mongoose";
+import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
+
+export interface IBlogPost extends Document {
+  created: number;
+  blogPost_id: string;
+  url: string;
+  raw: Object;
+}
 
 const BlogPostSchema = new Schema({
   created: { type: Number, default: Date.now },
@@ -13,4 +20,4 @@ const BlogPostSchema = new Schema({
   raw: Object,
 });
 
-export const BlogPostModel = setModel(path.basename(__filename).split(".js")[0], BlogPostSchema);
+export const BlogPostModel = setModel<IBlogPost>(path.basename(__filename).split(".js")[0], BlogPostSchema);

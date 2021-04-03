@@ -5,6 +5,13 @@
 
 import { Schema } from "mongoose";
 
+export interface IFrage {
+  frage: string;
+  antworten: string[];
+  richtig: number;
+  eingabe?: number;
+}
+
 export const FrageSchema = new Schema({
   frage: String,
   antworten: [String],

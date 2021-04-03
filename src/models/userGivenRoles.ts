@@ -3,8 +3,14 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, Schema } from "mongoose";
+import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
+
+export interface IuserGivenRoles extends Document {
+  expires: number;
+  userId: string;
+  roleId: string;
+}
 
 const userGivenRolesSchema = new Schema({
   expires: { type: Number },
@@ -12,4 +18,4 @@ const userGivenRolesSchema = new Schema({
   roleId: String,
 });
 
-export const userGivenRolesModel = setModel(path.basename(__filename).split(".js")[0], userGivenRolesSchema);
+export const userGivenRolesModel = setModel<IuserGivenRoles>(path.basename(__filename).split(".js")[0], userGivenRolesSchema);

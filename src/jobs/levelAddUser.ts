@@ -15,6 +15,7 @@ export class LevelAddUserJob extends BotJob {
       if (error) return;
       entries.forEach(async (entry) => {
         const user = await this.bot.client.users.fetch(entry.userID);
+        if (!user) return;
         entry.user = JSON.parse(JSON.stringify(user));
         entry.save();
       });
