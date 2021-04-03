@@ -11,7 +11,7 @@ export class ResetRolesJob extends BotJob {
   name = "Rollen zurücksetzen";
   interval = 20000;
 
-  async execute(): Promise<void> {
+  execute(): void {
     userGivenRolesModel.find({ expires: { $lt: Date.now() } }, (error, entries) => {
       if (error) return;
 

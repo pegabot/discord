@@ -15,7 +15,8 @@ export class TrelloReminderJob extends BotJob {
   interval = 30000;
 
   trello: any;
-  async setup(): Promise<void> {
+
+  setup(): void {
     this.trello = new Trello(this.bot.config?.TRELLO_KEY, this.bot.config?.TRELLO_TOKEN);
   }
 

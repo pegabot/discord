@@ -17,7 +17,7 @@ export class twitterJob extends BotJob {
   name = "Checke auf neue Tweets";
   interval = 20000;
 
-  async setup(): Promise<void> {
+  setup(): void {
     twitter = new Twit({
       consumer_key: this.bot.config?.TWITTER_CONSUMER_KEY || "",
       consumer_secret: this.bot.config?.TWITTER_CONSUMER_SECRET || "",
@@ -26,7 +26,7 @@ export class twitterJob extends BotJob {
     });
   }
 
-  async execute(): Promise<void> {
+  execute(): void {
     twitter.get("search/tweets", { q: `from:${TWITTER_USER.join(" OR ")}` }, async (error, data: any, response) => {
       if (error) return;
 

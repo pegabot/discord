@@ -16,10 +16,11 @@ export class YouTubeJob extends BotJob {
   YouTubeClient: any;
   YouTubeChannels?: string[];
 
-  async setup(): Promise<void> {
+  setup(): void {
     this.YouTubeClient = new Youtube(this.bot.config?.YOUTUBE_KEY);
     this.YouTubeChannels = (this.bot.config?.YOUTUBE_CHANNELS || "").split(",").filter((elt) => elt !== "");
   }
+
   async execute(): Promise<void> {
     try {
       for (const YoutTubeChannel of this.YouTubeChannels || []) {

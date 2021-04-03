@@ -10,7 +10,7 @@ export class LevelAddUserJob extends BotJob {
   name = "Füge Mitglieder zu Level Dokumenten hinzu";
   interval = 60000;
 
-  async execute(): Promise<void> {
+  execute(): void {
     LevelModel.find({ user: { $exists: false } }, (error, entries) => {
       if (error) return;
       entries.forEach(async (entry) => {

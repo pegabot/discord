@@ -12,7 +12,7 @@ export class ResetSessionJob extends BotJob {
   env = "sessionreset";
   interval = 20000;
 
-  async setup(): Promise<void> {
+  setup(): void {
     SessionModel.find({ status: "in progress" }, (error, sessions) => {
       if (sessions.length === 0) return;
 
@@ -23,7 +23,8 @@ export class ResetSessionJob extends BotJob {
       }
     });
   }
-  async execute(): Promise<void> {
+
+  execute(): void {
     SessionModel.find({ status: "in progress", expires: { $lt: Date.now() } }, (error, sessions) => {
       if (sessions.length === 0) return;
 

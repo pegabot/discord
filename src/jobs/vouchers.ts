@@ -13,7 +13,7 @@ export class VoucherJob extends BotJob {
   env = "voucher";
   interval = 20000;
 
-  async execute(): Promise<void> {
+  execute(): void {
     SessionModel.find({ status: "closed", won: true, shipped: false }, (error, sessions) => {
       if (sessions.length === 0) return;
 
