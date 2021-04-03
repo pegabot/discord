@@ -7,4 +7,5 @@ export const ChannelTypes = new Map([
   ["category", "Die Kategorie"],
   ["text", "Der Textkanal"],
   ["voice", "Der Sprachkanal"],
+  ["news", "Der Newskanal"],
 ]);

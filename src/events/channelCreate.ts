@@ -9,7 +9,7 @@ import { ChannelTypes } from "../utils/ChannelTypes";
 
 export class channelCreateEvent extends BotEvent {
   execute(channel: DMChannel | GuildChannel): void {
-    if (typeof channel === typeof DMChannel) return;
+    if (!ChannelTypes.has(channel.type)) return;
 
     this.bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde erstellt**.`);
   }
