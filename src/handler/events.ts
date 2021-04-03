@@ -3,11 +3,11 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { Collection } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
-import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } from "discord.js";
-import { BotType } from "../types/bot";
 import { BotEvent } from "../classes/event";
+import { BotType } from "../types/bot";
 
 export class EventHandler {
   events: Collection<string, BotEvent> = new Collection();

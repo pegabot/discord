@@ -3,10 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { model as setModel, connect, Schema } from "mongoose";
-import * as fs from "fs";
-import * as path from "path";
 import { Collection } from "discord.js";
+import * as fs from "fs";
+import { connect, Schema } from "mongoose";
+import * as path from "path";
 
 export class MongoConnector {
   connection: typeof import("mongoose") | undefined;

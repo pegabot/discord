@@ -3,18 +3,17 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotJob } from "../classes/job";
-
-import Twit from "twit";
-import { TweetModel } from "../models/tweet";
-import { Error } from "mongoose";
 import { TextChannel } from "discord.js";
+import { Error } from "mongoose";
+import Twit from "twit";
+import { BotJob } from "../classes/job";
+import { TweetModel } from "../models/tweet";
 
 const TWITTER_USER = ["pegasusspiele", "GRT2014"];
 
 let twitter: Twit;
 
-export class TwitterJob extends BotJob {
+export class twitterJob extends BotJob {
   name = "Checke auf neue Tweets";
   interval = 20000;
 

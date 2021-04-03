@@ -4,12 +4,11 @@
  */
 
 import { Collection } from "discord.js";
-import { BotJob } from "../classes/job";
-import { BotType } from "../types/bot";
-
 import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
+import { BotJob } from "../classes/job";
+import { BotType } from "../types/bot";
 
 export class JobHandler {
   jobs: Collection<string, BotJob> = new Collection();

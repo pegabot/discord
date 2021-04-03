@@ -3,8 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { MessageEmbed, TextChannel } from "discord.js";
 import { BotType } from "../types/bot";
-import { TextChannel, MessageEmbed } from "discord.js";
 import { stripIndents } from "../utils/stripIndents";
 
 export class LogHandler {

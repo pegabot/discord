@@ -3,9 +3,9 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { ChatClient } from "dank-twitch-irc";
 import { BotJob } from "../classes/job";
 
-import { ChatClient } from "dank-twitch-irc";
 const twitchClient = new ChatClient({});
 
 const connect = async () => {

@@ -7,7 +7,7 @@ import { Guild, GuildMember } from "discord.js";
 import { BotJob } from "../classes/job";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
-export class className extends BotJob {
+export class ResetRolesJob extends BotJob {
   name = "Rollen zurücksetzen";
   interval = 20000;
 

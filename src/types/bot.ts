@@ -4,7 +4,7 @@
  */
 
 import { ChatClient } from "dank-twitch-irc";
-import { Collection, Client } from "discord.js";
+import { Client, Collection } from "discord.js";
 import { CommandHandler } from "../handler/commands";
 import { MongoConnector } from "../handler/database";
 import { EventHandler } from "../handler/events";

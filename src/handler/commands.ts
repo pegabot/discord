@@ -3,16 +3,15 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
-import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } from "discord.js";
-
-import { walkSync } from "../utils/walkSync";
-import { BotType } from "../types/bot";
-import { findCommand } from "../utils/findCommand";
-import { BotExecption } from "../utils/BotExecption";
-import { LogModel } from "../models/log";
 import { BotCommand } from "../classes/command";
+import { LogModel } from "../models/log";
+import { BotType } from "../types/bot";
+import { BotExecption } from "../utils/BotExecption";
+import { findCommand } from "../utils/findCommand";
+import { walkSync } from "../utils/walkSync";
 
 export class CommandHandler {
   cmds: Collection<string, BotCommand> = new Collection();

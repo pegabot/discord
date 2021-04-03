@@ -4,10 +4,10 @@
  */
 
 import { config } from "dotenv";
+import express from "express";
+import * as path from "path";
 config();
 
-import * as path from "path";
-import express from "express";
 const app = express();
 
 app.get("/", (_: express.Request, res: express.Response) => {
