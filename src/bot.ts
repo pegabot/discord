@@ -12,6 +12,10 @@ const bot = new Bot();
 
 bot.client.login(bot.config.apiToken);
 
+process.on("unhandledRejection", (error) => {
+  bot.client.emit("error", new Error(JSON.stringify(error)));
+});
+
 process.on("SIGTERM", () => {
   console.info("SIGTERM signal received.");
 
