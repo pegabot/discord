@@ -21,6 +21,10 @@ export class EventHandler {
     return this.events.size;
   }
 
+  get all() {
+    return this.events;
+  }
+
   get(event: string): BotEvent | undefined {
     return this.events.get(event);
   }

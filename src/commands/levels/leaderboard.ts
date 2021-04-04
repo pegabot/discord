@@ -10,7 +10,7 @@ import { generateLeaderboardCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class LeaderBoardCommand extends BotCommand {
-  name = "Leaderboard";
+  name = "leaderboard";
   aliases = ["leader", "rangliste"];
   usage = ["leaderboard"];
   help = "Gibt das aktuelle Leaderboard aus.";

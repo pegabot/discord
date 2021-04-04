@@ -34,5 +34,10 @@
       "}}"
     ],
     "description": "Generate a Bot Command."
+  },
+  "Header": {
+    "prefix": ["Header"],
+    "body": "/*\n * Copyright (c) 2020 - 2021 The Pegabot authors\n * This code is licensed under MIT license (see LICENSE for details)\n */",
+    "description": "The header for the pegabot source code files."
   }
 }

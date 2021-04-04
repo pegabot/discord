@@ -22,6 +22,10 @@ export class JobHandler {
     return this.jobs.size;
   }
 
+  get all() {
+    return this.jobs;
+  }
+
   get(job: string): BotJob | undefined {
     return this.jobs.get(job);
   }

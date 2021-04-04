@@ -3,8 +3,8 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotCommand } from "../../classes/command";
 import { Message } from "discord.js";
+import { BotCommand } from "../../classes/command";
 
 export class RestartCommand extends BotCommand {
   name = "restart";
