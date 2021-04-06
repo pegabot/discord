@@ -9,8 +9,7 @@ Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://p
  
 ## Releases
  
-Die Pegabot Version auf dem CONspiracy Discord Server entspricht immer dem `main` Branch. Wir veröffentlichen zu jeder größeren Online-Veranstaltung von Pegasus Spiele einen Minor-Release, welcher dann alle neuen Funktionen und Bug-Fixes beinhaltet. 
-
+Die Pegabot Version auf dem CONspiracy Discord Server entspricht immer dem aktuellsten Release, der Bot wird in Production deployed, wenn ein neuer Release erstellt wird.
 ## Autoren ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
