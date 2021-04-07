@@ -1732,10 +1732,10 @@ diff@^3.5.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
-discord-xp@^1.1.11:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/discord-xp/-/discord-xp-1.1.11.tgz#bcb6858d65ee67e60c54c355afeea92a8d34068f"
-  integrity sha512-JPuuwX/M4SHX/0SGwCY90rYH4Th4xg1fqUrIkafN/jKvuvQkeSo0zVKARxQU1RsJ5rLCt6ajwPRfGUXrlPd7Qg==
+discord-xp@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/discord-xp/-/discord-xp-1.1.13.tgz#b2191bf9ff5a7df0fb28aa539d945737980fd628"
+  integrity sha512-1xbU9sFd2bXgWpgSDWPqTC1Mx7c4dHDuBqs7F45z62WsnJn2mLL7VLOSN+lgEmoMyfA+dYFl8SI2SzRYdIeEYg==
   dependencies:
     mongoose "^5.11.11"
 
