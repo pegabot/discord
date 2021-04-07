@@ -27,8 +27,8 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
     const userData = leaderboard[i].userData;
     const user: GuildMember = leaderboard[i].user;
 
-    const xpToNextLevel = Number(Levels.xpFor(userData.level + 1));
-    const xpForCurrentLevel = userData.level === 0 ? 0 : Number(Levels.xpFor(userData.level));
+    const xpToNextLevel = Levels.xpFor(userData.level + 1);
+    const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
     const xpLevelDif = Math.abs(xpToNextLevel - xpForCurrentLevel);
     const xpProgress = Math.abs(userData.xp - xpForCurrentLevel);
     const percentDone = xpProgress / xpLevelDif;

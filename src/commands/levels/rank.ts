@@ -31,7 +31,7 @@ export class LeaderBoardCommand extends BotCommand {
 
     LevelModel.find({}, async (error, data) => {
       const sorted = data.sort((a, b) => b.xp - a.xp);
-      let rank = sorted.findIndex((entry) => entry.userID === user?.user.id) + 1;
+      const rank = sorted.findIndex((entry) => entry.userID === user?.user.id) + 1;
       if (rank === 0) rank = sorted.length + 1;
       const rankCard = await generateRankCard({ level: userData.level, xp: userData.xp, rank: rank }, user);
       const attachment = new MessageAttachment(rankCard.toBuffer(), "card.png");
