@@ -3,7 +3,6 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { Error } from "mongoose";
 import { Bot } from "./classes/bot";
 import { server } from "./server/server";
 
