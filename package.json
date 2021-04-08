@@ -27,7 +27,7 @@
     "bent": "^7.3.12",
     "canvas": "^2.7.0",
     "dank-twitch-irc": "^4.3.0",
-    "date-fns": "^2.19.0",
+    "date-fns": "^2.20.0",
     "discord-xp": "^1.1.13",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
