@@ -8,7 +8,7 @@ import { BotEvent } from "../classes/event";
 
 export class errorEvent extends BotEvent {
   execute(error: Error): void {
-    const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: ${error}`);
+    const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.stack)}\``);
 
     this.bot.logger.admin_error_embed(embed);
   }

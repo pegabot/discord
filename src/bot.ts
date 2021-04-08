@@ -3,6 +3,7 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import { Error } from "mongoose";
 import { Bot } from "./classes/bot";
 import { server } from "./server/server";
 
@@ -12,8 +13,8 @@ const bot = new Bot();
 
 bot.client.login(bot.config.apiToken);
 
-process.on("unhandledRejection", (error) => {
-  bot.client.emit("error", new Error(JSON.stringify(error)));
+process.on("unhandledRejection", (error: Error) => {
+  bot.client.emit("error", error);
 });
 
 process.on("SIGTERM", () => {
