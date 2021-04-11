@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 - 2021 The Pegabot authors
+ * This code is licensed under MIT license (see LICENSE for details)
+ */
+
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: string;
