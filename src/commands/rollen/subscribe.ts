@@ -4,10 +4,10 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 
-export class SubscribeCommand extends BotCommand {
+export class SubscribeCommand extends Command {
   name = "subscribe";
   usage = ["subscribe"];
   help = "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, welche verwendet wird, um dich bei Neuigkeiten zu informieren.";

@@ -4,13 +4,13 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { userGivenRolesModel } from "../../models/userGivenRoles";
 import { BotExecption } from "../../utils/BotExecption";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
-export class SpontansucheCommand extends BotCommand {
+export class SpontansucheCommand extends Command {
   name = "spontansuche";
   usage = ["spontansuche"];
   help = "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, mit welcher du dich als spontan spielfähig kennzeichnen kannst.";

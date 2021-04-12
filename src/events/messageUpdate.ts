@@ -5,9 +5,9 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import gitDiff from "git-diff";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class messageUpdateEvent extends BotEvent {
+export class messageUpdateEvent extends Event {
   async execute(oldMessage: Message, newMessage: Message): Promise<void> {
     if (oldMessage.partial) return;
     if (newMessage.partial) return;

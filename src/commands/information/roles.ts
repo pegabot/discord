@@ -4,9 +4,9 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 
-export class RolesCommand extends BotCommand {
+export class RolesCommand extends Command {
   name = "roles";
   aliases = ["rollen"];
   help = "Zeige alle Rollen des Server an";

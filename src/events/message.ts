@@ -5,10 +5,10 @@
 
 import Levels from "discord-xp";
 import { Message, TextChannel } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { MessageModel } from "../models/message";
 
-export class MessageEvent extends BotEvent {
+export class MessageEvent extends Event {
   async execute(message: Message): Promise<void> {
     if (message.partial) return;
 

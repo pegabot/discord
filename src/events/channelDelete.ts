@@ -4,10 +4,10 @@
  */
 
 import { DMChannel, GuildChannel } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { ChannelTypes } from "../utils/ChannelTypes";
 
-export class channelDeleteEvent extends BotEvent {
+export class channelDeleteEvent extends Event {
   execute(channel: DMChannel | GuildChannel): void {
     if (typeof channel === typeof DMChannel) return;
 

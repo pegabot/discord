@@ -4,10 +4,10 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { stripIndents } from "../../utils/stripIndents";
 
-export class CommandsCommand extends BotCommand {
+export class CommandsCommand extends Command {
   name = "commands";
   usage = "commands";
   help = "Zeigt alle aktivierten Commands an";

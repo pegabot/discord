@@ -3,11 +3,11 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { SessionModel } from "../models/session";
 import { stripIndents } from "../utils/stripIndents";
 
-export class ResetSessionJob extends BotJob {
+export class ResetSessionJob extends Job {
   name = "Session zurücksetzen";
   env = "sessionreset";
   interval = 20000;

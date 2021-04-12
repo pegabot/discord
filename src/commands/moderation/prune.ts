@@ -4,10 +4,10 @@
  */
 
 import { Message, TextChannel } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 
-export class PruneCommand extends BotCommand {
+export class PruneCommand extends Command {
   name = "prune";
   usage = "prune <Anzahl der zu löschenden Nachrichten>";
   help = "Löscht eine gewisse Anzahl an Nachrichten";

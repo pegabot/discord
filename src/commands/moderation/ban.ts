@@ -4,11 +4,11 @@
  */
 
 import { Message, MessageCollector, TextChannel } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class BanCommand extends BotCommand {
+export class BanCommand extends Command {
   name = "ban";
   usage = "ban <user>";
   help = "Bann einen bestimmten Benutzer";

@@ -5,13 +5,13 @@
 
 import Levels from "discord-xp";
 import { Message, MessageAttachment } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { LevelModel } from "../../models/levels";
 import { BotExecption } from "../../utils/BotExecption";
 import { generateRankCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class LeaderBoardCommand extends BotCommand {
+export class LeaderBoardCommand extends Command {
   name = "rank";
   aliases = ["rang"];
   usage = ["rank", "rank <user>"];

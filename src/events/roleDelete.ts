@@ -4,9 +4,9 @@
  */
 
 import { Role } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class roleDeleteEvent extends BotEvent {
+export class roleDeleteEvent extends Event {
   execute(role: Role): void {
     this.bot.logger.admin_red(`:inbox_tray: Die Rolle: \`${role.name}\` **wurde gelöscht**.`, `ID: ${role.id}`);
   }

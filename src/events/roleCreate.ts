@@ -4,9 +4,9 @@
  */
 
 import { Role } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class roleCreateEvent extends BotEvent {
+export class roleCreateEvent extends Event {
   execute(role: Role): void {
     this.bot.logger.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);
   }

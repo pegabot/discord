@@ -4,12 +4,12 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { SessionModel } from "../../models/session";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class SessionResetCommand extends BotCommand {
+export class SessionResetCommand extends Command {
   name = "sessionreset";
   usage = "sessionreset <SessionId/ User>";
   help = "Löschen von Sessions.";

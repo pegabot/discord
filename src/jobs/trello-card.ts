@@ -4,13 +4,13 @@
  */
 
 import { CategoryChannel, TextChannel } from "discord.js";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { TrelloCardModel } from "../models/trelloCard";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../../lib/trello/main");
 
-export class TrelloCardJob extends BotJob {
+export class TrelloCardJob extends Job {
   name = "Trello Runden in den Rundenaushang schicken";
   env = "trello";
   interval = 30000;

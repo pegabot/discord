@@ -4,11 +4,11 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class BlacklistCommand extends BotCommand {
+export class BlacklistCommand extends Command {
   name = "blacklist";
   usage = ["blacklist", "blacklist add <user>", "blacklist remove <user>"];
   help = "Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.";

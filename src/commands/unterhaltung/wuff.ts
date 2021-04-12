@@ -4,10 +4,10 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
-export class WuffCommand extends BotCommand {
+export class WuffCommand extends Command {
   name = "wuff";
   usage = ["wuff"];
   help = "Liefert ein zufälliges Hundebild zurück.";

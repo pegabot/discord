@@ -6,10 +6,10 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
 import { Collection, GuildMember, MessageEmbed, Role, TextChannel } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { stripIndents } from "../utils/stripIndents";
 
-export class guildMemberAddEvent extends BotEvent {
+export class guildMemberAddEvent extends Event {
   execute(member: GuildMember): void {
     if (member.partial) return;
 

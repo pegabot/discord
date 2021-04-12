@@ -4,12 +4,12 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { LevelModel } from "../../models/levels";
 import { generateLeaderboardCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class LeaderBoardCommand extends BotCommand {
+export class LeaderBoardCommand extends Command {
   name = "leaderboard";
   aliases = ["leader", "rangliste"];
   usage = ["leaderboard"];

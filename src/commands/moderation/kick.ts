@@ -4,11 +4,11 @@
  */
 
 import { Message, MessageCollector, TextChannel } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class KickCommand extends BotCommand {
+export class KickCommand extends Command {
   name = "kick";
   usage = "kick <user>";
   help = "Kickt einen spezifischen Benutzer";

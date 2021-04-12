@@ -4,10 +4,10 @@
  */
 
 import { Message, TextChannel } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 
-export class SlowmodeCommand extends BotCommand {
+export class SlowmodeCommand extends Command {
   name = "slowmode";
   usage = ["slowmode", "slowmode <Sekunden>"];
   help = "Einstellungen für den Slowmode";

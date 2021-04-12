@@ -4,7 +4,7 @@
  */
 
 import { ChatClient } from "dank-twitch-irc";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 
 const connect = async (twitchClient: ChatClient) => {
   try {
@@ -15,7 +15,7 @@ const connect = async (twitchClient: ChatClient) => {
   }
 };
 
-export class TwitchJob extends BotJob {
+export class TwitchJob extends Job {
   name = "Twitch Status";
   interval = 20000;
 

@@ -6,7 +6,7 @@
 import { Message, MessageEmbed, MessageReaction, User } from "discord.js";
 import prettyMs from "pretty-ms";
 import bot from "../../bot";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { IFrage } from "../../models/frage";
 import { QuizModel } from "../../models/quiz";
 import { SessionModel } from "../../models/session";
@@ -18,7 +18,7 @@ const QuizName = "CONspiracy V";
 const AnzahlFragen = 3;
 const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
-export class QuizCommand extends BotCommand {
+export class QuizCommand extends Command {
   name = "quiz";
   usage = "quiz";
   help = "Das Quiz zur CONspiracy IV.";

@@ -4,10 +4,10 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 
-export class NameCommand extends BotCommand {
+export class NameCommand extends Command {
   name = "name";
   usage = ["name <de/en/ww> <m/w>"];
   help = "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.";

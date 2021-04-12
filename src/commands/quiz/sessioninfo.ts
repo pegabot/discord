@@ -5,12 +5,12 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import bot from "../../bot";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { SessionModel } from "../../models/session";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
-export class SessionInfoCommand extends BotCommand {
+export class SessionInfoCommand extends Command {
   name = "sessioninfo";
   usage = "sessioninfo <SessionId/ User>";
   help = "Informationen zu einer Quiz-Session.";

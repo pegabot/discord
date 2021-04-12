@@ -4,13 +4,13 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { RollsModel } from "../../models/rolls";
 import { BotExecption } from "../../utils/BotExecption";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../../utils/RollButler";
 
-export class RollCommand extends BotCommand {
+export class RollCommand extends Command {
   name = "roll";
   usage = "roll (https://pegabot.pegasus.de/dice-rules)";
   help = "powered by RollButler";

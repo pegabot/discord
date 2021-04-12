@@ -7,7 +7,7 @@ import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } 
 import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
-import { BotCommand } from "../classes/command";
+import { Command } from "../classes/command";
 import { ILogCommand, LogModel } from "../models/log";
 import { BotExecption } from "../utils/BotExecption";
 import { cloneClass } from "../utils/cloneClass";
@@ -15,7 +15,7 @@ import { findCommand } from "../utils/findCommand";
 import { walkSync } from "../utils/walkSync";
 
 export class CommandHandler {
-  cmds: Collection<string, BotCommand> = new Collection();
+  cmds: Collection<string, Command> = new Collection();
   constructor(protected bot: Bot) {}
 
   get names() {
@@ -30,7 +30,7 @@ export class CommandHandler {
     return this.cmds;
   }
 
-  get(command: string): BotCommand | undefined {
+  get(command: string): Command | undefined {
     return this.cmds.get(command);
   }
 
@@ -49,7 +49,7 @@ export class CommandHandler {
       const category = path.dirname(command).split(path.sep).pop() || [];
 
       const importedCommand: any = require(command);
-      const cmd: BotCommand = importedCommand[Object.keys(importedCommand)[0]];
+      const cmd: Command = importedCommand[Object.keys(importedCommand)[0]];
 
       if (!cmd) continue;
       this.loadCommand(cmd, (category as string) || "-");
@@ -60,7 +60,7 @@ export class CommandHandler {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
   }
 
-  loadCommand(importedCommand: BotCommand, category: string) {
+  loadCommand(importedCommand: Command, category: string) {
     const _cmd: any = importedCommand;
     const cmd = new _cmd(this.bot);
 

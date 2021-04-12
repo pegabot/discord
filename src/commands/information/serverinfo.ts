@@ -4,10 +4,10 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 
-export class ServerinfoCommand extends BotCommand {
+export class ServerinfoCommand extends Command {
   name = "serverinfo";
   help = "Server Informationen";
   usage = "serverinfo";

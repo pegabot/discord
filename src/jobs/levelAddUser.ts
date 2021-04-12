@@ -3,10 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { LevelModel } from "../models/levels";
 
-export class LevelAddUserJob extends BotJob {
+export class LevelAddUserJob extends Job {
   name = "Füge Mitglieder zu Level Dokumenten hinzu";
   interval = 60000;
 

@@ -4,14 +4,14 @@
  */
 
 import { MessageReaction, User } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { RollsModel } from "../models/rolls";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";
 
 const { MessageAttachment } = require("discord.js");
 
-export class messageReactionAddEvent extends BotEvent {
+export class messageReactionAddEvent extends Event {
   async execute(reaction: MessageReaction, user: User): Promise<void> {
     if (reaction.partial) {
       try {

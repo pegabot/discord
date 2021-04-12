@@ -4,9 +4,9 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 
-export class ShrugfaceCommand extends BotCommand {
+export class ShrugfaceCommand extends Command {
   name = "shrugface";
   aliases = ["shrug"];
   usage = ["shrugface"];

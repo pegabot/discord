@@ -6,10 +6,10 @@
 import { Message } from "discord.js";
 import emojiStrip from "emoji-strip";
 import querystring from "querystring";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
-export class GifCommand extends BotCommand {
+export class GifCommand extends Command {
   name = "gif";
   usage = ["gif", "gif <text>"];
   help = "Suche nach GIFs mit Hilfer der tenor API.";

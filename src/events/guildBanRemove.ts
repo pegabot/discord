@@ -4,9 +4,9 @@
  */
 
 import { Guild, User } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class guildBanRemoveEvent extends BotEvent {
+export class guildBanRemoveEvent extends Event {
   execute(guild: Guild, user: User): void {
     this.bot.logger.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
   }

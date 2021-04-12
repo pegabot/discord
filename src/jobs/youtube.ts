@@ -4,11 +4,11 @@
  */
 
 import { TextChannel } from "discord.js";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { checkVideos, getYoutubeChannelInfos } from "../utils/youtube";
 const Youtube = require("simple-youtube-api");
 
-export class YouTubeJob extends BotJob {
+export class YouTubeJob extends Job {
   name = "Suche nach neuen YouTube Videos";
   env = "youtube";
   interval = 1000 * 60 * 20;

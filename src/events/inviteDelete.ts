@@ -4,9 +4,9 @@
  */
 
 import { Invite } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class inviteDeleteEvent extends BotEvent {
+export class inviteDeleteEvent extends Event {
   execute(invite: Invite): void {
     this.bot.logger.admin_red(`:outbox_tray: Die Einladung: ${invite.url} **wurde gelöscht**.`, `Code: ${invite.code}`);
   }

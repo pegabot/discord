@@ -4,9 +4,9 @@
  */
 
 import { Invite } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class inviteCreateEvent extends BotEvent {
+export class inviteCreateEvent extends Event {
   execute(invite: Invite): void {
     this.bot.logger.admin_green(`:inbox_tray: Die Einladung: ${invite.url} wurde von ${invite.inviter} **erstellt**.`, `Code: ${invite.code}`);
   }

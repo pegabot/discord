@@ -4,11 +4,11 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { findCommand } from "../../utils/findCommand";
 
-export class HelpCommand extends BotCommand {
+export class HelpCommand extends Command {
   name = "help";
   aliases = ["hilfe"];
   usage = ["help", "help <command>"];

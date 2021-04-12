@@ -8,10 +8,10 @@ import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
 import { Bot } from "../classes/bot";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 
 export class JobHandler {
-  jobs: Collection<string, BotJob> = new Collection();
+  jobs: Collection<string, Job> = new Collection();
   constructor(protected bot: Bot) {}
 
   get names() {
@@ -26,7 +26,7 @@ export class JobHandler {
     return this.jobs;
   }
 
-  get(job: string): BotJob | undefined {
+  get(job: string): Job | undefined {
     return this.jobs.get(job);
   }
 
@@ -45,7 +45,7 @@ export class JobHandler {
       if (/\w?#.+/.test(name)) continue;
 
       const importedJob = require(path.join(__dirname, "..", "jobs", name));
-      const job: BotJob = new importedJob[Object.keys(importedJob)[0]](this.bot);
+      const job: Job = new importedJob[Object.keys(importedJob)[0]](this.bot);
 
       if (job.env && process.env[`enable_${job.env}`] !== "true") continue;
 
@@ -58,7 +58,7 @@ export class JobHandler {
     return null;
   }
 
-  loadJob(name: string, job: BotJob) {
+  loadJob(name: string, job: Job) {
     const error = this.checkJob(name);
 
     if (!error) {
@@ -69,7 +69,7 @@ export class JobHandler {
     }
   }
 
-  executeJob(job: BotJob) {
+  executeJob(job: Job) {
     console.log(`Setup 🔨: ${job.name}${job.interval ? ` => ${prettyMs(job.interval)}` : ""}`);
 
     if (job.setup) job.setup();

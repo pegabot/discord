@@ -3,12 +3,12 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { SessionModel } from "../models/session";
 import { VoucherModel } from "../models/voucher";
 import { stripIndents } from "../utils/stripIndents";
 
-export class VoucherJob extends BotJob {
+export class VoucherJob extends Job {
   name = "Versende Vouchers";
   env = "voucher";
   interval = 20000;

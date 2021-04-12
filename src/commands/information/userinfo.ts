@@ -4,7 +4,7 @@
  */
 
 import { Collection, Message, Role } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
 
@@ -12,7 +12,7 @@ const { MessageEmbed } = require("discord.js");
 const formatDistanceToNow = require("date-fns/formatDistanceToNow");
 const { de } = require("date-fns/locale");
 
-export class UserinfoCommand extends BotCommand {
+export class UserinfoCommand extends Command {
   name = "userinfo";
   usage = ["userinfo", "userinfo <user>"];
   help = "Gibt informationen zu einem Benutzer wieder.";

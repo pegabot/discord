@@ -6,10 +6,10 @@
 import { Message, MessageAttachment } from "discord.js";
 import emojiStrip from "emoji-strip";
 import querystring from "querystring";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
-export class MiauCommand extends BotCommand {
+export class MiauCommand extends Command {
   name = "miau";
   usage = ["miau", "miau <text>"];
   help = "Liefert ein zufälliges Katzenbild zurück.";

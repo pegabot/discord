@@ -1,11 +1,11 @@
 {
   "Bot Command": {
     "prefix": [
-      "BotCommand",
+      "Command",
       "Command"
     ],
     "body": [
-      "export class ${1: className} extends BotCommand {\t async execute(): Promise<void>  {",
+      "export class ${1: className} extends Command {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
     ],
@@ -13,11 +13,11 @@
   },
   "Bot Event": {
     "prefix": [
-      "BotEvent",
+      "Event",
       "Event"
     ],
     "body": [
-      "export class ${1: className} extends BotEvent {\t async execute(): Promise<void>  {",
+      "export class ${1: className} extends Event {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
     ],
@@ -25,11 +25,11 @@
   },
   "Bot Job": {
     "prefix": [
-      "BotJob",
+      "Job",
       "Job"
     ],
     "body": [
-      "export class ${2: className} extends BotJob {\t async setup(): Promise<void>  {",
+      "export class ${2: className} extends Job {\t async setup(): Promise<void>  {",
       "\t$0", "}","\t async execute(): Promise<void> {",
       "}}"
     ],

@@ -7,9 +7,9 @@ import { User } from "discord.js";
 import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
 import { Bot } from "../classes/bot";
-import { BotCommand } from "../classes/command";
+import { Command } from "../classes/command";
 
-export interface ILogCommand extends Omit<BotCommand, "bot"> {
+export interface ILogCommand extends Omit<Command, "bot"> {
   bot: Bot | undefined;
 }
 

@@ -4,9 +4,9 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 
-export class RestartCommand extends BotCommand {
+export class RestartCommand extends Command {
   name = "restart";
   usage = "restart";
   help = "Neustart des Bots";

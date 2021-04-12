@@ -4,9 +4,9 @@
  */
 
 import { MessageEmbed } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class errorEvent extends BotEvent {
+export class errorEvent extends Event {
   execute(error: Error): void {
     const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.stack)}\``);
 

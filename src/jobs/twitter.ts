@@ -6,14 +6,14 @@
 import { TextChannel } from "discord.js";
 import { CallbackError } from "mongoose";
 import Twit from "twit";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { TweetModel } from "../models/tweet";
 
 const TWITTER_USER = ["pegasusspiele", "GRT2014"];
 
 let twitter: Twit;
 
-export class twitterJob extends BotJob {
+export class twitterJob extends Job {
   name = "Checke auf neue Tweets";
   interval = 20000;
 

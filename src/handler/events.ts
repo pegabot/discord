@@ -7,10 +7,10 @@ import { Collection } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
 export class EventHandler {
-  events: Collection<string, BotEvent> = new Collection();
+  events: Collection<string, Event> = new Collection();
   constructor(protected bot: Bot) {}
 
   get names() {
@@ -25,7 +25,7 @@ export class EventHandler {
     return this.events;
   }
 
-  get(event: string): BotEvent | undefined {
+  get(event: string): Event | undefined {
     return this.events.get(event);
   }
 
@@ -46,7 +46,7 @@ export class EventHandler {
       const importedEvent = require(path.join(__dirname, "..", "events", name));
       this.events.set(name, importedEvent);
 
-      const _event: BotEvent = new importedEvent[Object.keys(importedEvent)[0]](this.bot);
+      const _event: Event = new importedEvent[Object.keys(importedEvent)[0]](this.bot);
 
       this.bot.client.on(name, (...args) => _event.execute(...args));
     }

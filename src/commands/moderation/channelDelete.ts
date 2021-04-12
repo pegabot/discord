@@ -4,9 +4,9 @@
  */
 
 import { CategoryChannel, Message, TextChannel } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 
-export class ChannelDeleteCommand extends BotCommand {
+export class ChannelDeleteCommand extends Command {
   name = "channelDelete";
   usage = ["channelDelete"];
   help = "Lösche die Känale zur zugehörigen Kategorie und die Kategorie.";

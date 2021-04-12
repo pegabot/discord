@@ -4,11 +4,11 @@
  */
 
 import { TextChannel } from "discord.js";
-import { BotJob } from "../classes/job";
+import { Job } from "../classes/job";
 import { BlogPostModel } from "../models/blog";
 import { getRequest } from "../utils/shopApi";
 
-export class BlogJob extends BotJob {
+export class BlogJob extends Job {
   name = "Suche nach neuen Blogbeiträgen";
   env = "blog";
   interval = 60000;

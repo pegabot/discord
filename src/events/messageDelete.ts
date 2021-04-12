@@ -4,9 +4,9 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 
-export class messageDeleteEvent extends BotEvent {
+export class messageDeleteEvent extends Event {
   execute(message: Message): void {
     if (message.partial) return;
 

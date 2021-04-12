@@ -4,9 +4,9 @@
  */
 
 import { Collection } from "discord.js";
-import { BotCommand } from "../classes/command";
+import { Command } from "../classes/command";
 
-export const findCommand = (commands: Collection<string, BotCommand> = new Collection(), base = ""): BotCommand | undefined => {
+export const findCommand = (commands: Collection<string, Command> = new Collection(), base = ""): Command | undefined => {
   let command = commands.get(base);
   if (!command) {
     commands.forEach((elt) => {

@@ -4,10 +4,10 @@
  */
 
 import { GuildMember, MessageEmbed, TextChannel } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { LevelModel } from "../models/levels";
 
-export class guildMemberRemoveEvent extends BotEvent {
+export class guildMemberRemoveEvent extends Event {
   execute(member: GuildMember): void {
     if (member.partial) return;
 

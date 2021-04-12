@@ -6,7 +6,7 @@
 import { HosttargetMessage } from "dank-twitch-irc";
 import { TextChannel } from "discord.js";
 import { Bot } from "../classes/bot";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { setDefault, setStreaming } from "../utils/presence";
 import { checkIfStreaming } from "../utils/twitch";
 
@@ -19,7 +19,7 @@ const sendNotification = (bot: Bot, name: string) => {
   (channel as TextChannel).send(`📣 ***${name}*** ist eben auf Twitch live gegangen 🍾 \n https://twitch.tv/${name}`);
 };
 
-export class handleTwitchEvent extends BotEvent {
+export class handleTwitchEvent extends Event {
   async execute(HosttargetMessage: HosttargetMessage) {
     if (HosttargetMessage) {
       if (HosttargetMessage.wasHostModeEntered()) {

@@ -5,9 +5,9 @@
 
 import { Message } from "discord.js";
 import prettyMs from "pretty-ms";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 
-export class UptimeCommand extends BotCommand {
+export class UptimeCommand extends Command {
   name = "uptime";
   aliases = ["up"];
   usage = "uptime";

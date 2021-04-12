@@ -4,11 +4,11 @@
  */
 
 import { Message } from "discord.js";
-import { BotCommand } from "../../classes/command";
+import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { pollEmbed } from "../../utils/pollEmbed";
 
-export class PollCommand extends BotCommand {
+export class PollCommand extends Command {
   name = "poll";
   aliases = ["abstimmung"];
   usage = ["poll"];

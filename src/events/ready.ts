@@ -3,10 +3,10 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { setDefault } from "../utils/presence";
 
-export class ReadyEvent extends BotEvent {
+export class ReadyEvent extends Event {
   execute() {
     this.bot.commands.loadCommands();
     this.bot.jobs.loadJobs();

@@ -4,13 +4,13 @@
  */
 
 import { GuildMember } from "discord.js";
-import { BotEvent } from "../classes/event";
+import { Event } from "../classes/event";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
 const prettyMs = require("pretty-ms");
 const { MessageEmbed } = require("discord.js");
 
-export class guildMemberUpdateEvent extends BotEvent {
+export class guildMemberUpdateEvent extends Event {
   async execute(oldMember: GuildMember, newMember: GuildMember): Promise<void> {
     if (oldMember.partial) return;
     if (newMember.partial) return;
