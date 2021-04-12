@@ -27,7 +27,7 @@ export class Bot {
   reactions: ReactionTypes = reactions;
 
   MongoConnector = new MongoConnector();
-  db: typeof import("mongoose") | undefined;
+  db: typeof import("mongoose") | undefined = this.MongoConnector.connection;
 
   logger = new LogHandler(this);
 
@@ -38,7 +38,6 @@ export class Bot {
   twitchClient = new ChatClient({});
 
   constructor() {
-    this.db = this.MongoConnector.connection;
     this.events.loadEvents();
   }
 }
