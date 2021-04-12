@@ -5,11 +5,11 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-Ein Discord Bot erstellt von @pegasusspiele, der für die [CONspiracy](https://pegasus.de/conspiracy) verwendet wird. Dieser Bot wurde auschließlich auf die Bedürfnisse von Pegasus Spiele zugeschnitten und wird in einem anderen Ökosystem ohne größere Anpassungen wahrscheinlich nicht laufen.
+Ein Discord Bot erstellt von @pegasusspiele, der für den [CONspiracy](https://pegabot.pegasus.de) Discord Server von Pegaus Spiele verwendet wird. Dieser Bot wurde auschließlich auf die Bedürfnisse von Pegasus Spiele zugeschnitten und wird in einem anderen Ökosystem ohne größere Anpassungen wahrscheinlich nicht laufen.
  
 ## Releases
  
-Die Pegabot Version auf dem CONspiracy Discord Server entspricht immer dem aktuellsten Release, der Bot wird in Production deployed, wenn ein neuer Release erstellt wird.
+Die Pegabot Version auf dem [CONspiracy](https://pegabot.pegasus.de) Discord Server entspricht immer dem aktuellsten Release, der Bot wird in Production deployed, wenn ein neuer Release erstellt wird.
 ## Autoren ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

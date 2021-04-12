@@ -6,14 +6,12 @@
 import { ChatClient } from "dank-twitch-irc";
 import { BotJob } from "../classes/job";
 
-const twitchClient = new ChatClient({});
-
-const connect = async () => {
+const connect = async (twitchClient: ChatClient) => {
   try {
     await twitchClient.connect();
     twitchClient.join("pegasusspiele");
   } catch {
-    connect();
+    connect(twitchClient);
   }
 };
 
@@ -22,12 +20,11 @@ export class TwitchJob extends BotJob {
   interval = 20000;
 
   setup(): void {
-    twitchClient.on("HOSTTARGET", (HosttargetMessage) => {
+    this.bot.twitchClient.on("HOSTTARGET", (HosttargetMessage) => {
       this.bot.client.emit("handleTwitch", HosttargetMessage);
     });
 
-    this.bot.twitchClient = twitchClient;
-    connect();
+    connect(this.bot.twitchClient);
   }
 
   execute(): void {

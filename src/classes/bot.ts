@@ -19,36 +19,26 @@ import { ReactionTypes } from "../types/reactions";
 config();
 
 export class Bot {
-  config: NodeJS.ProcessEnv;
+  config = process.env;
   client: Client = new Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
   blacklist: Collection<string, string> = new Collection();
 
   colors: ColorTypes = colors;
   reactions: ReactionTypes = reactions;
 
-  MongoConnector: MongoConnector;
+  MongoConnector = new MongoConnector();
   db: typeof import("mongoose") | undefined;
 
-  logger: LogHandler;
+  logger = new LogHandler(this);
 
-  jobs: JobHandler;
-  events: EventHandler;
-  commands: CommandHandler;
+  jobs = new JobHandler(this);
+  events = new EventHandler(this);
+  commands = new CommandHandler(this);
 
-  twitchClient?: ChatClient;
+  twitchClient = new ChatClient({});
 
   constructor() {
-    this.config = process.env;
-
-    this.MongoConnector = new MongoConnector();
     this.db = this.MongoConnector.connection;
-
-    this.logger = new LogHandler(this);
-
-    this.jobs = new JobHandler(this);
-    this.events = new EventHandler(this);
     this.events.loadEvents();
-
-    this.commands = new CommandHandler(this);
   }
 }

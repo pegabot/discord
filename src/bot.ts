@@ -19,7 +19,7 @@ process.on("unhandledRejection", (error: Error) => {
 process.on("SIGTERM", () => {
   console.info("SIGTERM signal received.");
 
-  bot.twitchClient?.close();
+  bot.twitchClient.close();
   bot.client.destroy();
 
   process.exit(0);
