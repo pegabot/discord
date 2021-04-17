@@ -10,16 +10,11 @@
   "scripts": {
     "test": "jest . --verbose",
     "dev": "nodemon .",
+    "heroku-prebuild": "sh ./injectVersion.sh",
     "build": "rm -rf build; tsc",
     "start": "node .",
     "build-start": "rm -rf build; tsc; node .",
-    "generateEnvTypes": "npx gen-env-types .env -o src/types/env.d.ts -e .",
-    "createQuiz": "node tools/createQuiz.js",
-    "createVouchers": "node tools/createVouchers.js",
-    "pruneVouchers": "node tools/pruneVouchers.js",
-    "removeVouchers": "node tools/removeVouchers.js",
-    "resetQuiz": "node tools/resetQuiz.js",
-    "cleanupVouchers": "node tools/cleanupVouchers.js"
+    "generateEnvTypes": "npx gen-env-types .env -o src/types/env.d.ts -e ."
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
