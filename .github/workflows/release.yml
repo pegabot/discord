@@ -25,7 +25,7 @@ jobs:
           name: ${{env.RELEASE_FILE}}
           path: build
       - name: Package Release
-        run: tar -zcf ${RELEASE_FILE}.tar.gz build assets package.json yarn.lock README.md Procfile .env.sample LICENSE lib
+        run: tar -zcf ${RELEASE_FILE}.tar.gz build assets package.json yarn.lock README.md Procfile .env.example LICENSE lib
       - name: Upload Release
         uses: actions/upload-release-asset@v1
         env:
