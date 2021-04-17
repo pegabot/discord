@@ -1,0 +1,40 @@
+name: Deploy to production
+on:
+  release:
+    types: [published]
+    branches: main
+jobs:
+  deploy-production:
+    env:
+      RELEASE_FILE: pegabot-${{github.event.release.tag_name}}
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pegarobo"
+          heroku_email: "nico@gruselhaus.com"
+      - name: Upload build artifacts to GitHub Actions
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${RELEASE_FILE}
+          path: build
+      - name: Package Release
+        run: tar -zcf ${RELEASE_FILE}.tar.gz --exclude=${RELEASE_FILE}.tar.gz .
+      - name: Upload Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          asset_path: ${{env.RELEASE_FILE}}.tar.gz
+          upload_url: ${{github.event.release.upload_url}}
+          asset_name: ${{env.RELEASE_FILE}}.tar.gz
+          asset_content_type: application/octet-stream
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Pegabot has been deployed.'
