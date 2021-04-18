@@ -1,9 +1,14 @@
 {
   "name": "pegabot",
+  "description": "@pegabot living on @pegasusspiele's discord server",
   "version": "2.0.8",
   "main": "build/src/bot.js",
   "author": "The Pegabot authors",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pegabot/discord.git"
+  },
   "engines": {
     "node": "14.x"
   },
