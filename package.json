@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
+    "@octokit/core": "^3.4.0",
     "@sindresorhus/slugify": "^1.1.0",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
