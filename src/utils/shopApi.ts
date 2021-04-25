@@ -3,10 +3,9 @@
  * This code is licensed under MIT license (see LICENSE for details)
  */
 
+import basic from "basic-authorization-header";
 import bent from "bent";
 import { Bot } from "../classes/bot";
-
-const basic = require("basic-authorization-header");
 
 export const getRequest = async (bot: Bot, url: string): Promise<any> => {
   try {
