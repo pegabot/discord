@@ -12,6 +12,6 @@ export class VersionCommand extends Command {
   help = "Zeigt die aktuelle Botversion an.";
   usage = "version";
   async execute(msg: Message): Promise<void> {
-    msg.reply(`die aktuelle Version ist: \`${version}\``);
+    msg.reply(`die aktuelle Version ist: \`${version}\` (https://github.com/pegabot/discord/releases/tag/${version})`);
   }
 }
