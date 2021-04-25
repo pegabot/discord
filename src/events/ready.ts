@@ -5,6 +5,7 @@
 
 import { Event } from "../classes/event";
 import { setDefault } from "../utils/presence";
+import { version } from "../utils/version";
 
 export class ReadyEvent extends Event {
   execute() {
@@ -13,6 +14,7 @@ export class ReadyEvent extends Event {
 
     const message = `${this.bot.client.user?.username}#${this.bot.client.user?.discriminator} ist ready!
       -------------------------------
+        Version: ${version}
         ID: ${this.bot.client.user?.id}
         Aktuell in ${this.bot.client.guilds.cache.size} Guilde(n)
         ${this.bot.commands.size} Command(s) geladen 🤖,
