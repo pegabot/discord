@@ -26,4 +26,8 @@ export abstract class Command {
   }
 
   abstract execute(msg: Message, args?: string[]): Promise<void> | void;
+
+  protected allNames() {
+    return `${this.name}${this.aliases ? " / " + this.aliases?.join("/ ") : ""}`;
+  }
 }
