@@ -11,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1
-        with:
-          global: true
-          name: 'Pegabot CI'
-          email: 'github@pegasus.de'
+      - uses: fregante/setup-git-user@v1
       - name: Inject the new version into the package.json
         run: npm version ${VERSION}
       - uses: akhileshns/heroku-deploy@v3.8.8
