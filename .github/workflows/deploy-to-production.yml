@@ -5,10 +5,14 @@ on:
     branches: main
 jobs:
   deploy:
+    env:
+      VERSION: ${{github.event.release.tag_name}}
     name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Inject the new version into the package.json
+        run: npm version ${VERSION}
       - uses: akhileshns/heroku-deploy@v3.8.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}

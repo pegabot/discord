@@ -7,6 +7,7 @@ jobs:
   build:
     env:
       RELEASE_FILE: pegabot-${{github.event.release.tag_name}}
+      VERSION: ${{github.event.release.tag_name}}
     name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +18,8 @@ jobs:
           node-version: "14.x"
       - name: Install dependencies
         run: yarn install --prefer-offline
+      - name: Inject the new version into the package.json
+        run: npm version --no-git-tag-version ${VERSION}
       - name: Injecting the Version into the build
         run: sh ./injectVersion.sh
       - name: Building the Pegabot
