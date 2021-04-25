@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2020 - 2021 The Pegabot authors
+ * This code is licensed under MIT license (see LICENSE for details)
+ */
+
+import { Message } from "discord.js";
+import { Command } from "../../classes/command";
+
+export class NicknameCommand extends Command {
+  name = "nickname";
+  help = "Mit diesem Command kannst du dir einen Nicknamen setzen";
+  usage = ["nick <#name / remove > / nickname <#name / remove>"];
+  aliases = ["nick"];
+
+  execute(msg: Message, args: string[]) {
+    if (!msg.member) return;
+
+    if (args.length < 1) {
+      msg.reply(`du muss einen Nicknamen mit übergeben, mit \`${this.bot.config.prefix}nickname remove\` kannst du deinen Nickname entfernen.`);
+      return;
+    }
+
+    if (args[0] === "remove") {
+      msg.member.setNickname("");
+      return;
+    }
+
+    msg.member.setNickname(args[0]);
+  }
+}
