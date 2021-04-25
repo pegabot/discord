@@ -7,6 +7,7 @@ declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: string;
     DB_STRING: string;
+    MIGRATE_dbConnectionUri: string;
     apiToken: string;
     prefix: string;
     ownerIds: string;
@@ -22,7 +23,6 @@ declare namespace NodeJS {
     ignoredChannels: string;
     ignoredCategories: string;
     TENOR_API_KEY: string;
-    enable_twitter: string;
     TWITTER_CHANNEL: string;
     TWITTER_CONSUMER_KEY: string;
     TWITTER_CONSUMER_SECRET: string;
@@ -36,11 +36,13 @@ declare namespace NodeJS {
     enable_blog: string;
     BLOG_CHANNEL_DE: string;
     BLOG_CHANNEL_EN: string;
-    enable_trello: string;
     TRELLO_KEY: string;
     TRELLO_TOKEN: string;
     TRELLO_INFO_CHANNEL: string;
     TWITCH_INFO_CHANNEL: string;
+    NEWSLETTER_SECRET: string;
+    PEGASUSSHOP_API_USER: string;
+    PEGASUSSHOP_API_KEY: string;
     ROLLBUTLER_KEY: string;
     ROLLBUTLER_PASS: string;
   }
