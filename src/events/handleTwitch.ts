@@ -25,8 +25,8 @@ export class handleTwitchEvent extends Event {
       if (HosttargetMessage.wasHostModeEntered()) {
         if (isHosting) return;
         if (this.bot.config.TWITCH_INFO_CHANNEL) {
+          sendNotification(this.bot, HosttargetMessage.hostedChannelName);
         }
-        sendNotification(this.bot, HosttargetMessage.hostedChannelName);
         return setStreaming(this.bot, HosttargetMessage.hostedChannelName);
       }
 
@@ -41,7 +41,9 @@ export class handleTwitchEvent extends Event {
     if (await checkIfStreaming("176169616")) {
       if (isStreaming) return;
       isStreaming = true;
-      sendNotification(this.bot, HosttargetMessage.hostedChannelName || "");
+      if (this.bot.config.TWITCH_INFO_CHANNEL) {
+        sendNotification(this.bot, HosttargetMessage.hostedChannelName || "");
+      }
       return setStreaming(this.bot, "pegasusspiele", "Pegasus");
     } else {
       if (!isStreaming) return;
