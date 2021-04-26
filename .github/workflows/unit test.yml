@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     name: "Running unit tests"
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js "14.x"
@@ -42,9 +42,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "pegarobo-staging"
           heroku_email: "nico@gruselhaus.com"
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_STAGING }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'Pegabot has been deployed.'

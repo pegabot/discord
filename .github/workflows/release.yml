@@ -1,14 +1,14 @@
-name: Adding the build artifact to the GitHub Release
+name: Release and Deploy
 on:
   release:
-    types: [created]
+    types: [published]
     branches: main
 jobs:
-  build:
+  release:
     env:
       RELEASE_FILE: pegabot-${{github.event.release.tag_name}}
       VERSION: ${{github.event.release.tag_name}}
-    name: "Deploy to production"
+    name: "Release"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,3 +40,18 @@ jobs:
           upload_url: ${{github.event.release.upload_url}}
           asset_name: ${{env.RELEASE_FILE}}.tar.gz
           asset_content_type: application/octet-stream
+  deploy:
+    env:
+      VERSION: ${{github.event.release.tag_name}}
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
+      - name: Inject the new version into the package.json
+        run: npm version ${VERSION}
+      - uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "pegarobo"
+          heroku_email: "nico@gruselhaus.com"
