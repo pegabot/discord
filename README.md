@@ -32,4 +32,4 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
  ## Lizenz
 
-Dieses Projekt steht unter der MIT Lizenz - siehe [LICENSE](LICENSE) für mehr Informationen.
+Dieses Projekt steht unter der `GNU Affero General Public License v3.0` - siehe [LICENSE](LICENSE) für mehr Informationen.

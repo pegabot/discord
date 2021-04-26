@@ -4,7 +4,7 @@
   "version": "x.y.z",
   "main": "build/src/bot.js",
   "author": "The Pegabot authors",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "repository": {
     "type": "git",
     "url": "https://github.com/pegabot/discord.git"
