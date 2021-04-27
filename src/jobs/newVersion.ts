@@ -4,11 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Octokit } from "@octokit/core";
 import { Job } from "../classes/job";
 import { VersionModel } from "../models/version";
 import { version } from "../utils/version";
-const { request } = new Octokit({});
 
 export class NewVersionJob extends Job {
   name = "Info bei neuer Version";
@@ -28,10 +26,7 @@ export class NewVersionJob extends Job {
       entry = new VersionModel({ version: version });
     }
 
-    const release = await request(`GET /repos/pegabot/discord/releases/tags/${version}`);
-
-    // @ts-ignore: this is intended
-    this.bot.logger.admin_blue(`**Neue Version:** \n\n ${release.data.body || "keine Beschreibung verfügbar!"}`, release.data.html_url);
+    this.bot.logger.admin(`Es läuft eine neue Version: \`${version}\`  🎉 \n (https://github.com/pegabot/discord/releases/tag/${version})`);
 
     entry.save();
   }
