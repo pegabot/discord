@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Collection, Message, MessageEmbed, PermissionResolvable, TextChannel } from "discord.js";
+import { Collection, Message, MessageEmbed, PermissionResolvable } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
@@ -164,18 +164,21 @@ export class CommandHandler {
 
       try {
         msg.react(this.bot.reactions.commandReaction || "");
-        await command?.execute(msg, args || []);
+        await command.execute(msg, args || []);
       } catch (e) {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
         } else {
           const embed = new MessageEmbed()
-            .setDescription(`Ein Fehler ist aufgetreten beim Verarbeiten eines Commands von ${msg.member} in ${msg.channel}`)
-            .addField("Fehlermeldung", e.message ? e.stack : "Es ist keine Fehlermeldung vorhanden!");
+            .setDescription(
+              `<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Verarbeiten vom Command \`${this.bot.config.prefix + command.name}\` von ${
+                msg.member
+              } in ${msg.channel}`,
+            )
+            .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
 
-          const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
-          if (!channel) return;
-          (channel as TextChannel).send(`<@&${this.bot.config.engineerRole}>`, embed);
+          this.bot.logger.admin_error_embed(embed);
+
           await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
         }
       }

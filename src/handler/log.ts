@@ -53,22 +53,23 @@ export class LogHandler {
     );
   }
 
-  admin_error(msg: string, footer?: string): void {
+  admin_error(msg: string, title?: string, footer?: string): void {
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(
       new MessageEmbed()
         .setDescription(stripIndents(msg))
+        .setTitle(title)
         .setTimestamp(Date.now())
         .setColor(this.bot.colors.red)
         .setFooter(footer || ""),
     );
   }
 
-  admin_error_embed(emded: MessageEmbed): void {
+  admin_error_embed(embed: MessageEmbed): void {
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
-    (channel as TextChannel).send(stripIndents(emded));
+    (channel as TextChannel).send(stripIndents(embed));
   }
 
   info(msg: string): void {
