@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Collection } from "discord.js";
+import { Collection, MessageEmbed } from "discord.js";
 import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
@@ -70,15 +70,38 @@ export class JobHandler {
     }
   }
 
-  executeJob(job: Job) {
+  async executeJob(job: Job) {
     console.log(`Setup 🔨: ${job.name}${job.interval ? ` => ${prettyMs(job.interval)}` : ""}`);
 
-    if (job.setup) job.setup();
+    if (job.setup) {
+      try {
+        await job.setup();
+      } catch (e) {
+        job.disabled = true;
+        const embed = new MessageEmbed()
+          .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Setup des Jobs \`${job.name}\``)
+          .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
+
+        this.bot.logger.admin_error_embed(embed);
+      }
+    }
 
     if (job.execute) {
-      setInterval(() => {
-        console.log(`Running ⚙️ : ${job.name}`);
-        if (job.execute) job.execute();
+      setInterval(async () => {
+        if (job.execute && !job.disabled) {
+          console.log(`Running ⚙️ : ${job.name}`);
+
+          try {
+            await job.execute();
+          } catch (e) {
+            job.disabled = true;
+            const embed = new MessageEmbed()
+              .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Verarbeiten des Jobs \`${job.name}\``)
+              .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
+
+            this.bot.logger.admin_error_embed(embed);
+          }
+        }
       }, job.interval);
     }
   }
