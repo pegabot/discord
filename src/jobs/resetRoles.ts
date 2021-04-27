@@ -14,7 +14,7 @@ export class ResetRolesJob extends Job {
 
   execute(): void {
     userGivenRolesModel.find({ expires: { $lt: Date.now() } }, (error, entries) => {
-      if (error) return;
+      if (error) throw error;
 
       entries.forEach(async (entry) => {
         const { roleId, userId } = entry;

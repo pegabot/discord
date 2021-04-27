@@ -13,7 +13,7 @@ export class LevelAddUserJob extends Job {
 
   execute(): void {
     LevelModel.find({ user: { $exists: false } }, (error, entries) => {
-      if (error) return;
+      if (error) throw error;
       entries.forEach(async (entry) => {
         const user = await this.bot.client.users.fetch(entry.userID);
         if (!user) return;

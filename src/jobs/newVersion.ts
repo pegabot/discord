@@ -28,12 +28,7 @@ export class NewVersionJob extends Job {
       entry = new VersionModel({ version: version });
     }
 
-    let release;
-    try {
-      release = await request(`GET /repos/pegabot/discord/releases/tags/${version}`);
-    } catch (error) {
-      return;
-    }
+    const release = await request(`GET /repos/pegabot/discord/releases/tags/${version}`);
 
     // @ts-ignore: this is intended
     this.bot.logger.admin_blue(`**Neue Version:** \n\n ${release.data.body || "keine Beschreibung verfügbar!"}`, release.data.html_url);

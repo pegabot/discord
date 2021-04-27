@@ -29,7 +29,7 @@ export class twitterJob extends Job {
 
   execute(): void {
     twitter.get("search/tweets", { q: `from:${TWITTER_USER.join(" OR ")}` }, async (error, data: any, response) => {
-      if (error) return;
+      if (error) throw error;
 
       const statuses = data.statuses;
 
@@ -57,7 +57,7 @@ export class twitterJob extends Job {
           Tweet.retweet = tweet.retweeted_status !== undefined;
           Tweet.save((error: CallbackError) => {
             if (error) {
-              return;
+              throw error;
             }
             const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
             if (!guild) return;

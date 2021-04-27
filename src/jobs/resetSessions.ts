@@ -30,22 +30,18 @@ export class ResetSessionJob extends Job {
       if (sessions.length === 0) return;
 
       for (const session of sessions) {
-        try {
-          this.bot.client.users.cache.get(session.userId || "")?.send(
-            stripIndents(`
+        this.bot.client.users.cache.get(session.userId || "")?.send(
+          stripIndents(`
           Du hast dein Spiel leider nicht in der vorgegebenen Zeit zu Ende gespielt und somit die Chance auf den Gewinn verpasst.
           
           Dein Pegabot :robot:
           `),
-          );
+        );
 
-          session.status = "closed";
-          session.timedOut = true;
+        session.status = "closed";
+        session.timedOut = true;
 
-          session.save();
-        } catch (e) {
-          continue;
-        }
+        session.save();
       }
     });
   }

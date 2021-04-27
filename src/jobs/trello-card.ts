@@ -24,7 +24,7 @@ export class TrelloCardJob extends Job {
 
   execute(): void {
     TrelloCardModel.find({}, async (error, current_trelloCards) => {
-      if (error) return;
+      if (error) throw error;
 
       const filter = (card: any) => {
         return card.customFieldItems.length > 0 && !current_trelloCards.map((elt) => elt.cardId).includes(card.id);

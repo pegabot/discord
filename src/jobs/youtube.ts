@@ -23,25 +23,21 @@ export class YouTubeJob extends Job {
   }
 
   async execute(): Promise<void> {
-    try {
-      for (const YoutTubeChannel of this.YouTubeChannels || []) {
-        const channelInfos = await getYoutubeChannelInfos(this.YouTubeClient, YoutTubeChannel);
-        if (!channelInfos) return;
-        const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
-        if (!video) continue;
+    for (const YoutTubeChannel of this.YouTubeChannels || []) {
+      const channelInfos = await getYoutubeChannelInfos(this.YouTubeClient, YoutTubeChannel);
+      if (!channelInfos) return;
+      const video = await checkVideos("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelInfos.id);
+      if (!video) continue;
 
-        const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
-        if (!guild) return;
+      const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
+      if (!guild) return;
 
-        const channel = guild.channels.cache.get(this.bot.config.YOUTUBE_CHANNEL || "");
-        if (!channel) return;
+      const channel = guild.channels.cache.get(this.bot.config.YOUTUBE_CHANNEL || "");
+      if (!channel) return;
 
-        (channel as TextChannel).send(
-          `Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`,
-        );
-      }
-    } catch (error) {
-      console.error(error);
+      (channel as TextChannel).send(
+        `Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`,
+      );
     }
   }
 }
