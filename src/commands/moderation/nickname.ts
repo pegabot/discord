@@ -17,7 +17,7 @@ export class NicknameCommand extends Command {
     if (!msg.member) return;
 
     if (args.length < 1) {
-      msg.reply(`du muss einen Nicknamen mit übergeben, mit \`${this.bot.config.prefix}nickname remove\` kannst du deinen Nickname entfernen.`);
+      msg.reply(`du musst einen Nicknamen mit übergeben, mit \`${this.bot.config.prefix}nickname remove\` kannst du deinen Nickname entfernen.`);
       return;
     }
 

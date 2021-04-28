@@ -50,7 +50,7 @@ export class BlogJob extends Job {
         case 589:
           channelId = this.bot.config.BLOG_CHANNEL_EN;
           url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Our US-Team released a new article in our new room 📣  Check it out!${url}`;
+          message = `Our US-Team released a new article in our news room 📣  Check it out!${url}`;
           break;
         case 713:
           channelId = this.bot.config.BLOG_CHANNEL_EN;
