@@ -77,7 +77,7 @@ export class JobHandler {
       try {
         await job.setup();
       } catch (e) {
-        job.disabled = true;
+        job.stopped = true;
         const embed = new MessageEmbed()
           .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Setup des Jobs \`${job.name}\``)
           .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
@@ -88,13 +88,13 @@ export class JobHandler {
 
     if (job.execute) {
       setInterval(async () => {
-        if (job.execute && !job.disabled) {
+        if (job.execute && !job.stopped) {
           console.log(`Running ⚙️ : ${job.name}`);
 
           try {
             await job.execute();
           } catch (e) {
-            job.disabled = true;
+            job.stopped = true;
             const embed = new MessageEmbed()
               .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Verarbeiten des Jobs \`${job.name}\``)
               .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");

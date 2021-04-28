@@ -10,7 +10,7 @@ export abstract class Job {
   abstract name: string;
   env?: string;
   interval?: number;
-  disabled: boolean = false;
+  stopped = false;
 
   constructor(protected bot: Bot) {}
 
