@@ -6,7 +6,7 @@
 
 import { MessageReaction, User } from "discord.js";
 import { Event } from "../classes/event";
-import { reactions } from "../constants/reactions";
+import { emojis } from "../constants/emojis";
 import { RollsModel } from "../models/rolls";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";
@@ -26,7 +26,7 @@ export class messageReactionAddEvent extends Event {
     if (user.bot) return;
 
     if (
-      !Object.entries(reactions)
+      !Object.entries(emojis)
         .map((elt) => elt[1])
         .includes(reaction.emoji.name)
     )
@@ -61,7 +61,7 @@ export class messageReactionAddEvent extends Event {
         replied = await reaction.message.channel.send(embed);
       }
 
-      replied.react(reactions.rollReaction);
+      replied.react(emojis.rollEmoji);
 
       const entry = new RollsModel();
       entry.messageId = replied.id;

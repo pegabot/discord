@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
 import { Command } from "../classes/command";
-import { reactions } from "../constants/reactions";
+import { emojis } from "../constants/emojis";
 import { ILogCommand, LogModel } from "../models/log";
 import { BotExecption } from "../utils/BotExecption";
 import { cloneClass } from "../utils/cloneClass";
@@ -98,7 +98,7 @@ export class CommandHandler {
         .map((elt) => elt.id)
         .includes(this.bot.client.user?.id || "")
     ) {
-      await msg.react(reactions.hugReaction);
+      await msg.react(emojis.hugEmoji);
     }
 
     if (!msg.content.startsWith(this.bot.config.prefix || "")) return null;
@@ -164,7 +164,7 @@ export class CommandHandler {
       }
 
       try {
-        msg.react(reactions.commandReaction);
+        msg.react(emojis.commandReactionEmoji);
         await command.execute(msg, args || []);
       } catch (e) {
         if (e instanceof BotExecption) {

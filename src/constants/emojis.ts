@@ -4,8 +4,8 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-export const reactions = {
-  commandReaction: "👌",
-  rollReaction: "🎲",
-  hugReaction: "🤗",
+export const emojis = {
+  commandReactionEmoji: "👌",
+  rollEmoji: "🎲",
+  hugEmoji: "🤗",
 };

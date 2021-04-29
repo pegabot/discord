@@ -5,7 +5,7 @@
  */
 
 export type ReactionTypes = {
-  commandReaction: string;
-  rollReaction: string;
-  hugReaction: string;
+  commandReactionEmoji: string;
+  rollEmoji: string;
+  hugEmoji: string;
 };

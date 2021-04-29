@@ -56,7 +56,7 @@ export const pollEmbed = async (
       if (!voterInfo.has(user.id)) voterInfo.set(user.id, { emoji: reaction.emoji.name });
       const votedEmoji = voterInfo.get(user.id).emoji;
       if (votedEmoji !== reaction.emoji.name) {
-        const lastVote = poll.reactions.get(votedEmoji);
+        const lastVote = poll.emojis.get(votedEmoji);
         lastVote.count -= 1;
         lastVote.users.remove(user.id);
         emojiInfo[votedEmoji].votes -= 1;

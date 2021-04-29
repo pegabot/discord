@@ -6,7 +6,7 @@
 
 import { Message, MessageAttachment } from "discord.js";
 import { Command } from "../../classes/command";
-import { reactions } from "../../constants/reactions";
+import { emojis } from "../../constants/emojis";
 import { RollsModel } from "../../models/rolls";
 import { BotExecption } from "../../utils/BotExecption";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
@@ -53,7 +53,7 @@ export class RollCommand extends Command {
 
     if (response.message.match(/.*fehlgeschlagen.*/)) return;
 
-    replied.react(reactions.rollReaction);
+    replied.react(emojis.rollEmoji);
 
     const entry = new RollsModel();
     entry.messageId = replied.id;
