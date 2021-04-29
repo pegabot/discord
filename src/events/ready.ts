@@ -6,7 +6,7 @@
 
 import { Event } from "../classes/event";
 import { setDefault } from "../utils/presence";
-import { version } from "../utils/version";
+import { version } from "../constants/version";
 
 export class ReadyEvent extends Event {
   execute() {

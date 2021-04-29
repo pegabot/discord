@@ -5,8 +5,8 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import bot from "../../bot";
 import { Command } from "../../classes/command";
+import { colors } from "../../constants/colors";
 import { SessionModel } from "../../models/session";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
@@ -42,9 +42,7 @@ export class SessionInfoCommand extends Command {
       const member = resolveUser(msg, session.userId);
 
       const embed = new MessageEmbed()
-        .setColor(
-          session.status === "error" ? bot.colors.red : session.status === "stale" ? bot.colors.babyblue : session.won ? bot.colors.green : bot.colors.orange,
-        )
+        .setColor(session.status === "error" ? colors.red : session.status === "stale" ? colors.babyblue : session.won ? colors.green : colors.orange)
         .setAuthor(member?.user.tag, member?.user.displayAvatarURL())
         .setTitle(`Informationen zur Session ${session._id}`)
         .addField("Benutzername", member?.user.username, true)

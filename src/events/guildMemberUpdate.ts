@@ -6,6 +6,7 @@
 
 import { GuildMember } from "discord.js";
 import { Event } from "../classes/event";
+import { colors } from "../constants/colors";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
 const prettyMs = require("pretty-ms");
@@ -59,7 +60,7 @@ export class guildMemberUpdateEvent extends Event {
             new MessageEmbed()
               .setThumbnail(newMember.user.displayAvatarURL())
               .setDescription(`Der Anzeigename von ${oldMember} hat sich geändert!`)
-              .setColor(this.bot.colors?.blue)
+              .setColor(colors.blue)
               .addField("Alter Anzeigename", oldMember.nickname ? oldMember.nickname : oldMember.user.username, true)
               .addField("Neuer Anzeigename", newMember.nickname, true),
           )
@@ -67,7 +68,7 @@ export class guildMemberUpdateEvent extends Event {
             new MessageEmbed()
               .setThumbnail(newMember.user.displayAvatarURL())
               .setDescription(`Der Anzeigename von ${newMember} wurde entfernt!`)
-              .setColor(this.bot.colors?.blue)
+              .setColor(colors.blue)
               .addField("Alter Anzeigename", oldMember.nickname, true),
           );
     }

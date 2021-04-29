@@ -7,6 +7,7 @@
 import bent from "bent";
 import { MessageEmbed, User } from "discord.js";
 import { Bot } from "../classes/bot";
+import { colors } from "../constants/colors";
 
 export const generateParams = (bot: Bot, user: User, dice: string): URLSearchParams => {
   const params = new URLSearchParams();
@@ -39,7 +40,7 @@ export const rollDice = (bot: Bot, params: URLSearchParams): Promise<string> => 
 
 export const generateEmbed = (bot: Bot, dice: string, user: User, response: any): MessageEmbed => {
   const embed = new MessageEmbed();
-  embed.setColor(bot.colors?.babyblue || "");
+  embed.setColor(colors.babyblue);
   embed.setTitle(`Ergebnis für ${dice}`);
   embed.setDescription(`${user}, ${response.message.charAt(0).toLowerCase() + response.message.slice(1)}`);
   embed.setFooter("powered by RollButler");

@@ -8,6 +8,7 @@ import { Message, MessageEmbed, MessageReaction, User } from "discord.js";
 import prettyMs from "pretty-ms";
 import bot from "../../bot";
 import { Command } from "../../classes/command";
+import { colors } from "../../constants/colors";
 import { IFrage } from "../../models/frage";
 import { QuizModel } from "../../models/quiz";
 import { SessionModel } from "../../models/session";
@@ -84,7 +85,7 @@ export class QuizCommand extends Command {
     try {
       msg.author.send(
         new MessageEmbed()
-          .setColor(bot.colors.orange)
+          .setColor(colors.orange)
           .setTitle(`${QuizName} - das Quiz!`)
           .setDescription(
             stripIndents(`
@@ -105,7 +106,7 @@ export class QuizCommand extends Command {
 
       for (const [index, frage] of newSession.fragen.entries()) {
         const quizEmbed = new MessageEmbed()
-          .setColor(bot.colors.babyblue)
+          .setColor(colors.babyblue)
           .addField(`Frage ${index + 1} von ${AnzahlFragen}`, frage.frage)
           .addField("🇦 - " + frage.antworten[0], "-----")
           .addField("🇧 - " + frage.antworten[1], "-----")

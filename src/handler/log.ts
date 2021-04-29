@@ -6,6 +6,7 @@
 
 import { MessageEmbed, TextChannel } from "discord.js";
 import { Bot } from "../classes/bot";
+import { colors } from "../constants/colors";
 import { stripIndents } from "../utils/stripIndents";
 
 export class LogHandler {
@@ -24,7 +25,7 @@ export class LogHandler {
       new MessageEmbed()
         .setDescription(stripIndents(msg))
         .setTimestamp(Date.now())
-        .setColor(this.bot.colors.red)
+        .setColor(colors.red)
         .setFooter(footer || ""),
     );
   }
@@ -36,7 +37,7 @@ export class LogHandler {
       new MessageEmbed()
         .setDescription(stripIndents(msg))
         .setTimestamp(Date.now())
-        .setColor(this.bot.colors.green)
+        .setColor(colors.green)
         .setFooter(footer || ""),
     );
   }
@@ -48,7 +49,7 @@ export class LogHandler {
       new MessageEmbed()
         .setDescription(stripIndents(msg))
         .setTimestamp(Date.now())
-        .setColor(this.bot.colors.blue)
+        .setColor(colors.blue)
         .setFooter(footer || ""),
     );
   }
@@ -61,7 +62,7 @@ export class LogHandler {
         .setDescription(stripIndents(msg))
         .setTitle(title)
         .setTimestamp(Date.now())
-        .setColor(this.bot.colors.red)
+        .setColor(colors.red)
         .setFooter(footer || ""),
     );
   }

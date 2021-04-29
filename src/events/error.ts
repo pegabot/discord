@@ -6,10 +6,11 @@
 
 import { MessageEmbed } from "discord.js";
 import { Event } from "../classes/event";
+import { colors } from "../constants/colors";
 
 export class errorEvent extends Event {
   execute(error: Error): void {
-    const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.stack)}\``).setColor(this.bot.colors.red);
+    const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.stack)}\``).setColor(colors.red);
 
     this.bot.logger.admin_error_embed(embed);
   }

@@ -6,6 +6,7 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
+import { colors } from "../../constants/colors";
 import { BotExecption } from "../../utils/BotExecption";
 import { findCommand } from "../../utils/findCommand";
 
@@ -49,7 +50,7 @@ export class HelpCommand extends Command {
         .setDescription(`**Tip:** verwende ${this.bot.config.prefix}help <command>, um Hilfe für einen spezifischen Command zu erhalten.`)
         .addField("Prefix", this.bot.config.prefix)
         .addField("Verfügbare Commands (Aliase)", cmdsString, true)
-        .setColor(this.bot.colors?.blue || "");
+        .setColor(colors.blue);
 
       msg.channel.send(embed);
     } else if (args.length > 0) {
@@ -83,7 +84,7 @@ export class HelpCommand extends Command {
         .addField("Aliase", aliases ? aliases.join(", ") : "keine", true)
         .addField("Berechtigungen", permissions ? permissions.join("\n") : "keine", true)
         .setDescription(help)
-        .setColor(this.bot.colors?.blue || "");
+        .setColor(colors.blue);
 
       msg.channel.send(embed);
     }

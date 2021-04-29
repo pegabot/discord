@@ -6,7 +6,7 @@
 
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
-import { version } from "../../utils/version";
+import { version } from "../../constants/version";
 
 export class VersionCommand extends Command {
   name = "Version";

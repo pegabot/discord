@@ -13,7 +13,7 @@ trim() {
     printf '%s' "$var"
 }
 
-file="src/utils/version.ts"
+file="src/constants/version.ts"
 
 if [ -f $file ]
 then

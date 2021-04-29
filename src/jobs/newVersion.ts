@@ -6,7 +6,7 @@
 
 import { Job } from "../classes/job";
 import { VersionModel } from "../models/version";
-import { version } from "../utils/version";
+import { version } from "../constants/version";
 
 export class NewVersionJob extends Job {
   name = "Info bei neuer Version";

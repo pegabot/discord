@@ -6,6 +6,7 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
+import { colors } from "../../constants/colors";
 
 export class RolesCommand extends Command {
   name = "roles";
@@ -24,7 +25,7 @@ export class RolesCommand extends Command {
       .setThumbnail(msg?.guild?.iconURL() || "")
       .setTitle(`Rollen in ${msg.guild?.name}`)
       .setDescription(roles?.map((role) => `${role}\n`).join(""))
-      .setColor(this.bot?.colors?.orange || "")
+      .setColor(colors.orange)
       .setFooter(`Rollen: ${roles?.length}`)
       .setTimestamp(new Date());
     msg.channel.send(embed);
