@@ -17,13 +17,12 @@ process.on("unhandledRejection", (error: Error) => {
   bot.client.emit("error", error);
 });
 
-process.on("SIGTERM", () => {
-  console.info("SIGTERM signal received.");
+process.on("SIGINT", (signal) => {
+  bot.destroy(signal);
+});
 
-  bot.twitchClient.close();
-  bot.client.destroy();
-
-  process.exit(0);
+process.on("SIGTERM", (signal) => {
+  bot.destroy(signal);
 });
 
 export default bot;

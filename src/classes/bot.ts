@@ -41,4 +41,11 @@ export class Bot {
   constructor() {
     this.events.loadEvents();
   }
+
+  public destroy(signal: NodeJS.Signals): void {
+    console.log(`${signal} recieved, destroying the bot.`);
+    this.twitchClient.close();
+    this.client.destroy();
+    process.exit(0);
+  }
 }
