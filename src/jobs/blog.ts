@@ -7,7 +7,9 @@
 import { TextChannel } from "discord.js";
 import { Job } from "../classes/job";
 import { BlogPostModel } from "../models/blog";
+import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 import { getRequest } from "../utils/shopApi";
+import { slugify } from "../utils/slugify";
 
 export class BlogJob extends Job {
   name = "Suche nach neuen Blogbeiträgen";
@@ -32,30 +34,35 @@ export class BlogJob extends Job {
     for (const entry of entries) {
       const {
         id: postId,
+        title,
         category: { id: catId },
       } = entry;
 
-      let channelId, url, message;
+      let channelID, rawURL, seoURL, message;
       switch (catId) {
         case 115:
-          channelId = this.bot.config.BLOG_CHANNEL_DE;
-          url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${url}`;
+          channelID = this.bot.config.BLOG_CHANNEL_DE;
+          rawURL = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
+          seoURL = `https://pegasus.de/presse/pressemitteilungen/${slugify(title)}`;
+          message = `Unsere Pressestelle hat eben gerade eine neue Mitteilung veröffentlicht! 📣 ${rawURL}`;
           break;
         case 560:
-          channelId = this.bot.config.BLOG_CHANNEL_DE;
-          url = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${url}`;
+          channelID = this.bot.config.BLOG_CHANNEL_DE;
+          rawURL = `https://pegasus.de/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
+          seoURL = `https://pegasus.de/news/pegasus-spiele-blog/${slugify(title)}`;
+          message = `Auf unserem Blog ist gerade ein neuer Beitrag erschienen 📄 ${rawURL}`;
           break;
         case 589:
-          channelId = this.bot.config.BLOG_CHANNEL_EN;
-          url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `Our US-Team released a new article in our news room 📣  Check it out!${url}`;
+          channelID = this.bot.config.BLOG_CHANNEL_EN;
+          rawURL = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
+          seoURL = `https://pegasus-web.com/news/${slugify(title)}`;
+          message = `Our US-Team released a new article in our news room 📣  Check it out!${rawURL}`;
           break;
         case 713:
-          channelId = this.bot.config.BLOG_CHANNEL_EN;
-          url = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
-          message = `We've added a new article on our blog 📄  Check it out! ${url}`;
+          channelID = this.bot.config.BLOG_CHANNEL_EN;
+          rawURL = `https://pegasus-web.com/blog/detail/sCategory/${catId}/blogArticle/${postId}`;
+          seoURL = `https://pegasus-web.com/pegasus-spiele-blog/${slugify(title)}`;
+          message = `We've added a new article on our blog 📄  Check it out! ${rawURL}`;
           break;
         default:
           continue;
@@ -64,15 +71,16 @@ export class BlogJob extends Job {
       const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
       if (!guild) continue;
 
-      const channel = guild.channels.cache.get(channelId || "");
+      const channel = guild.channels.cache.get(channelID || "");
       if (!channel) continue;
 
-      (channel as TextChannel).send(message);
+      const sendMessage = await (channel as TextChannel).send(message);
+      new ReplaceBlogLinksModel({ channelID: channelID, messageID: sendMessage.id, rawURL: rawURL, seoURL: seoURL }).save();
 
       const blogPost = new BlogPostModel();
       blogPost.blogPost_id = postId;
       blogPost.raw = entry;
-      blogPost.url = url;
+      blogPost.url = rawURL;
       blogPost.save();
     }
   }
