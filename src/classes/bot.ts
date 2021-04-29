@@ -46,6 +46,7 @@ export class Bot {
     console.log(`${signal} recieved, destroying the bot.`);
     this.twitchClient.close();
     this.client.destroy();
+    this.db?.disconnect();
     process.exit(0);
   }
 }
