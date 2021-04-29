@@ -2,7 +2,7 @@
   "name": "pegabot",
   "description": "@pegabot living on @pegasusspiele's discord server",
   "version": "x.y.z",
-  "main": "build/src/bot.js",
+  "main": "build/bot.js",
   "author": "The Pegabot authors",
   "license": "AGPL-3.0-only",
   "repository": {

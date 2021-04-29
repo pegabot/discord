@@ -8,7 +8,7 @@ import { TextChannel } from "discord.js";
 import { Job } from "../classes/job";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
-const Trello = require("../../../lib/trello/main");
+const Trello = require("../../lib/trello/main");
 
 export class TrelloReminderJob extends Job {
   name = "Trello Reminder in den Rundenaushang schicken";

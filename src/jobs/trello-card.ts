@@ -9,7 +9,7 @@ import { Job } from "../classes/job";
 import { TrelloCardModel } from "../models/trelloCard";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
-const Trello = require("../../../lib/trello/main");
+const Trello = require("../../lib/trello/main");
 
 export class TrelloCardJob extends Job {
   name = "Trello Runden in den Rundenaushang schicken";

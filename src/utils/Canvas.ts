@@ -7,6 +7,6 @@
 import Canvas from "canvas";
 import path from "path";
 
-Canvas.registerFont(path.join(__dirname, "../../../assets/fonts/Poppins/Poppins-Regular.ttf"), { family: "Poppins" });
+Canvas.registerFont(path.join(__dirname, "../../assets/fonts/Poppins/Poppins-Regular.ttf"), { family: "Poppins" });
 
 export default Canvas;
