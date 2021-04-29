@@ -8,6 +8,7 @@ import { HosttargetMessage } from "dank-twitch-irc";
 import { TextChannel } from "discord.js";
 import { Bot } from "../classes/bot";
 import { Event } from "../classes/event";
+import { TwitchModel } from "../models/twitch";
 import { setDefault, setStreaming } from "../utils/presence";
 import { checkIfStreaming } from "../utils/twitch";
 
@@ -15,9 +16,27 @@ let isHosting = false;
 let isStreaming = false;
 
 const sendNotification = (bot: Bot, name: string) => {
-  const guild = bot.client.guilds.cache.get(bot.config.guildId || "");
-  const channel = guild?.channels.cache.get(bot.config.TWITCH_INFO_CHANNEL || "");
-  (channel as TextChannel).send(`📣 ***${name}*** ist eben auf Twitch live gegangen 🍾 \n https://twitch.tv/${name}`);
+  TwitchModel.findOne({}, null, null, (error, doc) => {
+    if (error) throw error;
+
+    if (doc?.name === name) return;
+    let newDoc = doc || new TwitchModel();
+    newDoc.name = name;
+    newDoc.save();
+
+    const guild = bot.client.guilds.cache.get(bot.config.guildId || "");
+    const channel = guild?.channels.cache.get(bot.config.TWITCH_INFO_CHANNEL || "");
+    (channel as TextChannel).send(`📣 ***${name}*** ist eben auf Twitch live gegangen 🍾 \n https://twitch.tv/${name}`);
+  });
+};
+
+const removeDocuments = () => {
+  TwitchModel.find({}, (error, docs) => {
+    if (error) throw error;
+    for (const doc of docs) {
+      doc.delete();
+    }
+  });
 };
 
 export class handleTwitchEvent extends Event {
@@ -34,6 +53,7 @@ export class handleTwitchEvent extends Event {
       if (HosttargetMessage.wasHostModeExited()) {
         isHosting = false;
         setDefault(this.bot);
+        removeDocuments();
       }
     }
 
@@ -50,6 +70,7 @@ export class handleTwitchEvent extends Event {
       if (!isStreaming) return;
       isStreaming = false;
       setDefault(this.bot);
+      removeDocuments();
     }
   }
 }
