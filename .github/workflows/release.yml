@@ -20,6 +20,8 @@ jobs:
         run: yarn install --prefer-offline
       - name: Inject the new version into the package.json
         run: npm version --no-git-tag-version ${VERSION}
+      - name: Injecting the Build-Version into the build
+        run: sh ./injectBuildVersion.sh
       - name: Injecting the Version into the build
         run: sh ./injectVersion.sh
       - name: Building the Pegabot

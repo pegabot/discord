@@ -15,7 +15,7 @@
   "scripts": {
     "test": "jest . --verbose",
     "dev": "nodemon .",
-    "heroku-prebuild": "sh ./injectVersion.sh",
+    "heroku-prebuild": "sh ./injectVersion.sh; sh ./injectBuildVersion.sh",
     "build": "rm -rf build; tsc",
     "start": "node .",
     "build-start": "rm -rf build; tsc; node .",
