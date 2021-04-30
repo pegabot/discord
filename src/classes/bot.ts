@@ -36,7 +36,7 @@ export class Bot {
   }
 
   public destroy(signal?: NodeJS.Signals): void {
-    console.log(`${signal || "Signal"} recieved, destroying the bot.`);
+    console.log(`${signal || "Exit signal"} recieved, destroying the bot.`);
     this.twitchClient.close();
     this.client.destroy();
     this.db?.disconnect();

@@ -16,6 +16,7 @@ export class RestartCommand extends Command {
 
   async execute(msg: Message) {
     await msg.channel.send(`Starte neu 🍹`);
+    this.bot.destroy();
     process.exit(0);
   }
 }
