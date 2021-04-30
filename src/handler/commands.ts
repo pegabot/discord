@@ -130,7 +130,7 @@ export class CommandHandler {
         return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
-      if (command?.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
+      if (this.bot.config.NODE_ENV === "production" && command?.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
       if (command.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
         if (!command?.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.channel.join(`>, <#`)}>.`);
