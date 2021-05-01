@@ -26,6 +26,6 @@ export class NicknameCommand extends Command {
       return;
     }
 
-    msg.member.setNickname(args[0]);
+    msg.member.setNickname(args.join(" "), "Pegabot changed the nickname on behalf of this member");
   }
 }
