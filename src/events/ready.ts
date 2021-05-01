@@ -19,7 +19,7 @@ export class ReadyEvent extends Event {
         Version: ${version}
         ID: ${this.bot.client.user?.id}
         Aktuell in ${this.bot.client.guilds.cache.size} Guilde(n)
-        ${this.bot.commands.size} Command(s) geladen 🤖,
+        ${this.bot.commands.size} Command(s) geladen 🤖
         ${this.bot.MongoConnector?.size} Models(s) geladen 🧭
         ${this.bot.events?.size} Event(s) geladen 🎟
         ${this.bot.jobs?.size} Job(s) aktiviert ⚙️`;
