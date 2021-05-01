@@ -22,7 +22,7 @@ fi
 
 build=$(git rev-parse --short HEAD)
 
-echo "export const version: String = '$(trim $build)';"  > $file;
+echo "export const version: string = '$(trim $build)';"  > $file;
 
 git add .;
 git commit -m "Adding commit id as version";

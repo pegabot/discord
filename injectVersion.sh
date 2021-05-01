@@ -32,4 +32,4 @@ then
   rm $file;
 fi
 
-echo "export const version: String = '$(trim $PACKAGE_VERSION)';"  > $file
+echo "export const version: string = '$(trim $PACKAGE_VERSION)';"  > $file
