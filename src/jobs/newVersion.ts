@@ -7,12 +7,13 @@
 import { Job } from "../classes/job";
 import { version } from "../constants/version";
 import { VersionModel } from "../models/version";
+import { isSemanticVersion } from "../utils/version";
 
 export class NewVersionJob extends Job {
   name = "Info bei neuer Version";
 
   async setup(): Promise<void> {
-    if (!version.match(/([0-9]+)\.([0-9]+)\.([0-9]+)/)) return;
+    if (!isSemanticVersion(version)) return;
     const entries = await VersionModel.find({});
 
     let entry;

@@ -4,5 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-// Gets replaced on build by CI
-export const version: string = "x.y.z";
+export const isSemanticVersion = (version: string): boolean => {
+  if (version.match(/([0-9]+)\.([0-9]+)\.([0-9]+)/)) return true;
+  return false;
+};
