@@ -7,6 +7,7 @@
 import { CategoryChannel, TextChannel } from "discord.js";
 import { Job } from "../classes/job";
 import { TrelloCardModel } from "../models/trelloCard";
+import { isProduction } from "../utils/environment";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../lib/trello/main");
@@ -67,7 +68,7 @@ export class TrelloCardJob extends Job {
         this.bot.logger.admin(`Trello: erstelle Kanäle für Card: ${cardId}`);
 
         let category: CategoryChannel;
-        if (process.env.NODE_ENV === "production") {
+        if (isProduction()) {
           category = await guild.channels.create(categoryField.value.text, {
             type: "category",
             permissionOverwrites: [

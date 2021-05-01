@@ -17,7 +17,7 @@ export class ResetSessionJob extends Job {
     SessionModel.find({ status: "in progress" }, (error, sessions) => {
       if (sessions.length === 0) return;
 
-      this.bot.logger.info(`Setting stale status to ${sessions.length} session(s)!`);
+      this.bot.logger.console(`Setting stale status to ${sessions.length} session(s)!`);
       for (const session of sessions) {
         session.status = "stale";
         session.save();

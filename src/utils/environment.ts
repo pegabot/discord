@@ -4,10 +4,8 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-export const emojis = {
-  commandReactionEmoji: "👌",
-  commandNotFoundEmoji: "❓",
-  commandExecutedEmoji: "✅",
-  rollEmoji: "🎲",
-  hugEmoji: "🤗",
+import bot from "../bot";
+
+export const isProduction = (): boolean => {
+  return bot.config.NODE_ENV === "production";
 };

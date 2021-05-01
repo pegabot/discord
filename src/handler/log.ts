@@ -73,7 +73,7 @@ export class LogHandler {
     (channel as TextChannel).send(stripIndents(embed));
   }
 
-  info(msg: string): void {
+  console(msg: string): void {
     console.log(stripIndents(msg));
   }
 

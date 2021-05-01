@@ -14,6 +14,7 @@ import { QuizModel } from "../../models/quiz";
 import { SessionModel } from "../../models/session";
 import { VoucherModel } from "../../models/voucher";
 import { BotExecption } from "../../utils/BotExecption";
+import { isProduction } from "../../utils/environment";
 import { stripIndents } from "../../utils/stripIndents";
 
 const QuizName = "CONspiracy V";
@@ -113,7 +114,7 @@ export class QuizCommand extends Command {
           .addField("🇨 - " + frage.antworten[2], "-----")
           .setTimestamp();
 
-        if (process.env.NODE_ENV !== "production") quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
+        if (isProduction()) quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
 
         const runningQuiz = await msg.author.send(quizEmbed);
         runningQuiz.react("🇦");

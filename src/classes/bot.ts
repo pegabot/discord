@@ -33,6 +33,14 @@ export class Bot {
 
   constructor() {
     this.events.loadEvents();
+    this.seedConfiguration();
+  }
+
+  private seedConfiguration(): void {
+    if (!process.env.NODE_ENV) {
+      this.logger.console("The environmental variable 'NODE_ENV' was not set. Defaulting to 'production'");
+      this.config.NODE_ENV = "production";
+    }
   }
 
   public destroy(signal?: NodeJS.Signals): void {

@@ -5,8 +5,9 @@
  */
 
 import { Event } from "../classes/event";
-import { setDefault } from "../utils/presence";
 import { version } from "../constants/version";
+import { isProduction } from "../utils/environment";
+import { setDefault } from "../utils/presence";
 
 export class ReadyEvent extends Event {
   execute() {
@@ -23,8 +24,8 @@ export class ReadyEvent extends Event {
         ${this.bot.events?.size} Event(s) geladen 🎟
         ${this.bot.jobs?.size} Job(s) aktiviert ⚙️`;
 
-    this.bot.logger.info(message);
-    if (process.env.NODE_ENV === "production") this.bot.logger.admin(message);
+    this.bot.logger.console(message);
+    if (isProduction()) this.bot.logger.admin(message);
     setDefault(this.bot);
   }
 }

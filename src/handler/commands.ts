@@ -13,6 +13,7 @@ import { emojis } from "../constants/emojis";
 import { ILogCommand, LogModel } from "../models/log";
 import { BotExecption } from "../utils/BotExecption";
 import { cloneClass } from "../utils/cloneClass";
+import { isProduction } from "../utils/environment";
 import { findCommand } from "../utils/findCommand";
 import { walkSync } from "../utils/walkSync";
 
@@ -130,13 +131,13 @@ export class CommandHandler {
         return msg.channel.send(":x: Sorry, nur der Besitzer kann diesen Command ausführen.");
       }
 
-      if (this.bot.config.NODE_ENV === "production" && command?.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
+      if (isProduction() && command?.disabled) return msg.channel.send(":x: Dieser Command wurde vorübergehend deaktiviert.");
 
-      if (command.channel && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+      if (command.channel && isProduction() && msg.channel.id !== this.bot.config.adminChannel) {
         if (!command?.channel.includes(msg.channel.id)) return msg.channel.send(`:x: Dieser Command funktioniert nur in <#${command.channel.join(`>, <#`)}>.`);
       }
 
-      if (command.unlock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+      if (command.unlock && isProduction() && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime < command.unlock)
@@ -147,7 +148,7 @@ export class CommandHandler {
           );
       }
 
-      if (command.lock && process.env.NODE_ENV === "production" && msg.channel.id !== this.bot.config.adminChannel) {
+      if (command.lock && isProduction() && msg.channel.id !== this.bot.config.adminChannel) {
         const localTime = new Date().getTime();
 
         if (localTime > command.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
@@ -166,6 +167,7 @@ export class CommandHandler {
       try {
         msg.react(emojis.commandReactionEmoji);
         await command.execute(msg, args || []);
+        if (!isProduction()) msg.react(emojis.commandExecutedEmoji);
       } catch (e) {
         if (e instanceof BotExecption) {
           await msg.channel.send(`:x: ${e.message}`);
@@ -184,6 +186,7 @@ export class CommandHandler {
         }
       }
     } else {
+      msg.react(emojis.commandNotFoundEmoji);
       msg.channel.send(`:x: Sorry, der Command \`${base}\` wurde nicht gefunden.`);
     }
   }
