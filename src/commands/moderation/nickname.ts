@@ -16,6 +16,11 @@ export class NicknameCommand extends Command {
   execute(msg: Message, args: string[]) {
     if (!msg.member) return;
 
+    if (msg.member.hasPermission("ADMINISTRATOR")) {
+      msg.reply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!");
+      return;
+    }
+
     if (args.length < 1) {
       msg.reply(`du musst einen Nicknamen mit übergeben, mit \`${this.bot.config.prefix}nickname remove\` kannst du deinen Nickname entfernen.`);
       return;
