@@ -37,6 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
+      - name: Injecting the last commit id as version
+        run: sh ./injectStagingVersion.sh
       - uses: akhileshns/heroku-deploy@v3.8.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}

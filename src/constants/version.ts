@@ -5,4 +5,4 @@
  */
 
 // Gets replaced on build by CI
-export const version = "x.y.z";
+export const version: String = "x.y.z";

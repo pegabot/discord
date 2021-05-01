@@ -5,16 +5,14 @@
  */
 
 import { Job } from "../classes/job";
-import { VersionModel } from "../models/version";
 import { version } from "../constants/version";
+import { VersionModel } from "../models/version";
 
 export class NewVersionJob extends Job {
   name = "Info bei neuer Version";
 
   async setup(): Promise<void> {
-    // @ts-ignore: this is intended
-    if (version === "x.y.z") return;
-
+    if (!version.match(/([0-9]+)\.([0-9]+)\.([0-9]+)/)) return;
     const entries = await VersionModel.find({});
 
     let entry;
