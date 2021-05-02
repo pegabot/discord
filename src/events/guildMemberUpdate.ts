@@ -4,13 +4,11 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { GuildMember } from "discord.js";
+import { GuildMember, MessageEmbed } from "discord.js";
+import prettyMs from "pretty-ms";
 import { Event } from "../classes/event";
 import { colors } from "../constants/colors";
 import { userGivenRolesModel } from "../models/userGivenRoles";
-
-const prettyMs = require("pretty-ms");
-const { MessageEmbed } = require("discord.js");
 
 export class guildMemberUpdateEvent extends Event {
   async execute(oldMember: GuildMember, newMember: GuildMember): Promise<void> {

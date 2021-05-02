@@ -4,14 +4,12 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Collection, Message, Role } from "discord.js";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { de } from "date-fns/locale";
+import { Collection, Message, MessageEmbed, Role } from "discord.js";
 import { Command } from "../../classes/command";
 import { BotExecption } from "../../utils/BotExecption";
 import { resolveUser } from "../../utils/resolveUser";
-
-const { MessageEmbed } = require("discord.js");
-const formatDistanceToNow = require("date-fns/formatDistanceToNow");
-const { de } = require("date-fns/locale");
 
 export class UserinfoCommand extends Command {
   name = "userinfo";
