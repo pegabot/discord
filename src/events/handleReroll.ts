@@ -12,7 +12,7 @@ import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";
 
 export class handleRerollEvent extends Event {
-  async execute(user: User, reaction: MessageReaction): Promise<void> {
+  async execute(reaction: MessageReaction, user: User): Promise<void> {
     const {
       message: { id: messageID },
     } = reaction;

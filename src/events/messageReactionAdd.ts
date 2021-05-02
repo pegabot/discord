@@ -29,7 +29,9 @@ export class messageReactionAddEvent extends Event {
 
     switch (reaction.emoji.name) {
       case emojis.rollEmoji:
-        this.bot.client.emit("handleReroll", user, reaction);
+        this.bot.client.emit("handleReroll", reaction, user);
+      case emojis.commandReactionEmoji:
+        this.bot.client.emit("handleCommandRecall", reaction, user);
       default:
         return;
     }
