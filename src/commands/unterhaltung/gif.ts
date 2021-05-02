@@ -15,7 +15,7 @@ export class GifCommand extends Command {
   usage = ["gif", "gif <text>"];
   help = "Suche nach GIFs mit Hilfer der tenor API.";
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     let text = emojiStrip(msg.cleanContent)
       .replace(/[^a-üA-Ü0-9-_]/g, " ")
       .slice((this.bot?.config?.prefix?.length || 1) + 4)

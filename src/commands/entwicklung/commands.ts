@@ -14,7 +14,7 @@ export class CommandsCommand extends Command {
   help = "Zeigt alle aktivierten Commands an";
   owner = true;
 
-  execute(message: Message): void {
+  execute(message: Message) {
     const commands = this.bot.commands.all.array();
     message.channel.send(
       stripIndents(`

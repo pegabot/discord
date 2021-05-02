@@ -16,7 +16,7 @@ export class UserinfoCommand extends Command {
   usage = ["userinfo", "userinfo <user>"];
   help = "Gibt informationen zu einem Benutzer wieder.";
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     let member = resolveUser(msg, args.join(" "));
     if (args.length === 0) ({ member } = msg);
     if (!member) throw new BotExecption("Dieser Benutzer wurde nicht gefunden.");

@@ -15,7 +15,7 @@ export class BlacklistCommand extends Command {
   help = "Fügt Benutzer zu einer Blacklist hinzu, die ihn von der Benutzung dieses Bots ausschließt.";
   permissions = ["BAN_MEMBERS"];
 
-  execute(msg: Message, args: string[]): void {
+  execute(msg: Message, args: string[]) {
     if (args.length === 0) {
       const list = this.bot?.blacklist
         ?.keyArray()

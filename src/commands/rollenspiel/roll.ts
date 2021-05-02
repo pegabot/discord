@@ -18,17 +18,14 @@ export class RollCommand extends Command {
   help = "powered by RollButler";
   aliases = ["r"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     if (!this.bot) return;
 
-    if (args.length < 1) {
-      msg.reply("es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
-      return;
-    }
-    if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i)) {
-      msg.reply(`dieser Wurf ist nicht valide. Nutze \`${this.bot.config.prefix}help roll\` für mehr Hilfe.`);
-      return;
-    }
+    if (args.length < 1) return msg.reply("es gibt keine Würfel zu würfeln. Bitte überprüfe deine Eingabe.");
+
+    if (args.join(" ").match(/([\dßo]{4,}[dw]|[\dßo]{2,}[dw][\dßo]{6,}|^\/teste?)/i))
+      return msg.reply(`dieser Wurf ist nicht valide. Nutze \`${this.bot.config.prefix}help roll\` für mehr Hilfe.`);
+
     const dice = args.join(" ").replace(" ", "");
 
     const params = generateParams(this.bot, msg.author, dice);

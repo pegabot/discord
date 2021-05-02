@@ -14,7 +14,7 @@ export class SlowmodeCommand extends Command {
   help = "Einstellungen für den Slowmode";
   permissions = ["MANAGE_CHANNELS"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     const [input] = args;
     if (!input) {
       msg.channel.send(`Aktuell beträgt die Slowmode Rate ${(msg.channel as TextChannel).rateLimitPerUser} Sekunde(n)`);

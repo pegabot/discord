@@ -16,7 +16,7 @@ export class className extends Command {
   help = "Liefert ein zufälliges Vogelbild zurück.";
   channel = ["718145438339039325"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     try {
       const responseJson: any = await fetchWithTimeout(`http://shibe.online/api/birds`);
       const json = await responseJson.json();

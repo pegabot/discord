@@ -16,7 +16,7 @@ export class MiauCommand extends Command {
   help = "Liefert ein zufälliges Katzenbild zurück.";
   channel = ["718145438339039325", "697111104874348585", "815903133707272213", "801788525099352122"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     let text = emojiStrip(msg.cleanContent)
       .replace(/[^a-üA-Ü0-9-_]/g, " ")
       .slice((this.bot?.config?.prefix?.length || 1) + 4)

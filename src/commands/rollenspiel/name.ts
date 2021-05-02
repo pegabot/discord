@@ -13,7 +13,7 @@ export class NameCommand extends Command {
   usage = ["name <de/en/ww> <m/w>"];
   help = "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.";
 
-  execute(msg: Message, args: string[]): void {
+  execute(msg: Message, args: string[]) {
     if (!["de", "en", "ww"].includes(args[0]))
       throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
     if (!["w", "m"].includes(args[1]))

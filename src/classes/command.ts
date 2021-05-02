@@ -27,7 +27,7 @@ export abstract class Command {
     this.bot = bot;
   }
 
-  abstract execute(msg: Message, args?: string[]): Promise<void> | void;
+  abstract execute(msg: Message, args?: string[]): Promise<void | Message> | void | Message;
 
   protected allNames() {
     return `${this.name}${this.aliases ? " / " + this.aliases?.join("/ ") : ""}`;

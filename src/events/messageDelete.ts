@@ -8,7 +8,7 @@ import { Message, MessageEmbed } from "discord.js";
 import { Event } from "../classes/event";
 
 export class messageDeleteEvent extends Event {
-  execute(message: Message): void {
+  execute(message: Message) {
     if (message.partial) return;
 
     if (message.channel.id === this.bot.config.adminChannel) return;

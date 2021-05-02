@@ -16,7 +16,7 @@ export class SessionResetCommand extends Command {
   help = "Löschen von Sessions.";
   admin = true;
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]){
     if (args.length < 1) throw new BotExecption("Du musst eine SessionId oder einen Benutzer mit übergeben!");
 
     let sessions;

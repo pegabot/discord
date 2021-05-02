@@ -18,17 +18,14 @@ export class LeaderBoardCommand extends Command {
   usage = ["rank", "rank <user>"];
   help = "Zeigt dir deinen Rang oder den Rang von dem Mitglied, welches du übergeben hast, an.";
 
-  async execute(msg: Message): Promise<void> {
+  async execute(msg: Message) {
     const target = msg.mentions.users.first() || msg.author;
     const user = resolveUser(msg, target.username);
 
     if (!user) throw new BotExecption("Dieser Benutzer exisitert nicht!");
 
     const userData = await Levels.fetch(user?.user.id, msg.guild?.id || "");
-    if (!userData) {
-      msg.channel.send("Sieht so aus, als hätte dieses Mitglied noch keine xp gesammelt.");
-      return;
-    }
+    if (!userData) return msg.channel.send("Sieht so aus, als hätte dieses Mitglied noch keine xp gesammelt.");
 
     LevelModel.find({}, async (error, data) => {
       const sorted = data.sort((a, b) => b.xp - a.xp);

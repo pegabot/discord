@@ -15,7 +15,7 @@ export class KickCommand extends Command {
   help = "Kickt einen spezifischen Benutzer";
   permissions = ["KICK_MEMBERS"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum kicken.");
 
     const user = resolveUser(msg, args.join(" "));

@@ -14,7 +14,7 @@ export class EventsCommand extends Command {
   help = "Zeigt alle aktivierten Events an";
   owner = true;
 
-  execute(message: Message): void {
+  execute(message: Message) {
     const eventNames = this.bot.events.all.keyArray();
     message.channel.send(
       stripIndents(`

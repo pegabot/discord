@@ -16,7 +16,7 @@ export class HelpCommand extends Command {
   usage = ["help", "help <command>"];
   help = "Gibt alle verfügbaren Command oder Informationen zu einem spezifischen Command zurück.";
 
-  execute(msg: Message, args: string[]): void {
+  execute(msg: Message, args: string[]) {
     if (args.length === 0) {
       const cmdsString = this.bot.commands.names
         .filter((cmd) => !this.bot.commands.get(cmd)?.owner)
@@ -58,16 +58,12 @@ export class HelpCommand extends Command {
       if (!command) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
       let { aliases, permissions, roles, usage, name, disabled, category, help } = command;
-      if (permissions && permissions.some((e: any) => !msg.member?.hasPermission(e))) {
-        msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
-        return;
-      }
+      if (permissions && permissions.some((e: any) => !msg.member?.hasPermission(e)))
+        return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
+
       if (roles) {
         const roleCheck = roles.some((e) => msg.member?.roles.cache.find((role) => role.name.toLowerCase() === e.toLowerCase()));
-        if (!roleCheck) {
-          msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
-          return;
-        }
+        if (!roleCheck) return msg.channel.send("Du versuchst Hilfe für einen Command zu bekommen, für welchen du nicht die Berechtigung besitzt.");
       }
 
       if (Array.isArray(usage)) {

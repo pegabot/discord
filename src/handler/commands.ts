@@ -79,7 +79,7 @@ export class CommandHandler {
     }
   }
 
-  async handleCommand(msg: Message) {
+  async handleCommand(msg: Message): Promise<void | Message> {
     const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
     if (!guild) return;
 
@@ -87,7 +87,7 @@ export class CommandHandler {
 
     if (!msg.guild && msg.author.id !== this.bot.client.user?.id && msg.content.includes(this.bot.config.prefix || "")) {
       msg.channel.send(`Ich darf mit dir leider nicht privat schreiben.. schreib mich doch auf dem **${name}** Server an :smile:`);
-      return null;
+      return;
     }
 
     const args = msg.content.slice(this.bot.config.prefix?.length).trim().split(" ");
@@ -102,9 +102,9 @@ export class CommandHandler {
       await msg.react(emojis.hugEmoji);
     }
 
-    if (!msg.content.startsWith(this.bot.config.prefix || "")) return null;
+    if (!msg.content.startsWith(this.bot.config.prefix || "")) return;
 
-    if (!base) return msg.channel.send(":x: du hast kein Command mit übergeben!");
+    if (!base) return msg.reply("du hast keinen Command Namen mit übergeben!");
 
     const command = findCommand(this.cmds, base);
 
@@ -119,7 +119,7 @@ export class CommandHandler {
 
       command.bot = this.bot;
 
-      if (this.bot.blacklist.has(msg.author.id)) return null;
+      if (this.bot.blacklist.has(msg.author.id)) return;
 
       if (
         command?.owner &&

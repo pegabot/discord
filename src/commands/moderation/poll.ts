@@ -15,7 +15,7 @@ export class PollCommand extends Command {
   usage = ["poll"];
   help = "Mit diesem Command kannst du eine Abstimmung durchführen.";
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     const questionMessage = await msg.reply("wie lautet deine Frage?");
     questionMessage.channel
       .awaitMessages(() => true, { max: 1, time: 30000, errors: ["time"] })

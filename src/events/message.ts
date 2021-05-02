@@ -10,7 +10,7 @@ import { Event } from "../classes/event";
 import { MessageModel } from "../models/message";
 
 export class MessageEvent extends Event {
-  async execute(message: Message): Promise<void> {
+  async execute(message: Message) {
     if (message.partial) return;
 
     if (!message.guild) return;

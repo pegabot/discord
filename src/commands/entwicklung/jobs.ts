@@ -14,7 +14,7 @@ export class JobsCommand extends Command {
   help = "Zeigt alle aktivierten Jobs an";
   owner = true;
 
-  execute(message: Message): void {
+  execute(message: Message) {
     const jobs = this.bot.jobs.all.array();
     message.channel.send(
       stripIndents(`

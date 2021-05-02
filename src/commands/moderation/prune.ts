@@ -14,7 +14,7 @@ export class PruneCommand extends Command {
   help = "Löscht eine gewisse Anzahl an Nachrichten";
   permissions = ["MANAGE_MESSAGES"];
 
-  async execute(msg: Message, args: string[]): Promise<void> {
+  async execute(msg: Message, args: string[]) {
     if (args[0]) {
       if (isNaN(Number(args[0]))) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
       if (Number(args[0]) > 50) throw new BotExecption("Ich kann nicht mehr als 50 Nachrichten auf Einmal löschen.");
