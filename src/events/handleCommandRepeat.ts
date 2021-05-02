@@ -7,7 +7,7 @@
 import { MessageReaction, User } from "discord.js";
 import { Event } from "../classes/event";
 
-export class handleCommandRecallEvent extends Event {
+export class handleCommandRepeatEvent extends Event {
   async execute(reaction: MessageReaction, user: User): Promise<void> {
     if (reaction.message.member?.id !== user.id) {
       reaction.message.channel.send(`${user} nur der ursprüngliche Autor kann einen Command erneut ausführen.`);

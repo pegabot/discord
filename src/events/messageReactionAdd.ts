@@ -31,8 +31,8 @@ export class messageReactionAddEvent extends Event {
       case emojis.rollEmoji:
         this.bot.client.emit("handleReroll", reaction, user);
         break;
-      case emojis.commandReactionEmoji:
-        this.bot.client.emit("handleCommandRecall", reaction, user);
+      case emojis.commandRepeatEmoji:
+        this.bot.client.emit("handleCommandRepeat", reaction, user);
         break;
       default:
         return;

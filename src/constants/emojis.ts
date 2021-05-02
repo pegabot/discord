@@ -5,7 +5,7 @@
  */
 
 export const emojis = {
-  commandReactionEmoji: "👌",
+  commandRepeatEmoji: "🔁",
   commandNotFoundEmoji: "❓",
   commandExecutedEmoji: "✅",
   rollEmoji: "🎲",
