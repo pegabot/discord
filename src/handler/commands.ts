@@ -165,7 +165,7 @@ export class CommandHandler {
       }
 
       try {
-        msg.react(emojis.commandRepeatEmoji);
+        if (command.repeatable) msg.react(emojis.commandRepeatEmoji);
         await command.execute(msg, args || []);
         if (!isProduction()) msg.react(emojis.commandExecutedEmoji);
       } catch (e) {

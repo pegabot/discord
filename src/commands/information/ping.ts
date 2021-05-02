@@ -13,6 +13,7 @@ export class PingCommand extends Command {
   usage = "ping";
   help = "Reaktionszeit des Bots";
   aliases = ["🏓"];
+  repeatable = false;
 
   async execute(msg: Message) {
     const m = await msg.channel.send("Pong!");

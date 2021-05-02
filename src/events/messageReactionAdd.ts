@@ -27,6 +27,9 @@ export class messageReactionAddEvent extends Event {
     )
       return;
 
+    const users = reaction.users.fetch();
+    if (!(await users).has(this.bot.client.user?.id || "")) return;
+
     switch (reaction.emoji.name) {
       case emojis.rollEmoji:
         this.bot.client.emit("handleReroll", reaction, user);
