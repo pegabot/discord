@@ -8,3 +8,8 @@ export const isSemanticVersion = (version: string): boolean => {
   if (version.match(/([0-9]+)\.([0-9]+)\.([0-9]+)/)) return true;
   return false;
 };
+
+export const versionGitHubLink = (version: string): string => {
+  if (isSemanticVersion(version)) return `https://github.com/pegabot/discord/releases/tag/${version}`;
+  return `https://github.com/pegabot/discord/commit/${version}`;
+};

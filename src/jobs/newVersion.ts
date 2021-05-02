@@ -7,13 +7,14 @@
 import { Job } from "../classes/job";
 import { version } from "../constants/version";
 import { VersionModel } from "../models/version";
-import { isSemanticVersion } from "../utils/version";
+import { versionGitHubLink } from "../utils/version";
 
 export class NewVersionJob extends Job {
   name = "Info bei neuer Version";
 
   async setup(): Promise<void> {
-    if (!isSemanticVersion(version)) return;
+    if (version === "x.y.z") return;
+
     const entries = await VersionModel.find({});
 
     let entry;
@@ -25,7 +26,7 @@ export class NewVersionJob extends Job {
       entry = new VersionModel({ version: version });
     }
 
-    this.bot.logger.admin(`Es läuft eine neue Version: \`${version}\`  🎉 \n (https://github.com/pegabot/discord/releases/tag/${version})`);
+    this.bot.logger.admin(`Es läuft eine neue Version: \`${version}\`  🎉 \n (${versionGitHubLink(version)})`);
 
     entry.save();
   }
