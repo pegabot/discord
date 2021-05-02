@@ -12,7 +12,7 @@ import { MongoConnector } from "../handler/database";
 import { EventHandler } from "../handler/events";
 import { JobHandler } from "../handler/jobs";
 import { LogHandler } from "../handler/log";
-import { CustomClient } from "../types/discord-js";
+import { CustomClient } from "../types/discord.js";
 config();
 
 export class Bot {
