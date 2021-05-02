@@ -12,7 +12,7 @@ import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 export class ReplaceBlogLinksJob extends Job {
   name = "Pegaus-Blog Links in Nachrichten austauschen";
   env = "blog";
-  interval = 300000;
+  interval = 1000 * 60 * 60 * 5; // Milliseconds * Seconds * Minutes * Hours
 
   checkSite = bent();
 
