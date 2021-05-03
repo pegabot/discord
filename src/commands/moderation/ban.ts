@@ -14,6 +14,7 @@ export class BanCommand extends Command {
   usage = "ban <user>";
   help = "Bann einen bestimmten Benutzer";
   permissions = ["BAN_MEMBERS"];
+  repeatable = false;
 
   execute(msg: Message): void {
     const target = msg.mentions.users.first() || msg.author;

@@ -12,6 +12,7 @@ export class ChannelDeleteCommand extends Command {
   usage = ["channelDelete"];
   help = "Lösche die Känale zur zugehörigen Kategorie und die Kategorie.";
   permissions = ["MANAGE_CHANNELS"];
+  repeatable = false;
 
   execute(msg: Message): void {
     const { id: channelID, parentID } = msg.channel as TextChannel;

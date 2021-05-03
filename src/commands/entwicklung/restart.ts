@@ -12,6 +12,7 @@ export class RestartCommand extends Command {
   usage = "restart";
   help = "Neustart des Bots";
   owner = true;
+  repeatable = false;
 
   async execute(msg: Message) {
     await msg.channel.send(`Starte neu 🍹`);

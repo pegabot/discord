@@ -14,6 +14,7 @@ export class KickCommand extends Command {
   usage = "kick <user>";
   help = "Kickt einen spezifischen Benutzer";
   permissions = ["KICK_MEMBERS"];
+  repeatable = false;
 
   async execute(msg: Message, args: string[]) {
     if (args.length < 1) throw new CommandExecption("Ich brauche einen Benutzer zum kicken.");

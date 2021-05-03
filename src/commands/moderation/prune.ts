@@ -13,6 +13,7 @@ export class PruneCommand extends Command {
   usage = "prune <Anzahl der zu löschenden Nachrichten>";
   help = "Löscht eine gewisse Anzahl an Nachrichten";
   permissions = ["MANAGE_MESSAGES"];
+  repeatable = false;
 
   async execute(msg: Message, args: string[]) {
     if (args[0]) {
