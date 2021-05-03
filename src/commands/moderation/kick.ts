@@ -6,7 +6,7 @@
 
 import { Message, MessageCollector, TextChannel } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class KickCommand extends Command {
@@ -16,11 +16,11 @@ export class KickCommand extends Command {
   permissions = ["KICK_MEMBERS"];
 
   async execute(msg: Message, args: string[]) {
-    if (args.length < 1) throw new BotExecption("Ich brauche einen Benutzer zum kicken.");
+    if (args.length < 1) throw new CommandExecption("Ich brauche einen Benutzer zum kicken.");
 
     const user = resolveUser(msg, args.join(" "));
-    if (!user) throw new BotExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden.`);
-    if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht kicken!`);
+    if (!user) throw new CommandExecption(`Der Benutzer ${args.join(" ")} wurde nicht gefunden.`);
+    if (user.id === msg.author.id) throw new CommandExecption(`Du kannst dich selbst nicht kicken!`);
 
     if (user.kickable) {
       msg.channel.send("Was ist der Grund für den Kick?");
@@ -37,7 +37,7 @@ export class KickCommand extends Command {
         }
       });
     } else {
-      throw new BotExecption("Der Benutzer konnte nicht gekickt werden!");
+      throw new CommandExecption("Der Benutzer konnte nicht gekickt werden!");
     }
   }
 }

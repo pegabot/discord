@@ -11,9 +11,9 @@ import { Bot } from "../classes/bot";
 import { Command } from "../classes/command";
 import { emojis } from "../constants/emojis";
 import { ILogCommand, LogModel } from "../models/log";
-import { BotExecption } from "../utils/execptions";
 import { cloneClass } from "../utils/cloneClass";
 import { isProduction } from "../utils/environment";
+import { CommandExecption } from "../utils/execptions";
 import { findCommand } from "../utils/findCommand";
 import { walkSync } from "../utils/walkSync";
 
@@ -169,7 +169,7 @@ export class CommandHandler {
         await command.execute(msg, args || []);
         if (!isProduction()) msg.react(emojis.commandExecutedEmoji);
       } catch (e) {
-        if (e instanceof BotExecption) {
+        if (e instanceof CommandExecption) {
           await msg.channel.send(`:x: ${e.message}`);
         } else {
           const embed = new MessageEmbed()

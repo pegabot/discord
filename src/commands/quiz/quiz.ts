@@ -13,8 +13,8 @@ import { IFrage } from "../../models/frage";
 import { QuizModel } from "../../models/quiz";
 import { SessionModel } from "../../models/session";
 import { VoucherModel } from "../../models/voucher";
-import { BotExecption } from "../../utils/execptions";
 import { isProduction } from "../../utils/environment";
+import { CommandExecption } from "../../utils/execptions";
 import { stripIndents } from "../../utils/stripIndents";
 
 const QuizName = "CONspiracy V";
@@ -36,7 +36,7 @@ export class QuizCommand extends Command {
     if (quizzes.length == 0) {
       newSession.status = "error";
       newSession.save();
-      throw new BotExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!");
+      throw new CommandExecption("Es konnten keine Fragen geladen werden... Bitte wende dich an einen Administrator!");
     }
 
     newSession.quiz = quizzes[0];
@@ -46,7 +46,7 @@ export class QuizCommand extends Command {
     if (vouchers.length == 0) {
       newSession.status = "error";
       newSession.save();
-      throw new BotExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!");
+      throw new CommandExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!");
     }
 
     const closedSessions = await SessionModel.find({ userId: newSession.userId, won: true, status: "closed", "quiz.name": QuizName });
@@ -69,7 +69,7 @@ export class QuizCommand extends Command {
 
     const activeSession = await SessionModel.find({ userId: newSession.userId, status: "in progress" });
     if (activeSession.length != 0 && msg.channel.id !== bot.config.adminChannel) {
-      throw new BotExecption("Du spielst schon eine Partie!");
+      throw new CommandExecption("Du spielst schon eine Partie!");
     }
 
     newSession.expires = Number(Date.now()) + expiresInterval;
@@ -191,7 +191,7 @@ export class QuizCommand extends Command {
       newSession.status = "error";
       newSession.save();
       if (error.code === 50007)
-        throw new BotExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
+        throw new CommandExecption("Ich konnte dir keine Nachricht senden, stelle sicher, dass du Direktnachrichten in den Einstellungen aktiviert hast!");
       throw new Error(error);
     }
   }

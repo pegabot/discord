@@ -6,7 +6,7 @@
 
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 export class SubscribeCommand extends Command {
   name = "subscribe";
@@ -16,7 +16,7 @@ export class SubscribeCommand extends Command {
   execute(msg: Message): void {
     try {
       const { member } = msg;
-      if (!member) throw new BotExecption("Ein Fehler ist aufgetreten!");
+      if (!member) throw new CommandExecption("Ein Fehler ist aufgetreten!");
 
       if (member.roles.cache.has(this.bot?.config?.notificationRole || "")) {
         member.roles.remove(this.bot?.config?.notificationRole || "");
@@ -26,7 +26,7 @@ export class SubscribeCommand extends Command {
         msg.reply("Rolle hinzugefügt. Du wirst ab sofort informiert.");
       }
     } catch (err) {
-      throw new BotExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
+      throw new CommandExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
     }
   }
 }

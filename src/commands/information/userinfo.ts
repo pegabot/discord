@@ -8,7 +8,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
 import { Collection, Message, MessageEmbed, Role } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class UserinfoCommand extends Command {
@@ -19,7 +19,7 @@ export class UserinfoCommand extends Command {
   async execute(msg: Message, args: string[]) {
     let member = resolveUser(msg, args.join(" "));
     if (args.length === 0) ({ member } = msg);
-    if (!member) throw new BotExecption("Dieser Benutzer wurde nicht gefunden.");
+    if (!member) throw new CommandExecption("Dieser Benutzer wurde nicht gefunden.");
 
     const status: any = {
       online: `Benutzer ist online!`,

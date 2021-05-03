@@ -7,7 +7,7 @@
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
 import { userGivenRolesModel } from "../../models/userGivenRoles";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
@@ -19,10 +19,10 @@ export class SpontansucheCommand extends Command {
   execute(msg: Message): void {
     try {
       const { member } = msg;
-      if (!member) throw new BotExecption("Ein Fehler ist aufgetreten!");
+      if (!member) throw new CommandExecption("Ein Fehler ist aufgetreten!");
 
       const roleId = this.bot?.config?.playerSearchRole;
-      if (!roleId) throw new BotExecption("Ein Fehler ist aufgetreten!");
+      if (!roleId) throw new CommandExecption("Ein Fehler ist aufgetreten!");
 
       const userId = member.id;
 
@@ -43,7 +43,7 @@ export class SpontansucheCommand extends Command {
         msg.reply("Rolle hinzugefügt.");
       }
     } catch (err) {
-      throw new BotExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
+      throw new CommandExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
     }
   }
 }

@@ -7,7 +7,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { findCommand } from "../../utils/findCommand";
 
 export class HelpCommand extends Command {
@@ -55,7 +55,7 @@ export class HelpCommand extends Command {
       msg.channel.send(embed);
     } else if (args.length > 0) {
       const command = findCommand(this.bot.commands?.all, args[0]);
-      if (!command) throw new BotExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
+      if (!command) throw new CommandExecption(`Der Command ${args[0]} wurde nicht gefunden.`);
 
       let { aliases, permissions, roles, usage, name, disabled, category, help } = command;
       if (permissions && permissions.some((e: any) => !msg.member?.hasPermission(e)))

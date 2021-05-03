@@ -8,7 +8,7 @@ import Levels from "discord-xp";
 import { Message, MessageAttachment } from "discord.js";
 import { Command } from "../../classes/command";
 import { LevelModel } from "../../models/levels";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { generateRankCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";
 
@@ -22,7 +22,7 @@ export class LeaderBoardCommand extends Command {
     const target = msg.mentions.users.first() || msg.author;
     const user = resolveUser(msg, target.username);
 
-    if (!user) throw new BotExecption("Dieser Benutzer exisitert nicht!");
+    if (!user) throw new CommandExecption("Dieser Benutzer exisitert nicht!");
 
     const userData = await Levels.fetch(user?.user.id, msg.guild?.id || "");
     if (!userData) return msg.channel.send("Sieht so aus, als hätte dieses Mitglied noch keine xp gesammelt.");

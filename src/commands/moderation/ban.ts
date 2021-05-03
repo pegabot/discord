@@ -6,7 +6,7 @@
 
 import { Message, MessageCollector, TextChannel } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class BanCommand extends Command {
@@ -18,9 +18,9 @@ export class BanCommand extends Command {
   execute(msg: Message): void {
     const target = msg.mentions.users.first() || msg.author;
     const user = resolveUser(msg, target.username);
-    if (!user) throw new BotExecption(`Der Benutzer ${target} wurde nicht gefunden`);
+    if (!user) throw new CommandExecption(`Der Benutzer ${target} wurde nicht gefunden`);
 
-    if (user.id === msg.author.id) throw new BotExecption(`Du kannst dich selbst nicht bannen!`);
+    if (user.id === msg.author.id) throw new CommandExecption(`Du kannst dich selbst nicht bannen!`);
 
     if (user.bannable) {
       msg.channel.send("Was ist der Grund des Bannes?");
@@ -37,7 +37,7 @@ export class BanCommand extends Command {
         }
       });
     } else {
-      throw new BotExecption("Der Benutzer konnte nicht gebannt werden!");
+      throw new CommandExecption("Der Benutzer konnte nicht gebannt werden!");
     }
   }
 }

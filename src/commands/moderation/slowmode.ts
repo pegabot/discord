@@ -6,7 +6,7 @@
 
 import { Message, TextChannel } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 export class SlowmodeCommand extends Command {
   name = "slowmode";
@@ -19,7 +19,7 @@ export class SlowmodeCommand extends Command {
     if (!input) {
       msg.channel.send(`Aktuell beträgt die Slowmode Rate ${(msg.channel as TextChannel).rateLimitPerUser} Sekunde(n)`);
     } else {
-      if (isNaN(Number(input))) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
+      if (isNaN(Number(input))) throw new CommandExecption("Dein übergebener Wert ist keine Zahl.");
       await (msg.channel as TextChannel).setRateLimitPerUser(Number(input));
       const newChannel = await msg.channel.fetch();
       msg.channel.send(`Die neue Slowmode Rate beträgt nun ${(newChannel as TextChannel).rateLimitPerUser} Sekunde(n)`);

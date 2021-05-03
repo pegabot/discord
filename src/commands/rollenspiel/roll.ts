@@ -8,7 +8,7 @@ import { Message, MessageAttachment } from "discord.js";
 import { Command } from "../../classes/command";
 import { emojis } from "../../constants/emojis";
 import { RollsModel } from "../../models/rolls";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../../utils/RollButler";
 
@@ -35,7 +35,7 @@ export class RollCommand extends Command {
     try {
       response = JSON.parse(response);
     } catch {
-      throw new BotExecption("Ein Fehler ist aufgetreten!");
+      throw new CommandExecption("Ein Fehler ist aufgetreten!");
     }
 
     let replied;

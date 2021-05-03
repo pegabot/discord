@@ -6,7 +6,7 @@
 
 import { Message, TextChannel } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 export class PruneCommand extends Command {
   name = "prune";
@@ -16,8 +16,8 @@ export class PruneCommand extends Command {
 
   async execute(msg: Message, args: string[]) {
     if (args[0]) {
-      if (isNaN(Number(args[0]))) throw new BotExecption("Dein übergebener Wert ist keine Zahl.");
-      if (Number(args[0]) > 50) throw new BotExecption("Ich kann nicht mehr als 50 Nachrichten auf Einmal löschen.");
+      if (isNaN(Number(args[0]))) throw new CommandExecption("Dein übergebener Wert ist keine Zahl.");
+      if (Number(args[0]) > 50) throw new CommandExecption("Ich kann nicht mehr als 50 Nachrichten auf Einmal löschen.");
 
       const messages = await msg.channel.messages.fetch({ limit: Number(args[0]) + 1 });
 

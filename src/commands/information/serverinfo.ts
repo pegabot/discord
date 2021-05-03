@@ -6,7 +6,7 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 export class ServerinfoCommand extends Command {
   name = "serverinfo";
@@ -15,7 +15,7 @@ export class ServerinfoCommand extends Command {
 
   execute(msg: Message): void {
     const guild = msg.guild;
-    if (!guild) throw new BotExecption("Ein Fehler ist aufgetreten!");
+    if (!guild) throw new CommandExecption("Ein Fehler ist aufgetreten!");
 
     const embed = new MessageEmbed()
       .setAuthor(guild.name, guild?.iconURL() || "")

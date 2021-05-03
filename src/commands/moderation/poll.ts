@@ -6,7 +6,7 @@
 
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 import { pollEmbed } from "../../utils/pollEmbed";
 
 export class PollCommand extends Command {
@@ -22,7 +22,7 @@ export class PollCommand extends Command {
       .then(async (collected) => {
         const question = collected?.first()?.content;
 
-        if (!question) throw new BotExecption("Du hast leider keine Frage eingegeben!");
+        if (!question) throw new CommandExecption("Du hast leider keine Frage eingegeben!");
 
         const answerMessage = await msg.reply("wie lauten die Antworten (kommasepariert)?");
         answerMessage.channel
@@ -30,7 +30,7 @@ export class PollCommand extends Command {
           .then(async (collected) => {
             const answers = collected?.first()?.content;
 
-            if (!answers) throw new BotExecption("Du hast leider keine Antworten eingegeben!");
+            if (!answers) throw new CommandExecption("Du hast leider keine Antworten eingegeben!");
 
             const timeoutMessage = await msg.reply("wie lange soll die Abstimmung geöffnet bleiben (Sekunden)?");
             timeoutMessage.channel

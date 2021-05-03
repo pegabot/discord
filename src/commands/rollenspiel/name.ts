@@ -6,7 +6,7 @@
 
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/execptions";
+import { CommandExecption } from "../../utils/execptions";
 
 export class NameCommand extends Command {
   name = "name";
@@ -15,9 +15,9 @@ export class NameCommand extends Command {
 
   execute(msg: Message, args: string[]) {
     if (!["de", "en", "ww"].includes(args[0]))
-      throw new BotExecption(`Bitte gebe eine valide Sprache an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
+      throw new CommandExecption(`Bitte gebe eine valide Sprache an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
     if (!["w", "m"].includes(args[1]))
-      throw new BotExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
+      throw new CommandExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
 
     const vornamen = args[1] === "w" ? namen[args[0]].weiblich : namen[args[0]].männlich;
     const beinamen: string = namen[args[0]].beinamen;
