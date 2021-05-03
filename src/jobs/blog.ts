@@ -18,19 +18,18 @@ export class BlogJob extends Job {
   interval = 60000;
 
   async execute(): Promise<void> {
-    let data;
+    let entries;
     try {
-      data = {
+      let {
         data: { data },
       } = await getRequest(
         this.bot,
         `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`,
       );
+      entries = data;
     } catch (e) {
       throw new JobExecption(e, true);
     }
-
-    let entries = data;
 
     const current_blogPosts = await BlogPostModel.find({});
 
