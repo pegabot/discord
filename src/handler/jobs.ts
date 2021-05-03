@@ -10,6 +10,7 @@ import path from "path";
 import prettyMs from "pretty-ms";
 import { Bot } from "../classes/bot";
 import { Job } from "../classes/job";
+import { JobExecption } from "../utils/execptions";
 
 export class JobHandler {
   jobs: Collection<string, Job> = new Collection();
@@ -77,12 +78,15 @@ export class JobHandler {
       try {
         await job.setup();
       } catch (e) {
-        job.stopped = true;
         const embed = new MessageEmbed()
           .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Setup des Jobs \`${job.name}\``)
           .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
 
         this.bot.logger.admin_error_embed(embed);
+
+        if (e instanceof JobExecption && !e.ignore) {
+          job.stopped = true;
+        }
       }
     }
 

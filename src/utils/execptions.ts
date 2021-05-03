@@ -4,11 +4,17 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-export class CommandExecption {
+interface BaseExecption {
   name: string;
   message: string;
-  constructor(message: string) {
-    this.name = "CommandExecption";
-    this.message = message;
-  }
+}
+
+export class CommandExecption implements BaseExecption {
+  name = "CommandExecption";
+  constructor(public message: string) {}
+}
+
+export class JobExecption implements BaseExecption {
+  name = "JobExecption";
+  constructor(public message: string, public ignore: boolean = false) {}
 }
