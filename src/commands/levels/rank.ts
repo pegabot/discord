@@ -8,7 +8,7 @@ import Levels from "discord-xp";
 import { Message, MessageAttachment } from "discord.js";
 import { Command } from "../../classes/command";
 import { LevelModel } from "../../models/levels";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { generateRankCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";
 

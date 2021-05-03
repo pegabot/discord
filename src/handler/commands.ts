@@ -11,7 +11,7 @@ import { Bot } from "../classes/bot";
 import { Command } from "../classes/command";
 import { emojis } from "../constants/emojis";
 import { ILogCommand, LogModel } from "../models/log";
-import { BotExecption } from "../utils/BotExecption";
+import { BotExecption } from "../utils/execptions";
 import { cloneClass } from "../utils/cloneClass";
 import { isProduction } from "../utils/environment";
 import { findCommand } from "../utils/findCommand";

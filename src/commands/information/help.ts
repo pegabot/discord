@@ -7,7 +7,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { findCommand } from "../../utils/findCommand";
 
 export class HelpCommand extends Command {

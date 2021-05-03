@@ -8,7 +8,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
 import { Collection, Message, MessageEmbed, Role } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class UserinfoCommand extends Command {

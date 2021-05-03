@@ -6,7 +6,7 @@
 
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class BlacklistCommand extends Command {

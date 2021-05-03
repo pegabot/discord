@@ -6,7 +6,7 @@
 
 import Levels from "discord-xp";
 import { GuildMember } from "discord.js";
-import Canvas from "./Canvas";
+import Canvas from "./canvas";
 
 export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r = 0): Canvas.CanvasRenderingContext2D => {
   if (w < 2 * r) r = w / 2;

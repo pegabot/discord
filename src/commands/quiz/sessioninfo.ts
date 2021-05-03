@@ -8,7 +8,7 @@ import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
 import { SessionModel } from "../../models/session";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class SessionInfoCommand extends Command {

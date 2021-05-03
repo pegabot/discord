@@ -6,7 +6,7 @@
 
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { pollEmbed } from "../../utils/pollEmbed";
 
 export class PollCommand extends Command {

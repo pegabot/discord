@@ -6,7 +6,7 @@
 
 import { DMChannel, GuildChannel } from "discord.js";
 import { Event } from "../classes/event";
-import { ChannelTypes } from "../utils/ChannelTypes";
+import { ChannelTypes } from "../utils/channelTypes";
 
 export class channelDeleteEvent extends Event {
   execute(channel: DMChannel | GuildChannel): void {

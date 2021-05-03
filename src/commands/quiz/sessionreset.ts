@@ -7,7 +7,7 @@
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
 import { SessionModel } from "../../models/session";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 
 export class SessionResetCommand extends Command {

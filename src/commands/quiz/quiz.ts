@@ -13,7 +13,7 @@ import { IFrage } from "../../models/frage";
 import { QuizModel } from "../../models/quiz";
 import { SessionModel } from "../../models/session";
 import { VoucherModel } from "../../models/voucher";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 import { isProduction } from "../../utils/environment";
 import { stripIndents } from "../../utils/stripIndents";
 

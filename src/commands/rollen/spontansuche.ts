@@ -7,7 +7,7 @@
 import { Message } from "discord.js";
 import { Command } from "../../classes/command";
 import { userGivenRolesModel } from "../../models/userGivenRoles";
-import { BotExecption } from "../../utils/BotExecption";
+import { BotExecption } from "../../utils/execptions";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
