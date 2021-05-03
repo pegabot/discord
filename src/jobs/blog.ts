@@ -24,7 +24,7 @@ export class BlogJob extends Job {
         data: { data },
       } = await getRequest(
         this.bot,
-        `blg/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`,
+        `blog/?limit=9999999&filter[0][property]=categoryId&filter[0][expression]=IN&filter[0][value][0]=115&filter[0][value][1]=560&filter[0][value][2]=589&filter[0][value][3]=713`,
       );
     } catch (e) {
       throw new JobExecption(e, true);
