@@ -4,9 +4,10 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-interface BaseExecption {
+export interface BaseExecption extends Error {
   name: string;
   message: string;
+  ignore?: boolean;
 }
 
 export class CommandExecption implements BaseExecption {
