@@ -12,6 +12,7 @@ export class NicknameCommand extends Command {
   help = "Mit diesem Command kannst du dir einen Nicknamen setzen";
   usage = ["nick <#name / remove > / nickname <#name / remove>"];
   aliases = ["nick"];
+  repeatable = false;
 
   execute(msg: Message, args: string[]) {
     if (!msg.member) return;
