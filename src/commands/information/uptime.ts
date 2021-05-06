@@ -5,15 +5,17 @@
  */
 
 import { Message } from "discord.js";
-import prettyMs from "pretty-ms";
 import { Command } from "../../classes/command";
+import { getUptime } from "../../utils/uptime";
 
 export class UptimeCommand extends Command {
   name = "uptime";
   aliases = ["up"];
   usage = "uptime";
   help = "Wie lange ist der Bot schon aktiv?";
+  repeatable = false;
+  
   execute(msg: Message): void {
-    msg.channel.send(`**${this.bot.client.user?.username}** ist seit ${prettyMs(this.bot.client.uptime || -1)} aktiv!`);
+    msg.channel.send(`**${this.bot.client.user?.username}** ist seit ${getUptime()} aktiv!`);
   }
 }

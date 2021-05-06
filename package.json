@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "jest . --verbose",
-    "dev": "nodemon .",
+    "dev": "nodemon .  --signal SIGINT",
     "heroku-prebuild": "sh ./injectVersion.sh",
     "build": "rm -rf build; tsc",
     "start": "node .",
@@ -40,6 +40,7 @@
     "mongoose": "^5.12.7",
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
+    "os": "^0.1.1",
     "pretty-ms": "^7.0.1",
     "querystring": "^0.2.1",
     "restler": "~3.4.0",

@@ -8,6 +8,7 @@ import { Event } from "../classes/event";
 import { version } from "../constants/version";
 import { isProduction } from "../utils/environment";
 import { setDefault } from "../utils/presence";
+import { getSystemStatus } from "../utils/status";
 
 export class ReadyEvent extends Event {
   execute() {
@@ -25,7 +26,10 @@ export class ReadyEvent extends Event {
         ${this.bot.jobs?.size} Job(s) aktiviert ⚙️`;
 
     this.bot.logger.console(message);
-    if (isProduction()) this.bot.logger.admin(message);
+    if (isProduction()) {
+      this.bot.logger.admin(message);
+      this.bot.logger.admin(getSystemStatus());
+    }
     setDefault(this.bot);
   }
 }
