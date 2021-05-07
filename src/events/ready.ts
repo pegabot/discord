@@ -12,6 +12,7 @@ import { setDefault } from "../utils/presence";
 import { getSystemStatus } from "../utils/status";
 
 export default new Event("ready", () => {
+  console.log("HI");
   bot.commands.loadCommands();
   bot.jobs.loadJobs();
 

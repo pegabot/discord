@@ -22,7 +22,7 @@ export class PruneCommand extends Command {
 
     for (const msgToDelete of messages.values()) {
       if (msgToDelete.deletable) {
-        msgToDelete.delete({ reason: this.bot.client.user?.id });
+        msgToDelete.delete();
       } else {
         msg.channel.send(`Die folgende Nachricht konnte von mir nicht gelöscht werden\n>>> ${msgToDelete.content}`);
       }

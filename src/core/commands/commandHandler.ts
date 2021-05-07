@@ -49,7 +49,7 @@ export class CommandHandler {
     const commands = fs.readdirSync(path.join(__dirname, "../../commands"));
     const files = walkSync(commands, path.join(__dirname, "../../commands"));
 
-    for (const command of files) {
+    for (const command of files.filter((file) => !/.*map/.test(file))) {
       const category = path.dirname(command).split(path.sep).pop() || [];
 
       try {
@@ -158,7 +158,7 @@ export class CommandHandler {
         if (localTime > command.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
       }
 
-      if (command.permissions && command.permissions.some((e: string) => !msg.member?.hasPermission(e as PermissionResolvable))) {
+      if (command.permissions && command.permissions.some((e: string) => !msg.member?.permissions.has(e as PermissionResolvable))) {
         return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
 

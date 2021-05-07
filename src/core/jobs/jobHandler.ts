@@ -42,7 +42,7 @@ export class JobHandler {
 
   loadJobs() {
     const jobs = fs.readdirSync(path.join(__dirname, "../..", "jobs"));
-    for (const _job of jobs) {
+    for (const _job of jobs.filter((file) => !/.*map/.test(file))) {
       const name = _job.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 

@@ -49,7 +49,7 @@ export class EventHandler {
 
   loadEvents(): void {
     const events = fs.readdirSync(path.join(__dirname, "../..", "events"));
-    for (const event of events) {
+    for (const event of events.filter((file) => !/.*map/.test(file))) {
       const name = event.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 

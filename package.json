@@ -78,6 +78,6 @@
       "dist/*"
     ],
     "ext": "ts",
-    "exec": "yarn build-start"
+    "exec": "yarn build --sourceMap; yarn start"
   }
 }
