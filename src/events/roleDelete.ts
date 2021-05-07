@@ -5,7 +5,7 @@
  */
 
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("roleDelete", (role) => {
   bot.logger.admin_red(`:inbox_tray: Die Rolle: \`${role.name}\` **wurde gelöscht**.`, `ID: ${role.id}`);

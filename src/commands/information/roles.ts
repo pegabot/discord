@@ -5,8 +5,8 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
+import { Command } from "../../core/commands/command";
 
 export class RolesCommand extends Command {
   name = "roles";

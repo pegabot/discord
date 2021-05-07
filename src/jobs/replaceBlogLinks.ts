@@ -6,7 +6,7 @@
 
 import bent from "bent";
 import { TextChannel } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 
 export class ReplaceBlogLinksJob extends Job {

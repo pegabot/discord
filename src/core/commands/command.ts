@@ -5,7 +5,7 @@
  */
 
 import { Message } from "discord.js";
-import { Bot } from "./bot";
+import { Bot } from "../bot";
 
 export abstract class Command {
   bot: Bot;

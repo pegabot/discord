@@ -5,7 +5,7 @@
  */
 
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("roleCreate", (role) => {
   bot.logger.admin_green(`:inbox_tray: Die Rolle: ${role} **wurde erstellt**.`, `ID: ${role.id}`);

@@ -5,7 +5,7 @@
  */
 
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("handleCommandRepeat", (reaction, user) => {
   if (reaction.message.member?.id !== user.id) {

@@ -6,7 +6,7 @@
 
 import basic from "basic-authorization-header";
 import bent from "bent";
-import { Bot } from "../classes/bot";
+import { Bot } from "../core/bot";
 
 export const getRequest = async (bot: Bot, url: string): Promise<any> => {
   const getJSON = bent("json", {

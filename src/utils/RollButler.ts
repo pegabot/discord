@@ -6,7 +6,7 @@
 
 import bent from "bent";
 import { MessageEmbed, User } from "discord.js";
-import { Bot } from "../classes/bot";
+import { Bot } from "../core/bot";
 import { colors } from "../constants/colors";
 
 export const generateParams = (bot: Bot, user: User, dice: string): URLSearchParams => {

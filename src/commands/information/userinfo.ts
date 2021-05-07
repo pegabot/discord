@@ -7,7 +7,7 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
 import { Collection, Message, MessageEmbed, Role } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 

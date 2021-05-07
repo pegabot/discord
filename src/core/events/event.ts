@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { CustomClientEvents } from "../types/discord.js";
+import { CustomClientEvents } from "../../types/discord.js.js";
 
 export class Event<K extends keyof CustomClientEvents> {
   readonly name: K;

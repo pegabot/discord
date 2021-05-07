@@ -15,7 +15,7 @@ export const walkSync = (files: string[], fileDir: string, fileList: string[] = 
       walkSync(dir, absolutePath, fileList);
     } else {
       if (!absolutePath.includes(".js") || absolutePath.includes("#")) continue;
-      fileList.push(path.relative(__dirname, absolutePath));
+      fileList.push(absolutePath);
     }
   }
   return fileList;

@@ -5,8 +5,8 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { Command } from "../../classes/command";
 import { emojis } from "../../constants/emojis";
+import { Command } from "../../core/commands/command";
 import { RollsModel } from "../../models/rolls";
 import { CommandExecption } from "../../utils/execptions";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";

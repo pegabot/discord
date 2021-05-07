@@ -5,7 +5,7 @@
  */
 
 import { Message } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { getUptime } from "../../utils/uptime";
 
 export class UptimeCommand extends Command {
@@ -14,7 +14,7 @@ export class UptimeCommand extends Command {
   usage = "uptime";
   help = "Wie lange ist der Bot schon aktiv?";
   repeatable = false;
-  
+
   execute(msg: Message): void {
     msg.channel.send(`**${this.bot.client.user?.username}** ist seit ${getUptime()} aktiv!`);
   }

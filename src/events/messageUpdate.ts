@@ -7,7 +7,7 @@
 import { MessageEmbed } from "discord.js";
 import gitDiff from "git-diff";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("messageUpdate", async (oldMessage, newMessage) => {
   if (oldMessage.partial) return;

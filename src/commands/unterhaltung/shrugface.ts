@@ -5,7 +5,7 @@
  */
 
 import { Message } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 
 export class ShrugfaceCommand extends Command {
   name = "shrugface";

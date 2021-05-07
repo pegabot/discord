@@ -5,8 +5,8 @@
  */
 
 import { Message } from "discord.js";
-import { Command } from "../../classes/command";
 import { version } from "../../constants/version";
+import { Command } from "../../core/commands/command";
 import { versionGitHubLink } from "../../utils/version";
 
 export class VersionCommand extends Command {

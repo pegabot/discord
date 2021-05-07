@@ -5,7 +5,7 @@
  */
 
 import { ChatClient } from "dank-twitch-irc";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 
 const connect = async (twitchClient: ChatClient) => {
   try {

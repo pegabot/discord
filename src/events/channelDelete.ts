@@ -6,7 +6,7 @@
 
 import { DMChannel, GuildChannel } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 import { ChannelTypes } from "../utils/channelTypes";
 
 export default new Event("channelDelete", (channel) => {

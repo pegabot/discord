@@ -7,7 +7,7 @@
 import Levels from "discord-xp";
 import { TextChannel } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 import { MessageModel } from "../models/message";
 
 export default new Event("message", async (message) => {

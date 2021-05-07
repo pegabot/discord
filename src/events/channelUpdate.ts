@@ -6,7 +6,7 @@
 
 import { GuildChannel } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("channelUpdate", (oldChannel, newChannel) => {
   if (oldChannel.type === "dm" || newChannel.type === "dm") return;

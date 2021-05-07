@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { SessionModel } from "../models/quiz";
 import { stripIndents } from "../utils/stripIndents";
 

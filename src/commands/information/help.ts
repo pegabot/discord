@@ -5,8 +5,8 @@
  */
 
 import { Message, MessageEmbed } from "discord.js";
-import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
+import { Command } from "../../core/commands/command";
 import { CommandExecption } from "../../utils/execptions";
 import { findCommand } from "../../utils/findCommand";
 

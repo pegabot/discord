@@ -7,9 +7,9 @@
 import { Collection } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
-import { Bot } from "../classes/bot";
-import { Event } from "../classes/event";
-import { CustomClientEvents } from "../types/discord.js";
+import { CustomClientEvents } from "../../types/discord.js.js";
+import { Bot } from "../bot";
+import { Event } from "./event";
 
 interface EventModule {
   default: Event<never>;
@@ -48,12 +48,12 @@ export class EventHandler {
   }
 
   loadEvents(): void {
-    const events = fs.readdirSync(path.join(__dirname, "..", "events"));
+    const events = fs.readdirSync(path.join(__dirname, "../..", "events"));
     for (const event of events) {
       const name = event.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
-      void import(path.join(__dirname, "..", "events", name)).then((module: EventModule) => {
+      void import(path.join(__dirname, "../..", "events", name)).then((module: EventModule) => {
         this.add(module.default);
         this.events.set(name, module.default);
       });

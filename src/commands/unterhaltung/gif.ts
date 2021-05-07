@@ -7,7 +7,7 @@
 import { Message } from "discord.js";
 import emojiStrip from "emoji-strip";
 import querystring from "querystring";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
 export class GifCommand extends Command {

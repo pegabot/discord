@@ -5,7 +5,7 @@
  */
 
 import { Guild, GuildMember } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
 export class ResetRolesJob extends Job {

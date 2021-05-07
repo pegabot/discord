@@ -5,7 +5,7 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { checkVideos, getYoutubeChannelInfos } from "../utils/youtube";
 const Youtube = require("simple-youtube-api");
 

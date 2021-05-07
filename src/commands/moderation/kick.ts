@@ -5,7 +5,7 @@
  */
 
 import { Message, MessageCollector, TextChannel } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 

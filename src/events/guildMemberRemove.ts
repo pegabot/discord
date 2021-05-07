@@ -6,7 +6,7 @@
 
 import { MessageEmbed, TextChannel } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 import { LevelModel } from "../models/levels";
 
 export default new Event("guildMemberRemove", (member) => {

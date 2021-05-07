@@ -7,7 +7,7 @@
 import { TextChannel } from "discord.js";
 import { CallbackError } from "mongoose";
 import Twit from "twit";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { TweetModel } from "../models/tweet";
 
 const TWITTER_USER = ["pegasusspiele", "GRT2014"];

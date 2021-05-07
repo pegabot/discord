@@ -5,7 +5,7 @@
  */
 
 import { CategoryChannel, Message, TextChannel } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 
 export class ChannelDeleteCommand extends Command {
   name = "channelDelete";

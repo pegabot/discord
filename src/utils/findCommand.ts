@@ -5,7 +5,7 @@
  */
 
 import { Collection } from "discord.js";
-import { Command } from "../classes/command";
+import { Command } from "../core/commands/command";
 
 export const findCommand = (commands: Collection<string, Command> = new Collection(), base = ""): Command | undefined => {
   let command = commands.get(base);

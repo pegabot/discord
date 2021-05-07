@@ -7,8 +7,8 @@
 import { Message, MessageEmbed, MessageReaction, User } from "discord.js";
 import prettyMs from "pretty-ms";
 import bot from "../../bot";
-import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
+import { Command } from "../../core/commands/command";
 import { IFrage, QuizModel, SessionModel, VoucherModel } from "../../models/quiz";
 import { isProduction } from "../../utils/environment";
 import { CommandExecption } from "../../utils/execptions";

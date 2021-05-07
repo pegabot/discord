@@ -5,7 +5,7 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { LevelModel } from "../../models/levels";
 import { generateLeaderboardCard } from "../../utils/leaderboard";
 import { resolveUser } from "../../utils/resolveUser";

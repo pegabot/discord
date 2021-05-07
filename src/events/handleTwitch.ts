@@ -6,8 +6,8 @@
 
 import { TextChannel } from "discord.js";
 import bot from "../bot";
-import { Bot } from "../classes/bot";
-import { Event } from "../classes/event";
+import { Bot } from "../core/bot";
+import { Event } from "../core/events/event";
 import { TwitchModel } from "../models/twitch";
 import { setDefault, setStreaming } from "../utils/presence";
 import { checkIfStreaming } from "../utils/twitch";

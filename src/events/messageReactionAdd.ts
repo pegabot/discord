@@ -6,8 +6,8 @@
 
 import { User } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
 import { emojis } from "../constants/emojis";
+import { Event } from "../core/events/event";
 
 export default new Event("messageReactionAdd", async (reaction, user) => {
   if (reaction.partial) {

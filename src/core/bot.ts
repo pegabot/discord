@@ -7,12 +7,12 @@
 import { ChatClient } from "dank-twitch-irc";
 import { Client, Collection } from "discord.js";
 import { config } from "dotenv";
-import { CommandHandler } from "../handler/commands";
-import { MongoConnector } from "../handler/database";
-import { EventHandler } from "../handler/events";
-import { JobHandler } from "../handler/jobs";
-import { LogHandler } from "../handler/log";
-import { CustomClient } from "../types/discord.js";
+import { CommandHandler } from "./commands/commandHandler";
+import { MongoConnector } from "./database";
+import { EventHandler } from "./events/eventHandler";
+import { JobHandler } from "./jobs/jobHandler";
+import { LogHandler } from "./log";
+import { CustomClient } from "../types/discord.js.js";
 config();
 
 export class Bot {

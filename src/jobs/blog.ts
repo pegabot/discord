@@ -5,7 +5,7 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { BlogPostModel } from "../models/blog";
 import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 import { JobExecption } from "../utils/execptions";

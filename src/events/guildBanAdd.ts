@@ -5,7 +5,7 @@
  */
 
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 
 export default new Event("guildBanAdd", (guild, user) => {
   bot.logger.admin_red(`${user.tag} wurde gerade vom Server gebannt.`);

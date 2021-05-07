@@ -6,7 +6,7 @@
 
 import Levels from "discord-xp";
 import { Message, MessageAttachment } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { LevelModel } from "../../models/levels";
 import { CommandExecption } from "../../utils/execptions";
 import { generateRankCard } from "../../utils/leaderboard";

@@ -7,8 +7,8 @@
 import { GuildMember, MessageEmbed } from "discord.js";
 import prettyMs from "pretty-ms";
 import bot from "../bot";
-import { Event } from "../classes/event";
 import { colors } from "../constants/colors";
+import { Event } from "../core/events/event";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
 export default new Event("guildMemberUpdate", async (oldMember, newMember) => {

@@ -5,7 +5,7 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../lib/trello/main");

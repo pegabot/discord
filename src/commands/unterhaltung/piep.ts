@@ -7,7 +7,7 @@
 import { createCanvas, Image } from "canvas";
 import { Message, MessageAttachment } from "discord.js";
 import emojiStrip from "emoji-strip";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
 export class className extends Command {

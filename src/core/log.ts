@@ -5,7 +5,7 @@
  */
 
 import { MessageEmbed, TextChannel } from "discord.js";
-import { Bot } from "../classes/bot";
+import { Bot } from "./bot";
 import { colors } from "../constants/colors";
 import { stripIndents } from "../utils/stripIndents";
 

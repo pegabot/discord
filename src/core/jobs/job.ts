@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Bot } from "./bot";
+import { Bot } from "../bot";
 
 export abstract class Job {
   abstract name: string;

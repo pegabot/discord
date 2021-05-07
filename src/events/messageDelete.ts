@@ -6,8 +6,8 @@
 
 import { MessageEmbed } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
 import { colors } from "../constants/colors";
+import { Event } from "../core/events/event";
 
 export default new Event("messageDelete", async (message) => {
   if (message.partial) {

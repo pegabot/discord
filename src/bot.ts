@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Bot } from "./classes/bot";
+import { Bot } from "./core/bot";
 import { server } from "./server/server";
 
 server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver gestartet!`));

@@ -7,8 +7,8 @@
 import { User } from "discord.js";
 import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
-import { Bot } from "../classes/bot";
-import { Command } from "../classes/command";
+import { Bot } from "../core/bot";
+import { Command } from "../core/commands/command";
 
 export interface ILogCommand extends Omit<Command, "bot"> {
   bot: Bot | undefined;

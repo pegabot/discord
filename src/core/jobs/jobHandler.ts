@@ -8,9 +8,9 @@ import { Collection, MessageEmbed } from "discord.js";
 import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
-import { Bot } from "../classes/bot";
-import { Job } from "../classes/job";
-import { BaseExecption } from "../utils/execptions";
+import { BaseExecption } from "../../utils/execptions";
+import { Bot } from "../bot";
+import { Job } from "./job";
 
 export class JobHandler {
   jobs: Collection<string, Job> = new Collection();
@@ -41,12 +41,12 @@ export class JobHandler {
   }
 
   loadJobs() {
-    const jobs = fs.readdirSync(path.join(__dirname, "..", "jobs"));
+    const jobs = fs.readdirSync(path.join(__dirname, "../..", "jobs"));
     for (const _job of jobs) {
       const name = _job.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
-      const importedJob = require(path.join(__dirname, "..", "jobs", name));
+      const importedJob = require(path.join(__dirname, "../..", "jobs", name));
       const job: Job = new importedJob[Object.keys(importedJob)[0]](this.bot);
 
       if (job.env && process.env[`enable_${job.env}`] !== "true") continue;

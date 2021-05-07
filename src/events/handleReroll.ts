@@ -6,8 +6,8 @@
 
 import { MessageAttachment } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
 import { emojis } from "../constants/emojis";
+import { Event } from "../core/events/event";
 import { RollsModel } from "../models/rolls";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";

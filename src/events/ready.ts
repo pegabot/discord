@@ -5,8 +5,8 @@
  */
 
 import bot from "../bot";
-import { Event } from "../classes/event";
 import { version } from "../constants/version";
+import { Event } from "../core/events/event";
 import { isProduction } from "../utils/environment";
 import { setDefault } from "../utils/presence";
 import { getSystemStatus } from "../utils/status";

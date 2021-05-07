@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Bot } from "../classes/bot";
+import { Bot } from "../core/bot";
 
 export const setDefault = (bot: Bot): void => {
   bot.client.user?.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });

@@ -7,15 +7,15 @@
 import { Collection, Message, MessageEmbed, PermissionResolvable } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
-import { Bot } from "../classes/bot";
-import { Command } from "../classes/command";
-import { emojis } from "../constants/emojis";
-import { ILogCommand, LogModel } from "../models/log";
-import { cloneClass } from "../utils/cloneClass";
-import { isProduction } from "../utils/environment";
-import { CommandExecption } from "../utils/execptions";
-import { findCommand } from "../utils/findCommand";
-import { walkSync } from "../utils/walkSync";
+import { emojis } from "../../constants/emojis";
+import { ILogCommand, LogModel } from "../../models/log";
+import { cloneClass } from "../../utils/cloneClass";
+import { isProduction } from "../../utils/environment";
+import { CommandExecption } from "../../utils/execptions";
+import { findCommand } from "../../utils/findCommand";
+import { walkSync } from "../../utils/walkSync";
+import { Bot } from "../bot";
+import { Command } from "./command";
 
 export class CommandHandler {
   cmds: Collection<string, Command> = new Collection();
@@ -46,16 +46,20 @@ export class CommandHandler {
   }
 
   loadCommands(): void {
-    const commands = fs.readdirSync(path.join(__dirname, "..", "commands"));
-    const files = walkSync(commands, path.join(__dirname, "..", "commands"));
+    const commands = fs.readdirSync(path.join(__dirname, "../../commands"));
+    const files = walkSync(commands, path.join(__dirname, "../../commands"));
+
     for (const command of files) {
       const category = path.dirname(command).split(path.sep).pop() || [];
 
-      const importedCommand: any = require(command);
-      const cmd: Command = importedCommand[Object.keys(importedCommand)[0]];
-
-      if (!cmd) continue;
-      this.loadCommand(cmd, (category as string) || "-");
+      try {
+        const importedCommand: any = require(command);
+        const cmd: Command = importedCommand[Object.keys(importedCommand)[0]];
+        if (!cmd) continue;
+        this.loadCommand(cmd, (category as string) || "-");
+      } catch (err) {
+        throw err;
+      }
     }
   }
 

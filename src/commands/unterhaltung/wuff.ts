@@ -5,7 +5,7 @@
  */
 
 import { Message, MessageAttachment } from "discord.js";
-import { Command } from "../../classes/command";
+import { Command } from "../../core/commands/command";
 import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
 
 export class WuffCommand extends Command {

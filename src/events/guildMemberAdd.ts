@@ -8,7 +8,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { de } from "date-fns/locale";
 import { Collection, MessageEmbed, Role, TextChannel } from "discord.js";
 import bot from "../bot";
-import { Event } from "../classes/event";
+import { Event } from "../core/events/event";
 import { stripIndents } from "../utils/stripIndents";
 
 export default new Event("guildMemberAdd", (member) => {

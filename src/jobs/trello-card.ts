@@ -5,7 +5,7 @@
  */
 
 import { CategoryChannel, TextChannel } from "discord.js";
-import { Job } from "../classes/job";
+import { Job } from "../core/jobs/job";
 import { TrelloCardModel } from "../models/trelloCard";
 import { isProduction } from "../utils/environment";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";

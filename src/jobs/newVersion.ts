@@ -4,8 +4,8 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Job } from "../classes/job";
 import { version } from "../constants/version";
+import { Job } from "../core/jobs/job";
 import { VersionModel } from "../models/version";
 import { versionGitHubLink } from "../utils/version";
 
