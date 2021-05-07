@@ -4,10 +4,10 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-export const emojis = {
-  commandRepeatEmoji: "🔁",
-  commandNotFoundEmoji: "❓",
-  commandExecutedEmoji: "✅",
-  rollEmoji: "🎲",
-  hugEmoji: "🤗",
-};
+export enum emojis {
+  commandRepeatEmoji = "🔁",
+  commandNotFoundEmoji = "❓",
+  commandExecutedEmoji = "✅",
+  rollEmoji = "🎲",
+  hugEmoji = "🤗",
+}

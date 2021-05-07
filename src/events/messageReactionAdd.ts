@@ -21,7 +21,7 @@ export class messageReactionAddEvent extends Event {
     if (user.bot) return;
 
     if (
-      !Object.entries(emojis)
+      !Object.keys(emojis)
         .map((elt) => elt[1])
         .includes(reaction.emoji.name)
     )

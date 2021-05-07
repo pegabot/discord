@@ -4,10 +4,10 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-export const colors = {
-  red: "#f35858",
-  green: "#70f470",
-  blue: "#6666ff",
-  babyblue: "#0099ff",
-  orange: "#FF9033",
-};
+export enum colors {
+  red = "#f35858",
+  green = "#70f470",
+  blue = "#6666ff",
+  babyblue = "#0099ff",
+  orange = "#FF9033",
+}
