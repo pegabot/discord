@@ -9,7 +9,7 @@ import { BotInteraction, InteractionErrors } from "../core/interactions/interact
 
 export class NameInteraction extends BotInteraction {
   name = "name";
-  description = "Generiere deinen eigenen Rollenspielnamen";
+  description = "Generiere deinen eigenen Charakternamen";
   options = [
     { required: true, name: "Sprache", type: "STRING", description: "de/en/ww (Winterwald)" },
     { required: true, name: "Geschlecht", type: "STRING", description: "m/w" },
