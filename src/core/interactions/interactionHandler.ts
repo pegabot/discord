@@ -87,7 +87,6 @@ export class InteractionHandler {
 
   async cleanInteractions(): Promise<void> {
     const globalInteractions = await this.bot.client.application?.commands.fetch();
-    console.log(globalInteractions);
     globalInteractions?.forEach((interaction) => {
       interaction.delete();
     });

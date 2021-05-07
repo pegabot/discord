@@ -5,7 +5,7 @@
  */
 
 import { CommandInteraction } from "discord.js";
-import { BotInteraction } from "../../core/interactions/interaction";
+import { BotInteraction } from "../core/interactions/interaction";
 
 export class NicknameInteraction extends BotInteraction {
   name = "nickname";

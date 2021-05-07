@@ -16,8 +16,6 @@ export class PruneCommand extends Command {
   repeatable = false;
 
   async fallbackMethod(msg: Message, numberOfMessageToDelete: number) {
-    console.log("Using fallback");
-
     const messages = await msg.channel.messages.fetch({ limit: numberOfMessageToDelete + 1 });
 
     for (const msgToDelete of messages.values()) {

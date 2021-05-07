@@ -18,5 +18,9 @@ export abstract class BotInteraction {
     this.bot = bot;
   }
 
+  protected error(interaction: CommandInteraction): void {
+    interaction.reply("Ein Fehler ist aufgetreten!", { ephemeral: true });
+  }
+
   abstract execute(interaction: CommandInteraction): Promise<void> | void;
 }
