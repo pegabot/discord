@@ -5,23 +5,26 @@
  */
 
 import { CommandInteraction } from "discord.js";
-import { BotInteraction } from "../core/interactions/interaction";
+import { BotInteraction, InteractionErrors } from "../core/interactions/interaction";
 
 export class NameInteraction extends BotInteraction {
   name = "name";
   description = "Generiere deinen eigenen Rollenspielnamen";
   options = [
-    { required: true, name: "Sprache", type: "STRING", description: "de/en/ww" },
+    { required: true, name: "Sprache", type: "STRING", description: "de/en/ww (Winterwald)" },
     { required: true, name: "Geschlecht", type: "STRING", description: "m/w" },
   ];
+
   execute(interaction: CommandInteraction) {
-    const sprache = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
-    const gender = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
+    const Sprache = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
+    const Geschlecht = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
 
-    if (!sprache || !gender) return this.error(interaction);
+    if (!Sprache || !Geschlecht) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
 
-    const vornamen = gender === "w" ? (namen as any)[sprache].weiblich : (namen as any)[sprache].männlich;
-    const beinamen: string = (namen as any)[sprache].beinamen;
+    if (!/de|en|ww/.test(Sprache) || !/|w/.test(Geschlecht)) return this.error(interaction, InteractionErrors.INVALID_OPTIONS);
+
+    const vornamen = Geschlecht === "w" ? (namen as any)[Sprache].weiblich : (namen as any)[Sprache].männlich;
+    const beinamen: string = (namen as any)[Sprache].beinamen;
 
     interaction.reply(
       `Dein zufällig generierter Name lautet: **${vornamen[Math.floor(Math.random() * vornamen.length)]} ${
@@ -30,28 +33,6 @@ export class NameInteraction extends BotInteraction {
     );
   }
 }
-
-// export class NameCommand extends Command {
-//   name = "name";
-//   usage = ["name <de/en/ww> <m/w>"];
-//   help = "Erstellt einen zufälligen Namen unterteilt nach männlich/weiblich/winterwald und deutsch/englisch.";
-
-//   execute(msg: Message, args: string[]) {
-//     if (!["de", "en", "ww"].includes(args[0]))
-//       throw new CommandExecption(`Bitte gebe eine valide Sprache an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
-//     if (!["w", "m"].includes(args[1]))
-//       throw new CommandExecption(`Bitte gebe ein valides Geschlecht an. Siehe ${this.bot?.config?.prefix}help name für weitere Hilfe.`);
-
-//     const vornamen = args[1] === "w" ? namen[args[0]].weiblich : namen[args[0]].männlich;
-//     const beinamen: string = namen[args[0]].beinamen;
-
-//     msg.channel.send(
-//       `Dein zufällig generierter Name lautet: **${vornamen[Math.floor(Math.random() * vornamen.length)]} ${
-//         beinamen[Math.floor(Math.random() * beinamen.length)]
-//       }**`,
-//     );
-//   }
-// }
 
 const namen: {} = {
   de: {

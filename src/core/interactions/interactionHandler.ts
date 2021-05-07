@@ -103,6 +103,7 @@ export class InteractionHandler {
     if (!foundInteration) {
       interaction.reply("Ein interner Fehler ist aufgetreten!", { ephemeral: true });
     }
+
     foundInteration?.execute(interaction);
   }
 }

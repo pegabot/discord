@@ -7,6 +7,10 @@
 import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
 import { Bot } from "../bot";
 
+export enum InteractionErrors {
+  INTERNAL_ERROR = "Ein Fehler ist aufgetreten, bitte versuche es später erneut!",
+  INVALID_OPTIONS = "Deine Eingabe scheint fehlerhaft, bitte überprüfe diese noch Einmal!",
+}
 export abstract class BotInteraction {
   bot: Bot;
   abstract name: string;
@@ -18,8 +22,8 @@ export abstract class BotInteraction {
     this.bot = bot;
   }
 
-  protected error(interaction: CommandInteraction): void {
-    interaction.reply("Ein Fehler ist aufgetreten!", { ephemeral: true });
+  protected error(interaction: CommandInteraction, errorType: InteractionErrors): void {
+    interaction.reply(errorType, { ephemeral: true });
   }
 
   abstract execute(interaction: CommandInteraction): Promise<void> | void;
