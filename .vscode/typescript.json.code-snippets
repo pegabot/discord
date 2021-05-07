@@ -5,6 +5,7 @@
       "Command"
     ],
     "body": [
+      "import { Command } from '../../classes/command';\n",
       "export class ${1: className} extends Command {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
@@ -17,9 +18,8 @@
       "Event"
     ],
     "body": [
-      "export class ${1: className} extends Event {\t async execute(): Promise<void>  {",
-      "\t$0",
-      "}}"
+      "import { Event } from '../classes/event';\n",
+      "export default new Event('', () => {}); "
     ],
     "description": "Generate a Bot Command."
   },
@@ -29,6 +29,7 @@
       "Job"
     ],
     "body": [
+      "import { Job } from '../classes/job';\n",
       "export class ${2: className} extends Job {\t async setup(): Promise<void>  {",
       "\t$0", "}","\t async execute(): Promise<void> {",
       "}}"
