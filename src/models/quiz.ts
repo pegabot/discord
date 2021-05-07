@@ -5,17 +5,73 @@
  */
 
 import { Document, model as setModel, Schema } from "mongoose";
-import * as path from "path";
-import { FrageSchema, IFrage } from "./frage";
 
-export interface IQuiz extends Document {
+export interface IVoucher extends Document {
+  code: string;
+  used: boolean;
+  _session: Schema.Types.ObjectId;
+}
+
+const VoucherSchema = new Schema({
+  code: String,
+  used: { type: Boolean, default: false },
+  _session: { type: Schema.Types.ObjectId, ref: "session" },
+});
+
+export const VoucherModel = setModel<IVoucher>("voucher", VoucherSchema);
+
+export interface IFrage {
+  frage: string;
+  antworten: string[];
+  richtig: number;
+  eingabe?: number;
+}
+
+const FrageSchema = new Schema({
+  frage: String,
+  antworten: [String],
+  richtig: Number,
+  eingabe: Number,
+});
+
+export interface IQuizSet extends Document {
   name: string;
   fragen: IFrage[];
 }
 
-export const QuizSchema = new Schema({
+const QuizSetSchema = new Schema({
   name: String,
   fragen: [FrageSchema],
 });
 
-export const QuizModel = setModel<IQuiz>(path.basename(__filename).split(".js")[0], QuizSchema);
+export const QuizModel = setModel<IQuizSet>("quiz", QuizSetSchema);
+
+export interface IQuizSession extends Document {
+  date: Date;
+  expires: number;
+  userId: string;
+  quiz: IQuizSet;
+  status: string;
+  timedOut: boolean;
+  fragen: IFrage[];
+  falscheAntworten: IFrage[];
+  won: boolean;
+  shipped: boolean;
+  voucher: IVoucher;
+}
+
+const SessionSchema = new Schema({
+  date: { type: Date, default: Date.now },
+  expires: { type: Number },
+  userId: String,
+  quiz: QuizSetSchema,
+  status: String,
+  timedOut: { type: Boolean, default: false },
+  fragen: [FrageSchema],
+  falscheAntworten: [FrageSchema],
+  won: { type: Boolean, default: false },
+  shipped: { type: Boolean, default: false },
+  voucher: VoucherSchema,
+});
+
+export const SessionModel = setModel<IQuizSession>("session", SessionSchema);

@@ -7,7 +7,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../classes/command";
 import { colors } from "../../constants/colors";
-import { SessionModel } from "../../models/session";
+import { SessionModel } from "../../models/quiz";
 import { CommandExecption } from "../../utils/execptions";
 import { resolveUser } from "../../utils/resolveUser";
 

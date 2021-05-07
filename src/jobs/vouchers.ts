@@ -5,8 +5,7 @@
  */
 
 import { Job } from "../classes/job";
-import { SessionModel } from "../models/session";
-import { VoucherModel } from "../models/voucher";
+import { SessionModel, VoucherModel } from "../models/quiz";
 import { stripIndents } from "../utils/stripIndents";
 
 export class VoucherJob extends Job {

@@ -5,7 +5,7 @@
  */
 
 import { Job } from "../classes/job";
-import { SessionModel } from "../models/session";
+import { SessionModel } from "../models/quiz";
 import { stripIndents } from "../utils/stripIndents";
 
 export class ResetSessionJob extends Job {
