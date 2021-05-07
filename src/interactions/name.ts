@@ -4,24 +4,25 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
 import { BotInteraction, InteractionErrors } from "../core/interactions/interaction";
+import { findOption } from "../utils/interactions";
 
 export class NameInteraction extends BotInteraction {
   name = "name";
   description = "Generiere deinen eigenen Charakternamen";
-  options = [
+  options: ApplicationCommandOptionData[] = [
     { required: true, name: "Sprache", type: "STRING", description: "de/en/ww (Winterwald)" },
     { required: true, name: "Geschlecht", type: "STRING", description: "m/w" },
   ];
 
   execute(interaction: CommandInteraction) {
-    const Sprache = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
-    const Geschlecht = interaction.options.find((elt) => (elt.name = "Sprache"))?.value?.toString();
+    const Sprache = findOption(interaction, "Sprache")?.value?.toString();
+    const Geschlecht = findOption(interaction, "Geschlecht")?.value?.toString();
 
     if (!Sprache || !Geschlecht) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
 
-    if (!/de|en|ww/.test(Sprache) || !/|w/.test(Geschlecht)) return this.error(interaction, InteractionErrors.INVALID_OPTIONS);
+    if (!/de|en|ww/.test(Sprache) || !/m|w/.test(Geschlecht)) return this.error(interaction, InteractionErrors.INVALID_OPTIONS);
 
     const vornamen = Geschlecht === "w" ? (namen as any)[Sprache].weiblich : (namen as any)[Sprache].männlich;
     const beinamen: string = (namen as any)[Sprache].beinamen;
