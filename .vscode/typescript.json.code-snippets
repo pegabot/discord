@@ -2,7 +2,7 @@
   "Bot Command": {
     "prefix": ["Command"],
     "body": [
-      "import { Command } from '../../core/commands/command';\n",
+      "import { Command } from '../core/commands/command';\n",
       "export class ${1: className} extends Command {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
@@ -12,7 +12,7 @@
   "Bot Interaction": {
     "prefix": ["Interaction"],
     "body": [
-      "import { BotInteraction } from '../../core/interactions/interaction';\n",
+      "import { BotInteraction } from '../core/interactions/interaction';\n",
       "export class ${1: className} extends BotInteraction {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
