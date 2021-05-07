@@ -4,32 +4,31 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
+import bot from "../bot";
 import { Event } from "../classes/event";
 import { version } from "../constants/version";
 import { isProduction } from "../utils/environment";
 import { setDefault } from "../utils/presence";
 import { getSystemStatus } from "../utils/status";
 
-export class ReadyEvent extends Event {
-  execute() {
-    this.bot.commands.loadCommands();
-    this.bot.jobs.loadJobs();
+export default new Event("ready", () => {
+  bot.commands.loadCommands();
+  bot.jobs.loadJobs();
 
-    const message = `${this.bot.client.user?.username}#${this.bot.client.user?.discriminator} ist ready!
+  const message = `${bot.client.user?.username}#${bot.client.user?.discriminator} ist ready!
       -------------------------------
         Version: ${version}
-        ID: ${this.bot.client.user?.id}
-        Aktuell in ${this.bot.client.guilds.cache.size} Guilde(n)
-        ${this.bot.commands.size} Command(s) geladen 🤖
-        ${this.bot.MongoConnector?.size} Models(s) geladen 🧭
-        ${this.bot.events?.size} Event(s) geladen 🎟
-        ${this.bot.jobs?.size} Job(s) aktiviert ⚙️`;
+        ID: ${bot.client.user?.id}
+        Aktuell in ${bot.client.guilds.cache.size} Guilde(n)
+        ${bot.commands.size} Command(s) geladen 🤖
+        ${bot.MongoConnector?.size} Models(s) geladen 🧭
+        ${bot.events?.size} Event(s) geladen 🎟
+        ${bot.jobs?.size} Job(s) aktiviert ⚙️`;
 
-    this.bot.logger.console(message);
-    if (isProduction()) {
-      this.bot.logger.admin(message);
-      this.bot.logger.admin(getSystemStatus());
-    }
-    setDefault(this.bot);
+  bot.logger.console(message);
+  if (isProduction()) {
+    bot.logger.admin(message);
+    bot.logger.admin(getSystemStatus());
   }
-}
+  setDefault(bot);
+});

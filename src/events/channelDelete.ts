@@ -5,13 +5,12 @@
  */
 
 import { DMChannel, GuildChannel } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 import { ChannelTypes } from "../utils/channelTypes";
 
-export class channelDeleteEvent extends Event {
-  execute(channel: DMChannel | GuildChannel): void {
-    if (typeof channel === typeof DMChannel) return;
+export default new Event("channelDelete", (channel) => {
+  if (typeof channel === typeof DMChannel) return;
 
-    this.bot.logger.admin_red(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde gelöscht**.`);
-  }
-}
+  bot.logger.admin_red(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde gelöscht**.`);
+});

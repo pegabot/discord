@@ -4,14 +4,13 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { DMChannel, GuildChannel } from "discord.js";
+import { GuildChannel } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 import { ChannelTypes } from "../utils/channelTypes";
 
-export class channelCreateEvent extends Event {
-  execute(channel: DMChannel | GuildChannel): void {
-    if (!ChannelTypes.has(channel.type)) return;
+export default new Event("channelCreate", (channel) => {
+  if (!ChannelTypes.has(channel.type)) return;
 
-    this.bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde erstellt**.`);
-  }
-}
+  bot.logger.admin_green(`:inbox_tray: ${ChannelTypes.get(channel.type)}: \`${(channel as GuildChannel).name}\` **wurde erstellt**.`);
+});

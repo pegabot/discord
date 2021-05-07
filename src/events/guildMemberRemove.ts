@@ -4,25 +4,24 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { GuildMember, MessageEmbed, TextChannel } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 import { LevelModel } from "../models/levels";
 
-export class guildMemberRemoveEvent extends Event {
-  execute(member: GuildMember): void {
-    if (member.partial) return;
+export default new Event("guildMemberRemove", (member) => {
+  if (member.partial) return;
 
-    LevelModel.find({ userID: member.user.id }, (error, data) => {
-      if (error) return;
-      data.forEach((element) => {
-        element.remove();
-      });
+  LevelModel.find({ userID: member.user.id }, (error, data) => {
+    if (error) return;
+    data.forEach((element) => {
+      element.remove();
     });
+  });
 
-    const embed = new MessageEmbed().setTitle(`${member.user.tag} hat gerade den Server verlassen.`);
+  const embed = new MessageEmbed().setTitle(`${member.user.tag} hat gerade den Server verlassen.`);
 
-    const channel = this.bot.client.channels?.resolve(this.bot.config.goodbyeChannel || "");
-    if (!channel) return;
-    (channel as TextChannel).send(embed);
-  }
-}
+  const channel = bot.client.channels?.resolve(bot.config.goodbyeChannel || "");
+  if (!channel) return;
+  (channel as TextChannel).send(embed);
+});

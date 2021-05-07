@@ -9,9 +9,14 @@ import * as fs from "fs";
 import * as path from "path";
 import { Bot } from "../classes/bot";
 import { Event } from "../classes/event";
+import { CustomClientEvents } from "../types/discord.js";
+
+interface EventModule {
+  default: Event<never>;
+}
 
 export class EventHandler {
-  events: Collection<string, Event> = new Collection();
+  events: Collection<string, Event<never>> = new Collection();
   constructor(protected bot: Bot) {}
 
   get names() {
@@ -26,7 +31,7 @@ export class EventHandler {
     return this.events;
   }
 
-  get(event: string): Event | undefined {
+  get(event: string): Event<never> | undefined {
     return this.events.get(event);
   }
 
@@ -38,18 +43,20 @@ export class EventHandler {
     return this.events.delete(event);
   }
 
+  private add<K extends keyof CustomClientEvents>(event: Event<K>): void {
+    this.bot.client.on(event.name, (...args) => event.listener(...args));
+  }
+
   loadEvents(): void {
     const events = fs.readdirSync(path.join(__dirname, "..", "events"));
     for (const event of events) {
       const name = event.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
-      const importedEvent = require(path.join(__dirname, "..", "events", name));
-      this.events.set(name, importedEvent);
-
-      const _event: Event = new importedEvent[Object.keys(importedEvent)[0]](this.bot);
-
-      this.bot.client.on(name, (...args) => _event.execute(...args));
+      void import(path.join(__dirname, "..", "events", name)).then((module: EventModule) => {
+        this.add(module.default);
+        this.events.set(name, module.default);
+      });
     }
   }
 }

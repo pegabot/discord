@@ -4,11 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Guild, User } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 
-export class guildBanRemoveEvent extends Event {
-  execute(guild: Guild, user: User): void {
-    this.bot.logger.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
-  }
-}
+export default new Event("guildBanRemove", (guild, user) => {
+  bot.logger.admin_green(`${user.tag} wurde gerade vom Server entbannt.`);
+});

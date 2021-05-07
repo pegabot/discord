@@ -16,4 +16,7 @@ interface CustomClientEvents extends ClientEvents {
 export class CustomClient extends Client {
   public emit<K extends keyof CustomClientEvents>(event: K, ...args: CustomClientEvents[K]): boolean;
   public emit<S extends string | symbol>(event: Exclude<S, keyof CustomClientEvents>, ...args: any[]): boolean;
+
+  public on<K extends keyof CustomClientEvents>(event: K, listener: (...args: CustomClientEvents[K]) => void): this;
+  public on<S extends string | symbol>(event: Exclude<S, keyof CustomClientEvents>, listener: (...args: any[]) => void): this;
 }

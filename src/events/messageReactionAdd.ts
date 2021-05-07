@@ -4,41 +4,40 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { MessageReaction, User } from "discord.js";
+import { User } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 import { emojis } from "../constants/emojis";
 
-export class messageReactionAddEvent extends Event {
-  async execute(reaction: MessageReaction, user: User): Promise<void> {
-    if (reaction.partial) {
-      try {
-        await reaction.fetch();
-      } catch (error) {
-        return;
-      }
-    }
-
-    if (user.bot) return;
-
-    if (
-      !Object.keys(emojis)
-        .map((elt) => elt[1])
-        .includes(reaction.emoji.name)
-    )
+export default new Event("messageReactionAdd", async (reaction, user) => {
+  if (reaction.partial) {
+    try {
+      await reaction.fetch();
+    } catch (error) {
       return;
-
-    const users = reaction.users.fetch();
-    if (!(await users).has(this.bot.client.user?.id || "")) return;
-
-    switch (reaction.emoji.name) {
-      case emojis.rollEmoji:
-        this.bot.client.emit("handleReroll", reaction, user);
-        break;
-      case emojis.commandRepeatEmoji:
-        this.bot.client.emit("handleCommandRepeat", reaction, user);
-        break;
-      default:
-        return;
     }
   }
-}
+
+  if (user.bot) return;
+
+  if (
+    !Object.entries(emojis)
+      .map((elt) => elt[1].toString())
+      .includes(reaction.emoji.name)
+  )
+    return;
+
+  const users = reaction.users.fetch();
+  if (!(await users).has(bot.client.user?.id || "")) return;
+
+  switch (reaction.emoji.name) {
+    case emojis.rollEmoji:
+      bot.client.emit("handleReroll", reaction, user as User);
+      break;
+    case emojis.commandRepeatEmoji:
+      bot.client.emit("handleCommandRepeat", reaction, user as User);
+      break;
+    default:
+      return;
+  }
+});

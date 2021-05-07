@@ -4,11 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Role } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 
-export class roleDeleteEvent extends Event {
-  execute(role: Role): void {
-    this.bot.logger.admin_red(`:inbox_tray: Die Rolle: \`${role.name}\` **wurde gelöscht**.`, `ID: ${role.id}`);
-  }
-}
+export default new Event("roleDelete", (role) => {
+  bot.logger.admin_red(`:inbox_tray: Die Rolle: \`${role.name}\` **wurde gelöscht**.`, `ID: ${role.id}`);
+});

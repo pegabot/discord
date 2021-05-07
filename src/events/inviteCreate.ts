@@ -4,11 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Invite } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 
-export class inviteCreateEvent extends Event {
-  execute(invite: Invite): void {
-    this.bot.logger.admin_green(`:inbox_tray: Die Einladung: ${invite.url} wurde von ${invite.inviter} **erstellt**.`, `Code: ${invite.code}`);
-  }
-}
+export default new Event("inviteCreate", (invite) => {
+  bot.logger.admin_green(`:inbox_tray: Die Einladung: ${invite.url} wurde von ${invite.inviter} **erstellt**.`, `Code: ${invite.code}`);
+});

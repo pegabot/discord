@@ -4,15 +4,13 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { MessageReaction, User } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 
-export class handleCommandRepeatEvent extends Event {
-  async execute(reaction: MessageReaction, user: User): Promise<void> {
-    if (reaction.message.member?.id !== user.id) {
-      reaction.message.channel.send(`${user} nur der ursprüngliche Autor kann einen Command erneut ausführen.`);
-      return;
-    }
-    this.bot.commands.handleCommand(reaction.message);
+export default new Event("handleCommandRepeat", (reaction, user) => {
+  if (reaction.message.member?.id !== user.id) {
+    reaction.message.channel.send(`${user} nur der ursprüngliche Autor kann einen Command erneut ausführen.`);
+    return;
   }
-}
+  bot.commands.handleCommand(reaction.message);
+});

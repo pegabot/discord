@@ -4,11 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Guild, User } from "discord.js";
+import bot from "../bot";
 import { Event } from "../classes/event";
 
-export class guildBanAddEvent extends Event {
-  execute(guild: Guild, user: User): void {
-    this.bot.logger.admin_red(`${user.tag} wurde gerade vom Server gebannt.`);
-  }
-}
+export default new Event("guildBanAdd", (guild, user) => {
+  bot.logger.admin_red(`${user.tag} wurde gerade vom Server gebannt.`);
+});
