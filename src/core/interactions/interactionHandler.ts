@@ -61,11 +61,15 @@ export class interactionHandler {
     this.cleanInteractions();
   }
 
-  checkInteraction(name: string, options?: ApplicationCommandOptionData[]): string | undefined {
+  checkInteraction(name: string, description: string, options?: ApplicationCommandOptionData[]): string | undefined {
+    if (name.length < 1) return "Der Name einer Interaction ist leer!";
+    if (description.length < 1) return `Die Beschreibung der Interaction ${name} darf nicht leer sein!`;
     if (this.interactions.has(name)) return `Die Interaction ${name} existiert bereits.`;
     if (name !== name.toLowerCase()) return `Der Name der Interaction ${name} muss kleingeschrieben werden!`;
 
     for (const option of options || []) {
+      if (option.name.length < 1) return "Der Name für eine Option der Interaction ${name} ist leer!";
+      if (option.description.length < 1) return "Die Beschreibung für eine Option der Interaction ${name} ist leer!";
       if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
     }
   }
@@ -74,8 +78,8 @@ export class interactionHandler {
     const _interactionCommand: any = importedInteraction;
     const interactionCommand: InteractionCommand = new _interactionCommand(this.bot);
 
-    const { name, options } = interactionCommand;
-    const error = this.checkInteraction(name, options);
+    const { name, description, options } = interactionCommand;
+    const error = this.checkInteraction(name, description, options);
 
     if (!error) {
       this.interactions.set(name.toLowerCase(), interactionCommand);
@@ -119,7 +123,7 @@ export class interactionHandler {
     }
 
     const entry = new LogModel();
-    entry.interaction = JSON.parse(JSON.stringify(interaction));;
+    entry.interaction = JSON.parse(JSON.stringify(interaction));
     entry.author = JSON.parse(JSON.stringify(interaction.user));
     entry.save();
 

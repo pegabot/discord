@@ -14,7 +14,6 @@ declare namespace NodeJS {
     guildId: string;
     inviteUrl: string;
     engineerRole: string;
-    notificationRole: string;
     playerSearchRole: string;
     adminChannel: string;
     errorChannel: string;

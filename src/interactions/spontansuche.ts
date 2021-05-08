@@ -4,25 +4,24 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Message } from "discord.js";
-import { Command } from "../../core/commands/command";
-import { userGivenRolesModel } from "../../models/userGivenRoles";
-import { CommandExecption } from "../../utils/execptions";
+import { CommandInteraction } from "discord.js";
+import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { userGivenRolesModel } from "../models/userGivenRoles";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
 
-export class SpontansucheCommand extends Command {
+export class SpontansucheInteraction extends InteractionCommand {
   name = "spontansuche";
-  usage = ["spontansuche"];
-  help = "Dieser Command fügt dir eine Rolle hinzu/ entfernt dir eine Rolle, mit welcher du dich als spontan spielfähig kennzeichnen kannst.";
+  description = "Melde dich als spontan spielbereit.";
 
-  execute(msg: Message): void {
+  async execute(interaction: CommandInteraction): Promise<void> {
+    interaction.defer();
+
     try {
-      const { member } = msg;
-      if (!member) throw new CommandExecption("Ein Fehler ist aufgetreten!");
+      const { member } = interaction;
 
       const roleId = this.bot?.config?.playerSearchRole;
-      if (!roleId) throw new CommandExecption("Ein Fehler ist aufgetreten!");
+      if (!roleId) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
       const userId = member.id;
 
@@ -32,7 +31,8 @@ export class SpontansucheCommand extends Command {
         userGivenRolesModel.find({ userId: userId, roleId: roleId }, (error, data) => {
           data.forEach((entry) => entry.remove());
         });
-        msg.reply("die Rolle wurde wieder entfernt.");
+
+        interaction.editReply("Die Rolle wurde wieder entfernt.");
       } else {
         member.roles.add(roleId);
         const entry = new userGivenRolesModel();
@@ -40,10 +40,10 @@ export class SpontansucheCommand extends Command {
         entry.roleId = roleId;
         entry.expires = Number(Date.now()) + expiresInterval;
         entry.save();
-        msg.reply("Rolle hinzugefügt.");
+        interaction.editReply("Die Rolle wurde hinzugefügt.");
       }
     } catch (err) {
-      throw new CommandExecption("Rolle konnte nicht hinzugefügt/ entfernt werden!");
+      return this.deferedError(interaction, "Die Rolle konnte nicht hinzugefügt/ entfernt werden!");
     }
   }
 }

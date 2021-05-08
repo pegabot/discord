@@ -23,11 +23,11 @@ export abstract class InteractionCommand {
     this.bot = bot;
   }
 
-  protected error(interaction: CommandInteraction, errorType: InteractionErrors): void {
+  protected error(interaction: CommandInteraction, errorType: InteractionErrors | string): void {
     interaction.reply(errorType, { ephemeral: true });
   }
 
-  protected deferedError(interaction: CommandInteraction, errorType: InteractionErrors): void {
+  protected deferedError(interaction: CommandInteraction, errorType: InteractionErrors | string): void {
     interaction.editReply(errorType);
   }
 
