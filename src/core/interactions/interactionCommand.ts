@@ -27,5 +27,9 @@ export abstract class InteractionCommand {
     interaction.reply(errorType, { ephemeral: true });
   }
 
+  protected deferedError(interaction: CommandInteraction, errorType: InteractionErrors): void {
+    interaction.editReply(errorType);
+  }
+
   abstract execute(interaction: CommandInteraction): Promise<void> | void;
 }

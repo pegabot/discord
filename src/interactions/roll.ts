@@ -18,8 +18,10 @@ export class RollInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [{ required: true, name: "würfelkommando", type: "STRING", description: "Was möchtest du würfeln?" }];
 
   async execute(interaction: CommandInteraction): Promise<void> {
+    await interaction.defer();
+
     const dice = findOption(interaction, "Würfelkommando")?.value?.toString();
-    if (!dice) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!dice) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
     const params = generateParams(this.bot, interaction.user, dice);
 
@@ -28,11 +30,11 @@ export class RollInteraction extends InteractionCommand {
     try {
       response = JSON.parse(response);
     } catch {
-      return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
+      return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
     }
 
     const channel = await interaction.channel?.fetch();
-    if (!channel) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!channel) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
     let replied;
     if (response?.image) {
@@ -44,7 +46,7 @@ export class RollInteraction extends InteractionCommand {
       replied = await (channel as TextChannel).send(embed);
     }
 
-    interaction.reply("Ich habe für dich gewürfelt 🎲");
+    interaction.editReply("Ich habe für dich gewürfelt 🎲");
 
     if (response.message.match(/.*fehlgeschlagen.*/)) return;
 
