@@ -15,7 +15,7 @@ import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";
 export class RollInteraction extends InteractionCommand {
   name = "roll";
   description = "powered by RollButler";
-  options: ApplicationCommandOptionData[] = [{ required: true, name: "Würfelkommando", type: "STRING", description: "Was möchtest du würfeln?" }];
+  options: ApplicationCommandOptionData[] = [{ required: true, name: "würfelkommando", type: "STRING", description: "Was möchtest du würfeln?" }];
 
   async execute(interaction: CommandInteraction): Promise<void> {
     const dice = findOption(interaction, "Würfelkommando")?.value?.toString();

@@ -30,7 +30,7 @@
     "dank-twitch-irc": "^4.3.0",
     "date-fns": "^2.21.2",
     "discord-xp": "^1.1.14",
-    "discord.js": "https://github.com/discordjs/discord.js#master",
+    "discord.js": "https://github.com/discordjs/discord.js#9f74f95f69f4aa8a9a23c160e25dc61010c0a8e0",
     "dotenv": "^9.0.0",
     "emoji-strip": "^1.0.1",
     "erlpack": "^0.1.3",

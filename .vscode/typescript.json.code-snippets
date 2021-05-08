@@ -12,7 +12,7 @@
   "Bot Interaction": {
     "prefix": ["Interaction"],
     "body": [
-      "import { InteractionCommand } from '../core/interactions/interaction';\n",
+      "import { InteractionCommand } from '../core/interactions/interactionCommand';\n",
       "export class ${1: className} extends InteractionCommand {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"

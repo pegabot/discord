@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandData, Collection, Interaction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionData, Collection, Interaction } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { walkSync } from "../../utils/walkSync";
@@ -60,29 +60,40 @@ export class InteractionHandler {
     this.cleanInteractions();
   }
 
-  checkInteraction(name: string): string | undefined {
+  checkInteraction(name: string, options?: ApplicationCommandOptionData[]): string | undefined {
     if (this.interactions.has(name)) return `Die Interaction ${name} existiert bereits.`;
+    if (name !== name.toLowerCase()) return `Der Name der Interaction ${name} muss kleingeschrieben werden!`;
+
+    for (const option of options || []) {
+      if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
+    }
   }
 
   loadInteraction(importedInteraction: InteractionCommand, category: string) {
-    const _cmd: any = importedInteraction;
-    const cmd = new _cmd(this.bot);
+    const _interactionCommand: any = importedInteraction;
+    const interactionCommand: InteractionCommand = new _interactionCommand(this.bot);
 
-    cmd.category = (category[0] || "").toUpperCase() + category.slice(1);
-
-    const { name } = cmd;
-    const error = this.checkInteraction(name);
+    const { name, options } = interactionCommand;
+    const error = this.checkInteraction(name, options);
 
     if (!error) {
-      this.interactions.set(name.toLowerCase(), cmd);
+      this.interactions.set(name.toLowerCase(), interactionCommand);
     } else {
       this.bot.logger.error(error);
     }
   }
 
-  registerInteraction(): void {
-    const ineractionsData: ApplicationCommandData[] = this.interactions.array();
-    this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(ineractionsData);
+  async registerInteraction() {
+    const interactionsData: ApplicationCommandData[] = this.interactions.array();
+    try {
+      await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(
+        interactionsData.map((elt: ApplicationCommandData) => {
+          return { name: elt.name, description: elt.description, options: elt.options };
+        }),
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async cleanInteractions(): Promise<void> {
@@ -93,11 +104,13 @@ export class InteractionHandler {
 
     const guildInteractions = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.fetch();
     guildInteractions?.forEach((interaction) => {
-      if (!this.interactions.has(interaction.name)) interaction.delete();
+      if (!this.interactions.has(interaction.name)) {
+        interaction.delete();
+      }
     });
   }
 
-  handleInteraction(interaction: Interaction) {
+  async handleInteraction(interaction: Interaction) {
     if (!interaction.isCommand()) return;
     const foundInteration = this.interactions.get(interaction.commandName);
     if (!foundInteration) {

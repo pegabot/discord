@@ -1783,9 +1783,9 @@ discord-xp@^1.1.14:
   dependencies:
     mongoose "^5.11.11"
 
-"discord.js@https://github.com/discordjs/discord.js#master":
+"discord.js@https://github.com/discordjs/discord.js#9f74f95f69f4aa8a9a23c160e25dc61010c0a8e0":
   version "12.5.0"
-  resolved "https://github.com/discordjs/discord.js#b456ff1090ad9c0acf27ad96ecaedb03101de556"
+  resolved "https://github.com/discordjs/discord.js#9f74f95f69f4aa8a9a23c160e25dc61010c0a8e0"
   dependencies:
     "@discordjs/collection" "^0.1.6"
     "@discordjs/form-data" "^3.0.1"

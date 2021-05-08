@@ -12,8 +12,27 @@ export class NameInteraction extends InteractionCommand {
   name = "name";
   description = "Generiere deinen eigenen Charakternamen";
   options: ApplicationCommandOptionData[] = [
-    { required: true, name: "Sprache", type: "STRING", description: "de/en/ww (Winterwald)" },
-    { required: true, name: "Geschlecht", type: "STRING", description: "m/w" },
+    {
+      required: true,
+      name: "sprache",
+      type: "STRING",
+      choices: [
+        { name: "Deutsch", value: "de" },
+        { name: "Englisch", value: "en" },
+        { name: "Winterwald", value: "ww" },
+      ],
+      description: "de/en/ww (Winterwald)",
+    },
+    {
+      required: true,
+      name: "geschlecht",
+      type: "STRING",
+      choices: [
+        { name: "Männlich", value: "m" },
+        { name: "Weiblich", value: "w" },
+      ],
+      description: "m/w",
+    },
   ];
 
   execute(interaction: CommandInteraction) {
