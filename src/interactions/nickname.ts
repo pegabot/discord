@@ -10,7 +10,7 @@ import { findOption } from "../utils/interactions";
 
 export class NicknameInteraction extends InteractionCommand {
   name = "nickname";
-  description = "Nicknamen auf diesem Server setzen";
+  description = "Nicknamen auf diesem Server ändern.";
   options: ApplicationCommandOptionData[] = [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }];
 
   execute(interaction: CommandInteraction) {
