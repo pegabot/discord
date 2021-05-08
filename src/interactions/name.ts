@@ -5,10 +5,10 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
-import { BotInteraction, InteractionErrors } from "../core/interactions/interaction";
+import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
-export class NameInteraction extends BotInteraction {
+export class NameInteraction extends InteractionCommand {
   name = "name";
   description = "Generiere deinen eigenen Charakternamen";
   options: ApplicationCommandOptionData[] = [

@@ -12,8 +12,8 @@
   "Bot Interaction": {
     "prefix": ["Interaction"],
     "body": [
-      "import { BotInteraction } from '../core/interactions/interaction';\n",
-      "export class ${1: className} extends BotInteraction {\t async execute(): Promise<void>  {",
+      "import { InteractionCommand } from '../core/interactions/interaction';\n",
+      "export class ${1: className} extends InteractionCommand {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
     ],

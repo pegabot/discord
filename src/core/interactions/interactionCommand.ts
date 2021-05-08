@@ -11,7 +11,8 @@ export enum InteractionErrors {
   INTERNAL_ERROR = "Ein Fehler ist aufgetreten, bitte versuche es später erneut!",
   INVALID_OPTIONS = "Deine Eingabe scheint fehlerhaft, bitte überprüfe diese noch Einmal!",
 }
-export abstract class BotInteraction {
+
+export abstract class InteractionCommand {
   bot: Bot;
   abstract name: string;
   abstract description: string;

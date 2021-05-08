@@ -5,10 +5,10 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
-import { BotInteraction } from "../core/interactions/interaction";
+import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
-export class NicknameInteraction extends BotInteraction {
+export class NicknameInteraction extends InteractionCommand {
   name = "nickname";
   description = "Nicknamen auf diesem Server setzen";
   options: ApplicationCommandOptionData[] = [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }];

@@ -6,13 +6,13 @@
 
 import { ApplicationCommandOptionData, CommandInteraction, MessageAttachment, TextChannel } from "discord.js";
 import { emojis } from "../constants/emojis";
-import { BotInteraction, InteractionErrors } from "../core/interactions/interaction";
+import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { RollsModel } from "../models/rolls";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { findOption } from "../utils/interactions";
 import { generateEmbed, generateParams, rollDice } from "../utils/RollButler";
 
-export class RollInteraction extends BotInteraction {
+export class RollInteraction extends InteractionCommand {
   name = "roll";
   description = "powered by RollButler";
   options: ApplicationCommandOptionData[] = [{ required: true, name: "Würfelkommando", type: "STRING", description: "Was möchtest du würfeln?" }];

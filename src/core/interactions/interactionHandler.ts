@@ -9,10 +9,10 @@ import * as fs from "fs";
 import * as path from "path";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
-import { BotInteraction } from "./interaction";
+import { InteractionCommand } from "./interactionCommand";
 
 export class InteractionHandler {
-  interactions: Collection<string, BotInteraction> = new Collection();
+  interactions: Collection<string, InteractionCommand> = new Collection();
   constructor(protected bot: Bot) {}
 
   get names() {
@@ -27,7 +27,7 @@ export class InteractionHandler {
     return this.interactions;
   }
 
-  get(interaction: string): BotInteraction | undefined {
+  get(interaction: string): InteractionCommand | undefined {
     return this.interactions.get(interaction);
   }
 
@@ -48,7 +48,7 @@ export class InteractionHandler {
 
       try {
         const importedInteraction: any = require(_interaction);
-        const interaction: BotInteraction = importedInteraction[Object.keys(importedInteraction)[0]];
+        const interaction: InteractionCommand = importedInteraction[Object.keys(importedInteraction)[0]];
         if (!interaction) continue;
         this.loadInteraction(interaction, (category as string) || "-");
       } catch (err) {
@@ -64,7 +64,7 @@ export class InteractionHandler {
     if (this.interactions.has(name)) return `Die Interaction ${name} existiert bereits.`;
   }
 
-  loadInteraction(importedInteraction: BotInteraction, category: string) {
+  loadInteraction(importedInteraction: InteractionCommand, category: string) {
     const _cmd: any = importedInteraction;
     const cmd = new _cmd(this.bot);
 
