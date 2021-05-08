@@ -12,12 +12,13 @@
   "Bot Interaction": {
     "prefix": ["Interaction"],
     "body": [
-      "import { ApplicationCommandOptionData, CommandInteraction } from 'discord.js';",
+      "import { ApplicationCommandOptionData, CommandInteraction, PermissionString } from 'discord.js';",
       "import { InteractionCommand } from '../core/interactions/interactionCommand';\n",
       "export class ${1: className} extends InteractionCommand {",
       "name = '';",
       "description = '';",
-      "options: ApplicationCommandOptionData[] = [];\n",
+      "options: ApplicationCommandOptionData[] = [];",
+      "permissions: PermissionString[] = [];\n",
       "async execute(interaction: CommandInteraction): Promise<void>  {",
       "\t$0",
       "}}"

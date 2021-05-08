@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, PermissionString } from "discord.js";
 import { Bot } from "../bot";
 
 export enum InteractionErrors {
@@ -14,10 +14,14 @@ export enum InteractionErrors {
 
 export abstract class InteractionCommand {
   bot: Bot;
+  id?: string;
+
   abstract name: string;
   abstract description: string;
 
   options: ApplicationCommandOptionData[] = [];
+
+  permissions: PermissionString[] = [];
 
   constructor(bot: Bot) {
     this.bot = bot;

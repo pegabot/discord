@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandData, ApplicationCommandOptionData, Collection, Interaction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionData, Collection, GuildApplicationCommandPermissionData, Interaction } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
@@ -40,7 +40,7 @@ export class interactionHandler {
     return this.interactions.delete(interaction);
   }
 
-  loadInterations(): void {
+  async loadInterations(): Promise<void> {
     const _interactions = fs.readdirSync(path.join(__dirname, "../../interactions"));
     const files = walkSync(_interactions, path.join(__dirname, "../../interactions"));
 
@@ -57,8 +57,9 @@ export class interactionHandler {
       }
     }
 
-    this.registerInteraction();
-    this.cleanInteractions();
+    await this.registerInteraction();
+    await this.cleanInteractions();
+    this.setupPermission();
   }
 
   checkInteraction(name: string, description: string, options?: ApplicationCommandOptionData[]): string | undefined {
@@ -91,11 +92,18 @@ export class interactionHandler {
   async registerInteraction() {
     const interactionsData: ApplicationCommandData[] = this.interactions.array();
     try {
-      await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(
+      const createdInteractions = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(
         interactionsData.map((elt: ApplicationCommandData) => {
           return { name: elt.name, description: elt.description, options: elt.options };
         }),
       );
+
+      createdInteractions?.array().forEach((interaction) => {
+        const _interaction = this.interactions.get(interaction.name);
+        if (!_interaction) return;
+
+        _interaction.id = interaction.id;
+      });
     } catch (error) {
       console.log(error);
     }
@@ -111,6 +119,43 @@ export class interactionHandler {
     guildInteractions?.forEach((interaction) => {
       if (!this.interactions.has(interaction.name)) {
         interaction.delete();
+      }
+    });
+  }
+
+  setupPermission(): void {
+    let permissonData: GuildApplicationCommandPermissionData[] = [];
+
+    this.interactions.forEach(async (interaction) => {
+      if (interaction.permissions.length < 1) return;
+      if (!interaction.id) return;
+
+      const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
+      if (!guild) return;
+
+      const roles = guild.roles.cache.filter((role) => {
+        return (
+          role.permissions.toArray().filter((permission) => {
+            return interaction.permissions.includes(permission);
+          }).length > 0
+        );
+      });
+
+      permissonData.push({
+        id: interaction.id,
+        permissions: roles.map((role) => {
+          return {
+            id: role.id,
+            type: "ROLE",
+            permission: true,
+          };
+        }),
+      });
+
+      try {
+        await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.setPermissions(permissonData);
+      } catch (err) {
+        console.log(err);
       }
     });
   }

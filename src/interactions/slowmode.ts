@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, PermissionString, TextChannel } from "discord.js";
 import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -14,6 +14,7 @@ export class SlowmodeInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [
     { required: true, type: "STRING", name: "sekunden", description: "Wie viele Sekunden soll die Slowmode Rate betragen?" },
   ];
+  permissions: PermissionString[] = ["MANAGE_CHANNELS"];
 
   async execute(interaction: CommandInteraction): Promise<void> {
     const option = findOption(interaction, "sekunden");
