@@ -11,7 +11,7 @@ import { CustomClient } from "../types/discord.js.js";
 import { CommandHandler } from "./commands/commandHandler";
 import { MongoConnector } from "./database";
 import { EventHandler } from "./events/eventHandler";
-import { InteractionHandler } from "./interactions/InteractionHandler.js";
+import { interactionHandler } from "./interactions/interactionHandler.js";
 import { JobHandler } from "./jobs/jobHandler";
 import { LogHandler } from "./log";
 config();
@@ -29,7 +29,7 @@ export class Bot {
   jobs = new JobHandler(this);
   events = new EventHandler(this);
   commands = new CommandHandler(this);
-  interactions = new InteractionHandler(this);
+  interactions = new interactionHandler(this);
 
   twitchClient = new ChatClient({});
 

@@ -11,7 +11,7 @@ import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { InteractionCommand } from "./interactionCommand";
 
-export class InteractionHandler {
+export class interactionHandler {
   interactions: Collection<string, InteractionCommand> = new Collection();
   constructor(protected bot: Bot) {}
 
