@@ -7,6 +7,7 @@
 import { ApplicationCommandData, ApplicationCommandOptionData, Collection, Interaction } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
+import { LogModel } from "../../models/log";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { InteractionCommand } from "./interactionCommand";
@@ -116,6 +117,11 @@ export class interactionHandler {
     if (!foundInteration) {
       interaction.reply("Ein interner Fehler ist aufgetreten!", { ephemeral: true });
     }
+
+    const entry = new LogModel();
+    entry.interaction = JSON.parse(JSON.stringify(interaction));;
+    entry.author = JSON.parse(JSON.stringify(interaction.user));
+    entry.save();
 
     foundInteration?.execute(interaction);
   }
