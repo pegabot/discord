@@ -4,30 +4,29 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Message, MessageEmbed } from "discord.js";
-import { colors } from "../../constants/colors";
-import { Command } from "../../core/commands/command";
+import { colors } from "debug-logger";
+import { CommandInteraction, MessageEmbed } from "discord.js";
+import { InteractionCommand } from "../core/interactions/interactionCommand";
 
-export class RolesCommand extends Command {
+export class RolesInteraction extends InteractionCommand {
   name = "roles";
-  aliases = ["rollen"];
-  help = "Zeige alle Rollen des Server an";
-  usage = "roles";
+  description = "Welche Rollen gibt es hier auf dem Server?";
 
-  execute(msg: Message): void {
-    const roles = msg.guild?.roles.cache
+  execute(interaction: CommandInteraction) {
+    const roles = interaction.guild?.roles.cache
       .array()
       .filter((role) => !role.managed && role.name !== "@everyone")
       .sort((a, b) => b.rawPosition - a.rawPosition);
 
     const embed = new MessageEmbed()
       .setAuthor(this.bot.client.user?.username, this.bot.client.user?.displayAvatarURL())
-      .setThumbnail(msg?.guild?.iconURL() || "")
-      .setTitle(`Rollen in ${msg.guild?.name}`)
+      .setThumbnail(interaction?.guild?.iconURL() || "")
+      .setTitle(`Rollen in ${interaction.guild?.name}`)
       .setDescription(roles?.map((role) => `${role}\n`).join(""))
       .setColor(colors.orange)
       .setFooter(`Rollen: ${roles?.length}`)
       .setTimestamp(new Date());
-    msg.channel.send(embed);
+
+    interaction.reply(embed);
   }
 }

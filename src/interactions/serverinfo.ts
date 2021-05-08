@@ -4,18 +4,16 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Message, MessageEmbed } from "discord.js";
-import { Command } from "../../core/commands/command";
-import { CommandExecption } from "../../utils/execptions";
+import { CommandInteraction, MessageEmbed } from "discord.js";
+import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 
-export class ServerinfoCommand extends Command {
+export class ServerinfoInteraction extends InteractionCommand {
   name = "serverinfo";
-  help = "Server Informationen";
-  usage = "serverinfo";
+  description = "Informationen zu diesem Server";
 
-  execute(msg: Message): void {
-    const guild = msg.guild;
-    if (!guild) throw new CommandExecption("Ein Fehler ist aufgetreten!");
+  execute(interaction: CommandInteraction) {
+    const guild = interaction.guild;
+    if (!guild) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
 
     const embed = new MessageEmbed()
       .setAuthor(guild.name, guild?.iconURL() || "")
@@ -37,6 +35,6 @@ export class ServerinfoCommand extends Command {
       .setFooter(`ID: ${guild.id} | Server erstellt:`)
       .setTimestamp(guild.createdAt);
 
-    msg.channel.send(embed);
+    interaction.reply(embed);
   }
 }
