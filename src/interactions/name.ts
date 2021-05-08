@@ -10,7 +10,7 @@ import { findOption } from "../utils/interactions";
 
 export class NameInteraction extends InteractionCommand {
   name = "name";
-  description = "Generiere deinen eigenen Charakternamen";
+  description = "Generiere deinen eigenen Charakternamen.";
   options: ApplicationCommandOptionData[] = [
     {
       required: true,
