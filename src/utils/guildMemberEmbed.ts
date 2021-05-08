@@ -39,7 +39,7 @@ export const GuildMemberEmbed = (member: GuildMember): MessageEmbed => {
   return new MessageEmbed()
     .setAuthor(member.user.tag, member.user.displayAvatarURL())
     .setThumbnail(member.user.displayAvatarURL())
-    .setTitle(`${member.displayName} hat gerade den Server betreten!`)
+    .setTitle(`Informationen zu ${member.displayName}`)
     .setDescription(status[member.presence.status])
     .addField("Benutzername", member.user.username, true)
     .addField("Account erstellt", createdAt, true)
