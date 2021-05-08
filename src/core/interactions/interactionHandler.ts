@@ -4,13 +4,14 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandData, ApplicationCommandOptionData, Collection, GuildApplicationCommandPermissionData, Interaction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionData, Collection, GuildApplicationCommandPermissionData, GuildMember, Interaction } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
+import { getRolesByInteractionPermissionsAndGuild } from "../../utils/interactions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
-import { InteractionCommand } from "./interactionCommand";
+import { InteractionCommand, InteractionErrors } from "./interactionCommand";
 
 export class interactionHandler {
   interactions: Collection<string, InteractionCommand> = new Collection();
@@ -133,13 +134,7 @@ export class interactionHandler {
       const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
       if (!guild) return;
 
-      const roles = guild.roles.cache.filter((role) => {
-        return (
-          role.permissions.toArray().filter((permission) => {
-            return interaction.permissions.includes(permission);
-          }).length > 0
-        );
-      });
+      const roles = getRolesByInteractionPermissionsAndGuild(guild, interaction);
 
       permissonData.push({
         id: interaction.id,
@@ -163,8 +158,22 @@ export class interactionHandler {
   async handleInteraction(interaction: Interaction) {
     if (!interaction.isCommand()) return;
     const foundInteration = this.interactions.get(interaction.commandName);
-    if (!foundInteration) {
-      interaction.reply("Ein interner Fehler ist aufgetreten!", { ephemeral: true });
+    if (!foundInteration) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
+
+    if (!interaction.guild) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
+    const interactionRoles = getRolesByInteractionPermissionsAndGuild(interaction.guild, foundInteration);
+
+    if (foundInteration.permissions.length > 0) {
+      const foundPermission = interactionRoles.array().filter((role) => {
+        const member: GuildMember = interaction.member;
+
+        return member.roles.cache
+          .array()
+          .map((role) => role.name)
+          .includes(role.name);
+      }).length;
+
+      if (foundPermission < 1) return interaction.reply(InteractionErrors.MISSING_PERMISSIONS, { ephemeral: true });
     }
 
     const entry = new LogModel();
