@@ -4,15 +4,16 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { GuildMember, Message } from "discord.js";
+import { CommandInteraction, GuildMember, Message } from "discord.js";
 
-export const resolveUser = (msg: Message, username: any): GuildMember | undefined | null => {
+export const resolveUser = (msg: Message | CommandInteraction, username: string): GuildMember | undefined | null => {
   const memberCache = msg.guild?.members.cache;
   if (!memberCache) return null;
 
   if (/<@!?\d+>/g.test(username)) {
-    return memberCache.get(msg.mentions?.users?.first()?.id || "");
+    return memberCache.get((msg as Message).mentions?.users?.first()?.id || "");
   }
+
   if (memberCache.has(username)) {
     return memberCache.get(username);
   }

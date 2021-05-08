@@ -5,7 +5,8 @@
  */
 
 import Levels from "discord-xp";
-import { GuildMember } from "discord.js";
+import { User } from "discord.js";
+import { Leaderbord } from "../interactions/leaderboard";
 import Canvas from "./canvas";
 
 export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r = 0): Canvas.CanvasRenderingContext2D => {
@@ -21,12 +22,15 @@ export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: nu
   return ctx;
 };
 
-export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.Canvas> => {
+export const generateLeaderboardCard = async (leaderboard: Leaderbord): Promise<Canvas.Canvas> => {
   const canvas = Canvas.createCanvas(700, 250 * leaderboard.length);
   const ctx = canvas.getContext("2d");
+
   for (let i = 0; i < leaderboard.length; i++) {
-    const userData = leaderboard[i].userData;
-    const user: GuildMember = leaderboard[i].user;
+    const userData = leaderboard[i]?.userData;
+    const member = leaderboard[i]?.user;
+
+    if (!userData || !member) return canvas;
 
     const xpToNextLevel = Levels.xpFor(userData.level + 1);
     const xpForCurrentLevel = userData.level === 0 ? 0 : Levels.xpFor(userData.level);
@@ -53,7 +57,7 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
 
     ctx.font = "24px Poppins";
     ctx.fillStyle = "#ffffff";
-    const name = `${user.nickname || user.user.username}${user.user.tag.slice(-5)}`;
+    const name = `${member.user.username}${member.user.tag.slice(-5)}`;
     const nameWidth = ctx.measureText(name).width;
     if (nameWidth > canvas.width * 0.75) {
       ctx.font = "16px Poppins";
@@ -89,7 +93,7 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
     ctx.arc(125, 125, 100 / 1.25, 0, Math.PI * 2, true);
     ctx.fill();
     ctx.clip();
-    const profileUrl = user.user.displayAvatarURL({ format: "png" });
+    const profileUrl = member.user.displayAvatarURL({ format: "png" });
     const avatar = await Canvas.loadImage(profileUrl);
     ctx.drawImage(avatar, 25 * 1.75, 25 * 1.75, 200 / 1.25, 200 / 1.25);
     const statuses: any = {
@@ -100,7 +104,7 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
     };
     ctx.restore();
     const iconWidth = 60;
-    const statusUrl = statuses[user.presence.status] || "";
+    const statusUrl = statuses[member.user.presence.status] || "";
     const statusImage = await Canvas.loadImage(statusUrl);
     ctx.drawImage(statusImage, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, 25 * 1.75 + 200 / 1.25 - iconWidth / 1.15, iconWidth, iconWidth);
     ctx.translate(0, 250);
@@ -108,7 +112,7 @@ export const generateLeaderboardCard = async (leaderboard: any): Promise<Canvas.
   return canvas;
 };
 
-export const generateRankCard = async (userData: any, user: GuildMember): Promise<Canvas.Canvas> => {
+export const generateRankCard = async (userData: any, user: User): Promise<Canvas.Canvas> => {
   const canvas = Canvas.createCanvas(700, 250);
   const ctx = canvas.getContext("2d");
   const xpToNextLevel = Number(Levels.xpFor(userData.level + 1));
@@ -134,7 +138,7 @@ export const generateRankCard = async (userData: any, user: GuildMember): Promis
 
   ctx.font = "24px Poppins";
   ctx.fillStyle = "#ffffff";
-  const name = `${user.nickname || user.user.username}${user.user.tag.slice(-5)}`;
+  const name = `${user.username}${user.tag.slice(-5)}`;
   const nameWidth = ctx.measureText(name).width;
   if (nameWidth > canvas.width * 0.75) {
     ctx.font = "16px Poppins";
@@ -170,7 +174,7 @@ export const generateRankCard = async (userData: any, user: GuildMember): Promis
   ctx.arc(125, 125, 100 / 1.25, 0, Math.PI * 2, true);
   ctx.fill();
   ctx.clip();
-  const profileUrl = user.user.displayAvatarURL({ format: "png" });
+  const profileUrl = user.displayAvatarURL({ format: "png" });
   const avatar = await Canvas.loadImage(profileUrl);
   ctx.drawImage(avatar, 25 * 1.75, 25 * 1.75, 200 / 1.25, 200 / 1.25);
   const statuses: any = {
