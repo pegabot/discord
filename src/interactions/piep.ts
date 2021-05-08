@@ -5,18 +5,20 @@
  */
 
 import { createCanvas, Image } from "canvas";
-import { Message, MessageAttachment } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, MessageAttachment, TextChannel } from "discord.js";
 import emojiStrip from "emoji-strip";
-import { Command } from "../../core/commands/command";
-import { fetchWithTimeout } from "../../utils/fetchWithTimeout";
+import { InteractionCommand } from "../core/interactions/interactionCommand";
+import { fetchWithTimeout } from "../utils/fetchWithTimeout";
+import { findOption } from "../utils/interactions";
 
-export class className extends Command {
+export class PiepInteraction extends InteractionCommand {
   name = "piep";
-  usage = ["piep", "piep <text>"];
-  help = "Liefert ein zufälliges Vogelbild zurück.";
-  channel = ["718145438339039325"];
+  description = "🦜";
+  options: ApplicationCommandOptionData[] = [{ required: false, name: "text", type: "STRING", description: "Eigener Text" }];
 
-  async execute(msg: Message, args: string[]) {
+  async execute(interaction: CommandInteraction): Promise<void> {
+    interaction.defer();
+
     try {
       const responseJson: any = await fetchWithTimeout(`http://shibe.online/api/birds`);
       const json = await responseJson.json();
@@ -33,14 +35,14 @@ export class className extends Command {
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
 
-      const text = emojiStrip(msg.cleanContent)
+      const text = emojiStrip((findOption(interaction, "text")?.value as string) || "")
         .replace(/[^a-üA-Ü0-9-_]/g, " ")
-        .slice((this.bot?.config?.prefix?.length || 1) + 4)
         .trim()
         .split(" ")
         .filter((elt) => elt !== "")
         .map((t) => t.trim())
         .join(" ");
+
       if (text) {
         ctx.font = "bold 34px sans-serif";
         ctx.shadowColor = "white";
@@ -56,9 +58,11 @@ export class className extends Command {
         ctx.strokeText(text, textX, textY);
       }
       const buffer = canvas.toBuffer("image/jpeg", { quality: 0.85, progressive: false, chromaSubsampling: true });
-      msg.channel.send("", new MessageAttachment(buffer));
+
+      interaction.editReply("🦜");
+      (interaction.channel as TextChannel).send(new MessageAttachment(buffer));
     } catch (e) {
-      msg.channel.send(`<@${msg.author.id}> es scheint so, als ob ich gerade keine Vogelbilder für dich laden kann 🦜`);
+      interaction.editReply(`<@${interaction.user.id}> es scheint so, als ob ich gerade keine Vogelbilder für dich laden kann 🦜`);
     }
   }
 }
