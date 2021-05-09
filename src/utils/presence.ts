@@ -7,7 +7,7 @@
 import { Bot } from "../core/bot";
 
 export const setDefault = (bot: Bot): void => {
-  bot.client.user?.setActivity(`${bot.config.prefix}help`, { type: "LISTENING" });
+  bot.client.user?.setActivity(`pegasus.de/youtube`, { type: "WATCHING" });
 };
 
 export const setStreaming = (bot: Bot, streamer: string, name?: string) => {
