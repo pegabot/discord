@@ -21,7 +21,7 @@ export class NameInteraction extends InteractionCommand {
         { name: "Englisch", value: "en" },
         { name: "Winterwald", value: "ww" },
       ],
-      description: "de/en/ww (Winterwald)",
+      description: "Welche Sprache soll dein Name erhalten?",
     },
     {
       required: true,
@@ -31,7 +31,7 @@ export class NameInteraction extends InteractionCommand {
         { name: "Männlich", value: "m" },
         { name: "Weiblich", value: "w" },
       ],
-      description: "m/w",
+      description: "Welches Geschlecht soll dein Name erhalten?",
     },
   ];
 
