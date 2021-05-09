@@ -9,5 +9,7 @@ import bot from "../bot";
 import { Event } from "../core/events/event";
 
 export default new Event("applicationCommandDelete", (command: ApplicationCommand) => {
+  if (command.client.user?.id !== bot.client.user?.id) return;
+
   bot.logger.admin_red(`📡 Die Interaction \`${command.name}\` **wurde gelöscht**.`);
 });
