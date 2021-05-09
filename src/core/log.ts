@@ -5,9 +5,10 @@
  */
 
 import { MessageEmbed, TextChannel } from "discord.js";
-import { Bot } from "./bot";
 import { colors } from "../constants/colors";
+import { isProduction } from "../utils/environment";
 import { stripIndents } from "../utils/stripIndents";
+import { Bot } from "./bot";
 
 export class LogHandler {
   constructor(protected bot: Bot) {}
@@ -55,6 +56,8 @@ export class LogHandler {
   }
 
   admin_error(msg: string, title?: string, footer?: string): void {
+    if (!isProduction()) console.error(msg, title);
+
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(
@@ -68,6 +71,8 @@ export class LogHandler {
   }
 
   admin_error_embed(embed: MessageEmbed): void {
+    if (!isProduction()) console.error(embed);
+
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(stripIndents(embed));

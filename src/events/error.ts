@@ -10,7 +10,7 @@ import { colors } from "../constants/colors";
 import { Event } from "../core/events/event";
 
 export default new Event("error", (error) => {
-  const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.stack)}\``).setColor(colors.red);
+  const embed = new MessageEmbed().setTitle(`:x: ein Fehler ist aufgetreten: \`${JSON.stringify(error.message)}\``).setColor(colors.red);
 
   bot.logger.admin_error_embed(embed);
 });

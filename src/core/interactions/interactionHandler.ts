@@ -131,34 +131,34 @@ export class interactionHandler {
   }
 
   private setupPermission(): void {
-    let permissonData: GuildApplicationCommandPermissionData[] = [];
+    try {
+      let permissonData: GuildApplicationCommandPermissionData[] = [];
 
-    this.interactions.forEach(async (InteractionCommand) => {
-      if (InteractionCommand.permissions.length < 1) return;
-      if (!InteractionCommand.id) return;
+      this.interactions.forEach(async (InteractionCommand) => {
+        if (InteractionCommand.permissions.length < 1) return;
+        if (!InteractionCommand.id) return;
 
-      const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
-      if (!guild) return;
+        const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
+        if (!guild) return;
 
-      const roles = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
+        const roles = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
 
-      permissonData.push({
-        id: InteractionCommand.id,
-        permissions: roles.map((role) => {
-          return {
-            id: role.id,
-            type: "ROLE",
-            permission: true,
-          };
-        }),
-      });
+        permissonData.push({
+          id: InteractionCommand.id,
+          permissions: roles.map((role) => {
+            return {
+              id: role.id,
+              type: "ROLE",
+              permission: true,
+            };
+          }),
+        });
 
-      try {
         await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.setPermissions(permissonData);
-      } catch (err) {
-        console.log(err);
-      }
-    });
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   async handleInteraction(interaction: Interaction) {
