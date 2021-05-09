@@ -23,7 +23,7 @@ export default new Event("messageReactionAdd", async (reaction, user) => {
   if (
     !Object.entries(emojis)
       .map((elt) => elt[1].toString())
-      .includes(reaction.emoji.name)
+      .includes(reaction.emoji.name || "")
   )
     return;
 

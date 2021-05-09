@@ -42,7 +42,7 @@ export class JobHandler {
 
   loadJobs() {
     const jobs = fs.readdirSync(path.join(__dirname, "../..", "jobs"));
-    for (const _job of jobs) {
+    for (const _job of jobs.filter((file) => !/.*map/.test(file))) {
       const name = _job.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
@@ -55,12 +55,12 @@ export class JobHandler {
     }
   }
 
-  checkJob(name: string) {
+  private checkJob(name: string) {
     if (this.jobs.has(name)) return `Der Job ${name} existiert bereits.`;
     return null;
   }
 
-  loadJob(name: string, job: Job) {
+  private loadJob(name: string, job: Job) {
     const error = this.checkJob(name);
 
     if (!error) {

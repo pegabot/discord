@@ -13,6 +13,7 @@ import { getSystemStatus } from "../utils/status";
 
 export default new Event("ready", () => {
   bot.commands.loadCommands();
+  bot.interactions.loadInterationCommands();
   bot.jobs.loadJobs();
 
   const message = `${bot.client.user?.username}#${bot.client.user?.discriminator} ist ready!
@@ -20,6 +21,7 @@ export default new Event("ready", () => {
         Version: ${version}
         ID: ${bot.client.user?.id}
         Aktuell in ${bot.client.guilds.cache.size} Guilde(n)
+        ${bot.interactions.size} Interaction(s) geladen 📡
         ${bot.commands.size} Command(s) geladen 🤖
         ${bot.MongoConnector?.size} Models(s) geladen 🧭
         ${bot.events?.size} Event(s) geladen 🎟

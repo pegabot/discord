@@ -46,12 +46,12 @@ export const pollEmbed = async (
   for (const emoji of usedEmojis) await poll.react(emoji);
 
   const reactionCollector = poll.createReactionCollector(
-    (reaction: MessageReaction, user: User) => usedEmojis.includes(reaction.emoji.name) && !user.bot,
+    (reaction: MessageReaction, user: User) => usedEmojis.includes(reaction.emoji.name || "") && !user.bot,
     timeout === 0 ? {} : { time: timeout * 1000 },
   );
   const voterInfo = new Map();
   reactionCollector.on("collect", (reaction: MessageReaction, user: GuildMember) => {
-    if (usedEmojis.includes(reaction.emoji.name)) {
+    if (usedEmojis.includes(reaction.emoji.name || "")) {
       if (reaction.emoji.name === forceEndPollEmoji && msg.author.id === user.id) return reactionCollector.stop();
       if (!voterInfo.has(user.id)) voterInfo.set(user.id, { emoji: reaction.emoji.name });
       const votedEmoji = voterInfo.get(user.id).emoji;
@@ -62,14 +62,14 @@ export const pollEmbed = async (
         emojiInfo[votedEmoji].votes -= 1;
         voterInfo.set(user.id, { emoji: reaction.emoji.name });
       }
-      emojiInfo[reaction.emoji.name].votes += 1;
+      emojiInfo[reaction.emoji.name || ""].votes += 1;
     }
   });
 
   reactionCollector.on("dispose", (reaction: MessageReaction, user: GuildMember) => {
-    if (usedEmojis.includes(reaction.emoji.name)) {
+    if (usedEmojis.includes(reaction.emoji.name || "")) {
       voterInfo.delete(user.id);
-      emojiInfo[reaction.emoji.name].votes -= 1;
+      emojiInfo[reaction.emoji.name || ""].votes -= 1;
     }
   });
 

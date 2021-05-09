@@ -5,19 +5,20 @@
  */
 
 import { ChatClient } from "dank-twitch-irc";
-import { Client, Collection } from "discord.js";
+import { Client, Collection, Intents } from "discord.js";
 import { config } from "dotenv";
+import { CustomClient } from "../types/discord.js.js";
 import { CommandHandler } from "./commands/commandHandler";
 import { MongoConnector } from "./database";
 import { EventHandler } from "./events/eventHandler";
+import { interactionHandler } from "./interactions/interactionHandler.js";
 import { JobHandler } from "./jobs/jobHandler";
 import { LogHandler } from "./log";
-import { CustomClient } from "../types/discord.js.js";
 config();
 
 export class Bot {
   config = process.env;
-  client: CustomClient = new Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
+  client: CustomClient = new Client({ intents: new Intents(Intents.ALL), partials: ["MESSAGE", "CHANNEL", "REACTION"] });
   blacklist: Collection<string, string> = new Collection();
 
   MongoConnector = new MongoConnector();
@@ -28,6 +29,7 @@ export class Bot {
   jobs = new JobHandler(this);
   events = new EventHandler(this);
   commands = new CommandHandler(this);
+  interactions = new interactionHandler(this);
 
   twitchClient = new ChatClient({});
 

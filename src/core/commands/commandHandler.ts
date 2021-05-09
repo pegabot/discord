@@ -13,6 +13,7 @@ import { cloneClass } from "../../utils/cloneClass";
 import { isProduction } from "../../utils/environment";
 import { CommandExecption } from "../../utils/execptions";
 import { findCommand } from "../../utils/findCommand";
+import { getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { Command } from "./command";
@@ -49,7 +50,7 @@ export class CommandHandler {
     const commands = fs.readdirSync(path.join(__dirname, "../../commands"));
     const files = walkSync(commands, path.join(__dirname, "../../commands"));
 
-    for (const command of files) {
+    for (const command of files.filter((file) => !/.*map/.test(file))) {
       const category = path.dirname(command).split(path.sep).pop() || [];
 
       try {
@@ -63,11 +64,11 @@ export class CommandHandler {
     }
   }
 
-  checkCommand(name: string): string | undefined {
+  private checkCommand(name: string): string | undefined {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
   }
 
-  loadCommand(importedCommand: Command, category: string) {
+  private loadCommand(importedCommand: Command, category: string) {
     const _cmd: any = importedCommand;
     const cmd = new _cmd(this.bot);
 
@@ -86,6 +87,7 @@ export class CommandHandler {
   async handleCommand(msg: Message): Promise<void | Message> {
     const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
     if (!guild) return;
+    if (!msg.guild) return;
 
     const { name } = guild;
 
@@ -111,6 +113,18 @@ export class CommandHandler {
     if (!base) return msg.reply("du hast keinen Command Namen mit übergeben!");
 
     const command = findCommand(this.cmds, base);
+
+    let pass = false;
+    for (const role of msg.member?.roles.cache.array() || []) {
+      if (
+        getRolesByPermissionsAndGuild(msg.guild, ["ADMINISTRATOR"])
+          .map((role) => role.name)
+          .includes(role.name)
+      )
+        pass = true;
+    }
+
+    if (!pass) return msg.reply("du besitzt leider nicht die entsprechenden Rechte!");
 
     if (command) {
       const entry = new LogModel();
@@ -158,7 +172,7 @@ export class CommandHandler {
         if (localTime > command.lock) return msg.channel.send(`:hourglass_flowing_sand: Dieser Command ist nicht mehr verfügbar!.`);
       }
 
-      if (command.permissions && command.permissions.some((e: string) => !msg.member?.hasPermission(e as PermissionResolvable))) {
+      if (command.permissions && command.permissions.some((e: string) => !msg.member?.permissions.has(e as PermissionResolvable))) {
         return msg.channel.send(":x: Sorry, du besitzt nicht die Berechtigung diesen Command auszuführen.");
       }
 

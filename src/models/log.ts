@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { User } from "discord.js";
+import { CommandInteraction, User } from "discord.js";
 import { Document, model as setModel, Schema } from "mongoose";
 import * as path from "path";
 import { Bot } from "../core/bot";
@@ -16,13 +16,15 @@ export interface ILogCommand extends Omit<Command, "bot"> {
 
 export interface ILog extends Document {
   created: number;
-  command: ILogCommand;
+  command?: ILogCommand;
+  interaction?: CommandInteraction;
   author: User;
 }
 
 const LogSchema = new Schema({
   created: { type: Number, default: Date.now },
   command: Object,
+  interaction: Object,
   author: Object,
 });
 

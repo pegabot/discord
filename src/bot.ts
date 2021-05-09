@@ -14,6 +14,7 @@ const bot = new Bot();
 bot.client.login(bot.config.apiToken);
 
 process.on("unhandledRejection", (error: Error) => {
+  console.error(error);
   bot.client.emit("error", error);
 });
 

@@ -1,35 +1,43 @@
 {
   "Bot Command": {
-    "prefix": [
-      "Command",
-      "Command"
-    ],
+    "prefix": ["Command"],
     "body": [
-      "import { Command } from '../../classes/command';\n",
+      "import { Command } from '../core/commands/command';\n",
       "export class ${1: className} extends Command {\t async execute(): Promise<void>  {",
       "\t$0",
       "}}"
     ],
     "description": "Generate a Bot Command."
   },
-  "Bot Event": {
-    "prefix": [
-      "Event",
-      "Event"
-    ],
+  "Bot Interaction": {
+    "prefix": ["Interaction"],
     "body": [
-      "import { Event } from '../classes/event';\n",
+      "import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString } from 'discord.js';",
+      "import { InteractionCommand } from '../core/interactions/interactionCommand';\n",
+      "export class ${1: className} extends InteractionCommand {",
+      "name = '';",
+      "description = '';",
+      "options: ApplicationCommandOptionData[] = [];",
+      "permissions: PermissionString[] = [];\n",
+      "async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void>  {",
+      "\t$0",
+      "}}"
+    ],
+    "description": "Generate a Bot Command."
+  },
+  "Bot Event": {
+    "prefix": ["Event"],
+
+    "body": [
+      "import { Event } from '../core/events/event';\n",
       "export default new Event('', () => {}); "
     ],
     "description": "Generate a Bot Command."
   },
   "Bot Job": {
-    "prefix": [
-      "Job",
-      "Job"
-    ],
+    "prefix": ["Job"],
     "body": [
-      "import { Job } from '../classes/job';\n",
+      "import { Job } from '../core/jobs/job';\n",
       "export class ${2: className} extends Job {\t async setup(): Promise<void>  {",
       "\t$0", "}","\t async execute(): Promise<void> {",
       "}}"
