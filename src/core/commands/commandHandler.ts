@@ -13,6 +13,7 @@ import { cloneClass } from "../../utils/cloneClass";
 import { isProduction } from "../../utils/environment";
 import { CommandExecption } from "../../utils/execptions";
 import { findCommand } from "../../utils/findCommand";
+import { getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { Command } from "./command";
@@ -86,6 +87,7 @@ export class CommandHandler {
   async handleCommand(msg: Message): Promise<void | Message> {
     const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId || "");
     if (!guild) return;
+    if (!msg.guild) return;
 
     const { name } = guild;
 
@@ -111,6 +113,18 @@ export class CommandHandler {
     if (!base) return msg.reply("du hast keinen Command Namen mit übergeben!");
 
     const command = findCommand(this.cmds, base);
+
+    let pass = false;
+    for (const role of msg.member?.roles.cache.array() || []) {
+      if (
+        getRolesByPermissionsAndGuild(msg.guild, ["ADMINISTRATOR"])
+          .map((role) => role.name)
+          .includes(role.name)
+      )
+        pass = true;
+    }
+
+    if (!pass) return msg.reply("du besitzt leider nicht die entsprechenden Rechte!");
 
     if (command) {
       const entry = new LogModel();

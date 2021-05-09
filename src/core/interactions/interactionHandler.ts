@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
 import { isProduction } from "../../utils/environment";
-import { getRolesByInteractionPermissionsAndGuild } from "../../utils/interactions";
+import { getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { InteractionCommand, InteractionErrors, Subcommand } from "./interactionCommand";
@@ -140,7 +140,7 @@ export class interactionHandler {
       const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
       if (!guild) return;
 
-      const roles = getRolesByInteractionPermissionsAndGuild(guild, interaction);
+      const roles = getRolesByPermissionsAndGuild(guild, interaction.permissions);
 
       permissonData.push({
         id: interaction.id,
@@ -175,10 +175,10 @@ export class interactionHandler {
       foundSubcommand = foundInteration.subcommands.find((_Subcommand) => _Subcommand.name === SubcommandOption.name);
     }
 
-    const interactionRoles = getRolesByInteractionPermissionsAndGuild(interaction.guild, foundInteration);
+    const interactionRoles = getRolesByPermissionsAndGuild(interaction.guild, foundInteration.permissions);
 
     if (foundInteration.permissions.length > 0) {
-      const foundPermission = interactionRoles.array().filter((role) => {
+      const foundPermission = interactionRoles.filter((role) => {
         const member: GuildMember = interaction.member;
 
         return member.roles.cache
