@@ -4,35 +4,61 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
-import { InteractionCommand } from "../core/interactions/interactionCommand";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember } from "discord.js";
+import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class NicknameInteraction extends InteractionCommand {
   name = "nickname";
-  description = "Nicknamen auf diesem Server ändern.";
-  options: ApplicationCommandOptionData[] = [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }];
+  description = "Nickname.";
+  options: ApplicationCommandOptionData[] = [
+    {
+      name: "add",
+      type: "SUB_COMMAND",
+      description: "Ändere deinen Nicknamen auf diesem Server.",
+      options: [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }],
+    },
+    {
+      name: "remove",
+      type: "SUB_COMMAND",
+      description: "Entferne deinen Nicknamen auf diesem Server.",
+    },
+  ];
 
-  execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
-    if (!interaction.options) {
-      interaction.member.setNickname("");
-      interaction.reply("Dein Nickname auf diesem Server wurde zurückgesetzt.", { ephemeral: true });
-    } else {
-      if (!interaction.member) return;
+  subcommands: Subcommand[] = [
+    {
+      name: "add",
+      execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
+        await interaction.defer();
 
-      if (interaction.member.permissions.has("ADMINISTRATOR"))
-        return interaction.reply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!", { ephemeral: true });
+        const member: GuildMember = interaction.member;
+        if (!member) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-      const option = findOption(options, "name");
+        if (member.permissions.has("ADMINISTRATOR")) return interaction.editReply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!");
 
-      if (!option)
-        return interaction.reply(
-          `du musst einen Nicknamen mit übergeben, mit \`${this.bot.config.prefix}nickname remove\` kannst du deinen Nickname entfernen.`,
-          { ephemeral: true },
-        );
+        if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
+        const option = findOption(options, "name");
 
-      interaction.member.setNickname(option.value);
-      interaction.reply("der Nickname wurde geändert", { ephemeral: true });
-    }
-  }
+        await member.setNickname(option?.value as string);
+        interaction.editReply(`Dein Nickname wurde in \`${option?.value}\` geändert!`);
+      },
+    },
+
+    {
+      name: "remove",
+      execute: async (interaction: CommandInteraction) => {
+        await interaction.defer();
+
+        const member: GuildMember = interaction.member;
+        if (!member) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
+
+        if (member.permissions.has("ADMINISTRATOR")) return interaction.editReply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!");
+
+        await member.setNickname("");
+        interaction.editReply("Dein Nickname wurde entfernt!");
+      },
+    },
+  ];
+
+  execute() {}
 }

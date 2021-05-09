@@ -110,7 +110,7 @@ export class CommandHandler {
 
     if (!msg.content.startsWith(this.bot.config.prefix || "")) return;
 
-    if (!base) return msg.reply("du hast keinen Command Namen mit übergeben!");
+    if (!base) return msg.reply("Du hast keinen Command Namen mit übergeben!");
 
     const command = findCommand(this.cmds, base);
 
@@ -124,7 +124,7 @@ export class CommandHandler {
         pass = true;
     }
 
-    if (!pass) return msg.reply("du besitzt leider nicht die entsprechenden Rechte!");
+    if (!pass) return msg.reply("Du besitzt leider nicht die entsprechenden Rechte!");
 
     if (command) {
       const entry = new LogModel();
