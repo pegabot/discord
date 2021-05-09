@@ -14,10 +14,10 @@ export class KickInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [{ required: true, name: "opfer", description: "Wer soll den gekickt werden?", type: "USER" }];
   permissions: PermissionString[] = ["KICK_MEMBERS"];
 
-  async execute(interaction: CommandInteraction): Promise<void> {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
     interaction.defer(true);
 
-    const { member } = findOption(interaction, "opfer") as CommandInteractionOption;
+    const { member } = findOption(options, "opfer") as CommandInteractionOption;
 
     const victim: GuildMember = member;
 

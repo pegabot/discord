@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, MessageAttachment, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageAttachment, TextChannel } from "discord.js";
 import emojiStrip from "emoji-strip";
 import querystring from "querystring";
 import { InteractionCommand } from "../core/interactions/interactionCommand";
@@ -16,10 +16,10 @@ export class MiauInteraction extends InteractionCommand {
   description = "😻";
   options: ApplicationCommandOptionData[] = [{ required: false, name: "text", type: "STRING", description: "Eigener Text" }];
 
-  async execute(interaction: CommandInteraction): Promise<void> {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
     interaction.defer();
 
-    let text = emojiStrip((findOption(interaction, "text")?.value as string) || "")
+    let text = emojiStrip((findOption(options, "text")?.value as string) || "")
       .replace(/[^a-üA-Ü0-9-_]/g, " ")
       .trim()
       .split(" ")

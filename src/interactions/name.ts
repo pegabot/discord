@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
 import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -35,9 +35,9 @@ export class NameInteraction extends InteractionCommand {
     },
   ];
 
-  execute(interaction: CommandInteraction) {
-    const Sprache = findOption(interaction, "Sprache")?.value?.toString();
-    const Geschlecht = findOption(interaction, "Geschlecht")?.value?.toString();
+  execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
+    const Sprache = findOption(options, "Sprache")?.value?.toString();
+    const Geschlecht = findOption(options, "Geschlecht")?.value?.toString();
 
     if (!Sprache || !Geschlecht) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
 

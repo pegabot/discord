@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
 import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -13,7 +13,7 @@ export class NicknameInteraction extends InteractionCommand {
   description = "Nicknamen auf diesem Server ändern.";
   options: ApplicationCommandOptionData[] = [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }];
 
-  execute(interaction: CommandInteraction) {
+  execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
     if (!interaction.options) {
       interaction.member.setNickname("");
       interaction.reply("Dein Nickname auf diesem Server wurde zurückgesetzt.", { ephemeral: true });
@@ -23,7 +23,7 @@ export class NicknameInteraction extends InteractionCommand {
       if (interaction.member.permissions.has("ADMINISTRATOR"))
         return interaction.reply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!", { ephemeral: true });
 
-      const option = findOption(interaction, "name");
+      const option = findOption(options, "name");
 
       if (!option)
         return interaction.reply(

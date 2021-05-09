@@ -5,7 +5,7 @@
  */
 
 import { createCanvas, Image } from "canvas";
-import { ApplicationCommandOptionData, CommandInteraction, MessageAttachment, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageAttachment, TextChannel } from "discord.js";
 import emojiStrip from "emoji-strip";
 import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
@@ -16,7 +16,7 @@ export class PiepInteraction extends InteractionCommand {
   description = "🦜";
   options: ApplicationCommandOptionData[] = [{ required: false, name: "text", type: "STRING", description: "Eigener Text" }];
 
-  async execute(interaction: CommandInteraction): Promise<void> {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
     interaction.defer();
 
     try {
@@ -35,7 +35,7 @@ export class PiepInteraction extends InteractionCommand {
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
 
-      const text = emojiStrip((findOption(interaction, "text")?.value as string) || "")
+      const text = emojiStrip((findOption(options, "text")?.value as string) || "")
         .replace(/[^a-üA-Ü0-9-_]/g, " ")
         .trim()
         .split(" ")

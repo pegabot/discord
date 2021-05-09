@@ -5,31 +5,79 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember, PermissionString } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class BanInteraction extends InteractionCommand {
   name = "ban";
   description = "⚒ wer nicht hören will, muss fühlen.";
-  options: ApplicationCommandOptionData[] = [{ required: true, name: "opfer", description: "Wer soll den Hammer abkriegen?", type: "USER" }];
+  options: ApplicationCommandOptionData[] = [
+    {
+      name: "add",
+      type: "SUB_COMMAND",
+      description: "Füge einen Bann hinzu.",
+      options: [{ required: true, name: "opfer", description: "Wer soll den Hammer abkriegen?", type: "USER" }],
+    },
+    {
+      name: "remove",
+      type: "SUB_COMMAND",
+      description: "Entferne einen Bann.",
+      options: [{ required: true, name: "glücklicher", description: "Wer soll begnadigt werden?", type: "USER" }],
+    },
+  ];
+
   permissions: PermissionString[] = ["BAN_MEMBERS"];
 
-  async execute(interaction: CommandInteraction): Promise<void> {
-    interaction.defer(true);
+  subcommands: Subcommand[] = [
+    {
+      name: "add",
+      execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
+        interaction.defer(true);
 
-    const { member } = findOption(interaction, "opfer") as CommandInteractionOption;
+        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
-    const victim: GuildMember = member;
+        const { member } = findOption(options, "opfer") as CommandInteractionOption;
 
-    if (!victim) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        const victim: GuildMember = member;
 
-    if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
+        if (!victim) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
-    if (victim.bannable) {
-      await victim.ban({ reason: `Ban durch ${interaction.user.username}` });
-      interaction.editReply("Der Benutzer wurde erfolgreich gebannt!");
-    } else {
-      interaction.editReply("Der Benutzer konnte nicht gebannt werden!");
-    }
-  }
+        if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
+
+        if (victim.bannable) {
+          await victim.ban({ reason: `Ban durch ${interaction.user.username}` });
+          interaction.editReply("Der Benutzer wurde erfolgreich gebannt!");
+        } else {
+          interaction.editReply("Der Benutzer konnte nicht gebannt werden!");
+        }
+      },
+    },
+    {
+      name: "remove",
+      execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
+        interaction.defer(true);
+
+        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+
+        const { member } = findOption(options, "glücklicher") as CommandInteractionOption;
+
+        const winner: GuildMember = member;
+
+        console.log(winner);
+
+        if (!winner) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+
+        if (winner.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst enbannen!");
+
+        if (winner.bannable) {
+          await interaction.guild?.members.unban(winner.user);
+          interaction.editReply("Der Benutzer wurde erfolgreich entbannt!");
+        } else {
+          interaction.editReply("Der Benutzer konnte nicht entbannt werden!");
+        }
+      },
+    },
+  ];
+
+  execute() {}
 }

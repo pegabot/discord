@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOption, CommandInteraction, GuildMember } from "discord.js";
+import { ApplicationCommandOption, CommandInteraction, CommandInteractionOption, GuildMember } from "discord.js";
 import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { GuildMemberEmbed } from "../utils/guildMemberEmbed";
 import { findOption } from "../utils/interactions";
@@ -14,10 +14,10 @@ export class UserinfoInteraction extends InteractionCommand {
   description = "Möchtest du über einen User mehr wissen?";
   options: ApplicationCommandOption[] = [{ name: "user", type: "USER", required: true, description: "Welchen User möchtest du checken?" }];
 
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
     await interaction.defer();
 
-    const member: GuildMember = findOption(interaction, "user")?.member;
+    const member: GuildMember = findOption(options, "user")?.member;
 
     const embed = GuildMemberEmbed(member);
     interaction.editReply(embed);

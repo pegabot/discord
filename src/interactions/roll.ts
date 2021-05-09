@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, MessageAttachment, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageAttachment, TextChannel } from "discord.js";
 import { emojis } from "../constants/emojis";
 import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { RollsModel } from "../models/rolls";
@@ -17,10 +17,10 @@ export class RollInteraction extends InteractionCommand {
   description = "powered by RollButler";
   options: ApplicationCommandOptionData[] = [{ required: true, name: "würfelkommando", type: "STRING", description: "Was möchtest du würfeln?" }];
 
-  async execute(interaction: CommandInteraction): Promise<void> {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
     await interaction.defer();
 
-    const dice = findOption(interaction, "Würfelkommando")?.value?.toString();
+    const dice = findOption(options, "Würfelkommando")?.value?.toString();
     if (!dice) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
     const params = generateParams(this.bot, interaction.user, dice);

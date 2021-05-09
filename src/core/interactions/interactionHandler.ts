@@ -8,10 +8,11 @@ import { ApplicationCommandData, ApplicationCommandOptionData, Collection, Guild
 import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
+import { isProduction } from "../../utils/environment";
 import { getRolesByInteractionPermissionsAndGuild } from "../../utils/interactions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
-import { InteractionCommand, InteractionErrors } from "./interactionCommand";
+import { InteractionCommand, InteractionErrors, Subcommand } from "./interactionCommand";
 
 export class interactionHandler {
   interactions: Collection<string, InteractionCommand> = new Collection();
@@ -63,7 +64,7 @@ export class interactionHandler {
     this.setupPermission();
   }
 
-  checkInteraction(name: string, description: string, options?: ApplicationCommandOptionData[]): string | undefined {
+  checkInteraction(name: string, description: string, options?: ApplicationCommandOptionData[], subcommands?: Subcommand[]): string | undefined {
     if (name.length < 1) return "Der Name einer Interaction ist leer!";
     if (description.length < 1) return `Die Beschreibung der Interaction ${name} darf nicht leer sein!`;
     if (this.interactions.has(name)) return `Die Interaction ${name} existiert bereits.`;
@@ -74,14 +75,19 @@ export class interactionHandler {
       if (option.description.length < 1) return "Die Beschreibung für eine Option der Interaction ${name} ist leer!";
       if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
     }
+
+    for (const option of options?.filter((option) => option.type === "SUB_COMMAND") || []) {
+      if (!subcommands?.map((subcommand) => subcommand.name).includes(option.name))
+        return `Der Subcommand ${option.name} für die Interaction ${name} wurde nicht implementiert!`;
+    }
   }
 
   loadInteraction(importedInteraction: InteractionCommand, category: string) {
     const _interactionCommand: any = importedInteraction;
     const interactionCommand: InteractionCommand = new _interactionCommand(this.bot);
 
-    const { name, description, options } = interactionCommand;
-    const error = this.checkInteraction(name, description, options);
+    const { name, description, options, subcommands } = interactionCommand;
+    const error = this.checkInteraction(name, description, options, subcommands);
 
     if (!error) {
       this.interactions.set(name.toLowerCase(), interactionCommand);
@@ -157,10 +163,18 @@ export class interactionHandler {
 
   async handleInteraction(interaction: Interaction) {
     if (!interaction.isCommand()) return;
+
     const foundInteration = this.interactions.get(interaction.commandName);
     if (!foundInteration) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
 
     if (!interaction.guild) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
+
+    const SubcommandOption = interaction.options.find((option) => option.type === "SUB_COMMAND");
+    let foundSubcommand: Subcommand | undefined;
+    if (SubcommandOption) {
+      foundSubcommand = foundInteration.subcommands.find((_Subcommand) => _Subcommand.name === SubcommandOption.name);
+    }
+
     const interactionRoles = getRolesByInteractionPermissionsAndGuild(interaction.guild, foundInteration);
 
     if (foundInteration.permissions.length > 0) {
@@ -180,7 +194,12 @@ export class interactionHandler {
     entry.interaction = JSON.parse(JSON.stringify(interaction));
     entry.author = JSON.parse(JSON.stringify(interaction.user));
     entry.save();
-
-    foundInteration?.execute(interaction);
+    try {
+      foundSubcommand ? foundSubcommand.execute(interaction, SubcommandOption?.options) : foundInteration?.execute(interaction, interaction.options);
+    } catch (error) {
+      interaction.deferred ? interaction.editReply(InteractionErrors.INTERNAL_ERROR) : interaction.reply(InteractionErrors.INTERNAL_ERROR);
+      if (isProduction()) return;
+      console.error(error);
+    }
   }
 }
