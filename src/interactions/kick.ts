@@ -8,11 +8,11 @@ import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOpt
 import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
-export class BanInteraction extends InteractionCommand {
-  name = "ban";
-  description = "⚒ wer nicht hören will, muss fühlen.";
-  options: ApplicationCommandOptionData[] = [{ required: true, name: "opfer", description: "Wer soll den Hammer abkriegen?", type: "USER" }];
-  permissions: PermissionString[] = ["BAN_MEMBERS"];
+export class KickInteraction extends InteractionCommand {
+  name = "kick";
+  description = "User vom Server kicken.";
+  options: ApplicationCommandOptionData[] = [{ required: true, name: "opfer", description: "Wer soll den gekickt werden?", type: "USER" }];
+  permissions: PermissionString[] = ["KICK_MEMBERS"];
 
   async execute(interaction: CommandInteraction): Promise<void> {
     interaction.defer(true);
@@ -23,13 +23,13 @@ export class BanInteraction extends InteractionCommand {
 
     if (!victim) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
 
-    if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
+    if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst kicken!");
 
-    if (victim.bannable) {
-      await victim.ban({ reason: `Ban durch ${interaction.user.username}` });
-      interaction.editReply("Der Benutzer wurde erfolgreich gebannt!");
+    if (victim.kickable) {
+      await victim.kick(`Kick durch ${interaction.user.username}`);
+      interaction.editReply("Der Benutzer wurde erfolgreich gekickt!");
     } else {
-      interaction.editReply("Der Benutzer konnte nicht gebannt werden!");
+      interaction.editReply("Der Benutzer konnte nicht gekickt werden!");
     }
   }
 }
