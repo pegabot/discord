@@ -30,7 +30,7 @@ export class PruneInteraction extends InteractionCommand {
   }
 
   async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
-    interaction.defer(true);
+    await interaction.defer(true);
 
     const option = Number(findOption(options, "anzahl")?.value);
     if (!option) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);

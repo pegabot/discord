@@ -13,7 +13,7 @@ export class WuffInteraction extends InteractionCommand {
   description = "🐶";
 
   async execute(interaction: CommandInteraction): Promise<void> {
-    interaction.defer();
+    await interaction.defer();
 
     try {
       const responseJson: any = await fetchWithTimeout(`https://dog.ceo/api/breeds/image/random`);

@@ -30,7 +30,7 @@ export class SlowmodeInteraction extends InteractionCommand {
     {
       name: "hinzufügen",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void> => {
-        interaction.defer();
+        await interaction.defer();
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
@@ -48,7 +48,7 @@ export class SlowmodeInteraction extends InteractionCommand {
     {
       name: "entfernen",
       execute: async (interaction: CommandInteraction): Promise<void> => {
-        interaction.defer();
+        await interaction.defer();
 
         await (interaction.channel as TextChannel).setRateLimitPerUser(0);
         const newChannel = await (interaction.channel as TextChannel).fetch();

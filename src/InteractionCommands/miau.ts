@@ -17,7 +17,7 @@ export class MiauInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [{ required: false, name: "text", type: "STRING", description: "Eigener Text" }];
 
   async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
-    interaction.defer();
+    await interaction.defer();
 
     let text = emojiStrip((findOption(options, "text")?.value as string) || "")
       .replace(/[^a-üA-Ü0-9-_]/g, " ")

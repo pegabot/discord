@@ -194,10 +194,14 @@ export class interactionHandler {
     entry.interaction = JSON.parse(JSON.stringify(interaction));
     entry.author = JSON.parse(JSON.stringify(interaction.user));
     entry.save();
+
     try {
-      Subcommand ? Subcommand.execute(interaction, OptionsOfSubcommand?.options) : InteractionCommand?.execute(interaction, interaction.options);
+      Subcommand ? await Subcommand.execute(interaction, OptionsOfSubcommand?.options) : await InteractionCommand?.execute(interaction, interaction.options);
     } catch (error) {
       interaction.deferred ? interaction.editReply(InteractionCommandErrors.INTERNAL_ERROR) : interaction.reply(InteractionCommandErrors.INTERNAL_ERROR);
+
+      this.bot.logger.admin_error(error, `Fehler in Interaction ${interaction.commandName}`);
+
       if (isProduction()) return;
       console.error(error);
     }

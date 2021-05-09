@@ -32,7 +32,7 @@ export class BanInteraction extends InteractionCommand {
     {
       name: "add",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
-        interaction.defer(true);
+        await interaction.defer(true);
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
@@ -55,7 +55,7 @@ export class BanInteraction extends InteractionCommand {
     {
       name: "remove",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
-        interaction.defer(true);
+        await interaction.defer(true);
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 

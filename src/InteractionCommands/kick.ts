@@ -15,7 +15,7 @@ export class KickInteraction extends InteractionCommand {
   permissions: PermissionString[] = ["KICK_MEMBERS"];
 
   async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
-    interaction.defer(true);
+    await interaction.defer(true);
 
     const { member } = findOption(options, "opfer") as CommandInteractionOption;
 

@@ -17,7 +17,7 @@ export class PiepInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [{ required: false, name: "text", type: "STRING", description: "Eigener Text" }];
 
   async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
-    interaction.defer();
+    await interaction.defer();
 
     try {
       const responseJson: any = await fetchWithTimeout(`http://shibe.online/api/birds`);

@@ -26,7 +26,7 @@ export class ChannelInteraction extends InteractionCommand {
     {
       name: "delete",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
-        interaction.defer(true);
+        await  interaction.defer(true);
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
