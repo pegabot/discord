@@ -6,6 +6,7 @@
 
 import { Bot } from "./core/bot";
 import { server } from "./server/server";
+import { isProduction } from "./utils/environment";
 
 server.listen(process.env.PORT || 80, () => console.log(`💻 Webserver gestartet!`));
 
@@ -14,7 +15,7 @@ const bot = new Bot();
 bot.client.login(bot.config.apiToken);
 
 process.on("unhandledRejection", (error: Error) => {
-  console.error(error);
+  if (!isProduction()) console.error(error.stack);
   bot.client.emit("error", error);
 });
 

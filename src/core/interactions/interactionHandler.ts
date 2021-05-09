@@ -87,12 +87,13 @@ export class interactionHandler {
     for (const option of InteractionCommand.options || []) {
       if (option.name.length < 1) return "Der Name für eine Option der Interaction ${name} ist leer!";
       if (option.description.length < 1) return "Die Beschreibung für eine Option der Interaction ${name} ist leer!";
-      if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
+      if (option.name !== option.name.toLowerCase())
+        return `Die Option ${option.name} für die Interaction ${InteractionCommand.name} muss kleingeschrieben werden!`;
     }
 
     for (const option of InteractionCommand.options?.filter((option) => option.type === "SUB_COMMAND") || []) {
       if (!InteractionCommand.subcommands?.map((subcommand) => subcommand.name).includes(option.name))
-        return `Der Subcommand ${option.name} für die Interaction ${name} wurde nicht implementiert!`;
+        return `Der Subcommand ${option.name} für die Interaction ${InteractionCommand.name} wurde nicht implementiert!`;
     }
   }
 
@@ -180,6 +181,18 @@ export class interactionHandler {
       await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.setPermissions(permissonData);
     } catch (err) {
       console.log(err.message);
+    }
+  }
+
+  async uninstallAll(): Promise<void> {
+    const GlobalInteractionCommands = await this.bot.client.application?.commands.fetch();
+    for (const InteractionCommand of GlobalInteractionCommands?.array() || []) {
+      await InteractionCommand.delete();
+    }
+
+    const GuildInteractionCommands = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.fetch();
+    for (const InteractionCommand of GuildInteractionCommands?.array() || []) {
+      await InteractionCommand.delete();
     }
   }
 

@@ -45,11 +45,13 @@ export class Bot {
     }
   }
 
-  public destroy(signal?: NodeJS.Signals): void {
+  public async destroy(signal?: NodeJS.Signals): Promise<void> {
     console.log(`${signal || "Exit signal"} recieved, destroying the bot.`);
+
     this.twitchClient.close();
     this.client.destroy();
-    this.db?.disconnect();
+    await this.db?.disconnect();
+    console.log("Stopping process");
     process.exit(0);
   }
 }
