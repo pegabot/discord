@@ -130,11 +130,11 @@ export class interactionHandler {
     });
   }
 
-  private setupPermission(): void {
+  private async setupPermission(): Promise<void> {
     try {
       let permissonData: GuildApplicationCommandPermissionData[] = [];
 
-      this.interactions.forEach(async (InteractionCommand) => {
+      this.interactions.forEach((InteractionCommand) => {
         if (InteractionCommand.permissions.length < 1) return;
         if (!InteractionCommand.id) return;
 
@@ -143,19 +143,41 @@ export class interactionHandler {
 
         const roles = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
 
+        //  This is very useful for a possible debugging ! //
+
+        // console.log(
+        //   JSON.stringify(
+        //     {
+        //       name: InteractionCommand.name,
+        //       perms: InteractionCommand.permissions,
+        //       roles: roles.map((role) => {
+        //         return {
+        //           name: role.name,
+        //           pos: role.position,
+        //         };
+        //       }),
+        //     },
+        //     null,
+        //     2,
+        //   ),
+        // );
+
         permissonData.push({
           id: InteractionCommand.id,
-          permissions: roles.map((role) => {
-            return {
-              id: role.id,
-              type: "ROLE",
-              permission: true,
-            };
-          }),
+          permissions: roles
+            .sort((a, b) => b.position - a.position)
+            .slice(0, 10)
+            .map((role) => {
+              return {
+                id: role.id,
+                type: "ROLE",
+                permission: true,
+              };
+            }),
         });
-
-        await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.setPermissions(permissonData);
       });
+
+      await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.setPermissions(permissonData);
     } catch (err) {
       console.log(err.message);
     }
