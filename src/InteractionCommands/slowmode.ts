@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
-import { InteractionCommand, InteractionErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class SlowmodeInteraction extends InteractionCommand {
@@ -32,10 +32,10 @@ export class SlowmodeInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void> => {
         interaction.defer();
 
-        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const option = findOption(options, "sekunden");
-        if (!option) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!option) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const { value } = option;
 

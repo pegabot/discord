@@ -5,7 +5,7 @@
  */
 
 import { CommandInteraction } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
 const expiresInterval = 1000 * 60 * 60 * 24; // Milliseconds * Seconds * Minutes * Hours
@@ -21,7 +21,7 @@ export class SpontansucheInteraction extends InteractionCommand {
       const { member } = interaction;
 
       const roleId = this.bot?.config?.playerSearchRole;
-      if (!roleId) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+      if (!roleId) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
       const userId = member.id;
 

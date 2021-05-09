@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember, PermissionString } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class KickInteraction extends InteractionCommand {
@@ -21,7 +21,7 @@ export class KickInteraction extends InteractionCommand {
 
     const victim: GuildMember = member;
 
-    if (!victim) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!victim) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst kicken!");
 

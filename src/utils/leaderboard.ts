@@ -6,7 +6,7 @@
 
 import Levels from "discord-xp";
 import { User } from "discord.js";
-import { Leaderbord } from "../interactions/leaderboard";
+import { Leaderbord } from "../InteractionCommands/leaderboard";
 import Canvas from "./canvas";
 
 export const roundRect = (ctx: Canvas.CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r = 0): Canvas.CanvasRenderingContext2D => {

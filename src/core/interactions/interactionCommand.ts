@@ -7,7 +7,7 @@
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString } from "discord.js";
 import { Bot } from "../bot";
 
-export enum InteractionErrors {
+export enum InteractionCommandErrors {
   INTERNAL_ERROR = "Ein Fehler ist aufgetreten, bitte versuche es später erneut!",
   INVALID_OPTIONS = "Deine Eingabe scheint fehlerhaft, bitte überprüfe diese noch Einmal!",
   MISSING_PERMISSIONS = "Für diese Interaction fehlen die leider die nötigen Rechte!",
@@ -35,11 +35,11 @@ export abstract class InteractionCommand {
     this.bot = bot;
   }
 
-  protected error(interaction: CommandInteraction, errorType: InteractionErrors | string): void {
+  protected error(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
     interaction.reply(errorType, { ephemeral: true });
   }
 
-  protected deferedError(interaction: CommandInteraction, errorType: InteractionErrors | string): void {
+  protected deferedError(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
     interaction.editReply(errorType);
   }
 

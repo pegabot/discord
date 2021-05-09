@@ -13,7 +13,7 @@ import { getSystemStatus } from "../utils/status";
 
 export default new Event("ready", () => {
   bot.commands.loadCommands();
-  bot.interactions.loadInterations();
+  bot.interactions.loadInterationCommands();
   bot.jobs.loadJobs();
 
   const message = `${bot.client.user?.username}#${bot.client.user?.discriminator} ist ready!

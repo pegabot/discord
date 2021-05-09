@@ -6,7 +6,7 @@
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageAttachment, TextChannel } from "discord.js";
 import { emojis } from "../constants/emojis";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 import { RollsModel } from "../models/rolls";
 import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 import { findOption } from "../utils/interactions";
@@ -21,7 +21,7 @@ export class RollInteraction extends InteractionCommand {
     await interaction.defer();
 
     const dice = findOption(options, "Würfelkommando")?.value?.toString();
-    if (!dice) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!dice) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     const params = generateParams(this.bot, interaction.user, dice);
 
@@ -30,11 +30,11 @@ export class RollInteraction extends InteractionCommand {
     try {
       response = JSON.parse(response);
     } catch {
-      return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+      return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
     }
 
     const channel = await interaction.channel?.fetch();
-    if (!channel) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!channel) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     let replied;
     if (response?.image) {

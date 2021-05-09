@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class NameInteraction extends InteractionCommand {
@@ -39,9 +39,9 @@ export class NameInteraction extends InteractionCommand {
     const Sprache = findOption(options, "Sprache")?.value?.toString();
     const Geschlecht = findOption(options, "Geschlecht")?.value?.toString();
 
-    if (!Sprache || !Geschlecht) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!Sprache || !Geschlecht) return this.error(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-    if (!/de|en|ww/.test(Sprache) || !/m|w/.test(Geschlecht)) return this.error(interaction, InteractionErrors.INVALID_OPTIONS);
+    if (!/de|en|ww/.test(Sprache) || !/m|w/.test(Geschlecht)) return this.error(interaction, InteractionCommandErrors.INVALID_OPTIONS);
 
     const vornamen = Geschlecht === "w" ? (namen as any)[Sprache].weiblich : (namen as any)[Sprache].männlich;
     const beinamen: string = (namen as any)[Sprache].beinamen;

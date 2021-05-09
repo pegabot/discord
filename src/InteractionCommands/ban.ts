@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember, PermissionString } from "discord.js";
-import { InteractionCommand, InteractionErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class BanInteraction extends InteractionCommand {
@@ -34,13 +34,13 @@ export class BanInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
         interaction.defer(true);
 
-        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const { member } = findOption(options, "opfer") as CommandInteractionOption;
 
         const victim: GuildMember = member;
 
-        if (!victim) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!victim) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
 
@@ -57,7 +57,7 @@ export class BanInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
         interaction.defer(true);
 
-        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const { member } = findOption(options, "glücklicher") as CommandInteractionOption;
 
@@ -65,7 +65,7 @@ export class BanInteraction extends InteractionCommand {
 
         console.log(winner);
 
-        if (!winner) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!winner) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         if (winner.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst enbannen!");
 

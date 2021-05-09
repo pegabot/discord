@@ -5,7 +5,7 @@
  */
 
 import { CommandInteraction, MessageEmbed } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 
 export class ServerinfoInteraction extends InteractionCommand {
   name = "serverinfo";
@@ -13,7 +13,7 @@ export class ServerinfoInteraction extends InteractionCommand {
 
   execute(interaction: CommandInteraction) {
     const guild = interaction.guild;
-    if (!guild) return this.error(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!guild) return this.error(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     const embed = new MessageEmbed()
       .setAuthor(guild.name, guild?.iconURL() || "")

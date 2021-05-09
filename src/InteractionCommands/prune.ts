@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
-import { InteractionCommand, InteractionErrors } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class PruneInteraction extends InteractionCommand {
@@ -15,7 +15,7 @@ export class PruneInteraction extends InteractionCommand {
   permissions: PermissionString[] = ["MANAGE_MESSAGES"];
 
   async fallbackMethod(interaction: CommandInteraction, numberOfMessageToDelete: number) {
-    if (!interaction.channel) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!interaction.channel) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     const messages = await (interaction.channel as TextChannel).messages.fetch({ limit: numberOfMessageToDelete + 1 });
 
@@ -33,7 +33,7 @@ export class PruneInteraction extends InteractionCommand {
     interaction.defer(true);
 
     const option = Number(findOption(options, "anzahl")?.value);
-    if (!option) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+    if (!option) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
     if (option > 99) return this.deferedError(interaction, "Ich kann nicht mehr als 99 Nachrichten auf Einmal löschen.");
 

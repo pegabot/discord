@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandData, ApplicationCommandOptionData, Collection, GuildApplicationCommandPermissionData, GuildMember, Interaction } from "discord.js";
+import { ApplicationCommandData, Collection, GuildApplicationCommandPermissionData, GuildMember, Interaction } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
@@ -12,7 +12,7 @@ import { isProduction } from "../../utils/environment";
 import { getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
-import { InteractionCommand, InteractionErrors, Subcommand } from "./interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, Subcommand } from "./interactionCommand";
 
 export class interactionHandler {
   interactions: Collection<string, InteractionCommand> = new Collection();
@@ -30,64 +30,46 @@ export class interactionHandler {
     return this.interactions;
   }
 
-  get(interaction: string): InteractionCommand | undefined {
-    return this.interactions.get(interaction);
+  get(InteractionCommandName: string): InteractionCommand | undefined {
+    return this.interactions.get(InteractionCommandName);
   }
 
-  has(interaction: string): boolean {
-    return this.interactions.has(interaction);
+  has(InteractionCommandName: string): boolean {
+    return this.interactions.has(InteractionCommandName);
   }
 
-  delete(interaction: string): boolean {
-    return this.interactions.delete(interaction);
+  delete(InteractionCommandName: string): boolean {
+    return this.interactions.delete(InteractionCommandName);
   }
 
-  async loadInterations(): Promise<void> {
-    const _interactions = fs.readdirSync(path.join(__dirname, "../../interactions"));
-    const files = walkSync(_interactions, path.join(__dirname, "../../interactions"));
+  async loadInterationCommands(): Promise<void> {
+    const _interactions = fs.readdirSync(path.join(__dirname, "../../InteractionCommands"));
+    const files = walkSync(_interactions, path.join(__dirname, "../../InteractionCommands"));
 
     for (const _interaction of files.filter((file) => !/.*map/.test(file))) {
       const category = path.dirname(_interaction).split(path.sep).pop() || [];
 
       try {
-        const importedInteraction: any = require(_interaction);
-        const interaction: InteractionCommand = importedInteraction[Object.keys(importedInteraction)[0]];
+        const importedInteractionCommands: any = require(_interaction);
+        const interaction: InteractionCommand = importedInteractionCommands[Object.keys(importedInteractionCommands)[0]];
         if (!interaction) continue;
-        this.loadInteraction(interaction, (category as string) || "-");
+        this.loadInteractionCommand(interaction);
       } catch (err) {
         throw err;
       }
     }
 
-    await this.registerInteraction();
+    await this.registerInteractionCommand();
     await this.cleanInteractions();
     this.setupPermission();
   }
 
-  checkInteraction(name: string, description: string, options?: ApplicationCommandOptionData[], subcommands?: Subcommand[]): string | undefined {
-    if (name.length < 1) return "Der Name einer Interaction ist leer!";
-    if (description.length < 1) return `Die Beschreibung der Interaction ${name} darf nicht leer sein!`;
-    if (this.interactions.has(name)) return `Die Interaction ${name} existiert bereits.`;
-    if (name !== name.toLowerCase()) return `Der Name der Interaction ${name} muss kleingeschrieben werden!`;
-
-    for (const option of options || []) {
-      if (option.name.length < 1) return "Der Name für eine Option der Interaction ${name} ist leer!";
-      if (option.description.length < 1) return "Die Beschreibung für eine Option der Interaction ${name} ist leer!";
-      if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
-    }
-
-    for (const option of options?.filter((option) => option.type === "SUB_COMMAND") || []) {
-      if (!subcommands?.map((subcommand) => subcommand.name).includes(option.name))
-        return `Der Subcommand ${option.name} für die Interaction ${name} wurde nicht implementiert!`;
-    }
-  }
-
-  loadInteraction(importedInteraction: InteractionCommand, category: string) {
-    const _interactionCommand: any = importedInteraction;
+  private loadInteractionCommand(ImportedInteractionCommand: InteractionCommand) {
+    const _interactionCommand: any = ImportedInteractionCommand;
     const interactionCommand: InteractionCommand = new _interactionCommand(this.bot);
 
-    const { name, description, options, subcommands } = interactionCommand;
-    const error = this.checkInteraction(name, description, options, subcommands);
+    const { name } = interactionCommand;
+    const error = this.checkInteractionCommand(interactionCommand);
 
     if (!error) {
       this.interactions.set(name.toLowerCase(), interactionCommand);
@@ -96,54 +78,72 @@ export class interactionHandler {
     }
   }
 
-  async registerInteraction() {
-    const interactionsData: ApplicationCommandData[] = this.interactions.array();
+  private checkInteractionCommand(InteractionCommand: InteractionCommand): string | undefined {
+    if (InteractionCommand.name.length < 1) return "Der Name einer Interaction ist leer!";
+    if (InteractionCommand.description.length < 1) return `Die Beschreibung der Interaction ${name} darf nicht leer sein!`;
+    if (this.interactions.has(InteractionCommand.name)) return `Die Interaction ${name} existiert bereits.`;
+    if (InteractionCommand.name !== InteractionCommand.name.toLowerCase()) return `Der Name der Interaction ${name} muss kleingeschrieben werden!`;
+
+    for (const option of InteractionCommand.options || []) {
+      if (option.name.length < 1) return "Der Name für eine Option der Interaction ${name} ist leer!";
+      if (option.description.length < 1) return "Die Beschreibung für eine Option der Interaction ${name} ist leer!";
+      if (option.name !== option.name.toLowerCase()) return `Die Option ${option.name} für die Interaction ${name} muss kleingeschrieben werden!`;
+    }
+
+    for (const option of InteractionCommand.options?.filter((option) => option.type === "SUB_COMMAND") || []) {
+      if (!InteractionCommand.subcommands?.map((subcommand) => subcommand.name).includes(option.name))
+        return `Der Subcommand ${option.name} für die Interaction ${name} wurde nicht implementiert!`;
+    }
+  }
+
+  private async registerInteractionCommand() {
+    const InteractionCommandData: ApplicationCommandData[] = this.interactions.array();
     try {
-      const createdInteractions = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(
-        interactionsData.map((elt: ApplicationCommandData) => {
-          return { name: elt.name, description: elt.description, options: elt.options };
+      const createdInteractionCommands = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.set(
+        InteractionCommandData.map((data: ApplicationCommandData) => {
+          return { name: data.name, description: data.description, options: data.options, defaultPermission: data.defaultPermission };
         }),
       );
 
-      createdInteractions?.array().forEach((interaction) => {
-        const _interaction = this.interactions.get(interaction.name);
-        if (!_interaction) return;
+      createdInteractionCommands?.array().forEach((InteractionCommand) => {
+        const _InteractionCommand = this.interactions.get(InteractionCommand.name);
+        if (!_InteractionCommand) return;
 
-        _interaction.id = interaction.id;
+        _InteractionCommand.id = InteractionCommand.id;
       });
     } catch (error) {
       console.log(error);
     }
   }
 
-  async cleanInteractions(): Promise<void> {
-    const globalInteractions = await this.bot.client.application?.commands.fetch();
-    globalInteractions?.forEach((interaction) => {
-      interaction.delete();
+  private async cleanInteractions(): Promise<void> {
+    const GlobalInteractionCommands = await this.bot.client.application?.commands.fetch();
+    GlobalInteractionCommands?.forEach((InteractionCommand) => {
+      InteractionCommand.delete();
     });
 
-    const guildInteractions = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.fetch();
-    guildInteractions?.forEach((interaction) => {
-      if (!this.interactions.has(interaction.name)) {
-        interaction.delete();
+    const GuildInteractionCommands = await this.bot.client.guilds.cache.get(this.bot.config.guildId)?.commands.fetch();
+    GuildInteractionCommands?.forEach((InteractionCommand) => {
+      if (!this.interactions.has(InteractionCommand.name)) {
+        InteractionCommand.delete();
       }
     });
   }
 
-  setupPermission(): void {
+  private setupPermission(): void {
     let permissonData: GuildApplicationCommandPermissionData[] = [];
 
-    this.interactions.forEach(async (interaction) => {
-      if (interaction.permissions.length < 1) return;
-      if (!interaction.id) return;
+    this.interactions.forEach(async (InteractionCommand) => {
+      if (InteractionCommand.permissions.length < 1) return;
+      if (!InteractionCommand.id) return;
 
       const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
       if (!guild) return;
 
-      const roles = getRolesByPermissionsAndGuild(guild, interaction.permissions);
+      const roles = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
 
       permissonData.push({
-        id: interaction.id,
+        id: InteractionCommand.id,
         permissions: roles.map((role) => {
           return {
             id: role.id,
@@ -164,20 +164,20 @@ export class interactionHandler {
   async handleInteraction(interaction: Interaction) {
     if (!interaction.isCommand()) return;
 
-    const foundInteration = this.interactions.get(interaction.commandName);
-    if (!foundInteration) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
+    const InteractionCommand = this.interactions.get(interaction.commandName);
+    if (!InteractionCommand) return interaction.reply(InteractionCommandErrors.INTERNAL_ERROR, { ephemeral: true });
 
-    if (!interaction.guild) return interaction.reply(InteractionErrors.INTERNAL_ERROR, { ephemeral: true });
+    if (!interaction.guild) return interaction.reply(InteractionCommandErrors.INTERNAL_ERROR, { ephemeral: true });
 
-    const SubcommandOption = interaction.options.find((option) => option.type === "SUB_COMMAND");
-    let foundSubcommand: Subcommand | undefined;
-    if (SubcommandOption) {
-      foundSubcommand = foundInteration.subcommands.find((_Subcommand) => _Subcommand.name === SubcommandOption.name);
+    const OptionsOfSubcommand = interaction.options.find((option) => option.type === "SUB_COMMAND");
+    let Subcommand: Subcommand | undefined;
+    if (OptionsOfSubcommand) {
+      Subcommand = InteractionCommand.subcommands.find((_Subcommand) => _Subcommand.name === OptionsOfSubcommand.name);
     }
 
-    const interactionRoles = getRolesByPermissionsAndGuild(interaction.guild, foundInteration.permissions);
+    const interactionRoles = getRolesByPermissionsAndGuild(interaction.guild, InteractionCommand.permissions);
 
-    if (foundInteration.permissions.length > 0) {
+    if (InteractionCommand.permissions.length > 0) {
       const foundPermission = interactionRoles.filter((role) => {
         const member: GuildMember = interaction.member;
 
@@ -187,7 +187,7 @@ export class interactionHandler {
           .includes(role.name);
       }).length;
 
-      if (foundPermission < 1) return interaction.reply(InteractionErrors.MISSING_PERMISSIONS, { ephemeral: true });
+      if (foundPermission < 1) return interaction.reply(InteractionCommandErrors.MISSING_PERMISSIONS, { ephemeral: true });
     }
 
     const entry = new LogModel();
@@ -195,9 +195,9 @@ export class interactionHandler {
     entry.author = JSON.parse(JSON.stringify(interaction.user));
     entry.save();
     try {
-      foundSubcommand ? foundSubcommand.execute(interaction, SubcommandOption?.options) : foundInteration?.execute(interaction, interaction.options);
+      Subcommand ? Subcommand.execute(interaction, OptionsOfSubcommand?.options) : InteractionCommand?.execute(interaction, interaction.options);
     } catch (error) {
-      interaction.deferred ? interaction.editReply(InteractionErrors.INTERNAL_ERROR) : interaction.reply(InteractionErrors.INTERNAL_ERROR);
+      interaction.deferred ? interaction.editReply(InteractionCommandErrors.INTERNAL_ERROR) : interaction.reply(InteractionCommandErrors.INTERNAL_ERROR);
       if (isProduction()) return;
       console.error(error);
     }

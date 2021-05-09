@@ -64,11 +64,11 @@ export class CommandHandler {
     }
   }
 
-  checkCommand(name: string): string | undefined {
+  private checkCommand(name: string): string | undefined {
     if (this.cmds.has(name)) return `Der Command ${name} existiert bereits.`;
   }
 
-  loadCommand(importedCommand: Command, category: string) {
+  private loadCommand(importedCommand: Command, category: string) {
     const _cmd: any = importedCommand;
     const cmd = new _cmd(this.bot);
 

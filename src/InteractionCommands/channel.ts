@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildChannel, PermissionString, TextChannel } from "discord.js";
-import { InteractionCommand, InteractionErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class ChannelInteraction extends InteractionCommand {
@@ -28,7 +28,7 @@ export class ChannelInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
         interaction.defer(true);
 
-        if (!options) return this.deferedError(interaction, InteractionErrors.INTERNAL_ERROR);
+        if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const option = findOption(options, "channel") as CommandInteractionOption;
 
