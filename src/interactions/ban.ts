@@ -10,7 +10,7 @@ import { findOption } from "../utils/interactions";
 
 export class BanInteraction extends InteractionCommand {
   name = "ban";
-  description = "⚒ wer nicht hören will, muss fühlen.";
+  description = "Bann";
   options: ApplicationCommandOptionData[] = [
     {
       name: "add",
