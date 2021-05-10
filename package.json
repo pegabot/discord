@@ -31,7 +31,7 @@
     "date-fns": "^2.21.2",
     "discord-xp": "^1.1.14",
     "discord.js": "https://github.com/discordjs/discord.js#9f74f95f69f4aa8a9a23c160e25dc61010c0a8e0",
-    "dotenv": "^9.0.0",
+    "dotenv": "^9.0.1",
     "emoji-strip": "^1.0.1",
     "erlpack": "^0.1.3",
     "es6-promise": "~4.2.8",
