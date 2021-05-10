@@ -16,10 +16,6 @@ export default new Event("message", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
 
-  if (message.content.match(/^(\/r\s?.*|\/roll\s?.*)/)) {
-    message.reply(`bitte verwende \`${bot.config.prefix}roll\` oder \`${bot.config.prefix}r\`!`);
-    return;
-  }
   if (!message.content.startsWith(bot.config.prefix || "")) {
     if (bot.config.ignoredChannels) {
       if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
@@ -37,8 +33,7 @@ export default new Event("message", async (message) => {
     messageToSave.channel = JSON.parse(JSON.stringify(message.channel as TextChannel));
     messageToSave.save();
 
-    const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
-    const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+    const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, 12);
     if (hasLeveledUp) {
       const user = await Levels.fetch(message.author.id, message.guild.id);
       message.channel.send(`${message.author}, glückwunsch! Du hast Level **${user.level}** erreicht. :tada:`);
