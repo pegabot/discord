@@ -16,7 +16,7 @@ export class NicknameInteraction extends InteractionCommand {
       name: "add",
       type: "SUB_COMMAND",
       description: "Ändere deinen Nicknamen auf diesem Server.",
-      options: [{ name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }],
+      options: [{ required: true, name: "name", type: "STRING", description: "Der Name, der gesetzt werden soll" }],
     },
     {
       name: "remove",
