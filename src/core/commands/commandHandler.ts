@@ -124,6 +124,8 @@ export class CommandHandler {
         pass = true;
     }
 
+    if (command?.everyone) pass = true;
+
     if (!pass) return msg.reply("Du besitzt leider nicht die entsprechenden Rechte!");
 
     if (command) {

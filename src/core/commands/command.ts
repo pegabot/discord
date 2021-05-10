@@ -13,6 +13,8 @@ export abstract class Command {
   abstract usage: string | string[];
   abstract help: string;
   repeatable = true;
+  everyone = false;
+
   owner?: boolean;
   aliases?: string[];
   category?: string;
