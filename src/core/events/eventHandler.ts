@@ -7,7 +7,7 @@
 import { Collection } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
-import { CustomClientEvents } from "../../types/discord.js.js";
+import { CustomClientEvents } from "../../types/discord.js";
 import { Bot } from "../bot";
 import { Event } from "./event";
 

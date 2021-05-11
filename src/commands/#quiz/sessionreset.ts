@@ -8,7 +8,7 @@ import { Message } from "discord.js";
 import { Command } from "../../core/commands/command";
 import { SessionModel } from "../../models/quiz";
 import { CommandExecption } from "../../utils/execptions";
-import { resolveUser } from "../../utils/resolveUser";
+import { resolveMember } from "../../utils/resolveMember";
 
 export class SessionResetCommand extends Command {
   name = "sessionreset";
@@ -22,7 +22,7 @@ export class SessionResetCommand extends Command {
     let sessions;
 
     if (msg.mentions.users.size > 0) {
-      const user = resolveUser(msg, args.join(" "));
+      const user = resolveMember(msg, args.join(" "));
 
       if (!user) throw new CommandExecption("Benutzer nicht gefunden.");
 

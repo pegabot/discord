@@ -7,7 +7,7 @@
 import { ChatClient } from "dank-twitch-irc";
 import { Client, Collection, Intents } from "discord.js";
 import { config } from "dotenv";
-import { CustomClient } from "../types/discord.js.js";
+import { CustomClient } from "../types/discord";
 import { CommandHandler } from "./commands/commandHandler";
 import { MongoConnector } from "./database";
 import { EventHandler } from "./events/eventHandler";

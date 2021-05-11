@@ -10,4 +10,6 @@ export enum emojis {
   commandExecutedEmoji = "✅",
   rollEmoji = "🎲",
   hugEmoji = "🤗",
+  deRoleEmoji = "🇩🇪",
+  enRoleEmoji = "🇺🇸",
 }

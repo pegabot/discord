@@ -9,7 +9,7 @@ import { colors } from "../../constants/colors";
 import { Command } from "../../core/commands/command";
 import { SessionModel } from "../../models/quiz";
 import { CommandExecption } from "../../utils/execptions";
-import { resolveUser } from "../../utils/resolveUser";
+import { resolveMember } from "../../utils/resolveMember";
 
 export class SessionInfoCommand extends Command {
   name = "sessioninfo";
@@ -23,7 +23,7 @@ export class SessionInfoCommand extends Command {
     let sessions;
 
     if (msg.mentions.users.size > 0) {
-      const user = resolveUser(msg, args.join(" "));
+      const user = resolveMember(msg, args.join(" "));
 
       if (!user) throw new CommandExecption("Benutzer nicht gefunden.");
 
@@ -39,7 +39,7 @@ export class SessionInfoCommand extends Command {
     }
 
     for (const session of sessions) {
-      const member = resolveUser(msg, session.userId);
+      const member = resolveMember(msg, session.userId);
 
       const embed = new MessageEmbed()
         .setColor(session.status === "error" ? colors.red : session.status === "stale" ? colors.babyblue : session.won ? colors.green : colors.orange)

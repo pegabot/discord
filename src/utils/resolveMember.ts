@@ -6,7 +6,7 @@
 
 import { CommandInteraction, GuildMember, Message } from "discord.js";
 
-export const resolveUser = (msg: Message | CommandInteraction, username: string): GuildMember | undefined | null => {
+export const resolveMember = (msg: Message | CommandInteraction, username: string): GuildMember | undefined | null => {
   const memberCache = msg.guild?.members.cache;
   if (!memberCache) return null;
 

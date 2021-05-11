@@ -7,9 +7,12 @@
 import { HosttargetMessage } from "dank-twitch-irc";
 import { Client, ClientEvents, MessageReaction, User } from "discord.js";
 
+type handleWelcomeMessageTypes = "add" | "remove";
+
 interface CustomClientEvents extends ClientEvents {
   handleReroll: [MessageReaction, User];
   handleCommandRepeat: [MessageReaction, User];
+  handleWelcomeMessage: [handleWelcomeMessageTypes, MessageReaction, User];
   handleTwitch: [HosttargetMessage?];
 }
 

@@ -9,7 +9,7 @@ import bot from "../bot";
 import { emojis } from "../constants/emojis";
 import { Event } from "../core/events/event";
 
-export default new Event("messageReactionAdd", async (reaction, user) => {
+export default new Event("messageReactionRemove", async (reaction, user) => {
   if (reaction.partial) {
     try {
       await reaction.fetch();
@@ -31,17 +31,11 @@ export default new Event("messageReactionAdd", async (reaction, user) => {
   if (!(await users).has(bot.client.user?.id || "")) return;
 
   switch (reaction.emoji.name) {
-    case emojis.rollEmoji:
-      bot.client.emit("handleReroll", reaction, user as User);
-      break;
-    case emojis.commandRepeatEmoji:
-      bot.client.emit("handleCommandRepeat", reaction, user as User);
-      break;
     case emojis.deRoleEmoji:
-      bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
+      bot.client.emit("handleWelcomeMessage", "remove", reaction, user as User);
       break;
     case emojis.enRoleEmoji:
-      bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
+      bot.client.emit("handleWelcomeMessage", "remove", reaction, user as User);
       break;
     default:
       return;

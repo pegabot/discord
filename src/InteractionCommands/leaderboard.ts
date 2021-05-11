@@ -8,7 +8,7 @@ import { CommandInteraction, GuildMember, MessageAttachment, TextChannel } from 
 import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { LevelModel } from "../models/levels";
 import { generateLeaderboardCard } from "../utils/leaderboard";
-import { resolveUser } from "../utils/resolveUser";
+import { resolveMember } from "../utils/resolveMember";
 
 export interface userData {
   level: number;
@@ -32,7 +32,7 @@ export class LeaderboardInteraction extends InteractionCommand {
 
       let leaderboard: Leaderbord = [];
       for (const userData of sorted) {
-        const user = resolveUser(interaction, userData.userID);
+        const user = resolveMember(interaction, userData.userID);
 
         let rank = sorted.findIndex((entry) => entry.userID === user?.user?.id) + 1;
         if (rank === 0) rank = sorted.length + 1;
