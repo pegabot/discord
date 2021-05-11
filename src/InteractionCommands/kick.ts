@@ -14,19 +14,17 @@ export class KickInteraction extends InteractionCommand {
   options: ApplicationCommandOptionData[] = [{ required: true, name: "opfer", description: "Wer soll den gekickt werden?", type: "USER" }];
   permissions: PermissionString[] = ["KICK_MEMBERS"];
 
-  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]): Promise<void> {
+  async execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
     await interaction.defer(true);
 
-    const { member } = findOption(options, "opfer") as CommandInteractionOption;
-
-    const victim: GuildMember = member;
+    const { member: victim } = findOption(options, "opfer") as CommandInteractionOption;
 
     if (!victim) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-    if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst kicken!");
+    if ((victim as GuildMember).id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst kicken!");
 
-    if (victim.kickable) {
-      await victim.kick(`Kick durch ${interaction.user.username}`);
+    if ((victim as GuildMember).kickable) {
+      await (victim as GuildMember).kick(`Kick durch ${interaction.user.username}`);
       interaction.editReply("Der Benutzer wurde erfolgreich gekickt!");
     } else {
       interaction.editReply("Der Benutzer konnte nicht gekickt werden!");

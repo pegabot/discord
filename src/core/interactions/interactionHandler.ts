@@ -214,7 +214,7 @@ export class interactionHandler {
 
     if (InteractionCommand.permissions.length > 0) {
       const foundPermission = interactionRoles.filter((role) => {
-        const member: GuildMember = interaction.member;
+        const member: GuildMember = interaction.member as GuildMember;
 
         return member.roles.cache
           .array()

@@ -4,7 +4,8 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString } from "discord.js";
+import { APIMessage } from "discord-api-types/payloads/v8/channel";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, Message, PermissionString } from "discord.js";
 import { Bot } from "../bot";
 
 export enum InteractionCommandErrors {
@@ -15,7 +16,7 @@ export enum InteractionCommandErrors {
 
 export interface Subcommand {
   name: string;
-  execute: (interaction: CommandInteraction, options?: CommandInteractionOption[]) => Promise<void> | void;
+  execute: (interaction: CommandInteraction, options?: CommandInteractionOption[]) => Promise<void | Message | APIMessage> | void;
 }
 
 export abstract class InteractionCommand {
@@ -43,5 +44,5 @@ export abstract class InteractionCommand {
     interaction.editReply(errorType);
   }
 
-  abstract execute(interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void> | void;
+  abstract execute(interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void | Message | APIMessage> | void;
 }

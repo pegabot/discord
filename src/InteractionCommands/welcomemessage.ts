@@ -4,16 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import {
-  ApplicationCommandOptionData,
-  CommandInteraction,
-  CommandInteractionOption,
-  GuildChannel,
-  MessageEmbed,
-  PermissionString,
-  Role,
-  TextChannel,
-} from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageEmbed, PermissionString, Role, TextChannel } from "discord.js";
 import { colors } from "../constants/colors";
 import { emojis } from "../constants/emojis";
 import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
@@ -46,17 +37,13 @@ export class WelcomemessageInteraction extends InteractionCommand {
         await interaction.defer(true);
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        const { channel: _channel } = findOption(options, "channel") as CommandInteractionOption;
-        const { role: _de_role } = findOption(options, "de-role") as CommandInteractionOption;
-        const { role: _en_role } = findOption(options, "en-role") as CommandInteractionOption;
+        const { channel: channel } = findOption(options, "channel") as CommandInteractionOption;
+        const { role: de_role } = findOption(options, "de-role") as CommandInteractionOption;
+        const { role: en_role } = findOption(options, "en-role") as CommandInteractionOption;
         const { value: de_text } = findOption(options, "de-description") as CommandInteractionOption;
         const { value: en_text } = findOption(options, "en-description") as CommandInteractionOption;
 
-        if (!_channel || !_de_role || !_en_role || !de_text || !en_text) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
-
-        const channel: GuildChannel = _channel;
-        const de_role: Role = _de_role;
-        const en_role: Role = _en_role;
+        if (!channel || !de_role || !en_role || !de_text || !en_text) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         const message = await (channel as TextChannel).send(
           new MessageEmbed()
@@ -76,8 +63,8 @@ export class WelcomemessageInteraction extends InteractionCommand {
 
         const entry = new WelcomemessageModel();
         entry.messageId = message.id;
-        entry.de_roleId = de_role.id;
-        entry.en_roleId = en_role.id;
+        entry.de_roleId = (de_role as Role).id;
+        entry.en_roleId = (en_role as Role).id;
         entry.save();
 
         interaction.editReply("👌");

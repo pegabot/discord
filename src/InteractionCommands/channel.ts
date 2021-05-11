@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildChannel, PermissionString, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
 import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -26,13 +26,11 @@ export class ChannelInteraction extends InteractionCommand {
     {
       name: "delete",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
-        await  interaction.defer(true);
+        await interaction.defer(true);
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        const option = findOption(options, "channel") as CommandInteractionOption;
-
-        const channel: GuildChannel = option.channel;
+        const { channel } = findOption(options, "channel") as CommandInteractionOption;
 
         const { id: channelID } = channel as TextChannel;
 
@@ -46,8 +44,8 @@ export class ChannelInteraction extends InteractionCommand {
         )
           return this.deferedError(interaction, "Dieser Kanal kann nicht gelöscht werden!");
 
-        interaction.editReply(`Lösche Kanal \`${channel.name}\`!`);
-        channel.delete();
+        interaction.editReply(`Lösche Kanal \`${(channel as TextChannel).name}\`!`);
+        (channel as TextChannel).delete();
       },
     },
   ];

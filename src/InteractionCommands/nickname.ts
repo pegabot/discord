@@ -31,7 +31,7 @@ export class NicknameInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
         await interaction.defer();
 
-        const member: GuildMember = interaction.member;
+        const member: GuildMember = interaction.member as GuildMember;
         if (!member) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         if (member.permissions.has("ADMINISTRATOR")) return interaction.editReply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!");
@@ -49,7 +49,7 @@ export class NicknameInteraction extends InteractionCommand {
       execute: async (interaction: CommandInteraction) => {
         await interaction.defer();
 
-        const member: GuildMember = interaction.member;
+        const member: GuildMember = interaction.member as GuildMember;
         if (!member) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
         if (member.permissions.has("ADMINISTRATOR")) return interaction.editReply("hey! Du bist Admin 😄 deinen Nicknamen kann ich nicht bearbeiten!");

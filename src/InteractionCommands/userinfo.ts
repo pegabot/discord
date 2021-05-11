@@ -17,7 +17,7 @@ export class UserinfoInteraction extends InteractionCommand {
   async execute(interaction: CommandInteraction, options: CommandInteractionOption[]) {
     await interaction.defer();
 
-    const member: GuildMember = findOption(options, "user")?.member;
+    const member: GuildMember = findOption(options, "user")?.member as GuildMember;
 
     const embed = GuildMemberEmbed(member);
     interaction.editReply(embed);

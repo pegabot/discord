@@ -36,16 +36,14 @@ export class BanInteraction extends InteractionCommand {
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        const { member } = findOption(options, "opfer") as CommandInteractionOption;
-
-        const victim: GuildMember = member;
+        const { member: victim } = findOption(options, "opfer") as CommandInteractionOption;
 
         if (!victim) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        if (victim.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
+        if ((victim as GuildMember).id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst bannen!");
 
-        if (victim.bannable) {
-          await victim.ban({ reason: `Ban durch ${interaction.user.username}` });
+        if ((victim as GuildMember).bannable) {
+          await (victim as GuildMember).ban({ reason: `Ban durch ${interaction.user.username}` });
           interaction.editReply("Der Benutzer wurde erfolgreich gebannt!");
         } else {
           interaction.editReply("Der Benutzer konnte nicht gebannt werden!");
@@ -59,18 +57,16 @@ export class BanInteraction extends InteractionCommand {
 
         if (!options) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        const { member } = findOption(options, "glücklicher") as CommandInteractionOption;
-
-        const winner: GuildMember = member;
+        const { member: winner } = findOption(options, "glücklicher") as CommandInteractionOption;
 
         console.log(winner);
 
         if (!winner) return this.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
 
-        if (winner.id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst enbannen!");
+        if ((winner as GuildMember).id === interaction.user.id) return interaction.editReply("🤦‍♂️ du kannst dich nicht selbst enbannen!");
 
-        if (winner.bannable) {
-          await interaction.guild?.members.unban(winner.user);
+        if ((winner as GuildMember).bannable) {
+          await interaction.guild?.members.unban((winner as GuildMember).user);
           interaction.editReply("Der Benutzer wurde erfolgreich entbannt!");
         } else {
           interaction.editReply("Der Benutzer konnte nicht entbannt werden!");

@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, GuildMember } from "discord.js";
 import { InteractionCommand } from "../core/interactions/interactionCommand";
 import { userGivenRolesModel } from "../models/userGivenRoles";
 
@@ -22,10 +22,10 @@ export class SpontansucheInteraction extends InteractionCommand {
     const roleId = this.bot?.config?.playerSearchRole;
     if (!roleId) throw Error("Rolle nicht gefunden");
 
-    const userId = member.id;
+    const userId = (member as GuildMember).id;
 
-    if (member.roles.cache.has(roleId)) {
-      member.roles.remove(roleId);
+    if ((member as GuildMember).roles.cache.has(roleId)) {
+      (member as GuildMember).roles.remove(roleId);
 
       userGivenRolesModel.find({ userId: userId, roleId: roleId }, (error, data) => {
         data.forEach((entry) => entry.remove());
@@ -33,7 +33,7 @@ export class SpontansucheInteraction extends InteractionCommand {
 
       interaction.editReply("Die Rolle wurde wieder entfernt.");
     } else {
-      member.roles.add(roleId);
+      (member as GuildMember).roles.add(roleId);
       const entry = new userGivenRolesModel();
       entry.userId = userId;
       entry.roleId = roleId;
