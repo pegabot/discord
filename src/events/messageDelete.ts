@@ -10,40 +10,20 @@ import { colors } from "../constants/colors";
 import { Event } from "../core/events/event";
 
 export default new Event("messageDelete", async (message) => {
-  if (message.partial) {
-    message = await message.fetch();
-  }
-
   if (message.channel.id === bot.config.adminChannel) return;
-  if (message.author.id === bot.client.user?.id) return;
+  if (message.author?.id === bot.client.user?.id) return;
   if (bot.config.ignoredChannels) {
     if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
   }
 
   await new Promise((res) => setTimeout(res, 500));
-  const guild = message.guild;
-
-  if (!guild) return;
-
-  const auditLog = await guild.fetchAuditLogs();
-
-  const deleteAction = await auditLog.entries.first();
-
-  let executor = deleteAction?.executor;
-
-  if (deleteAction?.action !== "MESSAGE_DELETE") {
-    executor = message.author;
-  }
 
   const { channel, content, author, id } = message;
-
   const embed = new MessageEmbed()
-    .setAuthor(executor?.tag || "Unbekannter User", executor?.avatarURL?.() || "")
+    .setAuthor(message.author?.tag || "Unbekannter User", message.author?.avatarURL?.() || "")
     .setTitle("Nachricht gelöscht")
-    .setThumbnail(executor?.avatarURL() || "")
     .addField("Nachricht geschrieben von", `${author || "Unbekannter User"}`, true)
     .addField("Kanal", `${channel}`, true)
-    .addField("Gelöscht von", `${executor || "Unbekannt"}`, true)
     .addField("Inhalt", content || "Unbekannter Inhalt")
     .setFooter(`ID: ${id}`)
     .setTimestamp(new Date())
