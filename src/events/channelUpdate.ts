@@ -7,6 +7,7 @@
 import { GuildChannel } from "discord.js";
 import bot from "../bot";
 import { Event } from "../core/events/event";
+import { ChannelTypes } from "../utils/channelTypes";
 
 export default new Event("channelUpdate", (oldChannel, newChannel) => {
   if (oldChannel.type === "dm" || newChannel.type === "dm") return;
@@ -18,7 +19,7 @@ export default new Event("channelUpdate", (oldChannel, newChannel) => {
   let newGuildChannel: GuildChannel = newChannel as GuildChannel;
 
   if (oldGuildChannel.name !== newGuildChannel.name) {
-    bot.logger.admin_blue(`Der Kanal \`${oldGuildChannel.name}\` heißt jetzt \`${newGuildChannel.name}\``);
+    bot.logger.admin_blue(`${ChannelTypes.get(newGuildChannel.type)} \`${oldGuildChannel.name}\` heißt jetzt \`${newGuildChannel.name}\``);
   }
 
   if (oldGuildChannel.parent !== newGuildChannel.parent) {
