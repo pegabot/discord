@@ -10,6 +10,7 @@ import { Client, ClientEvents, MessageReaction, User } from "discord.js";
 type handleWelcomeMessageTypes = "add" | "remove";
 
 interface CustomClientEvents extends ClientEvents {
+  removeMessageFromDatabase: [string];
   handleReroll: [MessageReaction, User];
   handleCommandRepeat: [MessageReaction, User];
   handleWelcomeMessage: [handleWelcomeMessageTypes, MessageReaction, User];

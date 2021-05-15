@@ -6,7 +6,6 @@
 
 import { MessageEmbed } from "discord.js";
 import bot from "../bot";
-import { colors } from "../constants/colors";
 import { Event } from "../core/events/event";
 
 export default new Event("messageDelete", async (message) => {
@@ -17,17 +16,32 @@ export default new Event("messageDelete", async (message) => {
   }
 
   await new Promise((res) => setTimeout(res, 500));
+  const guild = message.guild;
+
+  const auditLog = await guild?.fetchAuditLogs();
+
+  const deleteAction = auditLog?.entries.first();
+
+  let executor = deleteAction?.executor;
+
+  if (deleteAction?.action !== "MESSAGE_DELETE") {
+    executor = message.author;
+  }
+
+  bot.client.emit("removeMessageFromDatabase", message.id);
 
   const { channel, content, author, id } = message;
   const embed = new MessageEmbed()
-    .setAuthor(message.author?.tag || "Unbekannter User", message.author?.avatarURL?.() || "")
-    .setTitle("Nachricht gelöscht")
-    .addField("Nachricht geschrieben von", `${author || "Unbekannter User"}`, true)
-    .addField("Kanal", `${channel}`, true)
-    .addField("Inhalt", content || "Unbekannter Inhalt")
+    .setAuthor(executor?.tag || "Unknown Deleter", executor?.avatarURL() || "")
+    .setTitle("Message Deleted")
+    .setThumbnail(executor?.avatarURL() || "")
+    .addField("Message Sender", `${author || "An unknown user"}`, true)
+    .addField("Channel", `${channel}`, true)
+    .addField("Deleted By", `${executor || "Unknown"}`, true)
+    .addField("Message Content", content || "Unknown content")
     .setFooter(`ID: ${id}`)
     .setTimestamp(new Date())
-    .setColor(colors.red);
+    .setColor("#ee1111");
 
   bot.logger.admin(embed);
 });
