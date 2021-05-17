@@ -14,8 +14,6 @@ export class ReplaceBlogLinksJob extends Job {
   env = "blog";
   interval = 1000 * 60 * 60 * 5; // Milliseconds * Seconds * Minutes * Hours
 
-  checkSite = bent();
-
   execute(): void {
     ReplaceBlogLinksModel.find({}, async (error, docs) => {
       if (error) throw error;
@@ -23,21 +21,19 @@ export class ReplaceBlogLinksJob extends Job {
 
       for (const doc of docs) {
         try {
-          const siteExists = this.checkSite(doc.seoURL);
-          if (!siteExists) continue;
-
-          const guild = await this.bot.client.guilds.fetch(this.bot.config.guildId);
-          const channel = guild.channels.resolve(doc.channelID);
-          if (!channel) return;
-
-          const message = await (channel as TextChannel).messages.fetch(doc.messageID);
-          const oldContent = message.content;
-          message.edit(oldContent.replace(doc.rawURL, doc.seoURL));
-          doc.delete();
+          bent(doc.seoURL);
         } catch (err) {
-          console.error(err);
-          throw err;
+          continue;
         }
+
+        const guild = await this.bot.client.guilds.fetch(this.bot.config.guildId);
+        const channel = guild.channels.resolve(doc.channelID);
+        if (!channel) return;
+
+        const message = await (channel as TextChannel).messages.fetch(doc.messageID);
+        const oldContent = message.content;
+        message.edit(oldContent.replace(doc.rawURL, doc.seoURL));
+        doc.delete();
       }
     });
   }
