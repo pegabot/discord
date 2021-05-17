@@ -32,13 +32,13 @@ export default new Event("messageDelete", async (message) => {
 
   const { channel, content, author, id } = message;
   const embed = new MessageEmbed()
-    .setAuthor(executor?.tag || "Unknown Deleter", executor?.avatarURL() || "")
-    .setTitle("Message Deleted")
+    .setAuthor(executor?.tag || "Unbekannter Löscher", executor?.avatarURL() || "")
+    .setTitle("Nachricht gelöscht")
     .setThumbnail(executor?.avatarURL() || "")
-    .addField("Message Sender", `${author || "An unknown user"}`, true)
-    .addField("Channel", `${channel}`, true)
-    .addField("Deleted By", `${executor || "Unknown"}`, true)
-    .addField("Message Content", content || "Unknown content")
+    .addField("Wer hat die Nachricht verschickt?", `${author || "Ein unbekanntes Mitglied"}`, true)
+    .addField("Kanal", `${channel}`, true)
+    .addField("Gelöscht von", `${executor || "Unbekannt"}`, true)
+    .addField("Inhalt", content || "Unbekannt")
     .setFooter(`ID: ${id}`)
     .setTimestamp(new Date())
     .setColor("#ee1111");
