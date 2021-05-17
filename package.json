@@ -26,7 +26,7 @@
     "@sindresorhus/slugify": "^1.1.0",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
-    "canvas": "^2.7.0",
+    "canvas": "^2.8.0",
     "dank-twitch-irc": "^4.3.0",
     "date-fns": "^2.21.3",
     "discord-api-types": "^0.18.1",
