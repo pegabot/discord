@@ -9,7 +9,6 @@ import { version } from "../constants/version";
 import { Event } from "../core/events/event";
 import { isProduction } from "../utils/environment";
 import { setDefault } from "../utils/presence";
-import { getSystemStatus } from "../utils/status";
 
 export default new Event("ready", () => {
   bot.commands.loadCommands();
@@ -30,7 +29,6 @@ export default new Event("ready", () => {
   bot.logger.console(message);
   if (isProduction()) {
     bot.logger.admin(message);
-    bot.logger.admin(getSystemStatus());
   }
   setDefault(bot);
 });
