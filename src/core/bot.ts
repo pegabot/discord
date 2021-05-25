@@ -9,7 +9,8 @@ import { Client, Collection, Intents } from "discord.js";
 import { config } from "dotenv";
 import { CustomClient } from "../types/discord";
 import { CommandHandler } from "./commands/commandHandler";
-import { MongoConnector } from "./database";
+import { MongoConnector } from "./databases/mongodb";
+import { RedisConnector } from "./databases/redis";
 import { EventHandler } from "./events/eventHandler";
 import { interactionHandler } from "./interactions/interactionHandler.js";
 import { JobHandler } from "./jobs/jobHandler";
@@ -23,6 +24,7 @@ export class Bot {
 
   MongoConnector = new MongoConnector();
   db: typeof import("mongoose") | undefined = this.MongoConnector.connection;
+  redis = new RedisConnector();
 
   logger = new LogHandler(this);
 
@@ -51,6 +53,7 @@ export class Bot {
     this.twitchClient.close();
     this.client.destroy();
     await this.db?.disconnect();
+    this.redis.client.end();
     console.log("Stopping process");
     process.exit(0);
   }

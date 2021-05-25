@@ -8,40 +8,49 @@ import { MessageEmbed } from "discord.js";
 import bot from "../bot";
 import { Event } from "../core/events/event";
 
-export default new Event("messageDelete", async (message) => {
+export default new Event("messageDelete", (message) => {
+  bot.client.emit("removeMessageFromDatabase", message.id);
+
   if (message.channel.id === bot.config.adminChannel) return;
   if (message.author?.id === bot.client.user?.id) return;
   if (bot.config.ignoredChannels) {
     if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
   }
 
-  await new Promise((res) => setTimeout(res, 500));
-  const guild = message.guild;
+  // @ts-ignore: the typings for LPOS do not exist
+  bot.redis.client.LPOS("deletedMessages", message.id, async (error: Error, index: ?number) => {
+    if (error) throw error;
 
-  const auditLog = await guild?.fetchAuditLogs();
+    if (index) return;
 
-  const deleteAction = auditLog?.entries.first();
+    await new Promise((res) => setTimeout(res, 500));
+    const guild = message.guild;
 
-  let executor = deleteAction?.executor;
+    const auditLog = await guild?.fetchAuditLogs();
 
-  if (deleteAction?.action !== "MESSAGE_DELETE") {
-    executor = message.author;
-  }
+    const deleteAction = auditLog?.entries.first();
 
-  bot.client.emit("removeMessageFromDatabase", message.id);
+    let executor = deleteAction?.executor;
 
-  const { channel, content, author, id } = message;
-  const embed = new MessageEmbed()
-    .setAuthor(executor?.tag || "Unbekannter Löscher", executor?.avatarURL() || "")
-    .setTitle("Nachricht gelöscht")
-    .setThumbnail(executor?.avatarURL() || "")
-    .addField("Wer hat die Nachricht verschickt?", `${author || "Ein unbekanntes Mitglied"}`, true)
-    .addField("Kanal", `${channel}`, true)
-    .addField("Gelöscht von", `${executor || "Unbekannt"}`, true)
-    .addField("Inhalt", content || "Unbekannt")
-    .setFooter(`ID: ${id}`)
-    .setTimestamp(new Date())
-    .setColor("#ee1111");
+    if (deleteAction?.action !== "MESSAGE_DELETE") {
+      executor = message.author;
+    }
 
-  bot.logger.admin(embed);
+    bot.client.emit("removeMessageFromDatabase", message.id);
+
+    const { channel, content, author, id } = message;
+    const embed = new MessageEmbed()
+      .setAuthor(executor?.tag || "Unbekannter Löscher", executor?.avatarURL() || "")
+      .setTitle("Nachricht gelöscht")
+      .setThumbnail(executor?.avatarURL() || "")
+      .addField("Wer hat die Nachricht verschickt?", `${author || "Ein unbekanntes Mitglied"}`, true)
+      .addField("Kanal", `${channel}`, true)
+      .addField("Gelöscht von", `${executor || "Unbekannt"}`, true)
+      .addField("Inhalt", content || "Unbekannt")
+      .setFooter(`ID: ${id}`)
+      .setTimestamp(new Date())
+      .setColor("#ee1111");
+
+    bot.logger.admin(embed);
+  });
 });

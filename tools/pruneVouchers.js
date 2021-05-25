@@ -11,7 +11,7 @@ const { schema: VoucherSchema } = require("../src/models/voucher");
 const { schema: SessionSchema } = require("../src/models/session");
 
 (async () => {
-  await mongoose.connect(process.env.DB_STRING, {
+  await mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

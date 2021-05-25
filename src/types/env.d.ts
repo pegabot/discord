@@ -7,14 +7,14 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: string;
-    DB_STRING: string;
+    MONGO_URL: string;
+    REDIS_URL: string;
     apiToken: string;
     prefix: string;
     ownerIds: string;
     guildId: string;
     inviteUrl: string;
     engineerRole: string;
-    playerSearchRole: string;
     adminChannel: string;
     errorChannel: string;
     welcomeChannel: string;

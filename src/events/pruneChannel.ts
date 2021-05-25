@@ -5,6 +5,7 @@
  */
 
 import { CommandInteraction, TextChannel } from "discord.js";
+import bot from "../bot";
 import { Event } from "../core/events/event";
 import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
 
@@ -15,6 +16,7 @@ const fallbackMethod = async (InteractionCommand: InteractionCommand, interactio
 
   for (const msgToDelete of messages.values()) {
     if (msgToDelete.deletable) {
+      bot.redis.client.rpush("deletedMessages", msgToDelete.id);
       msgToDelete.delete();
     } else {
       interaction.editReply(`Die folgende Nachricht konnte von mir nicht gelöscht werden\n>>> ${msgToDelete.content}`);

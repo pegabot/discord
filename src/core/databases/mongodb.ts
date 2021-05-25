@@ -40,16 +40,16 @@ export class MongoConnector {
   }
 
   async loadModels(): Promise<void> {
-    const models = fs.readdirSync(path.join(__dirname, "..", "models"));
+    const models = fs.readdirSync(path.join(__dirname, "../..", "models"));
     for (const model of models) {
       const name = model.split(".")[0];
       if (/\w?#.+/.test(name)) continue;
 
-      const module = await require(path.join(__dirname, "..", "models", name));
+      const module = await require(path.join(__dirname, "../..", "models", name));
       this.models.set(name, module);
     }
     try {
-      this.connection = await connect(process.env.DB_STRING || "", {
+      this.connection = await connect(process.env.MONGO_URL || "", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
