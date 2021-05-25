@@ -5,7 +5,8 @@
  */
 
 import { HosttargetMessage } from "dank-twitch-irc";
-import { Client, ClientEvents, MessageReaction, User } from "discord.js";
+import { Client, ClientEvents, CommandInteraction, MessageReaction, User } from "discord.js";
+import { InteractionCommand } from "../core/interactions/interactionCommand";
 
 type handleWelcomeMessageTypes = "add" | "remove";
 
@@ -15,6 +16,7 @@ interface CustomClientEvents extends ClientEvents {
   handleCommandRepeat: [MessageReaction, User];
   handleWelcomeMessage: [handleWelcomeMessageTypes, MessageReaction, User];
   handleTwitch: [HosttargetMessage?];
+  pruneChannel: [InteractionCommand, CommandInteraction, number];
 }
 
 export class CustomClient extends Client {

@@ -17,3 +17,11 @@ export const getRolesByPermissionsAndGuild = (guild: Guild, permissions: Permiss
     })
     .array();
 };
+
+export const getRolesByName = (guild: Guild, roles: String[]): Role[] => {
+  return guild.roles.cache
+    .filter((role) => {
+      return roles.includes(role.name);
+    })
+    .array();
+};

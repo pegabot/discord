@@ -4,12 +4,19 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandData, Collection, GuildApplicationCommandPermissionData, GuildMember, Interaction } from "discord.js";
+import {
+  ApplicationCommandData,
+  ApplicationCommandPermissionData,
+  Collection,
+  GuildApplicationCommandPermissionData,
+  GuildMember,
+  Interaction,
+} from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { LogModel } from "../../models/log";
 import { isProduction } from "../../utils/environment";
-import { getRolesByPermissionsAndGuild } from "../../utils/permissions";
+import { getRolesByName, getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
 import { InteractionCommand, InteractionCommandErrors, Subcommand } from "./interactionCommand";
@@ -136,45 +143,47 @@ export class interactionHandler {
       let permissonData: GuildApplicationCommandPermissionData[] = [];
 
       this.interactions.forEach((InteractionCommand) => {
-        if (InteractionCommand.permissions.length < 1) return;
+        if (InteractionCommand.permissions.length < 1 && InteractionCommand.roles.length < 1) return;
         if (!InteractionCommand.id) return;
 
         const guild = this.bot.client.guilds.cache.get(this.bot.config.guildId);
         if (!guild) return;
 
-        const roles = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
+        let permissions: ApplicationCommandPermissionData[] = [];
 
-        //  This is very useful for a possible debugging ! //
+        if (InteractionCommand.permissions.length > 0) {
+          const RolesByPermissions = getRolesByPermissionsAndGuild(guild, InteractionCommand.permissions);
+          permissions = permissions.concat(
+            RolesByPermissions.sort((a, b) => b.position - a.position)
+              .slice(0, 10)
+              .map((role) => {
+                return {
+                  id: role.id,
+                  type: "ROLE",
+                  permission: true,
+                };
+              }),
+          );
+        }
 
-        // console.log(
-        //   JSON.stringify(
-        //     {
-        //       name: InteractionCommand.name,
-        //       perms: InteractionCommand.permissions,
-        //       roles: roles.map((role) => {
-        //         return {
-        //           name: role.name,
-        //           pos: role.position,
-        //         };
-        //       }),
-        //     },
-        //     null,
-        //     2,
-        //   ),
-        // );
+        if (InteractionCommand.roles.length > 0) {
+          const RolesByName = getRolesByName(guild, InteractionCommand.roles);
+          permissions = permissions.concat(
+            RolesByName.sort((a, b) => b.position - a.position)
+              .slice(0, 10)
+              .map((role) => {
+                return {
+                  id: role.id,
+                  type: "ROLE",
+                  permission: true,
+                };
+              }),
+          );
+        }
 
         permissonData.push({
           id: InteractionCommand.id,
-          permissions: roles
-            .sort((a, b) => b.position - a.position)
-            .slice(0, 10)
-            .map((role) => {
-              return {
-                id: role.id,
-                type: "ROLE",
-                permission: true,
-              };
-            }),
+          permissions: permissions,
         });
       });
 

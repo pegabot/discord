@@ -31,16 +31,17 @@ export abstract class InteractionCommand {
   subcommands: Subcommand[] = [];
 
   permissions: PermissionString[] = [];
+  roles: String[] = [];
 
   constructor(bot: Bot) {
     this.bot = bot;
   }
 
-  protected error(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
+  error(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
     interaction.reply(errorType, { ephemeral: true });
   }
 
-  protected deferedError(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
+  deferedError(interaction: CommandInteraction, errorType: InteractionCommandErrors | string): void {
     interaction.editReply(errorType);
   }
 
