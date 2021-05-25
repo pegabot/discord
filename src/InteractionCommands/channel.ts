@@ -4,8 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
+import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildChannel, PermissionString, TextChannel } from "discord.js";
 import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
+import { ChannelTypes } from "../utils/channelTypes";
 import { findOption } from "../utils/interactions";
 import { stripIndents } from "../utils/stripIndents";
 
@@ -48,9 +49,9 @@ export class ChannelInteraction extends InteractionCommand {
             .filter((elt) => elt !== "" && !isNaN(Number(elt)))
             .includes(channelID)
         )
-          return this.deferedError(interaction, "Dieser Kanal kann nicht gelöscht werden!");
+          return this.deferedError(interaction, `${ChannelTypes.get((channel as GuildChannel).type)} \`${channel?.name}\` kann nicht gelöscht werden!`);
 
-        interaction.editReply(`Lösche Kanal \`${(channel as TextChannel).name}\`!`);
+        interaction.editReply(`${ChannelTypes.get((channel as GuildChannel).type)} \`${channel?.name}\` wurde gelöscht!`);
         (channel as TextChannel).delete();
       },
     },
