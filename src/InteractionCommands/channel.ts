@@ -7,6 +7,7 @@
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
 import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
+import { stripIndents } from "../utils/stripIndents";
 
 export class ChannelInteraction extends InteractionCommand {
   name = "channel";
@@ -17,6 +18,11 @@ export class ChannelInteraction extends InteractionCommand {
       type: "SUB_COMMAND",
       description: "Lösche die Känale zur zugehörigen Kategorie und die Kategorie.",
       options: [{ required: true, name: "channel", description: "Welche Kanal soll gelöscht werden?", type: "CHANNEL" }],
+    },
+    {
+      name: "number",
+      type: "SUB_COMMAND",
+      description: "Wie viele Kanäle existieren gerade?",
     },
   ];
 
@@ -46,6 +52,26 @@ export class ChannelInteraction extends InteractionCommand {
 
         interaction.editReply(`Lösche Kanal \`${(channel as TextChannel).name}\`!`);
         (channel as TextChannel).delete();
+      },
+    },
+    {
+      name: "number",
+      execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {
+        await interaction.defer();
+
+        interaction.editReply(
+          stripIndents(`
+        \`\`\`Kategorien   => ${interaction.guild?.channels.cache.filter((c) => c.type === "category").size}
+        News-Kanäle  => ${interaction.guild?.channels.cache.filter((c) => c.type === "news").size}
+        Stage-Kanäle => ${interaction.guild?.channels.cache.filter((c) => c.type === "stage").size}
+        Store-Kanäle => ${interaction.guild?.channels.cache.filter((c) => c.type === "store").size} 
+        Textkanäle   => ${interaction.guild?.channels.cache.filter((c) => c.type === "text").size}
+        Sprachkanäle => ${interaction.guild?.channels.cache.filter((c) => c.type === "voice").size}
+        =========================
+        Gesamt       => ${interaction.guild?.channels.cache.size}
+        \`\`\` 
+        `),
+        );
       },
     },
   ];
