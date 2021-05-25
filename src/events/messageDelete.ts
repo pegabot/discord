@@ -7,6 +7,7 @@
 import { MessageEmbed } from "discord.js";
 import bot from "../bot";
 import { Event } from "../core/events/event";
+import { generateMessageDeletedKey } from "../utils/redis";
 
 export default new Event("messageDelete", (message) => {
   bot.client.emit("removeMessageFromDatabase", message.id);
@@ -17,11 +18,11 @@ export default new Event("messageDelete", (message) => {
     if (bot.config.ignoredChannels.split(",").includes(message.channel.id)) return;
   }
 
-  // @ts-ignore: the typings for LPOS do not exist
-  bot.redis.client.LPOS("deletedMessages", message.id, async (error: Error, index: ?number) => {
+  const key = generateMessageDeletedKey(message);
+  bot.redis.client.get(key, async (error: Error | null, value: string | null) => {
     if (error) throw error;
 
-    if (index) return;
+    if (value) return;
 
     await new Promise((res) => setTimeout(res, 500));
     const guild = message.guild;
