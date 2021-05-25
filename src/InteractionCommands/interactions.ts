@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, PermissionString } from "discord.js";
-import { InteractionCommand, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionSubcommand } from "../core/interactions/interactionCommand";
 
 export class InteractionsInteraction extends InteractionCommand {
   name = "interactions";
@@ -19,7 +19,7 @@ export class InteractionsInteraction extends InteractionCommand {
   ];
   permissions: PermissionString[] = ["ADMINISTRATOR"];
 
-  subcommands: Subcommand[] = [
+  subcommands: InteractionSubcommand[] = [
     {
       name: "uninstall",
       execute: async (interaction: CommandInteraction) => {

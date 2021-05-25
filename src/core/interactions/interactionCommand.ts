@@ -14,7 +14,7 @@ export enum InteractionCommandErrors {
   MISSING_PERMISSIONS = "Für diese Interaction fehlen die leider die nötigen Rechte!",
 }
 
-export interface Subcommand {
+export interface InteractionSubcommand {
   name: string;
   execute: (interaction: CommandInteraction, options?: CommandInteractionOption[]) => Promise<void | Message | APIMessage> | void;
 }
@@ -28,7 +28,7 @@ export abstract class InteractionCommand {
 
   options: ApplicationCommandOptionData[] = [];
 
-  subcommands: Subcommand[] = [];
+  subcommands: InteractionSubcommand[] = [];
 
   permissions: PermissionString[] = [];
   roles: String[] = [];

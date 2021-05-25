@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember } from "discord.js";
-import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class NicknameInteraction extends InteractionCommand {
@@ -25,7 +25,7 @@ export class NicknameInteraction extends InteractionCommand {
     },
   ];
 
-  subcommands: Subcommand[] = [
+  subcommands: InteractionSubcommand[] = [
     {
       name: "add",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {

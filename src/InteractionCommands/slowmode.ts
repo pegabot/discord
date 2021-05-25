@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, PermissionString, TextChannel } from "discord.js";
-import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class SlowmodeInteraction extends InteractionCommand {
@@ -26,7 +26,7 @@ export class SlowmodeInteraction extends InteractionCommand {
   ];
   permissions: PermissionString[] = ["MANAGE_CHANNELS"];
 
-  subcommands: Subcommand[] = [
+  subcommands: InteractionSubcommand[] = [
     {
       name: "hinzufügen",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void> => {

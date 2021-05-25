@@ -5,7 +5,7 @@
  */
 
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, GuildMember, PermissionString } from "discord.js";
-import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
 export class BanInteraction extends InteractionCommand {
@@ -28,7 +28,7 @@ export class BanInteraction extends InteractionCommand {
 
   permissions: PermissionString[] = ["BAN_MEMBERS"];
 
-  subcommands: Subcommand[] = [
+  subcommands: InteractionSubcommand[] = [
     {
       name: "add",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]) => {

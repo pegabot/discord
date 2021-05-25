@@ -7,7 +7,7 @@
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption, MessageEmbed, PermissionString, Role, TextChannel } from "discord.js";
 import { colors } from "../constants/colors";
 import { emojis } from "../constants/emojis";
-import { InteractionCommand, InteractionCommandErrors, Subcommand } from "../core/interactions/interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { WelcomemessageModel } from "../models/welcomemessage";
 import { findOption } from "../utils/interactions";
 import { stripIndents } from "../utils/stripIndents";
@@ -40,7 +40,7 @@ export class WelcomemessageInteraction extends InteractionCommand {
   ];
   permissions: PermissionString[] = ["MANAGE_GUILD"];
 
-  subcommands: Subcommand[] = [
+  subcommands: InteractionSubcommand[] = [
     {
       name: "create",
       execute: async (interaction: CommandInteraction, options?: CommandInteractionOption[]): Promise<void> => {

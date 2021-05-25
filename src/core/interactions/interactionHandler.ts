@@ -19,7 +19,7 @@ import { isProduction } from "../../utils/environment";
 import { getRolesByName, getRolesByPermissionsAndGuild } from "../../utils/permissions";
 import { walkSync } from "../../utils/walkSync";
 import { Bot } from "../bot";
-import { InteractionCommand, InteractionCommandErrors, Subcommand } from "./interactionCommand";
+import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "./interactionCommand";
 
 export class interactionHandler {
   interactions: Collection<string, InteractionCommand> = new Collection();
@@ -99,8 +99,8 @@ export class interactionHandler {
     }
 
     for (const option of InteractionCommand.options?.filter((option) => option.type === "SUB_COMMAND") || []) {
-      if (!InteractionCommand.subcommands?.map((subcommand) => subcommand.name).includes(option.name))
-        return `Der Subcommand ${option.name} für die Interaction ${InteractionCommand.name} wurde nicht implementiert!`;
+      if (!InteractionCommand.subcommands?.map((InteractionSubcommand) => InteractionSubcommand.name).includes(option.name))
+        return `Der InteractionSubcommand ${option.name} für die Interaction ${InteractionCommand.name} wurde nicht implementiert!`;
     }
   }
 
@@ -214,9 +214,9 @@ export class interactionHandler {
     if (!interaction.guild) return interaction.reply(InteractionCommandErrors.INTERNAL_ERROR, { ephemeral: true });
 
     const OptionsOfSubcommand = interaction.options.find((option) => option.type === "SUB_COMMAND");
-    let Subcommand: Subcommand | undefined;
+    let InteractionSubcommand: InteractionSubcommand | undefined;
     if (OptionsOfSubcommand) {
-      Subcommand = InteractionCommand.subcommands.find((_Subcommand) => _Subcommand.name === OptionsOfSubcommand.name);
+      InteractionSubcommand = InteractionCommand.subcommands.find((_Subcommand) => _Subcommand.name === OptionsOfSubcommand.name);
     }
 
     const interactionRoles = getRolesByPermissionsAndGuild(interaction.guild, InteractionCommand.permissions);
@@ -240,7 +240,9 @@ export class interactionHandler {
     entry.save();
 
     try {
-      Subcommand ? await Subcommand.execute(interaction, OptionsOfSubcommand?.options) : await InteractionCommand?.execute(interaction, interaction.options);
+      InteractionSubcommand
+        ? await InteractionSubcommand.execute(interaction, OptionsOfSubcommand?.options)
+        : await InteractionCommand?.execute(interaction, interaction.options);
     } catch (error) {
       interaction.deferred ? interaction.editReply(InteractionCommandErrors.INTERNAL_ERROR) : interaction.reply(InteractionCommandErrors.INTERNAL_ERROR);
 
