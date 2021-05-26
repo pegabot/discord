@@ -7,6 +7,7 @@
 import { config } from "dotenv";
 import express from "express";
 import * as path from "path";
+import { logRouter } from "./routes/log";
 config();
 
 const app = express();
@@ -24,6 +25,8 @@ app.get("/dice-rules", (_: express.Request, res: express.Response) => {
     "https://jaegers.net/tools-downloads-und-listen/tools/anleitung-zum-online-wuerfel-tool-rollbutler/anleitung-zum-online-wuerfel-tool-rollbutler-wuerfelvorschrift/",
   );
 });
+
+app.use("/logs", logRouter);
 
 app.use(express.static(path.resolve(__dirname, "static")));
 

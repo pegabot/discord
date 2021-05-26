@@ -5,8 +5,11 @@
  */
 
 import { MessageEmbed, TextChannel } from "discord.js";
+import { v4 as uuid } from "uuid";
+import bot from "../bot";
 import { colors } from "../constants/colors";
 import { isProduction } from "../utils/environment";
+import { getLogPrefix } from "../utils/redis";
 import { stripIndents } from "../utils/stripIndents";
 import { Bot } from "./bot";
 
@@ -55,27 +58,28 @@ export class LogHandler {
     );
   }
 
-  admin_error(msg: string, title?: string, footer?: string): void {
-    if (!isProduction()) console.error(msg, title);
+  admin_error(err: Error, title?: string, footer?: string): void {
+    if (!isProduction()) console.error(err, title);
+
+    const logId = uuid();
+    bot.redis.client.set(`${getLogPrefix()}${logId}`, JSON.stringify(err.stack, null, 2));
 
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(
       new MessageEmbed()
-        .setDescription(stripIndents(msg))
+        .setDescription(
+          stripIndents(
+            `❌ Ein Fehler ist aufgetreten:
+          ${isProduction() ? `https://pegabot.io/logs/${getLogPrefix()}${logId}` : `http://localhost/logs/${getLogPrefix()}${logId}`}
+          `,
+          ),
+        )
         .setTitle(title)
         .setTimestamp(Date.now())
         .setColor(colors.red)
         .setFooter(footer || ""),
     );
-  }
-
-  admin_error_embed(embed: MessageEmbed): void {
-    if (!isProduction()) console.error(embed);
-
-    const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
-    if (!channel) return;
-    (channel as TextChannel).send(stripIndents(embed));
   }
 
   console(msg: string): void {

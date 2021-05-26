@@ -4,7 +4,7 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Collection, Message, MessageEmbed, PermissionResolvable } from "discord.js";
+import { Collection, Message, PermissionResolvable } from "discord.js";
 import * as fs from "fs";
 import * as path from "path";
 import { emojis } from "../../constants/emojis";
@@ -190,19 +190,10 @@ export class CommandHandler {
         if (!isProduction()) msg.react(emojis.commandExecutedEmoji);
       } catch (e) {
         if (e instanceof CommandExecption) {
-          await msg.channel.send(`:x: ${e.message}`);
+          msg.channel.send(`:x: ${e.message}`);
         } else {
-          const embed = new MessageEmbed()
-            .setDescription(
-              `<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Verarbeiten vom Command \`${this.bot.config.prefix + command.name}\` von ${
-                msg.member
-              } in ${msg.channel}`,
-            )
-            .addField("Fehlermeldung", e.message || "Es ist keine Fehlermeldung vorhanden!");
-
-          this.bot.logger.admin_error_embed(embed);
-
-          await msg.channel.send(`<@${msg.author.id}> beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠`);
+          this.bot.logger.admin_error(e, `Fehler beim Verarbeiten vom Command ${this.bot.config.prefix + command.name}`);
+          msg.reply("Beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠");
         }
       }
     } else {

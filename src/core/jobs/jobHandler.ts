@@ -4,11 +4,10 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Collection, MessageEmbed } from "discord.js";
+import { Collection } from "discord.js";
 import fs from "fs";
 import path from "path";
 import prettyMs from "pretty-ms";
-import { isProduction } from "../../utils/environment";
 import { BaseExecption } from "../../utils/execptions";
 import { Bot } from "../bot";
 import { Job } from "./job";
@@ -73,11 +72,7 @@ export class JobHandler {
   }
 
   private handleExecption(error: BaseExecption, job: Job): void {
-    const embed = new MessageEmbed()
-      .setDescription(`<@&${this.bot.config.engineerRole}> Ein Fehler ist aufgetreten beim Verarbeiten des Jobs \`${job.name}\``)
-      .addField("Fehlermeldung", error.message || "Es ist keine Fehlermeldung vorhanden!");
-
-    this.bot.logger.admin_error_embed(embed);
+    this.bot.logger.admin_error(error, `Ein Fehler ist aufgetreten beim Verarbeiten des Jobs ${job.name}`);
 
     if (!error.ignore) {
       job.stopped = true;
