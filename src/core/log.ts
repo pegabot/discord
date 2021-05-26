@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 import bot from "../bot";
 import { colors } from "../constants/colors";
 import { isProduction } from "../utils/environment";
-import { getLogPrefix } from "../utils/redis";
+import { LogPrefix } from "../utils/redis";
 import { stripIndents } from "../utils/stripIndents";
 import { Bot } from "./bot";
 
@@ -62,20 +62,16 @@ export class LogHandler {
     if (!isProduction()) console.error(err, title);
 
     const logId = uuid();
-    bot.redis.client.set(`${getLogPrefix()}${logId}`, JSON.stringify(err.stack, null, 2));
+    bot.redis.client.set(`${LogPrefix}${logId}`, JSON.stringify(err.stack, null, 2));
 
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(
       new MessageEmbed()
         .setDescription(
-          stripIndents(
-            `❌ Ein Fehler ist aufgetreten:
-          ${isProduction() ? `https://pegabot.io/logs/${getLogPrefix()}${logId}` : `http://localhost/logs/${getLogPrefix()}${logId}`}
-          `,
-          ),
+          stripIndents(`${isProduction() ? `https://pegabot.pegasus.de/logs/${LogPrefix}${logId}` : `http://localhost/logs/${LogPrefix}${logId}`}`),
         )
-        .setTitle(title)
+        .setTitle(title || "Ein Fehler ist aufgetreten ❌")
         .setTimestamp(Date.now())
         .setColor(colors.red)
         .setFooter(footer || ""),

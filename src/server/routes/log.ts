@@ -7,14 +7,14 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import bot from "../../bot";
-import { getLogPrefix } from "../../utils/redis";
+import { LogPrefix } from "../../utils/redis";
 
 export const logRouter = express();
 
 logRouter.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  const regex = new RegExp(`${getLogPrefix()}.*`, "g");
+  const regex = new RegExp(`${LogPrefix}.*`, "g");
 
   if (!id.match(regex)) {
     return res.status(StatusCodes.FORBIDDEN).json({
