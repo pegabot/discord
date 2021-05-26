@@ -8,21 +8,20 @@ import { TextChannel } from "discord.js";
 import bot from "../bot";
 import { Bot } from "../core/bot";
 import { Event } from "../core/events/event";
-import { TwitchModel } from "../models/twitch";
 import { setDefault, setStreaming } from "../utils/presence";
 import { checkIfStreaming } from "../utils/twitch";
+
+const redisKey = "currentStreamer";
 
 let isHosting = false;
 let isStreaming = false;
 
 const sendNotification = (bot: Bot, name: string) => {
-  TwitchModel.findOne({}, null, null, (error, doc) => {
+  bot.redis.client.get(redisKey, (error, value) => {
     if (error) throw error;
 
-    if (doc?.name === name) return;
-    let newDoc = doc || new TwitchModel();
-    newDoc.name = name;
-    newDoc.save();
+    if (value === name) return;
+    bot.redis.client.set(redisKey, name);
 
     const guild = bot.client.guilds.cache.get(bot.config.guildId || "");
     const channel = guild?.channels.cache.get(bot.config.TWITCH_INFO_CHANNEL || "");
@@ -30,13 +29,8 @@ const sendNotification = (bot: Bot, name: string) => {
   });
 };
 
-const removeDocuments = () => {
-  TwitchModel.find({}, (error, docs) => {
-    if (error) throw error;
-    for (const doc of docs) {
-      doc.delete();
-    }
-  });
+const removeKey = () => {
+  bot.redis.client.del(redisKey);
 };
 
 export default new Event("handleTwitch", async (HosttargetMessage) => {
@@ -52,7 +46,7 @@ export default new Event("handleTwitch", async (HosttargetMessage) => {
     if (HosttargetMessage.wasHostModeExited()) {
       isHosting = false;
       setDefault(bot);
-      removeDocuments();
+      removeKey();
     }
   }
 
@@ -69,6 +63,6 @@ export default new Event("handleTwitch", async (HosttargetMessage) => {
     if (!isStreaming) return;
     isStreaming = false;
     setDefault(bot);
-    removeDocuments();
+    removeKey();
   }
 });
