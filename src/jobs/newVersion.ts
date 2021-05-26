@@ -4,9 +4,9 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
+import bot from "../bot";
 import { version } from "../constants/version";
 import { Job } from "../core/jobs/job";
-import { VersionModel } from "../models/version";
 import { versionGitHubLink } from "../utils/version";
 
 export class NewVersionJob extends Job {
@@ -15,19 +15,12 @@ export class NewVersionJob extends Job {
   async setup(): Promise<void> {
     if (version === "x.y.z") return;
 
-    const entries = await VersionModel.find({});
+    bot.redis.client.get("version", (error, value) => {
+      if (error) throw error;
+      if (value === version) return;
 
-    let entry;
-    if (entries.length > 0) {
-      if (entries[0].version === version) return;
-      entry = entries[0];
-      entry.version = version;
-    } else {
-      entry = new VersionModel({ version: version });
-    }
-
-    this.bot.logger.admin(`Es läuft eine neue Version: \`${version}\`  🎉 \n (${versionGitHubLink(version)})`);
-
-    entry.save();
+      bot.redis.client.set("version", version);
+      this.bot.logger.admin(`Es läuft eine neue Version: \`${version}\`  🎉 \n (${versionGitHubLink(version)})`);
+    });
   }
 }
