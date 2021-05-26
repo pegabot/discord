@@ -47,7 +47,7 @@ export class XcardInteraction extends InteractionCommand {
 
     if (response.message.match(/.*fehlgeschlagen.*/)) return;
 
-    replied.react(emojis.rollEmoji);
+    replied.react(emojis.diceEmoji);
 
     const entry = new RollsModel();
     entry.messageId = replied.id;

@@ -68,8 +68,8 @@ export class WelcomemessageInteraction extends InteractionCommand {
             .setTimestamp(Date.now())
             .setColor(colors.red),
         );
-        message.react(emojis.deRoleEmoji);
-        message.react(emojis.enRoleEmoji);
+        message.react(emojis.deEmoji);
+        message.react(emojis.enEmoji);
 
         const entry = new WelcomemessageModel();
         entry.messageId = message.id;

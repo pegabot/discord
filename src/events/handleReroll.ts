@@ -42,7 +42,7 @@ export default new Event("handleReroll", async (reaction, user) => {
       replied = await reaction.message.channel.send(embed);
     }
 
-    replied.react(emojis.rollEmoji);
+    replied.react(emojis.diceEmoji);
 
     const entry = new RollsModel();
     entry.messageId = replied.id;

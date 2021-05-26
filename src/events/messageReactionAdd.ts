@@ -31,16 +31,16 @@ export default new Event("messageReactionAdd", async (reaction, user) => {
   if (!(await users).has(bot.client.user?.id || "")) return;
 
   switch (reaction.emoji.name) {
-    case emojis.rollEmoji:
+    case emojis.diceEmoji:
       bot.client.emit("handleReroll", reaction, user as User);
       break;
-    case emojis.commandRepeatEmoji:
+    case emojis.repeatEmoji:
       bot.client.emit("handleCommandRepeat", reaction, user as User);
       break;
-    case emojis.deRoleEmoji:
+    case emojis.deEmoji:
       bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
       break;
-    case emojis.enRoleEmoji:
+    case emojis.enEmoji:
       bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
       break;
     default:

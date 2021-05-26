@@ -18,7 +18,7 @@ export default new Event("handleWelcomeMessage", (type, reaction, user) => {
 
     const { de_roleId, en_roleId } = entries[0];
 
-    const roleId = reaction.emoji.name === emojis.deRoleEmoji ? de_roleId : en_roleId;
+    const roleId = reaction.emoji.name === emojis.deEmoji ? de_roleId : en_roleId;
     const member = resolveMember(reaction.message as Message, user.id);
 
     if (!member) return;

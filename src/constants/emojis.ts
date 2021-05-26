@@ -5,11 +5,11 @@
  */
 
 export enum emojis {
-  commandRepeatEmoji = "🔁",
-  commandNotFoundEmoji = "❓",
-  commandExecutedEmoji = "✅",
-  rollEmoji = "🎲",
+  repeatEmoji = "🔁",
+  questionEmoji = "❓",
+  checkEmoji = "✅",
+  diceEmoji = "🎲",
   hugEmoji = "🤗",
-  deRoleEmoji = "🇩🇪",
-  enRoleEmoji = "🇺🇸",
+  deEmoji = "🇩🇪",
+  enEmoji = "🇺🇸",
 }

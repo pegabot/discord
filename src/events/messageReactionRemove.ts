@@ -31,10 +31,10 @@ export default new Event("messageReactionRemove", async (reaction, user) => {
   if (!(await users).has(bot.client.user?.id || "")) return;
 
   switch (reaction.emoji.name) {
-    case emojis.deRoleEmoji:
+    case emojis.deEmoji:
       bot.client.emit("handleWelcomeMessage", "remove", reaction, user as User);
       break;
-    case emojis.enRoleEmoji:
+    case emojis.enEmoji:
       bot.client.emit("handleWelcomeMessage", "remove", reaction, user as User);
       break;
     default:

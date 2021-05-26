@@ -185,9 +185,9 @@ export class CommandHandler {
       }
 
       try {
-        if (command.repeatable) msg.react(emojis.commandRepeatEmoji);
+        if (command.repeatable) msg.react(emojis.repeatEmoji);
         await command.execute(msg, args || []);
-        if (!isProduction()) msg.react(emojis.commandExecutedEmoji);
+        if (!isProduction()) msg.react(emojis.checkEmoji);
       } catch (e) {
         if (e instanceof CommandExecption) {
           msg.channel.send(`:x: ${e.message}`);
@@ -197,7 +197,7 @@ export class CommandHandler {
         }
       }
     } else {
-      msg.react(emojis.commandNotFoundEmoji);
+      msg.react(emojis.questionEmoji);
       msg.channel.send(`:x: Sorry, der Command \`${base}\` wurde nicht gefunden.`);
     }
   }
