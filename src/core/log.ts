@@ -8,8 +8,9 @@ import { MessageEmbed, TextChannel } from "discord.js";
 import { v4 as uuid } from "uuid";
 import bot from "../bot";
 import { colors } from "../constants/colors";
+import { emojis } from "../constants/emojis";
 import { isProduction } from "../utils/environment";
-import { LogPrefix } from "../utils/redis";
+import { LogMessagePrefix, LogPrefix } from "../utils/redis";
 import { stripIndents } from "../utils/stripIndents";
 import { Bot } from "./bot";
 
@@ -58,15 +59,16 @@ export class LogHandler {
     );
   }
 
-  admin_error(err: Error, title?: string, footer?: string): void {
+  async admin_error(err: Error, title?: string, footer?: string): Promise<void> {
     if (!isProduction()) console.error(err, title);
 
     const logId = uuid();
-    bot.redis.client.set(`${LogPrefix}${logId}`, JSON.stringify(err.stack, null, 2));
+    const logKey = `${LogPrefix}${logId}`;
+    bot.redis.client.set(logKey, JSON.stringify(err.stack, null, 2));
 
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
-    (channel as TextChannel).send(
+    const message = await (channel as TextChannel).send(
       new MessageEmbed()
         .setDescription(
           stripIndents(`${isProduction() ? `https://pegabot.pegasus.de/logs/${LogPrefix}${logId}` : `http://localhost/logs/${LogPrefix}${logId}`}`),
@@ -76,6 +78,9 @@ export class LogHandler {
         .setColor(colors.red)
         .setFooter(footer || ""),
     );
+
+    message.react(emojis.checkEmoji);
+    this.bot.redis.client.set(`${LogMessagePrefix}${message.id}`, logKey);
   }
 
   console(msg: string): void {

@@ -43,6 +43,9 @@ export default new Event("messageReactionAdd", async (reaction, user) => {
     case emojis.enEmoji:
       bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
       break;
+    case emojis.checkEmoji:
+      bot.client.emit("handleLogDeletion", reaction, user as User);
+      break;
     default:
       return;
   }

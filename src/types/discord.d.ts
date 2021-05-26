@@ -11,12 +11,13 @@ import { InteractionCommand } from "../core/interactions/interactionCommand";
 type handleWelcomeMessageTypes = "add" | "remove";
 
 interface CustomClientEvents extends ClientEvents {
-  removeMessageFromDatabase: [string];
-  handleReroll: [MessageReaction, User];
   handleCommandRepeat: [MessageReaction, User];
-  handleWelcomeMessage: [handleWelcomeMessageTypes, MessageReaction, User];
+  handleLogDeletion: [MessageReaction, User];
+  handleReroll: [MessageReaction, User];
   handleTwitch: [HosttargetMessage?];
+  handleWelcomeMessage: [handleWelcomeMessageTypes, MessageReaction, User];
   pruneChannel: [InteractionCommand, CommandInteraction, number];
+  removeMessageFromDatabase: [string];
 }
 
 export class CustomClient extends Client {

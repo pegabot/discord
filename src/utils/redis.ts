@@ -9,3 +9,4 @@ import { Message, PartialMessage } from "discord.js";
 export const generateMessageDeletedKey = (messageId: Message | PartialMessage) => `deleted-${messageId.id}`;
 
 export const LogPrefix = "log-";
+export const LogMessagePrefix = "logmessage-";
