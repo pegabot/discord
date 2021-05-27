@@ -198,7 +198,7 @@ export class CommandHandler {
       }
     } else {
       msg.react(emojis.questionEmoji);
-      msg.channel.send(`:x: Sorry, der Command \`${base}\` wurde nicht gefunden.`);
+      msg.reply(`:x: Sorry, der Command \`${base}\` wurde nicht gefunden.`);
     }
   }
 }
