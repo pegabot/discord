@@ -64,7 +64,7 @@ export class LogHandler {
 
     const logId = uuid();
     const logKey = `${LogPrefix}${logId}`;
-    bot.redis.client.set(logKey, JSON.stringify(err.stack, null, 2));
+    bot.redis.client.set(logKey, JSON.stringify(err.stack));
 
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;

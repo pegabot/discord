@@ -60,6 +60,7 @@ export class interactionHandler {
         const importedInteractionCommands: any = require(_interaction);
         const interaction: InteractionCommand = importedInteractionCommands[Object.keys(importedInteractionCommands)[0]];
         if (!interaction) continue;
+        if (isProduction() && interaction.developmentOnly) continue;
         this.loadInteractionCommand(interaction);
       } catch (err) {
         throw err;

@@ -26,6 +26,8 @@ export abstract class InteractionCommand {
   abstract name: string;
   abstract description: string;
 
+  developmentOnly = false;
+
   options: ApplicationCommandOptionData[] = [];
 
   subcommands: InteractionSubcommand[] = [];
