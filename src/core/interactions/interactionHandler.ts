@@ -54,13 +54,11 @@ export class interactionHandler {
     const files = walkSync(_interactions, path.join(__dirname, "../../InteractionCommands"));
 
     for (const _interaction of files.filter((file) => !/.*map/.test(file))) {
-      const category = path.dirname(_interaction).split(path.sep).pop() || [];
-
       try {
         const importedInteractionCommands: any = require(_interaction);
         const interaction: InteractionCommand = importedInteractionCommands[Object.keys(importedInteractionCommands)[0]];
         if (!interaction) continue;
-        if (isProduction() && interaction.developmentOnly) continue;
+
         this.loadInteractionCommand(interaction);
       } catch (err) {
         throw err;
@@ -75,6 +73,8 @@ export class interactionHandler {
   private loadInteractionCommand(ImportedInteractionCommand: InteractionCommand) {
     const _interactionCommand: any = ImportedInteractionCommand;
     const interactionCommand: InteractionCommand = new _interactionCommand(this.bot);
+
+    if (isProduction() && interactionCommand.developmentOnly) return;
 
     const { name } = interactionCommand;
     const error = this.checkInteractionCommand(interactionCommand);
