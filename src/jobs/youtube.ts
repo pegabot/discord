@@ -35,9 +35,7 @@ export class YouTubeJob extends Job {
       const channel = guild.channels.cache.get(this.bot.config.YOUTUBE_CHANNEL || "");
       if (!channel) return;
 
-      (channel as TextChannel).send(
-        `Hallo liebe **${guild.name}** Mitglieder, **${channelInfos.raw.snippet.title}** hat gerade ein neues Video auf YouTube veröffentlicht! \n ${video.link}`,
-      );
+      (channel as TextChannel).send(`Auf unserem YoutTube Kanal ist eben ein neues Video aufgetaucht. Schaut vorbei! \n ${video.link}`);
     }
   }
 }
