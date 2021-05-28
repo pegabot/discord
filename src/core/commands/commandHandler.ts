@@ -114,21 +114,21 @@ export class CommandHandler {
 
     const command = findCommand(this.cmds, base);
 
-    let pass = false;
-    for (const role of msg.member?.roles.cache.array() || []) {
-      if (
-        getRolesByPermissionsAndGuild(msg.guild, ["ADMINISTRATOR"])
-          .map((role) => role.name)
-          .includes(role.name)
-      )
-        pass = true;
-    }
-
-    if (command?.everyone) pass = true;
-
-    if (!pass) return msg.reply("Du besitzt leider nicht die entsprechenden Rechte!");
-
     if (command) {
+      let pass = false;
+      for (const role of msg.member?.roles.cache.array() || []) {
+        if (
+          getRolesByPermissionsAndGuild(msg.guild, ["ADMINISTRATOR"])
+            .map((role) => role.name)
+            .includes(role.name)
+        )
+          pass = true;
+      }
+
+      if (command?.everyone) pass = true;
+
+      if (!pass) return msg.reply("Du besitzt leider nicht die entsprechenden Rechte!");
+
       const entry = new LogModel();
       const c: ILogCommand = cloneClass(command);
       delete c.bot;
