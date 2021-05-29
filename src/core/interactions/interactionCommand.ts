@@ -11,7 +11,7 @@ import { Bot } from "../bot";
 export enum InteractionCommandErrors {
   INTERNAL_ERROR = "Ein Fehler ist aufgetreten, bitte versuche es später erneut!",
   INVALID_OPTIONS = "Deine Eingabe scheint fehlerhaft, bitte überprüfe diese noch Einmal!",
-  MISSING_PERMISSIONS = "Für diese Interaction fehlen die leider die nötigen Rechte!",
+  MISSING_PERMISSIONS = "Für diese Interaction fehlen dir leider die nötigen Rechte!",
 }
 
 export interface InteractionSubcommand {
