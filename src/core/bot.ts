@@ -13,8 +13,8 @@ import { MongoConnector } from "./databases/mongodb";
 import { RedisConnector } from "./databases/redis";
 import { EventHandler } from "./events/eventHandler";
 import { interactionHandler } from "./interactions/interactionHandler.js";
-import { JobHandler } from "./jobs/jobHandler";
 import { LogHandler } from "./log";
+import { TaskHandler } from "./tasks/taskHandler";
 config();
 
 export class Bot {
@@ -28,7 +28,7 @@ export class Bot {
 
   logger = new LogHandler(this);
 
-  jobs = new JobHandler(this);
+  tasks = new TaskHandler(this);
   events = new EventHandler(this);
   commands = new CommandHandler(this);
   interactions = new interactionHandler(this);

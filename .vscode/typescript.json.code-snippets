@@ -7,7 +7,7 @@
       "\t$0",
       "}}"
     ],
-    "description": "Generate a Bot Command."
+    "description": "Generate a Command."
   },
   "Bot Interaction": {
     "prefix": ["Interaction"],
@@ -23,7 +23,7 @@
       "\t$0",
       "}}"
     ],
-    "description": "Generate a Bot Command."
+    "description": "Generate an Interaction Command."
   },
   "Bot Event": {
     "prefix": ["Event"],
@@ -32,17 +32,17 @@
       "import { Event } from '../core/events/event';\n",
       "export default new Event('', () => {}); "
     ],
-    "description": "Generate a Bot Command."
+    "description": "Generate an Event."
   },
-  "Bot Job": {
-    "prefix": ["Job"],
+  "Bot Task": {
+    "prefix": ["Task"],
     "body": [
-      "import { Job } from '../core/jobs/job';\n",
-      "export class ${2: className} extends Job {\t async setup(): Promise<void>  {",
+      "import { Task } from '../core/tasks/task';\n",
+      "export class ${2: className} extends Task {\t async setup(): Promise<void>  {",
       "\t$0", "}","\t async execute(): Promise<void> {",
       "}}"
     ],
-    "description": "Generate a Bot Command."
+    "description": "Generate a Task."
   },
   "Header": {
     "prefix": ["Header"],

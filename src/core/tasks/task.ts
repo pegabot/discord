@@ -6,7 +6,7 @@
 
 import { Bot } from "../bot";
 
-export abstract class Job {
+export abstract class Task {
   abstract name: string;
   env?: string;
   interval?: number;

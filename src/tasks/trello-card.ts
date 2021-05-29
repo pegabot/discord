@@ -5,14 +5,14 @@
  */
 
 import { CategoryChannel, TextChannel } from "discord.js";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { TrelloCardModel } from "../models/trelloCard";
 import { isProduction } from "../utils/environment";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../lib/trello/main");
 
-export class TrelloCardJob extends Job {
+export class TrelloCardTask extends Task {
   name = "Trello Runden in den Rundenaushang schicken";
   env = "trello";
   interval = 30000;

@@ -5,12 +5,12 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../lib/trello/main");
 
-export class TrelloReminderJob extends Job {
+export class TrelloReminderTask extends Task {
   name = "Trello Reminder in den Rundenaushang schicken";
   env = "trello";
   interval = 30000;

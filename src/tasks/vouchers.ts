@@ -4,11 +4,11 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { SessionModel, VoucherModel } from "../models/quiz";
 import { stripIndents } from "../utils/stripIndents";
 
-export class VoucherJob extends Job {
+export class VoucherTask extends Task {
   name = "Versende Vouchers";
   env = "voucher";
   interval = 20000;

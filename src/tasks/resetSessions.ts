@@ -4,11 +4,11 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { SessionModel } from "../models/quiz";
 import { stripIndents } from "../utils/stripIndents";
 
-export class ResetSessionJob extends Job {
+export class ResetSessionTask extends Task {
   name = "Session zurücksetzen";
   env = "sessionreset";
   interval = 20000;

@@ -6,11 +6,11 @@
 
 import { TextChannel } from "discord.js";
 import Twit from "twit";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 
 const TWITTER_IDs = ["70936290", "2343758174"]; // @pegasusspiele, @GRT_Orga
 
-export class twitterJob extends Job {
+export class TwitterTask extends Task {
   name = "Streame Tweets live von Twitter";
 
   twitter = new Twit({

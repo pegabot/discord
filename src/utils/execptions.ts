@@ -15,7 +15,7 @@ export class CommandExecption implements BaseExecption {
   constructor(public message: string) {}
 }
 
-export class JobExecption implements BaseExecption {
-  name = "JobExecption";
+export class TaskExecption implements BaseExecption {
+  name = "TaskExecption";
   constructor(public message: string, public ignore: boolean = false) {}
 }

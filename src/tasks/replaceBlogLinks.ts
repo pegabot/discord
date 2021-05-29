@@ -6,10 +6,10 @@
 
 import bent from "bent";
 import { TextChannel } from "discord.js";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 
-export class ReplaceBlogLinksJob extends Job {
+export class ReplaceBlogLinksTask extends Task {
   name = "Pegaus-Blog Links in Nachrichten austauschen";
   env = "blog";
   interval = 1000 * 60 * 60 * 5; // Milliseconds * Seconds * Minutes * Hours

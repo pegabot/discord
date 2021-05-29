@@ -4,10 +4,10 @@
  * (see https://github.com/pegabot/discord/blob/main/LICENSE for details)
  */
 
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { LevelModel } from "../models/levels";
 
-export class LevelAddUserJob extends Job {
+export class LevelAddUserTask extends Task {
   name = "Füge Mitglieder zu Level Dokumenten hinzu";
   interval = 60000;
 

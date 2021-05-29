@@ -6,10 +6,10 @@
 
 import bot from "../bot";
 import { version } from "../constants/version";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { versionGitHubLink } from "../utils/version";
 
-export class NewVersionJob extends Job {
+export class NewVersionTask extends Task {
   name = "Info bei neuer Version";
 
   async setup(): Promise<void> {

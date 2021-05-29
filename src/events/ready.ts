@@ -13,7 +13,7 @@ import { setDefault } from "../utils/presence";
 export default new Event("ready", () => {
   bot.commands.loadCommands();
   bot.interactions.loadInterationCommands();
-  bot.jobs.loadJobs();
+  bot.tasks.loadTasks();
 
   const message = `${bot.client.user?.username}#${bot.client.user?.discriminator} ist ready!
       -------------------------------
@@ -24,7 +24,7 @@ export default new Event("ready", () => {
         ${bot.commands.size} Command(s) geladen 🤖
         ${bot.MongoConnector?.size} Models(s) geladen 🧭
         ${bot.events?.size} Event(s) geladen 🎟
-        ${bot.jobs?.size} Job(s) aktiviert ⚙️`;
+        ${bot.tasks?.size} Tasks(s) aktiviert ⚙️`;
 
   bot.logger.console(message);
   if (isProduction()) {

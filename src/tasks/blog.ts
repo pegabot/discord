@@ -5,14 +5,14 @@
  */
 
 import { TextChannel } from "discord.js";
-import { Job } from "../core/jobs/job";
+import { Task } from "../core/tasks/task";
 import { BlogPostModel } from "../models/blog";
 import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
-import { JobExecption } from "../utils/execptions";
+import { TaskExecption } from "../utils/execptions";
 import { getRequest } from "../utils/shopApi";
 import { slugify } from "../utils/slugify";
 
-export class BlogJob extends Job {
+export class BlogTask extends Task {
   name = "Suche nach neuen Blogbeiträgen";
   env = "blog";
   interval = 60000;
@@ -28,7 +28,7 @@ export class BlogJob extends Job {
       );
       entries = data;
     } catch (e) {
-      throw new JobExecption(e, true);
+      throw new TaskExecption(e, true);
     }
 
     const current_blogPosts = await BlogPostModel.find({});
