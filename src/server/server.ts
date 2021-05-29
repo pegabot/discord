@@ -8,6 +8,7 @@ import { config } from "dotenv";
 import express from "express";
 import * as path from "path";
 import { logRouter } from "./routes/log";
+import { shortenerRouter } from "./routes/short";
 config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.get("/dice-rules", (_: express.Request, res: express.Response) => {
 });
 
 app.use("/logs", logRouter);
+app.use("/s", shortenerRouter);
 
 app.use(express.static(path.resolve(__dirname, "static")));
 

@@ -7,14 +7,14 @@
 import { TextChannel } from "discord.js";
 import bot from "../bot";
 import { Event } from "../core/events/event";
-import { LogMessagePrefix } from "../utils/redis";
+import { generateErrorLogKey } from "../utils/redis";
 
 export default new Event("handleLogDeletion", (reaction, user) => {
-  bot.redis.client.get(`${LogMessagePrefix}${reaction.message.id}`, async (error, logKey) => {
+  bot.redis.client.get(`${generateErrorLogKey(reaction.message.id)}`, async (error, logKey) => {
     if (error) throw error;
     if (!logKey) return;
 
-    bot.redis.client.del(`${LogMessagePrefix}${reaction.message.id}`);
+    bot.redis.client.del(`${generateErrorLogKey(reaction.message.id)}`);
     bot.redis.client.del(logKey);
 
     try {

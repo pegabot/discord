@@ -10,7 +10,7 @@ import bot from "../bot";
 import { colors } from "../constants/colors";
 import { emojis } from "../constants/emojis";
 import { isProduction } from "../utils/environment";
-import { LogMessagePrefix, LogPrefix } from "../utils/redis";
+import { generateErrorLogKey, generateLogKey } from "../utils/redis";
 import { stripIndents } from "../utils/stripIndents";
 import { Bot } from "./bot";
 
@@ -63,16 +63,14 @@ export class LogHandler {
     if (!isProduction()) console.error(err, title);
 
     const logId = uuid();
-    const logKey = `${LogPrefix}${logId}`;
+    const logKey = generateLogKey(logId);
     bot.redis.client.set(logKey, JSON.stringify(err.stack));
 
     const channel = this.bot.client.channels.resolve(this.bot.config.errorChannel || "");
     if (!channel) return;
     const message = await (channel as TextChannel).send(
       new MessageEmbed()
-        .setDescription(
-          stripIndents(`${isProduction() ? `https://pegabot.pegasus.de/logs/${LogPrefix}${logId}` : `http://localhost/logs/${LogPrefix}${logId}`}`),
-        )
+        .setDescription(stripIndents(`${isProduction() ? `https://pegabot.pegasus.de/logs/${logId}` : `http://localhost/logs/${logId}`}`))
         .setTitle(title || "Ein Fehler ist aufgetreten ❌")
         .setTimestamp(Date.now())
         .setColor(colors.red)
@@ -80,7 +78,7 @@ export class LogHandler {
     );
 
     message.react(emojis.checkEmoji);
-    this.bot.redis.client.set(`${LogMessagePrefix}${message.id}`, logKey);
+    this.bot.redis.client.set(`${generateErrorLogKey(message.id)}`, logKey);
   }
 
   console(msg: string): void {

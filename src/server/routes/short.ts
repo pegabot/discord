@@ -7,22 +7,20 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import bot from "../../bot";
-import { generateLogKey } from "../../utils/redis";
+import { generateShortUrlKey } from "../../utils/redis";
 
-export const logRouter = express();
+export const shortenerRouter = express();
 
-logRouter.get("/:id", (req, res) => {
+shortenerRouter.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  bot.redis.client.get(generateLogKey(id) as string, (error, value) => {
+  bot.redis.client.get(generateShortUrlKey(id) as string, (error, value) => {
     if (error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
 
     if (!value) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: `Entry with id: ${id} was not found`,
-      });
+      return res.redirect("https://pegabot.pegasus.de");
     }
 
-    return res.status(StatusCodes.OK).json({ message: "Success", data: value });
+    return res.redirect(value);
   });
 });
