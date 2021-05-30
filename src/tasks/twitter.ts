@@ -26,8 +26,6 @@ export class TwitterTask extends Task {
     });
 
     stream.on("tweet", (tweet: Twit.Twitter.Status) => {
-      if (tweet.in_reply_to_status_id !== null || tweet.retweeted_status !== null) return;
-
       const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
       if (!guild) return;
 
