@@ -5,13 +5,16 @@
  */
 
 import { TextChannel } from "discord.js";
+import { CallbackError } from "mongoose";
 import Twit from "twit";
 import { Task } from "../core/tasks/task";
+import { TweetModel } from "../models/tweet";
 
-const TWITTER_IDs = ["70936290", "2343758174"]; // @pegasusspiele, @GRT_Orga
+const TWITTER_USER = ["pegasusspiele", "GRT2014"];
 
 export class TwitterTask extends Task {
-  name = "Streame Tweets live von Twitter";
+  name = "Checke auf neue Tweets";
+  interval = 20000;
 
   twitter = new Twit({
     consumer_key: this.bot.config.TWITTER_CONSUMER_KEY || "",
@@ -20,23 +23,49 @@ export class TwitterTask extends Task {
     access_token_secret: this.bot.config.TWITTER_TOKEN_SECRET,
   });
 
-  setup(): void {
-    const stream = this.twitter.stream("statuses/filter", {
-      follow: TWITTER_IDs,
-    });
+  execute(): void {
+    this.twitter.get("search/tweets", { q: `from:${TWITTER_USER.join(" OR ")}` }, async (error, data: any, response) => {
+      if (error) throw error;
 
-    stream.on("tweet", (tweet: Twit.Twitter.Status) => {
-      const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
-      if (!guild) return;
+      const statuses = data.statuses;
 
-      const channel = guild.channels.cache.get(this.bot.config.TWITTER_CHANNEL || "");
-      if (!channel) return;
+      if (statuses.length < 1) return;
 
-      (channel as TextChannel).send(
-        `Hallo liebe **${guild.name}** Mitglieder, **@${
-          tweet.user.screen_name
-        }** hat gerade einen neuen Tweet gepostet! \n ${`https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`}`,
-      );
+      TweetModel.find({}, (error, current_tweets) => {
+        if (error) return;
+
+        const entries = statuses
+          .filter(
+            (elt: Twit.Twitter.Status) =>
+              !current_tweets.map((elt) => elt.id).includes(elt.id_str) &&
+              TWITTER_USER.includes(elt.user.screen_name) &&
+              elt.retweeted_status === undefined &&
+              elt.in_reply_to_status_id === null,
+          )
+          .sort((a: Twit.Twitter.Status, b: Twit.Twitter.Status) => new Date(a.created_at).valueOf() - new Date(b.created_at).valueOf());
+
+        for (const tweet of entries) {
+          const Tweet = new TweetModel();
+          Tweet.id = tweet.id_str;
+          Tweet.created = tweet.created_at;
+          Tweet.username = tweet.user.screen_name;
+          Tweet.url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
+          Tweet.retweet = tweet.retweeted_status !== undefined;
+          Tweet.save((error: CallbackError) => {
+            if (error) {
+              throw error;
+            }
+            const guild = this.bot.client.guilds.cache?.get(this.bot.config.guildId || "");
+            if (!guild) return;
+
+            const channel = guild.channels.cache.get(this.bot.config.TWITTER_CHANNEL || "");
+            if (!channel) return;
+            (channel as TextChannel).send(
+              `Hallo liebe **${guild.name}** Mitglieder, **@${Tweet.username}** hat gerade einen neuen Tweet gepostet! \n ${Tweet.url}`,
+            );
+          });
+        }
+      });
     });
   }
 }

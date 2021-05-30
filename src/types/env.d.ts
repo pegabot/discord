@@ -22,6 +22,7 @@ declare namespace NodeJS {
     ignoredChannels: string;
     ignoredCategories: string;
     TENOR_API_KEY: string;
+    enable_twitter: string;
     TWITTER_CHANNEL: string;
     TWITTER_CONSUMER_KEY: string;
     TWITTER_CONSUMER_SECRET: string;
