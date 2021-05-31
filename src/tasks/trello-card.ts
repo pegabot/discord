@@ -211,10 +211,10 @@ export class TrelloCardTask extends Task {
 
         (channel as TextChannel).send(url);
         if (attachmentUrl) (channel as TextChannel).send(attachmentUrl);
-        this.trello.addCommentToCard(cardId, "Eine entsprechende Benachrichtigung wurde in den Rundenaushang geschickt.");
+        if (isProduction()) this.trello.addCommentToCard(cardId, "Eine entsprechende Benachrichtigung wurde in den Rundenaushang geschickt.");
 
         this.trello.updateCustomFieldOnCard(cardId, "5ff4e85340aee5734ae67a76", { checked: "true" });
-        this.trello.addCommentToCard(cardId, "Die Kanäle wurden erfolgreich angelegt.");
+        if (isProduction()) this.trello.addCommentToCard(cardId, "Die Kanäle wurden erfolgreich angelegt.");
 
         const TrelloCard = new TrelloCardModel();
         TrelloCard.cardId = cardId;

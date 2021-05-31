@@ -6,6 +6,7 @@
 
 import { TextChannel } from "discord.js";
 import { Task } from "../core/tasks/task";
+import { isProduction } from "../utils/environment";
 import { getAttachment, getCustomFieldItemsOnBoard } from "../utils/trello";
 
 const Trello = require("../../lib/trello/main");
@@ -49,7 +50,8 @@ export class TrelloReminderTask extends Task {
       (channel as TextChannel).send(url);
       if (attachmentUrl) (channel as TextChannel).send(attachmentUrl);
 
-      this.trello.addCommentToCard(cardId, "Eine entsprechende Benachrichtigung wurde in den Rundenaushang geschickt.");
+      if (isProduction()) this.trello.addCommentToCard(cardId, "Eine entsprechende Benachrichtigung wurde in den Rundenaushang geschickt.");
+
       this.trello.updateCustomFieldOnCard(cardId, fieldId, { checked: "false" });
     }
   }
