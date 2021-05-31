@@ -45,13 +45,13 @@ export class SpielrundenInteraction extends InteractionCommand {
           required: true,
           name: "start",
           type: "STRING",
-          description: "Wann startet deine Runde?",
+          description: "Wann startet deine Runde (bsp: 31.05.2021 18:00)?",
         },
         {
           required: true,
           name: "ende",
           type: "STRING",
-          description: "Wann endet deine Runde?",
+          description: "Wann endet deine Runde (bsp: 31.05.2021 18:00)?",
         },
         {
           required: true,
