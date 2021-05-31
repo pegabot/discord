@@ -24,7 +24,7 @@ export class SpielrundenInteraction extends InteractionCommand {
           required: true,
           name: "titel",
           type: "STRING",
-          description: "Gebe deiner Spielrunde einen Namen",
+          description: "Gib deiner Spielrunde einen Titel",
         },
         {
           required: true,
@@ -43,6 +43,12 @@ export class SpielrundenInteraction extends InteractionCommand {
         },
         {
           required: true,
+          name: "setting",
+          type: "STRING",
+          description: " In welchem Setting spielt dein Abenteuer?",
+        },
+        {
+          required: true,
           name: "start",
           type: "STRING",
           description: "Wann startet deine Runde (bsp: 31.05.2021 18:00)?",
@@ -57,7 +63,7 @@ export class SpielrundenInteraction extends InteractionCommand {
           required: true,
           name: "beschreibung",
           type: "STRING",
-          description: "Beschreibe deine Runde kurz",
+          description: "Worum geht es in dem Abenteuer, das gespielt wird?",
         },
         {
           required: false,
@@ -86,18 +92,20 @@ export class SpielrundenInteraction extends InteractionCommand {
         const title = findOption(options, "titel")?.value?.toString();
         const players = Number(findOption(options, "spieler")?.value?.toString());
         const system = findOption(options, "system")?.value?.toString();
+        const setting = findOption(options, "setting")?.value?.toString();
         const start = findOption(options, "start")?.value?.toString();
         const end = findOption(options, "ende")?.value?.toString();
         const desc = findOption(options, "beschreibung")?.value?.toString();
         const notes = findOption(options, "hinweise")?.value?.toString();
         const requirements = findOption(options, "voraussetzungen")?.value?.toString();
 
-        if (!title || !players || !system || !start || !end || !desc) return this.error(interaction, InteractionCommandErrors.INVALID_OPTIONS);
+        if (!title || !players || !system || !setting || !start || !end || !desc) return this.error(interaction, InteractionCommandErrors.INVALID_OPTIONS);
 
         const card: Card = {
           title: title,
           desc: desc,
           players: players,
+          setting: setting,
           gamemaster: interaction.user.tag,
           notes: notes || "keine",
           requirements: requirements || "keine",
