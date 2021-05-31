@@ -7,6 +7,7 @@
 import axios from "axios";
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
 import { Card } from "rundenanmeldung/src/types/trello";
+import { pnpSystems } from "rundenanmeldung/ui/src/constants/pnp.json";
 import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -35,10 +36,9 @@ export class SpielrundenInteraction extends InteractionCommand {
           required: true,
           name: "system",
           type: "STRING",
-          choices: [
-            { name: "Cthulhu", value: "Cthulhu" },
-            { name: "Shadowrun", value: "Shadowrun" },
-          ],
+          choices: pnpSystems.map((elt) => {
+            return { name: elt, value: elt };
+          }),
           description: "Welches System bietest du an?",
         },
         {
