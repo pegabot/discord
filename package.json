@@ -24,6 +24,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
     "@sindresorhus/slugify": "^1.1.0",
+    "axios": "^0.21.1",
     "basic-authorization-header": "^0.2.7",
     "bent": "^7.3.12",
     "canvas": "^2.8.0",
@@ -48,6 +49,7 @@
     "redis": "^3.1.2",
     "restler": "~3.4.0",
     "rss-parser": "^3.12.0",
+    "rundenanmeldung": "https://github.com/pegabot/rundenanmeldung#6fabb22d5322a7332d86089653c2f07778db58c4",
     "shortid": "^2.2.16",
     "simple-youtube-api": "^5.2.1",
     "twit": "^2.2.11",
