@@ -7,7 +7,6 @@
 import axios from "axios";
 import { ApplicationCommandOptionData, CommandInteraction, CommandInteractionOption } from "discord.js";
 import { Card } from "rundenanmeldung/src/types/trello";
-import { pnpSystems } from "rundenanmeldung/ui/src/constants/pnp.json";
 import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
@@ -36,9 +35,6 @@ export class SpielrundenInteraction extends InteractionCommand {
           required: true,
           name: "system",
           type: "STRING",
-          choices: pnpSystems.map((elt) => {
-            return { name: elt, value: elt };
-          }),
           description: "Welches System bietest du an?",
         },
         {
@@ -49,21 +45,21 @@ export class SpielrundenInteraction extends InteractionCommand {
         },
         {
           required: true,
-          name: "start",
+          name: "datum",
           type: "STRING",
-          description: "Wann startet deine Runde (bsp: 31.05.2021 18:00)?",
-        },
-        {
-          required: true,
-          name: "ende",
-          type: "STRING",
-          description: "Wann endet deine Runde (bsp: 31.05.2021 18:00)?",
+          description: "Wann startet deine Spielrunde und wie lange geht sie (tag.monat.jahr stunde.minute (Spieldauer)?",
         },
         {
           required: true,
           name: "beschreibung",
           type: "STRING",
           description: "Worum geht es in dem Abenteuer, das gespielt wird?",
+        },
+        {
+          required: false,
+          name: "tisch",
+          type: "STRING",
+          description: "Wie lautet dein Tisch (wenn du keinen hast, lass dieses Feld leer)?",
         },
         {
           required: false,
@@ -93,13 +89,13 @@ export class SpielrundenInteraction extends InteractionCommand {
         const players = Number(findOption(options, "spieler")?.value?.toString());
         const system = findOption(options, "system")?.value?.toString();
         const setting = findOption(options, "setting")?.value?.toString();
-        const start = findOption(options, "start")?.value?.toString();
-        const end = findOption(options, "ende")?.value?.toString();
+        const date = findOption(options, "datum")?.value?.toString();
         const desc = findOption(options, "beschreibung")?.value?.toString();
+        const table = findOption(options, "tisch")?.value?.toString();
         const notes = findOption(options, "hinweise")?.value?.toString();
         const requirements = findOption(options, "voraussetzungen")?.value?.toString();
 
-        if (!title || !players || !system || !setting || !start || !end || !desc) return this.error(interaction, InteractionCommandErrors.INVALID_OPTIONS);
+        if (!title || !players || !system || !setting || !date || !desc) return this.error(interaction, InteractionCommandErrors.INVALID_OPTIONS);
 
         const card: Card = {
           title: title,
@@ -110,7 +106,8 @@ export class SpielrundenInteraction extends InteractionCommand {
           notes: notes || "keine",
           requirements: requirements || "keine",
           system: system,
-          date: `${start}  - ${end}`,
+          date: date,
+          table: table || "nicht vorhanden",
         };
 
         try {

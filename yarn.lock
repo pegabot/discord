@@ -1853,11 +1853,6 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
-dotenv@^9.0.2:
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-9.0.2.tgz#dacc20160935a37dea6364aa1bef819fb9b6ab05"
-  integrity sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==
-
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -4555,12 +4550,12 @@ rsvp@^4.8.4:
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
 
-"rundenanmeldung@https://github.com/pegabot/rundenanmeldung#a3b2b2af8740f177f8366d256994b61421c13ceb":
+"rundenanmeldung@https://github.com/pegabot/rundenanmeldung#fd621f1d033de69e0dd240f30fe03529d54add01":
   version "0.0.1"
-  resolved "https://github.com/pegabot/rundenanmeldung#a3b2b2af8740f177f8366d256994b61421c13ceb"
+  resolved "https://github.com/pegabot/rundenanmeldung#fd621f1d033de69e0dd240f30fe03529d54add01"
   dependencies:
     body-parser "^1.19.0"
-    dotenv "^9.0.2"
+    dotenv "^10.0.0"
     express "^4.17.1"
     express-rate-limit "^5.2.6"
     find-config "^1.0.0"

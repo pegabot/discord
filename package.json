@@ -49,7 +49,7 @@
     "redis": "^3.1.2",
     "restler": "~3.4.0",
     "rss-parser": "^3.12.0",
-    "rundenanmeldung": "https://github.com/pegabot/rundenanmeldung#a3b2b2af8740f177f8366d256994b61421c13ceb",
+    "rundenanmeldung": "https://github.com/pegabot/rundenanmeldung#fd621f1d033de69e0dd240f30fe03529d54add01",
     "shortid": "^2.2.16",
     "simple-youtube-api": "^5.2.1",
     "twit": "^2.2.11",
