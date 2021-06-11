@@ -309,28 +309,28 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@discordjs/node-pre-gyp@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@discordjs/node-pre-gyp/-/node-pre-gyp-0.3.2.tgz#e882e803b2be444fb557c3b46d9bbe75a053bc9c"
-  integrity sha512-NqRvPz0X+/3h+6ClElrSfvsD5XEG9ljYzXhzyo81DslVkVKzmmxX9FLs3MUr9qI7p53DG1eYru633qosrOqMyA==
+"@discordjs/node-pre-gyp@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@discordjs/node-pre-gyp/-/node-pre-gyp-0.4.0.tgz#32740b1ff362c86a280877df9637313c7bf250ee"
+  integrity sha512-CXLpoM2hgS94i9+EAVowR92y8o3KdKc9fmoe8/FTp5XTzvoXzJln3+Ctl0oBpE6c9+11zd9oJnZPdkkOBkDPSA==
   dependencies:
     detect-libc "^1.0.3"
-    http-proxy-agent "^4.0.1"
+    https-proxy-agent "^5.0.0"
     make-dir "^3.1.0"
     node-fetch "^2.6.1"
     nopt "^5.0.0"
     npmlog "^4.1.2"
     rimraf "^3.0.2"
-    semver "^7.3.4"
+    semver "^7.3.5"
     tar "^6.1.0"
 
-"@discordjs/opus@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@discordjs/opus/-/opus-0.5.0.tgz#26ae9f30d52c03ce1671b1db8eec957206fdf92b"
-  integrity sha512-s3XUJ7dYV+UvYUiqkgs7sq8JKWMhQrHcwDECP2SKdxtL9h9qGa4mr0IR6XnZw+G/Sogx8c+HRS7+wEspkqk3zA==
+"@discordjs/opus@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@discordjs/opus/-/opus-0.5.3.tgz#7294f539da0b37bf13b072e51acb47ffca748471"
+  integrity sha512-IQhCwCy2WKXLe+qkOkwO1Wjgk20uqeAbqM62tCbzIqbTsXX4YAge8Me9RFnI77Lx+UTkgm4rSVM3VPVdS/GsUw==
   dependencies:
-    "@discordjs/node-pre-gyp" "^0.3.2"
-    node-addon-api "^3.1.0"
+    "@discordjs/node-pre-gyp" "^0.4.0"
+    node-addon-api "^3.2.1"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -3808,7 +3808,7 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-addon-api@^3.1.0:
+node-addon-api@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
@@ -4630,7 +4630,7 @@ semver-diff@^3.1.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-semver@7.x, semver@^7.3.2, semver@^7.3.4:
+semver@7.x, semver@^7.3.2, semver@^7.3.4, semver@^7.3.5:
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==

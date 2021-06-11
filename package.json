@@ -22,7 +22,7 @@
     "generateEnvTypes": "npx gen-env-types .env -o src/types/env.d.ts -e ."
   },
   "dependencies": {
-    "@discordjs/opus": "^0.5.0",
+    "@discordjs/opus": "^0.5.3",
     "@sindresorhus/slugify": "^1.1.0",
     "axios": "^0.21.1",
     "basic-authorization-header": "^0.2.7",
