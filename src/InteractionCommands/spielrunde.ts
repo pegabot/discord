@@ -10,7 +10,7 @@ import { Card } from "rundenanmeldung/src/types/trello";
 import { InteractionCommand, InteractionCommandErrors, InteractionSubcommand } from "../core/interactions/interactionCommand";
 import { findOption } from "../utils/interactions";
 
-export class SpielrundenInteraction extends InteractionCommand {
+class SpielrundenInteraction extends InteractionCommand {
   name = "spielrunde";
   description = "Spielrunde";
   options: ApplicationCommandOptionData[] = [
