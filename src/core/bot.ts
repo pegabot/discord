@@ -13,7 +13,7 @@ import { MongoConnector } from "./databases/mongodb";
 import { RedisConnector } from "./databases/redis";
 import { EventHandler } from "./events/eventHandler";
 import { interactionHandler } from "./interactions/interactionHandler.js";
-import { LogHandler } from "./log";
+import { LoggingHandler } from "./logger";
 import { TaskHandler } from "./tasks/taskHandler";
 config();
 
@@ -26,7 +26,7 @@ export class Bot {
   db: typeof import("mongoose") | undefined = this.MongoConnector.connection;
   redis = new RedisConnector();
 
-  logger = new LogHandler(this);
+  logger = new LoggingHandler(this);
 
   tasks = new TaskHandler(this);
   events = new EventHandler(this);

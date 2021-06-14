@@ -14,7 +14,7 @@ import { generateErrorLogKey, generateLogKey } from "../utils/redis";
 import { stripIndents } from "../utils/stripIndents";
 import { Bot } from "./bot";
 
-export class LogHandler {
+export class LoggingHandler {
   constructor(protected bot: Bot) {}
 
   admin(msg: string | MessageEmbed): void {
@@ -23,7 +23,7 @@ export class LogHandler {
     (channel as TextChannel).send(stripIndents(msg));
   }
 
-  admin_red(msg: string, footer?: string): void {
+  private admin_colorized(color: colors, msg: string, footer?: string): void {
     const channel = this.bot.client.channels.resolve(this.bot.config.adminChannel || "");
     if (!channel) return;
     (channel as TextChannel).send(
@@ -35,28 +35,24 @@ export class LogHandler {
     );
   }
 
+  admin_red(msg: string, footer?: string): void {
+    this.admin_colorized(colors.red, msg, footer);
+  }
+
   admin_green(msg: string, footer?: string): void {
-    const channel = this.bot.client.channels.resolve(this.bot.config.adminChannel || "");
-    if (!channel) return;
-    (channel as TextChannel).send(
-      new MessageEmbed()
-        .setDescription(stripIndents(msg))
-        .setTimestamp(Date.now())
-        .setColor(colors.green)
-        .setFooter(footer || ""),
-    );
+    this.admin_colorized(colors.green, msg, footer);
   }
 
   admin_blue(msg: string, footer?: string): void {
-    const channel = this.bot.client.channels.resolve(this.bot.config.adminChannel || "");
-    if (!channel) return;
-    (channel as TextChannel).send(
-      new MessageEmbed()
-        .setDescription(stripIndents(msg))
-        .setTimestamp(Date.now())
-        .setColor(colors.blue)
-        .setFooter(footer || ""),
-    );
+    this.admin_colorized(colors.blue, msg, footer);
+  }
+
+  admin_babyblue(msg: string, footer?: string): void {
+    this.admin_colorized(colors.babyblue, msg, footer);
+  }
+
+  admin_orange(msg: string, footer?: string): void {
+    this.admin_colorized(colors.orange, msg, footer);
   }
 
   async admin_error(err: Error, title?: string, footer?: string): Promise<void> {
