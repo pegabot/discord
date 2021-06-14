@@ -23,7 +23,7 @@ export default new Event("channelUpdate", (oldChannel, newChannel) => {
   }
 
   if (oldGuildChannel.parent !== newGuildChannel.parent) {
-    bot.logger.admin_blue(
+    bot.logger.admin_orange(
       `Der Kanal \`${newGuildChannel.name}\` wurde von \`${oldGuildChannel.parent?.name || "keiner Kategorie"}\` zu \`${
         newGuildChannel.parent?.name || "keiner Kategorie"
       }\` verschoben`,
