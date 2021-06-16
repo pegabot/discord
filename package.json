@@ -39,7 +39,7 @@
     "express": "^4.17.1",
     "git-diff": "^2.0.6",
     "http-status-codes": "^2.1.4",
-    "mongoose": "^5.12.13",
+    "mongoose": "^5.12.14",
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
     "os": "^0.1.1",
