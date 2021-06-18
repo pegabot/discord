@@ -9,20 +9,24 @@ import prettyMs from "pretty-ms";
 import bot from "../../bot";
 import { colors } from "../../constants/colors";
 import { Command } from "../../core/commands/command";
-import { IFrage, QuizModel, SessionModel, VoucherModel } from "../../models/quiz";
+import { IFrage, QuizModel, SessionModel } from "../../models/quiz";
 import { isProduction } from "../../utils/environment";
 import { CommandExecption } from "../../utils/execptions";
 import { stripIndents } from "../../utils/stripIndents";
 
-const QuizName = "CONspiracy V";
+const QuizName = "CONspiracy VI";
 const AnzahlFragen = 3;
 const expiresInterval = 1000 * 60 * 20; // Milliseconds * Seconds * Minutes
 
 export class QuizCommand extends Command {
   name = "quiz";
   usage = "quiz";
-  help = "Das Quiz zur CONspiracy IV.";
-  admin = true;
+  help = "Das Quiz zur CONspiracy VI.";
+  everyone = true;
+  repeatable = false;
+  channel = ["854711633540808734"];
+  unlock = 1624024800000; // Freitag, 18. Juni 2021 16:00:00 GMT+02:00
+  lock = 1624226400000; // Montag, 21. Juni 2021 00:00:00 GMT+02:00
 
   async execute(msg: Message): Promise<void> {
     const newSession = new SessionModel();
@@ -39,27 +43,25 @@ export class QuizCommand extends Command {
     newSession.quiz = quizzes[0];
     newSession.fragen = newSession.quiz.fragen.sort(() => Math.random() - Math.random()).slice(0, AnzahlFragen);
 
-    const vouchers = await VoucherModel.find({ used: false });
-    if (vouchers.length == 0) {
-      newSession.status = "error";
-      newSession.save();
-      throw new CommandExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!");
-    }
+    // const vouchers = await VoucherModel.find({ used: false });
+    // if (vouchers.length == 0) {
+    //   newSession.status = "error";
+    //   newSession.save();
+    //   throw new CommandExecption("Es konnte kein Gutschein erzeugt werden... Bitte wende dich an einen Administrator!");
+    // }
 
     const closedSessions = await SessionModel.find({ userId: newSession.userId, won: true, status: "closed", "quiz.name": QuizName });
     if (closedSessions.length != 0 && msg.channel.id !== bot.config.adminChannel) {
       msg.author.send(
-        stripIndents(`
-        Es sieht so aus, als hättest du bereits erfolgreich an unserem Geek Quiz teilgenommen und einen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ erhalten. 
+        stripIndents(
+          `
+        Es sieht so aus, als hättest du bereits erfolgreich an unserem Geek Quiz teilgenommen und alle drei Fragen korrekt beantwortet. Auch wenn wir uns freuen, dass dir unser Geek Quiz so viel Spaß gemacht hat, dass du noch mehr Fragen beantworten möchtest, kann jede Person leider nur 1x teilnehmen. Mach es dir also im Lostopf gemütlich und vertreib dir die Zeit bis zur Auslosung kommende Woche doch mit den anderen Angeboten der CONspiracy.
         
-        Auch wenn wir uns freuen, dass dir unser Quiz so viel Spaß gemacht hat, dass du noch mehr Fragen beantworten möchtest, kann jede Person leider nur 1x teilnehmen. 
+        Bis Sonntag kannst du z.B. an unserem Gewinnspiel teilnehmen, bei dem wir ebenfalls drei Pegasus Spiele Fanpakete verlosen. 
         
-        Aber bleib doch trotzdem noch ein bisschen hier. Auf unserem Discord-Server findest du nicht nur während der CONspiracy viele andere Rollen- und Brettspiel-Fans, mit denen du dich austauschen kannst! Während der CONspiracy kannst du über Discord außerdem an vielen geleiteten Brett- und Rollenspielrunden teilnehmen. 
-        
-        Bis Sonntag kannst du auch noch an unserem Gewinnspiel teilnehmen, bei dem es drei Pegasus Spiele-Fanpakete zu gewinnen gibt. Und natürlich streamen wir zusammen mit unseren Partnern Orkenspalter TV und Gratisrollenspieltag noch bis Sonntag ein abwechslungsreiches Programm.
-
         Dein Pegabot :robot:
-        `),
+        `,
+        ),
       );
       return;
     }
@@ -87,12 +89,27 @@ export class QuizCommand extends Command {
           .setTitle(`${QuizName} - das Quiz!`)
           .setDescription(
             stripIndents(`
-            Wie viel Geek steckt in dir? Zeig es uns und beantworte uns folgende Fragen rund um Filme, Serien, Bücher, Rollen-/Brettspiele und weitere absolut relevante Themen des Geek-Daseins.
-
-            ***Zur Beantwortung der Fragen hast du ${prettyMs(
+            Wie viel Geek steckt in dir? Zeig es uns und beantworte folgende Fragen rund um Filme, Serien, Bücher, Rollen-/Brettspiele und weitere absolut relevante Themen des Geek Daseins. 
+            
+            Zur Beantwortung der Fragen hast du ${prettyMs(
               expiresInterval,
-            )} Zeit.*** Wenn du es innerhalb dieser Zeit schaffst, alle Fragen richtig zu beantworten, sind wir schwer beeindruckt und droppen sofort einen Gutscheincode (gültig bis 31.03.2021). Mit diesem erhältst du auf www.pegasusshop.de 30% Rabatt auf die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“.
-
+            )} Zeit. Wenn du es innerhalb dieser Zeit schaffst, alle drei Fragen richtig zu beantworten gehst du nicht über Los, sondern landest sofort im Lostopf. In der Woche nach der CONspiracy zieht unsere Glücksfee (m/w/d) dann drei Namen daraus, die jeweils eines der drei ultimatives Pegasus Spiele Fanpaket gewinnen:
+            
+            Paket 1:
+              - Bumuntu 
+              - Dive 
+              - Doodle Dungeon
+            
+            Paket 2:
+              - Spy Connection 
+              - Ghost Adventure
+              - Doodle Dungeon
+            
+            Paket 3:
+              - Celtic
+              - Junta
+              - Adventure Island
+            
             Um die Fragen zu beantworten, klicke auf A, B oder C unterhalb der jeweiligen Frage.
 
             Viel Erfolg! :four_leaf_clover:
@@ -111,7 +128,7 @@ export class QuizCommand extends Command {
           .addField("🇨 - " + frage.antworten[2], "-----")
           .setTimestamp();
 
-        if (isProduction()) quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
+        if (!isProduction()) quizEmbed.addField("Richtige Antwort", ["🇦", "🇧", "🇨"][frage.richtig]);
 
         const runningQuiz = await msg.author.send(quizEmbed);
         runningQuiz.react("🇦");
@@ -144,12 +161,19 @@ export class QuizCommand extends Command {
               if (winning) {
                 newSession.status = "closed";
                 newSession.won = true;
+                newSession.shipped = true;
                 msg.author.send(
                   stripIndents(`
-                Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet! :tada:
-                
-                Dein Gutscheincode wird gerade erstellt. Bitte warte einen Moment  - dein Gutscheincode wird dir hier in wenigen Sekunden angezeigt.\n\n
-                `),
+                  Herzlichen Glückwunsch – du hast alle Fragen richtig beantwortet!
+
+                  Wir sind ehrlich beeindruckt und haben dir daher gleich einen Fensterplatz im Lostopf organisiert. Sollte unsere Glücksfee (m/w/d) bei der Gewinnauslosung kommende Woche deinen Namen ziehen, gewinnst du eines der drei Pegasus Spiele Fanpakete. Wir drücken dir die Daumen!
+                  
+                  Bitte beachte, dass alle Gewinnenden im Anschluss an die Ziehung von uns via Discord Privatnachricht  kontaktiert werden. Solltest du nichts von uns hören, hat es leider nicht geklappt.
+                  
+                  Wenn du deine Chancen auf ein paar coole neue Spiele maximieren möchtest, dann schau auch gleich bei unserem Gewinnspiel vorbei, bei dem du noch bis Ende der CONspiracy ebenfalls eines von drei Pegasus Spiele Fanpaketen gewinnen kannst!
+                  
+                  Dein Pegabot :robot:
+                  `),
                 );
               } else {
                 newSession.status = "closed";
@@ -166,17 +190,13 @@ export class QuizCommand extends Command {
                 msg.author.send(
                   stripIndents(
                     `
-                Vielen Dank fürs Mitmachen!
-
-                Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber wir sind uns sicher, du weißt noch mehr! Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
-
-                Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deinen persönlichen 30% Gutscheincode für die Splittermond Einstiegsbox „Aufbruch ins Abenteuer“ zu sichern!
-
-                Und schließlich, falls du regelmäßig die neuesten Updates zu unseren Events, Aktionen und Angeboten erhalten möchtest, dann abonniere unseren allgemeinen Pegasus Spiele-Newsletter unter www.pegasus.de/newsletter. In deinem Pegasus Digital-Konto kannst du dich außerdem für unseren Rollenspiel-Newsletter anmelden. Und wer weiß, vielleicht lässt sich dort auch das ein oder andere Wissen für unser nächstes Geek-Quiz sammeln!
-
-                ${wrongQuestionsText}
-                Dein Pegabot :robot:
-                `,
+                    Vielen Dank fürs Mitmachen. Leider war jedoch mindestens eine deiner Antworten nicht korrekt. Aber wir sind uns sicher, du weißt noch mehr! Also zeig uns, was in dir steckt und probiere es gleich nochmal, um dir deine Chance auf eines der drei Pegasus Spiele Fanpakete zu sichern.
+                    
+                    Dir fällt es bei der Hitze schwer, die selten genutzten Geek Areale deines Gehirns zu durchforsten? We feel you! Daher hast du bei unserem Gewinnspiel ebenfalls die Chance auf eines von drei Fanpaketen – ganz ohne Quizfragen. 
+                    
+                    ${wrongQuestionsText}
+                    Dein Pegabot :robot:
+                    `,
                   ),
                 );
               }
@@ -184,7 +204,7 @@ export class QuizCommand extends Command {
             }
           });
       }
-    } catch (error) {
+    } catch (error: any) {
       newSession.status = "error";
       newSession.save();
       if (error.code === 50007)

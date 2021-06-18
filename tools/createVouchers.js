@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 
 const mongoose = require("mongoose");
-const { schema: VoucherSchema } = require("../src/models/voucher");
+const { VoucherSchema } = require("../build/models/quiz");
 
 const filename = "vouchers.json";
 

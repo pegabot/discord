@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 
 const mongoose = require("mongoose");
-const { schema: QuizSchema } = require("../src/models/quiz");
+const { QuizSetSchema: QuizSchema } = require("../build/models/quiz");
 
 (async () => {
   await mongoose.connect(process.env.MONGO_URL, {
