@@ -30,7 +30,7 @@ export class LoggingHandler {
       new MessageEmbed()
         .setDescription(stripIndents(msg))
         .setTimestamp(Date.now())
-        .setColor(colors.red)
+        .setColor(color)
         .setFooter(footer || ""),
     );
   }
