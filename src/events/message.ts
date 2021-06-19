@@ -13,8 +13,11 @@ import { MessageModel } from "../models/message";
 export default new Event("message", async (message) => {
   if (message.partial) return;
 
-  if (!message.guild) return;
   if (message.author.bot) return;
+
+  if (message.channel.type === "dm") return message.reply("Leider darf ich mit dir privat nicht schreiben 😄");
+
+  if (!message.guild) return;
 
   if (!message.content.startsWith(bot.config.prefix || "")) {
     if (bot.config.ignoredChannels) {
@@ -22,7 +25,7 @@ export default new Event("message", async (message) => {
     }
 
     if (bot.config.ignoredCategories) {
-      if (message.channel.type !== "dm" && message.channel.parentID) {
+      if (message.channel.parentID) {
         if (bot.config.ignoredCategories.split(",").includes(message.channel.parentID)) return;
       }
     }
