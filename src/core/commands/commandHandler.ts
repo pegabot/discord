@@ -190,9 +190,9 @@ export class CommandHandler {
         if (!isProduction()) msg.react(emojis.checkEmoji);
       } catch (e) {
         if (e instanceof CommandExecption) {
-          msg.channel.send(`:x: ${e.message}`);
+          msg.reply(`:x: ${e.message}`);
         } else {
-          this.bot.logger.admin_error(e, `Fehler beim Verarbeiten vom Command ${this.bot.config.prefix + command.name}`);
+          this.bot.logger.admin_error(e as Error, `Fehler beim Verarbeiten vom Command ${this.bot.config.prefix + command.name}`);
           msg.reply("Beim Verarbeiten deines Commands ist ein Fehler aufgetreten. Die Engineers wurden soeben informiert. 🛠");
         }
       }
