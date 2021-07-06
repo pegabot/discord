@@ -6,9 +6,5 @@ vouchers.json
 backups/
 build/
 
-#Appmetrics
-*.heapsnapshot
-*.log
-
-#Clinic
-.clinic/*
+yarn-error.log
+release*.md
