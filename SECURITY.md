@@ -2,11 +2,12 @@
 
 ## Supported Versions
 
-We currently support the `2.x` Version. This version is under active development as well. The `1.x` Version is unsupported.
+We currently support the `3.x` Version. This version is under active development as well.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.x   | :white_check_mark: |
+| 3.x   | :white_check_mark: |
+| 2.x   | :x: |
 | 1.x   | :x:                |
 
 ## Reporting a Vulnerability
