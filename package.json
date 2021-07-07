@@ -57,7 +57,7 @@
   "devDependencies": {
     "@types/bent": "^7.3.2",
     "@types/emoji-strip": "^1.0.0",
-    "@types/express": "^4.17.12",
+    "@types/express": "^4.17.13",
     "@types/git-diff": "^2.0.1",
     "@types/jest": "^26.0.23",
     "@types/node-fetch": "^2.5.10",
