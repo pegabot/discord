@@ -42,7 +42,7 @@
     "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1",
     "object-assign": "~4.1.0",
-    "os": "^0.1.1",
+    "os": "^0.1.2",
     "pretty-ms": "^7.0.1",
     "querystring": "^0.2.1",
     "redis": "^3.1.2",
