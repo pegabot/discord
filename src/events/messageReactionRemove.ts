@@ -27,8 +27,7 @@ export default new Event("messageReactionRemove", async (reaction, user) => {
   )
     return;
 
-  const users = reaction.users.fetch();
-  if (!(await users).has(bot.client.user?.id || "")) return;
+  if (reaction.message.author?.id !== bot.client.user?.id) return;
 
   switch (reaction.emoji.name) {
     case emojis.deEmoji:
