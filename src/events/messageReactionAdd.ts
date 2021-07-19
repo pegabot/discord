@@ -33,9 +33,6 @@ export default new Event("messageReactionAdd", async (reaction, user) => {
     case emojis.diceEmoji:
       bot.client.emit("handleReroll", reaction, user as User);
       break;
-    case emojis.repeatEmoji:
-      bot.client.emit("handleCommandRepeat", reaction, user as User);
-      break;
     case emojis.deEmoji:
       bot.client.emit("handleWelcomeMessage", "add", reaction, user as User);
       break;

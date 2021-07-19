@@ -17,7 +17,6 @@ export class RollCommand extends Command {
   usage = "roll (https://pegabot.pegasus.de/dice-rules)";
   help = "powered by RollButler";
   aliases = ["r"];
-  repeatable = false;
   everyone = true;
 
   async execute(msg: Message, args: string[]) {

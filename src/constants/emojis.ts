@@ -5,7 +5,7 @@
  */
 
 export enum emojis {
-  repeatEmoji = "🔁",
+  errorEmoji = "❌",
   questionEmoji = "❓",
   checkEmoji = "✅",
   diceEmoji = "🎲",

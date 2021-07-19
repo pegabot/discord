@@ -11,7 +11,6 @@ import { InteractionCommand } from "../core/interactions/interactionCommand";
 type handleWelcomeMessageTypes = "add" | "remove";
 
 interface CustomClientEvents extends ClientEvents {
-  handleCommandRepeat: [MessageReaction, User];
   handleLogDeletion: [MessageReaction, User];
   handleReroll: [MessageReaction, User];
   handleTwitch: [HosttargetMessage?];

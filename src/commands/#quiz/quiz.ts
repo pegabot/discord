@@ -23,7 +23,6 @@ export class QuizCommand extends Command {
   usage = "quiz";
   help = "Das Quiz zur CONspiracy VI.";
   everyone = true;
-  repeatable = false;
   channel = ["854711633540808734"];
   unlock = 1624024800000; // Freitag, 18. Juni 2021 16:00:00 GMT+02:00
   lock = 1624226400000; // Montag, 21. Juni 2021 00:00:00 GMT+02:00

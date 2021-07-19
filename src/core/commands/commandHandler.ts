@@ -185,10 +185,10 @@ export class CommandHandler {
       }
 
       try {
-        if (command.repeatable) msg.react(emojis.repeatEmoji);
         await command.execute(msg, args || []);
         if (!isProduction()) msg.react(emojis.checkEmoji);
       } catch (e) {
+        msg.react(emojis.errorEmoji);
         if (e instanceof CommandExecption) {
           msg.reply(`:x: ${e.message}`);
         } else {
