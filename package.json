@@ -29,7 +29,7 @@
     "canvas": "^2.8.0",
     "dank-twitch-irc": "^4.3.0",
     "date-fns": "^2.22.1",
-    "discord-api-types": "^0.18.1",
+    "discord-api-types": "^0.20.0",
     "discord-xp": "^1.1.16",
     "discord.js": "https://github.com/discordjs/discord.js#9f74f95f69f4aa8a9a23c160e25dc61010c0a8e0",
     "dotenv": "^10.0.0",
