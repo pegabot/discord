@@ -5,10 +5,8 @@
  */
 
 import { CommandInteraction, TextChannel } from "discord.js";
-import bot from "../bot";
 import { Event } from "../core/events/event";
 import { InteractionCommand, InteractionCommandErrors } from "../core/interactions/interactionCommand";
-import { generateMessageDeletedKey } from "../utils/redis";
 
 const fallbackMethod = async (InteractionCommand: InteractionCommand, interaction: CommandInteraction, numberOfMessageToDelete: number) => {
   if (!interaction.channel) return InteractionCommand.deferedError(interaction, InteractionCommandErrors.INTERNAL_ERROR);
@@ -17,9 +15,6 @@ const fallbackMethod = async (InteractionCommand: InteractionCommand, interactio
 
   for (const msgToDelete of messages.values()) {
     if (msgToDelete.deletable) {
-      const key = generateMessageDeletedKey(msgToDelete);
-      bot.redis.client.set(key, "1");
-      bot.redis.client.expire(key, 600);
       msgToDelete.delete();
     } else {
       interaction.editReply(`Die folgende Nachricht konnte von mir nicht gelöscht werden\n>>> ${msgToDelete.content}`);
