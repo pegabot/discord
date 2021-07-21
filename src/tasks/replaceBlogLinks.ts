@@ -12,7 +12,7 @@ import { ReplaceBlogLinksModel } from "../models/replaceBlogLinks";
 export class ReplaceBlogLinksTask extends Task {
   name = "Pegaus-Blog Links in Nachrichten austauschen";
   env = "blog";
-  interval = 1000 * 60 * 60 * 5; // Milliseconds * Seconds * Minutes * Hours
+  interval = 1000 * 60 * 10; // Milliseconds * Seconds * Minutes
 
   execute(): void {
     ReplaceBlogLinksModel.find({}, async (error, docs) => {
@@ -21,7 +21,7 @@ export class ReplaceBlogLinksTask extends Task {
 
       for (const doc of docs) {
         try {
-          bent(doc.seoURL);
+          await bent()(doc.seoURL);
         } catch (err) {
           continue;
         }
